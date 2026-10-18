@@ -1,0 +1,41 @@
+{
+  "symbol": "SA-34",
+  "title": "Nadanie numeru PESEL na wniosek",
+  "bipUrl": "https://www.bip.krakow.pl/uslugi/SA-34",
+  "department": "URZĄD MIASTA KRAKOWA",
+  "version": null,
+  "publishedAt": null,
+  "tags": [
+    "cudzoziemiec",
+    "dokumenty",
+    "przeprowadzka"
+  ],
+  "relevance": 1.0,
+  "sections": {
+    "opis": "Jeśli jesteś cudzoziemcem, który mieszka w Polsce, pamiętaj o obowiązku meldunkowym – jeśli się zameldujesz numer PESEL otrzymasz automatycznie (z urzędu).  \n  \nJeśli nie możesz zameldować się, a jakiś urząd wymaga od ciebie numeru PESEL – złóż wniosek.\n\n1. Wypełnij drukowanymi literami kolorem czarnym lub niebieskim formularz – [wniosek o nadanie numeru PESEL.](https://kontakt.krakow.pl/c/document_library/get_file?uuid=34844a7e-29cb-69bd-3660-742fb1ebde84&groupId=536063)\n2. Przygotuj ważny dokument podróży lub – jeśli jesteś obywatelem państwa członkowskiego UE, EFTA lub Konfederacji Szwajcarskiej - inny ważny dokument, który potwierdzi twoją tożsamość i obywatelstwo (dowód osobisty).\n3. Przygotuj oryginalne dokumenty (do wglądu) potwierdzające pozostałe dane, jeśli zawarłeś je we wniosku (stanu cywilnego) – (szczegóły w sekcji „Wymagane dokumenty”).\n4. Złóż wniosek w dowolnym urzędzie gminy na terenie całej Polski – (szczegóły, gdzie zrobić to w Krakowie, znajdziesz w sekcji „Miejsce przyjmowania dokumentów”).",
+    "kogoDotyczy": "Usługa dotyczy cudzoziemców, którzy na podstawie odrębnych przepisów zobowiązani są do posiadania numeru PESEL, a nie mogą dokonać zameldowania na terenie Polski.",
+    "kryteria": "1. Z wnioskiem o nadanie numeru PESEL możesz wystąpić w sytuacji, gdy jakiś organ żąda od Ciebie posiadania numeru PESEL, a nie możesz zameldować się w Polsce.\n2. We wniosku wpisz faktyczną podstawę prawną, z której wynika obowiązek posiadania numeru PESEL.",
+    "dokumenty": "1. [Wniosek o nadanie numeru PESEL.](https://kontakt.krakow.pl/c/document_library/get_file?uuid=34844a7e-29cb-69bd-3660-742fb1ebde84&groupId=536063)\n2. Dowód osobisty lub paszport (do wglądu).\n3. Możesz złożyć wniosek osobiście lub może to zrobić w Twoim imieniu pełnomocnik. Pełnomocnictwa możesz mu udzielić wyłącznie na piśmie. Pamiętaj, że podczas składania wniosku pełnomocnik musi mieć przy sobie dokument tożsamości oraz dokumenty wskazane poniżej.\n4. Dokumenty w przypadkach szczególnych:",
+    "oplaty": null,
+    "sposob": "1. Urzędnik zweryfikuje poprawność Twojego wniosku i poinformuje o terminie jego rozpatrzenia.\n2. Po nadaniu numeru PESEL urzędnik wyda powiadomienie o jego nadaniu, które będziesz mógł odebrać osobiście, lub zostanie ono do Ciebie wysłane na adres wskazany we wniosku.",
+    "informacje": null,
+    "termin": "Sprawa załatwiana jest niezwłocznie, nie później niż w terminie 30 dni od złożenia wniosku.",
+    "komorka": null,
+    "podstawaPrawna": "1. Art. 18 ustawy z dnia 24 września 2010 r. o ewidencji ludności,\n2. Rozporządzenie Ministra Spraw Wewnętrznych z 4 stycznia 2012 r. w sprawie nadania lub zmiany numeru PESEL,\n3. Ustawa z dnia 16 listopada 2006 r. o opłacie skarbowej."
+  },
+  "offices": [],
+  "attachments": [
+    {
+      "title": "Załącznik",
+      "url": "https://kontakt.krakow.pl/c/document_library/get_file?uuid=342c8919-ee5d-e29e-c048-aaf600605210&groupId=536063"
+    },
+    {
+      "title": "Załącznik",
+      "url": "https://kontakt.krakow.pl/c/document_library/get_file?uuid=34844a7e-29cb-69bd-3660-742fb1ebde84&groupId=536063"
+    },
+    {
+      "title": "Załącznik",
+      "url": "https://kontakt.krakow.pl/c/document_library/get_file?uuid=a7171dd2-ca74-ac72-2857-2fa76756c63a&groupId=536063"
+    }
+  ]
+}
