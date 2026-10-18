@@ -627,7 +627,7 @@ export type ToolName = keyof typeof ToolOutputs;
 
 > Оцінка: ~40 год на людину до 05.11 (≈15 год/тиждень). Must-задачі мають пріоритет; Should — лише після Sync 3.
 
-### 6.A — Geo & Data (власник: ________)
+### 6.A — Geo & Data (власник: Vladyslav P)
 
 **Мета:** усі місця на карті з точними координатами + сервіс «15 хвилин».
 **Вхід:** API порталу, MSIP, ZTP, OSM; `app/data/kb/offices_raw.json` від B (≈25.10).
