@@ -13,7 +13,7 @@
 
 ## Nazwa zespołu
 
-[до заповнення — ідеї: «Oswajacze», «Nowi Krakowianie»]
+[до заповнення — ідеї: «Oswajacze», «Nowi Krakowianie», «Pantera v2.0»]
 
 ## Imię i nazwisko, adres e-mail i telefon kontaktowy lidera zespołu
 
