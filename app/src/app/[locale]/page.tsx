@@ -32,13 +32,6 @@ export default function HomePage({ params }: PageProps<"/[locale]">) {
         >
           <Logo />
         </Link>
-        <nav aria-label={t("navLabel")} className="hidden gap-[22px] text-[15px] font-medium lg:flex">
-          {modules.map((m) => (
-            <a key={m.id} href={`#${m.id}`} className="text-foreground hover:text-primary">
-              {m.title}
-            </a>
-          ))}
-        </nav>
         <LanguageSwitcher />
         <Link
           href="/mapa"
