@@ -1,7 +1,50 @@
 {
   "Meta": {
     "title": "Oswój Kraków",
-    "description": "AI assistant for new residents of Kraków – answers from official city data, shown on a map."
+    "description": "AI assistant for new residents of Kraków – answers from official city data, shown on a map.",
+    "mapTitle": "Map and assistant · Oswój Kraków"
+  },
+  "Home": {
+    "navLabel": "Modules",
+    "openMap": "Open the map",
+    "openMapShort": "Map",
+    "kicker": "For new residents of Kraków",
+    "title": "New in Kraków? Ask in your own words.",
+    "subtitle": "The AI assistant answers from official BIP service cards and shows you on the map where to get it done. Every answer links to its source.",
+    "askLabel": "Your question for the assistant",
+    "askPlaceholder": "E.g. where do I get a PESEL number?",
+    "ask": "Ask",
+    "previewLabel": "Example answer from the assistant",
+    "cardKicker": "SA-34 · BIP service card",
+    "cardTitle": "Assigning a PESEL number (Nadanie numeru PESEL)",
+    "docs": [
+      "Completed PESEL application form",
+      "Valid passport or other ID document",
+      "Document confirming the basis of the application"
+    ],
+    "feeLabel": "Fee",
+    "fee": "Free",
+    "source": "Source: BIP",
+    "onMap": "Service points with opening hours on the map",
+    "modulesLabel": "What Oswój Kraków can do",
+    "modules": [
+      {
+        "id": "asystent",
+        "title": "Assistant",
+        "desc": "Ask in English, Polish or Ukrainian. Get the list of documents, fees, processing time and an online booking link – from the official service card."
+      },
+      {
+        "id": "krakow-15-minut",
+        "title": "Kraków in 15 minutes",
+        "desc": "Enter your flat’s address and see nurseries, preschools, schools, parks, libraries and stops within 15 minutes on foot or by public transport – with an accessibility index."
+      },
+      {
+        "id": "pierwsze-kroki",
+        "title": "First steps",
+        "desc": "A to-do list of formalities in the right order, matched to your situation."
+      }
+    ],
+    "sourcesLabel": "Data"
   },
   "Header": {
     "home": "Oswój Kraków – home page",

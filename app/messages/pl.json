@@ -1,7 +1,50 @@
 {
   "Meta": {
     "title": "Oswój Kraków",
-    "description": "Asystent AI dla nowych mieszkańców Krakowa – odpowiedzi z oficjalnych danych miasta i mapa."
+    "description": "Asystent AI dla nowych mieszkańców Krakowa – odpowiedzi z oficjalnych danych miasta i mapa.",
+    "mapTitle": "Mapa i asystent · Oswój Kraków"
+  },
+  "Home": {
+    "navLabel": "Moduły",
+    "openMap": "Otwórz mapę",
+    "openMapShort": "Mapa",
+    "kicker": "Dla nowych mieszkańców Krakowa",
+    "title": "Nowy w Krakowie? Zapytaj własnymi słowami.",
+    "subtitle": "Asystent AI odpowiada na podstawie oficjalnych kart usług BIP i od razu pokazuje na mapie, gdzie załatwisz sprawę. Każda odpowiedź ma link do źródła.",
+    "askLabel": "Twoje pytanie do asystenta",
+    "askPlaceholder": "Np. gdzie dostanę numer PESEL?",
+    "ask": "Zapytaj",
+    "previewLabel": "Przykład odpowiedzi asystenta",
+    "cardKicker": "SA-34 · Karta usługi BIP",
+    "cardTitle": "Nadanie numeru PESEL na wniosek",
+    "docs": [
+      "Wypełniony wniosek o nadanie numeru PESEL",
+      "Ważny paszport lub inny dokument tożsamości",
+      "Dokument potwierdzający podstawę wniosku"
+    ],
+    "feeLabel": "Opłata",
+    "fee": "Bezpłatnie",
+    "source": "Źródło: BIP",
+    "onMap": "Punkty obsługi z godzinami pracy na mapie",
+    "modulesLabel": "Co potrafi Oswój Kraków",
+    "modules": [
+      {
+        "id": "asystent",
+        "title": "Asystent",
+        "desc": "Pytasz po polsku, ukraińsku lub angielsku. Dostajesz listę dokumentów, opłaty, termin i link do zapisu online – z oficjalnej karty usługi."
+      },
+      {
+        "id": "krakow-15-minut",
+        "title": "Kraków w 15 minut",
+        "desc": "Wpisz adres mieszkania i zobacz żłobki, przedszkola, szkoły, parki, biblioteki i przystanki w zasięgu 15 minut pieszo lub komunikacją – z indeksem dostępności."
+      },
+      {
+        "id": "pierwsze-kroki",
+        "title": "Pierwsze kroki",
+        "desc": "Lista spraw do załatwienia we właściwej kolejności, dobrana do Twojej sytuacji."
+      }
+    ],
+    "sourcesLabel": "Dane"
   },
   "Header": {
     "home": "Oswój Kraków – strona główna",

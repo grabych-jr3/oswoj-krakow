@@ -41,7 +41,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
 
   return (
     <html lang={locale} className={`${onest.variable} ${jetbrainsMono.variable} h-full antialiased`}>
-      <body className="h-full overflow-hidden">
+      <body className="min-h-full">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>

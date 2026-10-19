@@ -12,14 +12,16 @@ import { WELCOME_SEEN_KEY, WelcomeDialog } from "@/components/shell/WelcomeDialo
  * Page layout (C1). Desktop: map + red chat column on the right (design variant A).
  * Mobile: full-screen map with a bottom-sheet chat; map overlays sit above the sheet.
  */
-export function AppShell() {
+export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
   const t = useTranslations("Header");
   const tMap = useTranslations("Map");
-  const [chatExpanded, setChatExpanded] = useState(false);
+  // A question from the home page opens the chat straight away (also on mobile).
+  const [chatExpanded, setChatExpanded] = useState(Boolean(initialQuestion));
   // Show the welcome dialog once per browser. The dialog markup does not depend on this
   // state (it opens via showModal in an effect), so reading storage here is hydration-safe.
   const [welcomeOpen, setWelcomeOpen] = useState(() => {
-    if (typeof window === "undefined") return false;
+    // Someone arriving with a question already knows the service: don't block it with the dialog.
+    if (typeof window === "undefined" || initialQuestion) return false;
     try {
       return !localStorage.getItem(WELCOME_SEEN_KEY);
     } catch {
@@ -70,7 +72,12 @@ export function AppShell() {
           />
         </section>
 
-        <ChatPanel ref={chatRef} expanded={chatExpanded} onExpandedChange={setChatExpanded} />
+        <ChatPanel
+          ref={chatRef}
+          expanded={chatExpanded}
+          onExpandedChange={setChatExpanded}
+          initialQuestion={initialQuestion}
+        />
       </div>
       <WelcomeDialog open={welcomeOpen} onClose={closeWelcome} />
     </MapProvider>

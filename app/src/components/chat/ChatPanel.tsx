@@ -11,18 +11,31 @@ type Props = {
   /** Mobile bottom sheet state; on md+ the panel is always fully open. */
   expanded: boolean;
   onExpandedChange: (expanded: boolean) => void;
+  /** Question typed on the home page (`/mapa?q=`); asked as soon as the chat opens. */
+  initialQuestion?: string;
 };
 
 /**
  * Chat shell from the design (red panel). C1: layout, greeting, suggestions and input.
  * Real answers (streaming, procedure cards, map actions) arrive in C3 via /api/chat.
  */
-export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ expanded, onExpandedChange }, ref) {
+export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel(
+  { expanded, onExpandedChange, initialQuestion },
+  ref,
+) {
   const t = useTranslations("Chat");
-  const [msgs, setMsgs] = useState<Msg[]>([]);
+  // Derived from props during render, so server and client markup match.
+  const [msgs, setMsgs] = useState<Msg[]>(() =>
+    initialQuestion
+      ? [
+          { id: 1, role: "user", text: initialQuestion },
+          { id: 2, role: "bot", text: t("comingSoon") },
+        ]
+      : [],
+  );
   const [input, setInput] = useState("");
   const listRef = useRef<HTMLDivElement>(null);
-  const nextId = useRef(1);
+  const nextId = useRef(initialQuestion ? 3 : 1);
 
   useEffect(() => {
     const el = listRef.current;
