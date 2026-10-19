@@ -15,7 +15,9 @@ def export_procedure_sa34():
         sa34 = procedures[0]
 
     out_file = FIXTURES_DIR / "procedure.SA-34.json"
-    out_file.write_text(json.dumps(sa34, ensure_ascii=False, indent=2), encoding="utf-8")
+    out_file.write_text(
+        json.dumps(sa34, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
     print(f"Фикстура процедуры сохранена: {out_file}")
 
 
@@ -34,7 +36,7 @@ def export_sample_scenario():
                 "when": "W ciągu 30 dni od momentu wjazdu do Polski",
                 "procedureSymbols": ["SA-65"],
                 "placeCategories": ["urzad"],
-                "external": []
+                "external": [],
             },
             {
                 "order": 2,
@@ -43,7 +45,7 @@ def export_sample_scenario():
                 "when": "Przed rozpoczęciem nauki lub w trakcie roku szkolnego",
                 "procedureSymbols": ["SO-20"],
                 "placeCategories": ["przedszkole", "szkola_podstawowa"],
-                "external": []
+                "external": [],
             },
             {
                 "order": 3,
@@ -55,19 +57,21 @@ def export_sample_scenario():
                 "external": [
                     {
                         "title": "Grodzki Urząd Pracy w Krakowie",
-                        "url": "https://gupkrakow.praca.gov.pl"
+                        "url": "https://gupkrakow.praca.gov.pl",
                     }
-                ]
-            }
+                ],
+            },
         ],
         "sources": [
             "https://www.bip.krakow.pl/uslugi/SA-65",
-            "https://gupkrakow.praca.gov.pl"
-        ]
+            "https://gupkrakow.praca.gov.pl",
+        ],
     }
 
     out_file = FIXTURES_DIR / "scenario.sample.json"
-    out_file.write_text(json.dumps(sample_scenario, ensure_ascii=False, indent=2), encoding="utf-8")
+    out_file.write_text(
+        json.dumps(sample_scenario, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
     print(f"Фикстура сценария сохранена: {out_file}")
 
 

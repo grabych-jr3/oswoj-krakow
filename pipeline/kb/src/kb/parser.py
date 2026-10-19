@@ -3,6 +3,7 @@ import re
 import unicodedata
 from pathlib import Path
 from typing import Any
+
 from lxml import etree, html
 from markdownify import markdownify as md
 
@@ -62,7 +63,7 @@ def parse_offices_from_html(html_content: str | None) -> list[dict[str, Any]]:
     offices = []
     try:
         doc = html.fromstring(html_content)
-    except Exception:
+    except Exception:  # noqa: BLE001
         return []
 
     tables = doc.xpath("//table")
@@ -80,8 +81,12 @@ def parse_offices_from_html(html_content: str | None) -> list[dict[str, Any]]:
                 continue
 
             addr = clean_address(raw_addr)
-            base_addr_match = re.search(r"^(?:ul\.|al\.|os\.|pl\.)?[^,]+?\d+[a-zA-Z]?", addr)
-            slug_part = base_addr_match.group(0) if base_addr_match else addr.split(",")[0]
+            base_addr_match = re.search(
+                r"^(?:ul\.|al\.|os\.|pl\.)?[^,]+?\d+[a-zA-Z]?", addr
+            )
+            slug_part = (
+                base_addr_match.group(0) if base_addr_match else addr.split(",")[0]
+            )
             office_id = f"urzad:{slugify(slug_part)}"
 
             hours = tds[2].text_content().strip() if len(tds) > 2 else None
@@ -96,19 +101,24 @@ def parse_offices_from_html(html_content: str | None) -> list[dict[str, Any]]:
 
             phone = None
             text_all = tr.text_content()
-            phone_match = re.search(r"(?:\+48\s*)?(?:\(?\d{2}\)?[\s-]?)?\d{3}[\s-]?\d{2}[\s-]?\d{2}", text_all)
+            phone_match = re.search(
+                r"(?:\+48\s*)?(?:\(?\d{2}\)?[\s-]?)?\d{3}[\s-]?\d{2}[\s-]?\d{2}",
+                text_all,
+            )
             if phone_match:
                 phone = phone_match.group(0).strip()
 
-            offices.append({
-                "id": office_id,
-                "name": name if name else "Urząd Miasta Krakowa",
-                "address": addr,
-                "hours": hours if hours else None,
-                "bookingUrl": booking_url,
-                "phone": phone,
-                "coords": None,
-            })
+            offices.append(
+                {
+                    "id": office_id,
+                    "name": name if name else "Urząd Miasta Krakowa",
+                    "address": addr,
+                    "hours": hours if hours else None,
+                    "bookingUrl": booking_url,
+                    "phone": phone,
+                    "coords": None,
+                }
+            )
 
     return offices
 
@@ -116,7 +126,7 @@ def parse_offices_from_html(html_content: str | None) -> list[dict[str, Any]]:
 def parse_xml_file(file_path: Path) -> dict[str, Any] | None:
     try:
         tree = etree.parse(str(file_path))
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         print(f"Ошибка чтения {file_path.name}: {e}")
         return None
 
@@ -156,7 +166,9 @@ def parse_xml_file(file_path: Path) -> dict[str, Any] | None:
         html_content = c_el.text or ""
 
         # Если это секция отделений
-        if "miejsce" in raw_title and ("składania" in raw_title or "przyjmowania" in raw_title):
+        if "miejsce" in raw_title and (
+            "składania" in raw_title or "przyjmowania" in raw_title
+        ):
             parsed_offices = parse_offices_from_html(html_content)
             if parsed_offices:
                 offices = parsed_offices
@@ -214,12 +226,18 @@ def run_pipeline() -> None:
     proc_file = OUTPUT_DIR / "procedures.json"
     offices_file = OUTPUT_DIR / "offices_raw.json"
 
-    proc_file.write_text(json.dumps(all_procedures, ensure_ascii=False, indent=2), encoding="utf-8")
-    offices_file.write_text(json.dumps(offices_list, ensure_ascii=False, indent=2), encoding="utf-8")
+    proc_file.write_text(
+        json.dumps(all_procedures, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    offices_file.write_text(
+        json.dumps(offices_list, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
 
     print("\nПарсинг успешно завершен!")
     print(f"- Процедур сохранено: {len(all_procedures)} -> {proc_file}")
-    print(f"- Уникальных отделений для геокодирования: {len(offices_list)} -> {offices_file}")
+    print(
+        f"- Уникальных отделений для геокодирования: {len(offices_list)} -> {offices_file}"
+    )
 
 
 if __name__ == "__main__":

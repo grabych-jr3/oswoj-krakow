@@ -1,7 +1,7 @@
-import os
 import time
 from pathlib import Path
-from urllib.parse import urlparse, parse_qs, urlencode
+from urllib.parse import urlparse
+
 import httpx
 
 CACHE_DIR = Path(".cache")
@@ -65,7 +65,6 @@ def fetch_all_procedure_symbols() -> list[str]:
     return unique_symbols
 
 
-
 def download_bip_xmls(symbols: list[str]) -> None:
     client = httpx.Client(headers=HEADERS, timeout=30.0)
     print(f"Начинаем скачивание {len(symbols)} XML-карточек...")
@@ -83,8 +82,10 @@ def download_bip_xmls(symbols: list[str]) -> None:
                     file_path.write_text(resp.text, encoding="utf-8")
                     print(f"[{idx}/{len(symbols)}] Скачано: {symbol}")
                 else:
-                    print(f"[{idx}/{len(symbols)}] Ошибка {resp.status_code} для {symbol}")
-            except Exception as e:
+                    print(
+                        f"[{idx}/{len(symbols)}] Ошибка {resp.status_code} для {symbol}"
+                    )
+            except Exception as e:  # noqa: BLE001
                 print(f"[{idx}/{len(symbols)}] Исключение при скачивании {symbol}: {e}")
 
             time.sleep(1.0)
