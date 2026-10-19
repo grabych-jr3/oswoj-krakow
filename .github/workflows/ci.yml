@@ -33,25 +33,31 @@ jobs:
       - run: npm run build
 
   pipeline-geo:
-    if: hashFiles('pipeline/geo/pyproject.toml') != ''
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: pipeline/geo
     steps:
       - uses: actions/checkout@v4
+      # Runs only once the stream has created its uv project (hashFiles is allowed only at step level).
       - uses: astral-sh/setup-uv@v6
+        if: hashFiles('pipeline/geo/pyproject.toml') != ''
       - run: uv run ruff check
+        if: hashFiles('pipeline/geo/pyproject.toml') != ''
       - run: uv run pytest
+        if: hashFiles('pipeline/geo/pyproject.toml') != ''
 
   pipeline-kb:
-    if: hashFiles('pipeline/kb/pyproject.toml') != ''
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: pipeline/kb
     steps:
       - uses: actions/checkout@v4
+      # Runs only once the stream has created its uv project (hashFiles is allowed only at step level).
       - uses: astral-sh/setup-uv@v6
+        if: hashFiles('pipeline/kb/pyproject.toml') != ''
       - run: uv run ruff check
+        if: hashFiles('pipeline/kb/pyproject.toml') != ''
       - run: uv run pytest
+        if: hashFiles('pipeline/kb/pyproject.toml') != ''
