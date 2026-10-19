@@ -19,8 +19,8 @@
       "operator": "Gmina Miejska Kraków"
     },
     "source": {
-      "dataset": "opendata-zdrowie-zlobki-samorzadowe",
-      "url": "https://api.um.krakow.pl/opendata-zdrowie-zlobki-samorzadowe/v1/zlobki-samorzadowe",
+      "dataset": "zlobki-samorzadowe-w-krakowie",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/zlobki-samorzadowe-w-krakowie",
       "updatedAt": null
     }
   },
@@ -44,8 +44,8 @@
       "operator": null
     },
     "source": {
-      "dataset": "opendata-zdrowie-kluby-dzieciece",
-      "url": "https://api.um.krakow.pl/opendata-zdrowie-kluby-dzieciece/v1/kluby-dzieciece",
+      "dataset": "kluby-dzieciece-w-krakowie",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/kluby-dzieciece-w-krakowie",
       "updatedAt": null
     }
   },
@@ -71,8 +71,8 @@
       "public": true
     },
     "source": {
-      "dataset": "opendata-oswiata-przedszkola-liczba-dzieci",
-      "url": "https://api.um.krakow.pl/opendata-oswiata-przedszkola-liczba-dzieci/v1/liczba-dzieci-przedszkola-samorzadowe-2025-2026",
+      "dataset": "przedszkola-w-krakowie-liczba-dzieci",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/przedszkola-w-krakowie-liczba-dzieci",
       "updatedAt": null
     }
   },
@@ -98,8 +98,8 @@
       "public": true
     },
     "source": {
-      "dataset": "opendata-oswiata-przedszkola-liczba-dzieci",
-      "url": "https://api.um.krakow.pl/opendata-oswiata-przedszkola-liczba-dzieci/v1/liczba-dzieci-przedszkola-samorzadowe-2025-2026",
+      "dataset": "przedszkola-w-krakowie-liczba-dzieci",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/przedszkola-w-krakowie-liczba-dzieci",
       "updatedAt": null
     }
   },
@@ -125,8 +125,8 @@
       "public": true
     },
     "source": {
-      "dataset": "opendata-oswiata-szkoly-podstawowe-liczba-uczniow",
-      "url": "https://api.um.krakow.pl/opendata-oswiata-szkoly-podstawowe-liczba-uczniow/v1/uczniowie-szkoly-podstawowe-samorzadowe-2025-2026",
+      "dataset": "szkoly-podstawowe-w-krakowie-liczba-dzieci",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/szkoly-podstawowe-w-krakowie-liczba-dzieci",
       "updatedAt": null
     }
   },
@@ -153,8 +153,8 @@
       "type": "Liceum ogólnokształcące"
     },
     "source": {
-      "dataset": "opendata-oswiata-szkoly-ponadpodstawowe-liczba-uczniow",
-      "url": "https://api.um.krakow.pl/opendata-oswiata-szkoly-ponadpodstawowe-liczba-uczniow/v1/uczniowie-szkoly-ponadpodstawowe-samorzadowe-2025-2026",
+      "dataset": "szkoly-ponadpodstawowe-w-krakowie-liczba-uczniow",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/szkoly-ponadpodstawowe-w-krakowie-liczba-uczniow",
       "updatedAt": null
     }
   },
@@ -177,8 +177,8 @@
       "operator": "Gmina Miejska Kraków"
     },
     "source": {
-      "dataset": "opendata-kluby",
-      "url": "https://api.um.krakow.pl/opendata-kluby/v1/Kluby",
+      "dataset": "kluby-rodzicow-z-dziecmi-do-lat-3-w-krakowie",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/kluby-rodzicow-z-dziecmi-do-lat-3-w-krakowie",
       "updatedAt": null
     }
   },
@@ -199,8 +199,8 @@
     "url": null,
     "attrs": {},
     "source": {
-      "dataset": "opendata-kultura-lista-bibliotek",
-      "url": "https://api.um.krakow.pl/opendata-kultura-lista-bibliotek/v1/biblioteka-krakow-filie",
+      "dataset": "lista-bibliotek-miejskich-biblioteki-krakow",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/lista-bibliotek-miejskich-biblioteki-krakow",
       "updatedAt": null
     }
   },
@@ -224,8 +224,8 @@
       "type": "Park"
     },
     "source": {
-      "dataset": "opendata-srodowisko-parki-miejskie",
-      "url": "https://api.um.krakow.pl/opendata-srodowisko-parki-miejskie/v1/parki-miejskie-powierzchnia",
+      "dataset": "parki-miejskie-w-krakowie",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/parki-miejskie-w-krakowie",
       "updatedAt": null
     }
   },
@@ -258,7 +258,7 @@
     "id": "park_and_ride:maly-plaszow",
     "category": "park_and_ride",
     "name": "P+R Mały Płaszów",
-    "address": "ul. Lipska, 30-733 Kraków",
+    "address": "P+R Mały Płaszów, Kraków",
     "coords": [
       20.000669,
       50.038856

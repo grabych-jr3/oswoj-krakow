@@ -15,52 +15,36 @@
       "coordinates": [
         [
           [
-            19.965631,
-            50.048904
-          ],
-          [
-            19.970769,
-            50.048243
-          ],
-          [
-            19.975126,
-            50.046361
+            19.979058,
+            50.040222
           ],
           [
             19.978036,
             50.043544
           ],
           [
-            19.979058,
-            50.040222
-          ],
-          [
-            19.978036,
-            50.0369
-          ],
-          [
             19.975126,
-            50.034083
+            50.046361
           ],
           [
             19.970769,
-            50.032201
+            50.048243
           ],
           [
             19.965631,
-            50.03154
+            50.048904
           ],
           [
             19.960493,
-            50.032201
+            50.048243
           ],
           [
             19.956136,
-            50.034083
+            50.046361
           ],
           [
             19.953226,
-            50.0369
+            50.043544
           ],
           [
             19.952204,
@@ -68,19 +52,35 @@
           ],
           [
             19.953226,
-            50.043544
+            50.0369
           ],
           [
             19.956136,
-            50.046361
+            50.034083
           ],
           [
             19.960493,
-            50.048243
+            50.032201
           ],
           [
             19.965631,
-            50.048904
+            50.03154
+          ],
+          [
+            19.970769,
+            50.032201
+          ],
+          [
+            19.975126,
+            50.034083
+          ],
+          [
+            19.978036,
+            50.0369
+          ],
+          [
+            19.979058,
+            50.040222
           ]
         ]
       ]
@@ -173,8 +173,8 @@
         "public": true
       },
       "source": {
-        "dataset": "opendata-oswiata-szkoly-podstawowe-liczba-uczniow",
-        "url": "https://api.um.krakow.pl/opendata-oswiata-szkoly-podstawowe-liczba-uczniow/v1/uczniowie-szkoly-podstawowe-samorzadowe-2025-2026",
+        "dataset": "szkoly-podstawowe-w-krakowie-liczba-dzieci",
+        "url": "https://otwartedane.um.krakow.pl/zbiory-danych/szkoly-podstawowe-w-krakowie-liczba-dzieci",
         "updatedAt": null
       },
       "minutes": 12
@@ -201,8 +201,8 @@
         "public": true
       },
       "source": {
-        "dataset": "opendata-oswiata-przedszkola-liczba-dzieci",
-        "url": "https://api.um.krakow.pl/opendata-oswiata-przedszkola-liczba-dzieci/v1/liczba-dzieci-przedszkola-samorzadowe-2025-2026",
+        "dataset": "przedszkola-w-krakowie-liczba-dzieci",
+        "url": "https://otwartedane.um.krakow.pl/zbiory-danych/przedszkola-w-krakowie-liczba-dzieci",
         "updatedAt": null
       },
       "minutes": 14
@@ -226,8 +226,8 @@
         "operator": "Gmina Miejska Kraków"
       },
       "source": {
-        "dataset": "opendata-kluby",
-        "url": "https://api.um.krakow.pl/opendata-kluby/v1/Kluby",
+        "dataset": "kluby-rodzicow-z-dziecmi-do-lat-3-w-krakowie",
+        "url": "https://otwartedane.um.krakow.pl/zbiory-danych/kluby-rodzicow-z-dziecmi-do-lat-3-w-krakowie",
         "updatedAt": null
       },
       "minutes": 14

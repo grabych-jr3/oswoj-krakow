@@ -5,16 +5,18 @@ import path from "node:path";
 import type { ZodType } from "zod";
 import { NearbyResult } from "../src/contracts/geo";
 import { Place } from "../src/contracts/place";
+import { DistrictArea } from "../src/server/geo/district-area";
 
-const fixtures = path.join(__dirname, "..", "src", "contracts", "fixtures");
+const src = path.join(__dirname, "..", "src");
 const checks: Array<[string, ZodType]> = [
-  ["places.sample.json", Place.array()],
-  ["nearby.sample.json", NearbyResult],
+  ["contracts/fixtures/places.sample.json", Place.array()],
+  ["contracts/fixtures/nearby.sample.json", NearbyResult],
+  ["server/geo/fixtures/district-13.sample.json", DistrictArea],
 ];
 
 let failed = false;
 for (const [file, schema] of checks) {
-  const result = schema.safeParse(JSON.parse(readFileSync(path.join(fixtures, file), "utf8")));
+  const result = schema.safeParse(JSON.parse(readFileSync(path.join(src, file), "utf8")));
   if (result.success) {
     console.log(`  ok ${file}`);
   } else {

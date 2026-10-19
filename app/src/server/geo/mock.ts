@@ -2,18 +2,21 @@
 // Real data and routing come in A2–A9; until then B and C develop against this.
 import type { LngLat } from "@/contracts/common";
 import { GeocodeResult, NearbyResult, type GeoService } from "@/contracts/geo";
-import { Place, type DistrictStats } from "@/contracts/place";
+import { Place, type District, type DistrictStats } from "@/contracts/place";
 import nearbyJson from "@/contracts/fixtures/nearby.sample.json";
 import placesJson from "@/contracts/fixtures/places.sample.json";
+import { DistrictArea } from "./district-area";
+import districtJson from "./fixtures/district-13.sample.json";
 
 // Parsing at load fails fast if a fixture drifts from the contracts.
 export const samplePlaces: Place[] = Place.array().parse(placesJson);
 export const sampleNearby: NearbyResult = NearbyResult.parse(nearbyJson);
+/** Real MSIP boundary of district XIII Podgórze — the only district the fixtures cover. */
+export const sampleDistrict: DistrictArea = DistrictArea.parse(districtJson);
 
 const DEFAULT_RADIUS_M = 1500;
 const DEFAULT_LIMIT = 10;
 const DEFAULT_GEOCODE_LIMIT = 5;
-const DISTRICT_LOOKUP_MAX_M = 3000;
 
 /** Great-circle distance in metres. */
 export function distanceM(a: LngLat, b: LngLat): number {
@@ -23,6 +26,19 @@ export function distanceM(a: LngLat, b: LngLat): number {
   const dLng = (b[0] - a[0]) * rad;
   const h = Math.sin(dLat / 2) ** 2 + Math.cos(a[1] * rad) * Math.cos(b[1] * rad) * Math.sin(dLng / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+/** Even-odd ray casting over all rings, so holes are excluded. */
+export function inPolygon([x, y]: LngLat, rings: LngLat[][]): boolean {
+  let inside = false;
+  for (const ring of rings) {
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const [xi, yi] = ring[i];
+      const [xj, yj] = ring[j];
+      if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+    }
+  }
+  return inside;
 }
 
 /** Lowercase, strip Polish diacritics and punctuation for loose matching. */
@@ -43,11 +59,15 @@ function matches(haystack: string, query: string): boolean {
     .every((token) => h.includes(token));
 }
 
+// Only street addresses with a house number are geocodable; parks, stops and P+R have no address point.
+const HOUSE_ADDRESS = /^(ul|al|os|pl)\. [^,]+ \d+[a-z]?(\/\d+)?, \d{2}-\d{3} Kraków$/i;
+
 // Mock walking estimate: straight-line distance × detour factor at walking speed (same as nearby.sample.json).
 const WALK_M_PER_MIN = 80;
 const DETOUR = 1.25;
 const MINUTES = 15;
 const AREA_VERTICES = 16;
+const MAX_PLACES_PER_CATEGORY = 10; // NearbyResult.places: "≤10 на категорію"
 export const MOCK_METHOD = "mock fixture: straight-line distance × 1.25 at 80 m/min (not a routed isochrone)";
 
 // «Indeks 15 minut» base groups (PLAN.md §4.3); the first category names the group in `missing`.
@@ -61,18 +81,21 @@ export function estimateNearby(places: Place[], origin: LngLat): NearbyResult {
   const reachM = (MINUTES * WALK_M_PER_MIN) / DETOUR;
   const ring: LngLat[] = [];
   for (let i = 0; i <= AREA_VERTICES; i++) {
+    // Counterclockwise from east, as RFC 7946 requires for exterior rings.
     const t = ((i % AREA_VERTICES) / AREA_VERTICES) * 2 * Math.PI;
     ring.push([
-      +(origin[0] + (reachM * Math.sin(t)) / (111320 * Math.cos((origin[1] * Math.PI) / 180))).toFixed(6),
-      +(origin[1] + (reachM * Math.cos(t)) / 110574).toFixed(6),
+      +(origin[0] + (reachM * Math.cos(t)) / (111320 * Math.cos((origin[1] * Math.PI) / 180))).toFixed(6),
+      +(origin[1] + (reachM * Math.sin(t)) / 110574).toFixed(6),
     ]);
   }
-  const reached = places
+  const inZone = places
     .map((p) => ({ ...p, minutes: Math.round((distanceM(origin, p.coords) * DETOUR) / WALK_M_PER_MIN) }))
     .filter((p) => p.minutes <= MINUTES)
     .sort((a, b) => a.minutes - b.minutes);
   const counts: Record<string, number> = {};
-  for (const p of reached) counts[p.category] = (counts[p.category] ?? 0) + 1;
+  for (const p of inZone) counts[p.category] = (counts[p.category] ?? 0) + 1;
+  const listed: Record<string, number> = {};
+  const nearest = inZone.filter((p) => (listed[p.category] = (listed[p.category] ?? 0) + 1) <= MAX_PLACES_PER_CATEGORY);
   const missing = SCORE_GROUPS.filter((group) => !group.some((c) => counts[c])).map((group) => group[0]);
   return {
     origin: { label: `${origin[1].toFixed(5)}, ${origin[0].toFixed(5)}`, coords: origin },
@@ -80,28 +103,40 @@ export function estimateNearby(places: Place[], origin: LngLat): NearbyResult {
     minutes: MINUTES,
     area: { type: "Feature", geometry: { type: "Polygon", coordinates: [ring] }, properties: { mode: "walk", minutes: MINUTES } },
     counts,
-    places: reached,
+    places: nearest,
     score: { value: Math.round((100 * (SCORE_GROUPS.length - missing.length)) / SCORE_GROUPS.length), missing },
     method: MOCK_METHOD,
   };
 }
 
-export function createMockGeoService(places: Place[] = samplePlaces, nearbyFixture: NearbyResult = sampleNearby): GeoService {
+export function createMockGeoService(
+  places: Place[] = samplePlaces,
+  nearbyFixture: NearbyResult = sampleNearby,
+  districtArea: DistrictArea = sampleDistrict,
+): GeoService {
   const byId = new Map(places.map((p) => [p.id, p]));
+  const knownDistrict: District = { number: districtArea.properties.number, name: districtArea.properties.name };
+
+  /** The district containing the point, or null outside the one district the mock knows. */
+  function districtAt(point: LngLat): District | null {
+    return inPolygon(point, districtArea.geometry.coordinates) ? knownDistrict : null;
+  }
 
   const addressBook: GeocodeResult[] = [
-    { label: nearbyFixture.origin.label, coords: nearbyFixture.origin.coords, district: places[0]?.district ?? null, precision: "address" },
-    ...places.map((p) => ({ label: p.address, coords: p.coords, district: p.district, precision: "address" as const })),
-  ];
+    { label: nearbyFixture.origin.label, coords: nearbyFixture.origin.coords },
+    ...places.map((p) => ({ label: p.address, coords: p.coords })),
+  ]
+    .filter(({ label }) => HOUSE_ADDRESS.test(label))
+    .map(({ label, coords }) => ({ label, coords, district: districtAt(coords), precision: "address" as const }));
 
   function districtStats(number: number): DistrictStats | null {
-    const inDistrict = places.filter((p) => p.district?.number === number);
-    const district = inDistrict[0]?.district;
-    if (!district) return null;
+    if (number !== knownDistrict.number) return null;
     const placeCounts: Record<string, number> = {};
-    for (const p of inDistrict) placeCounts[p.category] = (placeCounts[p.category] ?? 0) + 1;
+    for (const p of places) {
+      if (p.district?.number === number) placeCounts[p.category] = (placeCounts[p.category] ?? 0) + 1;
+    }
     // Residents and citizenship stats are not in the fixtures; never invented (A4 brings real ones).
-    return { ...district, residents: null, foreigners: null, topCitizenships: [], placeCounts };
+    return { ...knownDistrict, residents: null, foreigners: null, topCitizenships: [], placeCounts };
   }
 
   return {
@@ -148,13 +183,8 @@ export function createMockGeoService(places: Place[] = samplePlaces, nearbyFixtu
 
     async getDistrict(q) {
       if (typeof q === "number") return districtStats(q);
-      let nearest: Place | null = null;
-      let best = DISTRICT_LOOKUP_MAX_M;
-      for (const p of places) {
-        const d = distanceM(q, p.coords);
-        if (d <= best && p.district) [nearest, best] = [p, d];
-      }
-      return nearest?.district ? districtStats(nearest.district.number) : null;
+      const district = districtAt(q);
+      return district ? districtStats(district.number) : null;
     },
   };
 }
