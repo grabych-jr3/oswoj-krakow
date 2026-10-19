@@ -1,0 +1,12 @@
+{
+  "Meta": {
+    "title": "Oswój Kraków",
+    "description": "Asystent AI dla nowych mieszkańców Krakowa – odpowiedzi z oficjalnych danych miasta i mapa."
+  },
+  "Home": {
+    "title": "Oswój Kraków",
+    "tagline": "Asystent AI dla nowych mieszkańców Krakowa. Wkrótce: czat, mapa i „Kraków w 15 minut”.",
+    "language": "Język",
+    "disclaimer": "Serwis informacyjny – nie stanowi porady prawnej. Nie podawaj danych osobowych."
+  }
+}
