@@ -1,0 +1,161 @@
+{
+  "id": "student",
+  "sources": [
+    "https://www.bip.krakow.pl/uslugi/SA-12",
+    "https://ztp.krakow.pl",
+    "https://biblioteka.krakow.pl"
+  ],
+  "pl": {
+    "title": "Przewodnik dla studenta w Krakowie",
+    "forWhom": "Studenci uczelni wyższych (UJ, AGH, PK, UEK, UR i in.) przybywający do Krakowa na studia.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Meldunek czasowy w akademiku lub wynajmowanym mieszkaniu",
+        "why": "Wypełnienie obowiązku meldunkowego dla osób studiujących w Krakowie (w tym studentów zagranicznych).",
+        "when": "W terminie 30 dni od przybycia (obywatele RP) lub najpóźniej w 4./30. dniu (cudzoziemcy)",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Studencki bilet okresowy KMK i Karta Krakowska",
+        "why": "Korzystanie z 50% ulgi ustawowej na przejazdy tramwajami i autobusami oraz zniżek miejskich dla studentów.",
+        "when": "Przed rozpoczęciem regularnego korzystania z komunikacji miejskiej",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "przystanek"
+        ],
+        "external": [
+          {
+            "title": "Zarząd Transportu Publicznego w Krakowie (Bilety)",
+            "url": "https://ztp.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Zapisanie się do Biblioteki Kraków i filii osiedlowych",
+        "why": "Darmowy dostęp do zbiorów naukowych, literatury, czytelni oraz przestrzeni do nauki w filiach w całym mieście.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [
+          "biblioteka"
+        ],
+        "external": [
+          {
+            "title": "Biblioteka Kraków",
+            "url": "https://biblioteka.krakow.pl"
+          }
+        ]
+      }
+    ]
+  },
+  "uk": {
+    "title": "Гід для студента у Кракові",
+    "forWhom": "Студенти краківських університетів (UJ, AGH, PK, UEK тощо), які приїжджають на навчання.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Тимчасова реєстрація (zameldowanie) в гуртожитку або орендованій квартирі",
+        "why": "Виконання вимоги реєстрації місця проживання для студентів, зокрема іноземних.",
+        "when": "У межах 30 днів від заселення",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Студентський проїзний квиток KMK та Картка Краків'янина",
+        "why": "50% студентська пільга на проїзд трамваями й автобусами Кракова за наявності студентського квитка (legitymacja).",
+        "when": "Перед початком регулярних поїздок містом",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "przystanek"
+        ],
+        "external": [
+          {
+            "title": "Квитки та тарифи ZTP Kraków",
+            "url": "https://ztp.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Запис до мережі Бібліотеки Кракова",
+        "why": "Безкоштовний доступ до фондів книг, наукової літератури, читальних залів і коворкінг-зон біля дому.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [
+          "biblioteka"
+        ],
+        "external": [
+          {
+            "title": "Biblioteka Kraków",
+            "url": "https://biblioteka.krakow.pl"
+          }
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "Student Guide to Kraków",
+    "forWhom": "Higher education students (UJ, AGH, PK, UEK, etc.) moving to Kraków for their studies.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Temporary residence registration in dorm or rental apartment",
+        "why": "Statutory address registration for local and international students staying in Kraków.",
+        "when": "Within 30 days of arrival (or 4/30 days for foreign nationals)",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Student public transit pass (KMK) & City Card",
+        "why": "Accessing 50% statutory student fare discount on buses and trams using a valid student ID.",
+        "when": "Before starting daily commute in the city",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "przystanek"
+        ],
+        "external": [
+          {
+            "title": "Public Transport Authority Kraków (Tickets)",
+            "url": "https://ztp.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Registration with Kraków Library branches",
+        "why": "Free access to literature, academic databases, quiet study rooms, and local neighborhood branches.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [
+          "biblioteka"
+        ],
+        "external": [
+          {
+            "title": "Biblioteka Kraków",
+            "url": "https://biblioteka.krakow.pl"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "id": "cudzoziemiec-ue",
+  "sources": [
+    "https://www.bip.krakow.pl/uslugi/SA-12",
+    "https://malopolska.uw.gov.pl"
+  ],
+  "pl": {
+    "title": "Pierwsze kroki dla obywateli Unii Europejskiej (UE/EOG/Szwajcaria)",
+    "forWhom": "Obywatele państw członkowskich Unii Europejskiej, EOG oraz Szwajcarii i członkowie ich rodzin.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Zameldowanie cudzoziemca na pobyt stały lub czasowy",
+        "why": "Realizacja ustawowego obowiązku meldunkowego dla cudzoziemców przebywających w Polsce.",
+        "when": "Najpóźniej w 30. dniu od dnia przybycia, jeśli pobyt przekracza 30 dni",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Zarejestrowanie pobytu obywatela UE w Urzędzie Wojewódzkim",
+        "why": "Formalny wymóg legalizacyjny dla pobytów obywateli UE w Polsce przekraczających 3 miesiące (sprawa w gestii Wojewody Małopolskiego).",
+        "when": "W kolejnym dniu po upływie 3 miesięcy od dnia wjazdu na terytorium RP",
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Wydział Spraw Cudzoziemców Małopolskiego Urzędu Wojewódzkiego",
+            "url": "https://malopolska.uw.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Karta miejska i transport publiczny w Krakowie",
+        "why": "Zakup biletów okresowych KMK lub wyrobienie Krakowskiej Karty Miejskiej w celu sprawnego poruszania się po mieście.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [
+          "przystanek"
+        ],
+        "external": [
+          {
+            "title": "Zarząd Transportu Publicznego w Krakowie (ZTP)",
+            "url": "https://ztp.krakow.pl"
+          }
+        ]
+      }
+    ]
+  },
+  "uk": {
+    "title": "Перші кроки для громадян ЄС (ЄС/ЄЕЗ/Швейцарія)",
+    "forWhom": "Громадяни країн-членів ЄС, ЄЕЗ та Швейцарії та члени їхніх сімей у Кракові.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Реєстрація місця проживання іноземця (zameldowanie)",
+        "why": "Виконання обов'язку реєстрації для іноземців, які перебувають у Польщі понад 30 днів.",
+        "when": "Не пізніше 30-го дня від дати прибуття до нового місця проживання",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Реєстрація перебування громадянина ЄС у Воєводському управлінні",
+        "why": "Вимога закону при перебуванні в Польщі понад 3 місяці (компетенція Малопольського воєводи).",
+        "when": "Наступного дня після спливу 3 місяців від дня в'їзду до Польщі",
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Відділ у справах іноземців Малопольського воєводського управління",
+            "url": "https://malopolska.uw.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Міський транспорт і проїзні квитки у Кракові",
+        "why": "Оформлення міської карти або проїзних квитків KMK для зручного пересування містом.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [
+          "przystanek"
+        ],
+        "external": [
+          {
+            "title": "Управління міського транспорту Кракова (ZTP)",
+            "url": "https://ztp.krakow.pl"
+          }
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "First Steps for EU Citizens (EU/EEA/Switzerland)",
+    "forWhom": "Citizens of EU/EEA member states and Switzerland and their family members.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Registration of foreigner residence (zameldowanie)",
+        "why": "Fulfillment of statutory residence registration for foreigners staying in Poland for more than 30 days.",
+        "when": "No later than the 30th day from arrival",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Register EU citizen stay at the Voivodship Office",
+        "why": "Legal requirement for EU citizen stays exceeding 3 months (administered by Małopolska Voivode).",
+        "when": "On the day following the end of 3 months from entry into Poland",
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Department for Foreigners of the Małopolska Voivodship Office",
+            "url": "https://malopolska.uw.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Public transport card and getting around Kraków",
+        "why": "Purchasing public transit passes or applying for Kraków City Card for local mobility.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [
+          "przystanek"
+        ],
+        "external": [
+          {
+            "title": "Public Transport Authority in Kraków (ZTP)",
+            "url": "https://ztp.krakow.pl"
+          }
+        ]
+      }
+    ]
+  }
+}

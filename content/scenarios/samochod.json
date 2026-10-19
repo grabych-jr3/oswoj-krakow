@@ -1,0 +1,143 @@
+{
+  "id": "samochod",
+  "sources": [
+    "https://www.bip.krakow.pl/uslugi/KM-2",
+    "https://www.bip.krakow.pl/uslugi/KM-8",
+    "https://www.bip.krakow.pl/uslugi/KM-14"
+  ],
+  "pl": {
+    "title": "Samochód i pojazdy: rejestracja i formalności w Krakowie",
+    "forWhom": "Właściciele pojazdów przeprowadzający się do Krakowa lub nabywający pojazd w kraju bądź z zagranicy.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Rejestracja pojazdu używanego zarejestrowanego w Polsce",
+        "why": "Przerejestrowanie nabytego pojazdu na dane nowego właściciela i przypisanie do krakowskiego urzędu.",
+        "when": "W terminie 30 dni od dnia nabycia pojazdu",
+        "procedureSymbols": [
+          "KM-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Rejestracja pojazdu sprowadzonego z zagranicy",
+        "why": "Dopuszczenie do ruchu w Polsce pojazdu importowanego z innego kraju po opłaceniu akcyzy i badaniu technicznym.",
+        "when": "W terminie 30 dni od dnia sprowadzenia pojazdu z terytorium państwa członkowskiego UE",
+        "procedureSymbols": [
+          "KM-14"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Zgłoszenie zmiany danych i adresu w dowodzie rejestracyjnym",
+        "why": "Aktualizacja miejsca zamieszkania właściciela w dokumentach zarejestrowanego już wcześniej pojazdu.",
+        "when": "W terminie 30 dni od zaistnienia zmiany",
+        "procedureSymbols": [
+          "KM-8"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ]
+  },
+  "uk": {
+    "title": "Автомобіль і транспорт: реєстрація та формальності у Кракові",
+    "forWhom": "Власники автомобілів, які переїжджають до Кракова або купують транспортний засіб у Польщі чи з-за кордону.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Реєстрація авто, раніше зареєстрованого в Польщі",
+        "why": "Переоформлення купленого або набутого транспортного засобу на нового власника у Кракові.",
+        "when": "Протягом 30 днів від дати придбання",
+        "procedureSymbols": [
+          "KM-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Реєстрація ввезеного з-за кордону автомобіля",
+        "why": "Офіційний допуск до руху в Польщі авто, імпортованого з іншої країни після сплати акцизу та техогляду.",
+        "when": "Протягом 30 днів від дати ввезення авто з території ЄС",
+        "procedureSymbols": [
+          "KM-14"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Внесення змін до техпаспорта при зміні адреси",
+        "why": "Оновлення адреси проживання власника у документах на автомобіль після переїзду.",
+        "when": "Протягом 30 днів від моменту зміни адреси",
+        "procedureSymbols": [
+          "KM-8"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ]
+  },
+  "en": {
+    "title": "Vehicle Registration and Formalities in Kraków",
+    "forWhom": "Vehicle owners relocating to Kraków or acquiring a vehicle in Poland or from abroad.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Registration of a used vehicle purchased in Poland",
+        "why": "Transfer of vehicle registration title to the new owner's details in Kraków.",
+        "when": "Within 30 days from acquiring the vehicle",
+        "procedureSymbols": [
+          "KM-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Registration of a vehicle imported from abroad",
+        "why": "Official road registration in Poland following technical inspection and excise duty payment.",
+        "when": "Within 30 days from bringing the vehicle into Poland from the EU",
+        "procedureSymbols": [
+          "KM-14"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Update of address in vehicle registration document",
+        "why": "Reflecting the owner's updated address of residence in vehicle records.",
+        "when": "Within 30 days of the change",
+        "procedureSymbols": [
+          "KM-8"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ]
+  }
+}

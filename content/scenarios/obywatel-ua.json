@@ -1,0 +1,203 @@
+{
+  "id": "obywatel-ua",
+  "sources": [
+    "https://www.bip.krakow.pl/uslugi/SA-65",
+    "https://www.bip.krakow.pl/uslugi/SA-12",
+    "https://www.bip.krakow.pl/uslugi/MOPS-21",
+    "https://www.bip.krakow.pl/uslugi/GUP-1",
+    "https://www.bip.krakow.pl/uslugi/GUP-2",
+    "https://gupkrakow.praca.gov.pl"
+  ],
+  "pl": {
+    "title": "Pierwsze kroki dla obywateli Ukrainy objętych ochroną czasową",
+    "forWhom": "Obywatele Ukrainy oraz członkowie ich rodzin przybyli do Polski w związku z działaniami wojennymi.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Nadanie numeru PESEL ze statusem UKR",
+        "why": "Potwierdzenie ochrony czasowej, legalnego pobytu oraz dostęp do opieki medycznej, rynku pracy i świadczeń.",
+        "when": "Niezwłocznie po przybyciu do Polski (zgodnie z przepisami ustawy o pomocy obywatelom Ukrainy)",
+        "procedureSymbols": [
+          "SA-65"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Zameldowanie i zgłoszenie adresu zamieszkania",
+        "why": "Oficjalna rejestracja miejsca zamieszkania w Krakowie ułatwiająca rekrutację do przedszkoli i szkół.",
+        "when": "Najpóźniej w 30. dniu od przybycia",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Rejestracja w Grodzkim Urzędzie Pracy w Krakowie",
+        "why": "Pomoc w znalezieniu zatrudnienia, staży zawodowych oraz dostęp do bezpłatnych kursów języka polskiego.",
+        "when": null,
+        "procedureSymbols": [
+          "GUP-1",
+          "GUP-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Grodzki Urząd Pracy w Krakowie",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 4,
+        "title": "Wsparcie socjalne i pomoc integracyjna (MOPS)",
+        "why": "Skorzystanie z programów wsparcia socjalnego, poradnictwa psychologicznego i pomocy rzeczowej dla uchodźców.",
+        "when": null,
+        "procedureSymbols": [
+          "MOPS-21"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ]
+  },
+  "uk": {
+    "title": "Перші кроки для громадян України під тимчасовим захистом",
+    "forWhom": "Громадяни України та члени їхніх сімей, які прибули до Кракова у зв'язку з війною.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Отримання номера PESEL зі статусом UKR",
+        "why": "Підтвердження тимчасового захисту, легальності перебування, права на безкоштовну медицину, роботу та допомоги.",
+        "when": "Одразу після прибуття до Польщі",
+        "procedureSymbols": [
+          "SA-65"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Реєстрація місця проживання (zameldowanie)",
+        "why": "Підтвердження адреси проживання в Кракові, що значно спрощує запис дітей до садочків і шкіл за місцем проживання.",
+        "when": "Не пізніше 30 днів від прибуття",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Реєстрація у Міському центрі зайнятості (GUP Kraków)",
+        "why": "Допомога з працевлаштуванням, стажуваннями та запис на безкоштовні курси польської мови.",
+        "when": null,
+        "procedureSymbols": [
+          "GUP-1",
+          "GUP-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Міський центр зайнятості у Кракові (GUP)",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 4,
+        "title": "Соціальна підтримка та інтеграційна допомога (MOPS)",
+        "why": "Отримання консультацій, психологічної допомоги та соціальних послуг через осередки MOPS.",
+        "when": null,
+        "procedureSymbols": [
+          "MOPS-21"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ]
+  },
+  "en": {
+    "title": "First Steps for Citizens of Ukraine Under Temporary Protection",
+    "forWhom": "Ukrainian citizens and their family members arriving in Kraków due to war.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Obtaining PESEL number with UKR status",
+        "why": "Confirmation of temporary protection, legal stay, public healthcare eligibility, and access to work and benefits.",
+        "when": "Promptly upon entry into Poland",
+        "procedureSymbols": [
+          "SA-65"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Address registration (zameldowanie)",
+        "why": "Official proof of local residence simplifying kindergarten and school enrolment.",
+        "when": "No later than 30 days from arrival",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Registration at the Municipal Labour Office (GUP Kraków)",
+        "why": "Assistance with employment, traineeships, and free Polish language courses.",
+        "when": null,
+        "procedureSymbols": [
+          "GUP-1",
+          "GUP-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Municipal Labour Office in Kraków (GUP)",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 4,
+        "title": "Social welfare and integration assistance (MOPS)",
+        "why": "Social support services, counseling, and integration assistance provided by MOPS Kraków.",
+        "when": null,
+        "procedureSymbols": [
+          "MOPS-21"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ]
+  }
+}

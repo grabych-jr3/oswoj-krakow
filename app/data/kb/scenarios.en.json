@@ -1,0 +1,498 @@
+[
+  {
+    "id": "przeprowadzka-pl",
+    "locale": "en",
+    "title": "Moving to Kraków (for Polish citizens)",
+    "forWhom": "Polish citizens relocating and moving their residence to Kraków.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Registration of permanent or temporary residence (zameldowanie)",
+        "why": "Statutory registration obligation. Enables access to Kraków City Card discounts, voter lists, and school district assignments.",
+        "when": "No later than the 30th day from arriving at the new address",
+        "procedureSymbols": [
+          "SA-14"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Update address in vehicle registration certificate",
+        "why": "Requirement to keep vehicle registration records aligned with the owner's actual residence.",
+        "when": "Within 30 days from the change of residential address",
+        "procedureSymbols": [
+          "KM-8"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Select a primary care physician (POZ)",
+        "why": "Ensuring public NFZ healthcare coverage close to the new place of residence.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Patient Online Account (pacjent.gov.pl)",
+            "url": "https://pacjent.gov.pl"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-14",
+      "https://www.bip.krakow.pl/uslugi/KM-8"
+    ]
+  },
+  {
+    "id": "cudzoziemiec-ue",
+    "locale": "en",
+    "title": "First Steps for EU Citizens (EU/EEA/Switzerland)",
+    "forWhom": "Citizens of EU/EEA member states and Switzerland and their family members.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Registration of foreigner residence (zameldowanie)",
+        "why": "Fulfillment of statutory residence registration for foreigners staying in Poland for more than 30 days.",
+        "when": "No later than the 30th day from arrival",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Register EU citizen stay at the Voivodship Office",
+        "why": "Legal requirement for EU citizen stays exceeding 3 months (administered by Małopolska Voivode).",
+        "when": "On the day following the end of 3 months from entry into Poland",
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Department for Foreigners of the Małopolska Voivodship Office",
+            "url": "https://malopolska.uw.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Public transport card and getting around Kraków",
+        "why": "Purchasing public transit passes or applying for Kraków City Card for local mobility.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [
+          "przystanek"
+        ],
+        "external": [
+          {
+            "title": "Public Transport Authority in Kraków (ZTP)",
+            "url": "https://ztp.krakow.pl"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-12",
+      "https://malopolska.uw.gov.pl"
+    ]
+  },
+  {
+    "id": "cudzoziemiec-spoza-ue",
+    "locale": "en",
+    "title": "First Steps for Non-EU Foreigners",
+    "forWhom": "Third-country nationals (non-EU/EEA) relocating to Kraków for work, study, or family.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Obtaining a PESEL number upon application",
+        "why": "Crucial national identification number required for banking, taxation, healthcare, and public administration.",
+        "when": "Upon arrival in Poland with a legal basis",
+        "procedureSymbols": [
+          "SA-34"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Foreigner residence registration (zameldowanie)",
+        "why": "Official confirmation of address in Kraków, required for residence permit procedures.",
+        "when": "No later than the 4th day from arrival if staying more than 30 days",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Legalization of residence — Residence Card (Urząd Wojewódzki)",
+        "why": "Submitting a temporary residence permit application to the Małopolska Voivodship Office (state administration).",
+        "when": "No later than the last day of legal stay in Poland",
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Małopolska Voivodship Office — Foreigners Affairs",
+            "url": "https://malopolska.uw.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 4,
+        "title": "Integration support and social counselling (MOPS)",
+        "why": "Advisory support and integration assistance provided by the Municipal Social Welfare Centre in Kraków.",
+        "when": null,
+        "procedureSymbols": [
+          "MOPS-21"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-34",
+      "https://www.bip.krakow.pl/uslugi/SA-12",
+      "https://www.bip.krakow.pl/uslugi/MOPS-21",
+      "https://malopolska.uw.gov.pl"
+    ]
+  },
+  {
+    "id": "obywatel-ua",
+    "locale": "en",
+    "title": "First Steps for Citizens of Ukraine Under Temporary Protection",
+    "forWhom": "Ukrainian citizens and their family members arriving in Kraków due to war.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Obtaining PESEL number with UKR status",
+        "why": "Confirmation of temporary protection, legal stay, public healthcare eligibility, and access to work and benefits.",
+        "when": "Promptly upon entry into Poland",
+        "procedureSymbols": [
+          "SA-65"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Address registration (zameldowanie)",
+        "why": "Official proof of local residence simplifying kindergarten and school enrolment.",
+        "when": "No later than 30 days from arrival",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Registration at the Municipal Labour Office (GUP Kraków)",
+        "why": "Assistance with employment, traineeships, and free Polish language courses.",
+        "when": null,
+        "procedureSymbols": [
+          "GUP-1",
+          "GUP-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Municipal Labour Office in Kraków (GUP)",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 4,
+        "title": "Social welfare and integration assistance (MOPS)",
+        "why": "Social support services, counseling, and integration assistance provided by MOPS Kraków.",
+        "when": null,
+        "procedureSymbols": [
+          "MOPS-21"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-65",
+      "https://www.bip.krakow.pl/uslugi/SA-12",
+      "https://www.bip.krakow.pl/uslugi/MOPS-21",
+      "https://www.bip.krakow.pl/uslugi/GUP-1",
+      "https://www.bip.krakow.pl/uslugi/GUP-2",
+      "https://gupkrakow.praca.gov.pl"
+    ]
+  },
+  {
+    "id": "rodzina-z-dzieckiem",
+    "locale": "en",
+    "title": "Family with Children: Childcare, Education, and Support",
+    "forWhom": "Parents and legal guardians residing in Kraków with children under 18.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Enrolment in nurseries, kids clubs, or kindergartens",
+        "why": "Early childhood care and preschool education via Kraków's centralized electronic recruitment system.",
+        "when": "According to the spring admission calendar or upon available slots during the year",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "zlobek",
+          "klub_dzieciecy",
+          "przedszkole",
+          "klub_rodzica"
+        ],
+        "external": [
+          {
+            "title": "Kraków Educational Portal",
+            "url": "https://portaledukacyjny.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Enrolment in primary or secondary school",
+        "why": "Fulfilling statutory school obligation. District primary schools are guaranteed for children residing in the school's catchment area.",
+        "when": "Before the school year starts or anytime throughout the year",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "szkola_podstawowa",
+          "szkola_ponadpodstawowa"
+        ],
+        "external": [
+          {
+            "title": "Education Department — City of Kraków",
+            "url": "https://portaledukacyjny.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Family allowance and supplements",
+        "why": "Municipal financial assistance for families with eligible income thresholds to support childcare costs.",
+        "when": "Applications accepted for the applicable benefit period",
+        "procedureSymbols": [
+          "SO-20"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 4,
+        "title": "School social scholarship",
+        "why": "Financial assistance for students in need to cover educational supplies and school books.",
+        "when": "September 1 to September 15 of each school year",
+        "procedureSymbols": [
+          "MOPS-45"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SO-20",
+      "https://www.bip.krakow.pl/uslugi/MOPS-45",
+      "https://portaledukacyjny.krakow.pl"
+    ]
+  },
+  {
+    "id": "praca",
+    "locale": "en",
+    "title": "Job Search and Career Development in Kraków",
+    "forWhom": "Individuals seeking employment, unemployed residents, or professionals looking to upskill.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Registration as a jobseeker",
+        "why": "Access to local vacancies database, career advisory services, and activation events.",
+        "when": null,
+        "procedureSymbols": [
+          "GUP-1"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Municipal Labour Office in Kraków",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Registration as unemployed",
+        "why": "Public health insurance coverage, unemployment benefits (subject to statutory eligibility), and vocational programs.",
+        "when": "Anytime following termination of previous employment",
+        "procedureSymbols": [
+          "GUP-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Municipal Labour Office in Kraków",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Professional trainings and reskilling",
+        "why": "Funding opportunities for certified courses, professional qualifications, and training stipends.",
+        "when": "During open recruitment windows for training programs",
+        "procedureSymbols": [
+          "GUP-10"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/GUP-1",
+      "https://www.bip.krakow.pl/uslugi/GUP-2",
+      "https://www.bip.krakow.pl/uslugi/GUP-10",
+      "https://gupkrakow.praca.gov.pl"
+    ]
+  },
+  {
+    "id": "samochod",
+    "locale": "en",
+    "title": "Vehicle Registration and Formalities in Kraków",
+    "forWhom": "Vehicle owners relocating to Kraków or acquiring a vehicle in Poland or from abroad.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Registration of a used vehicle purchased in Poland",
+        "why": "Transfer of vehicle registration title to the new owner's details in Kraków.",
+        "when": "Within 30 days from acquiring the vehicle",
+        "procedureSymbols": [
+          "KM-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Registration of a vehicle imported from abroad",
+        "why": "Official road registration in Poland following technical inspection and excise duty payment.",
+        "when": "Within 30 days from bringing the vehicle into Poland from the EU",
+        "procedureSymbols": [
+          "KM-14"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Update of address in vehicle registration document",
+        "why": "Reflecting the owner's updated address of residence in vehicle records.",
+        "when": "Within 30 days of the change",
+        "procedureSymbols": [
+          "KM-8"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/KM-2",
+      "https://www.bip.krakow.pl/uslugi/KM-8",
+      "https://www.bip.krakow.pl/uslugi/KM-14"
+    ]
+  },
+  {
+    "id": "student",
+    "locale": "en",
+    "title": "Student Guide to Kraków",
+    "forWhom": "Higher education students (UJ, AGH, PK, UEK, etc.) moving to Kraków for their studies.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Temporary residence registration in dorm or rental apartment",
+        "why": "Statutory address registration for local and international students staying in Kraków.",
+        "when": "Within 30 days of arrival (or 4/30 days for foreign nationals)",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Student public transit pass (KMK) & City Card",
+        "why": "Accessing 50% statutory student fare discount on buses and trams using a valid student ID.",
+        "when": "Before starting daily commute in the city",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "przystanek"
+        ],
+        "external": [
+          {
+            "title": "Public Transport Authority Kraków (Tickets)",
+            "url": "https://ztp.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Registration with Kraków Library branches",
+        "why": "Free access to literature, academic databases, quiet study rooms, and local neighborhood branches.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [
+          "biblioteka"
+        ],
+        "external": [
+          {
+            "title": "Biblioteka Kraków",
+            "url": "https://biblioteka.krakow.pl"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-12",
+      "https://ztp.krakow.pl",
+      "https://biblioteka.krakow.pl"
+    ]
+  }
+]

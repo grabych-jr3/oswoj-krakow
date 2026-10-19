@@ -1,0 +1,174 @@
+{
+  "id": "praca",
+  "sources": [
+    "https://www.bip.krakow.pl/uslugi/GUP-1",
+    "https://www.bip.krakow.pl/uslugi/GUP-2",
+    "https://www.bip.krakow.pl/uslugi/GUP-10",
+    "https://gupkrakow.praca.gov.pl"
+  ],
+  "pl": {
+    "title": "Poszukiwanie pracy i rozwój zawodowy w Krakowie",
+    "forWhom": "Osoby poszukujące zatrudnienia, bezrobotne lub planujące zmianę i podniesienie kwalifikacji zawodowych.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Rejestracja ze statusem osoby poszukującej pracy",
+        "why": "Uzyskanie dostępu do bazy ofert pracy, pomocy doradcy zawodowego oraz udziału w wybranych programach aktywizacyjnych.",
+        "when": null,
+        "procedureSymbols": [
+          "GUP-1"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Grodzki Urząd Pracy w Krakowie",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Rejestracja ze statusem osoby bezrobotnej",
+        "why": "Nabycie prawa do ubezpieczenia zdrowotnego, zasiłku dla bezrobotnych (przy spełnieniu warunków stażowych) oraz pełnego pakietu form wsparcia.",
+        "when": "W dowolnym momencie po ustaniu zatrudnienia",
+        "procedureSymbols": [
+          "GUP-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Grodzki Urząd Pracy w Krakowie",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Szkolenia i przekwalifikowanie zawodowe",
+        "why": "Możliwość sfinansowania przez urząd pracy kursów, szkoleń podnoszących kwalifikacje oraz uzyskania stypendium szkoleniowego.",
+        "when": "W trakcie trwania naborów wniosków na szkolenia",
+        "procedureSymbols": [
+          "GUP-10"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ]
+  },
+  "uk": {
+    "title": "Пошук роботи та професійний розвиток у Кракові",
+    "forWhom": "Особи, які шукають роботу, безробітні або планують підвищити свою кваліфікацію.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Реєстрація зі статусом шукача роботи",
+        "why": "Отримання доступу до вакансій, консультацій кар'єрного радника та спеціальних міських програм.",
+        "when": null,
+        "procedureSymbols": [
+          "GUP-1"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Міський центр зайнятості у Кракові",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Реєстрація зі статусом безробітного",
+        "why": "Отримання медичного страхування, допомоги по безробіттю (за наявності страхового стажу) та повного пакету підтримки.",
+        "when": "У будь-який час після завершення роботи",
+        "procedureSymbols": [
+          "GUP-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Міський центр зайнятості у Кракові",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Курси та перекваліфікація (Szkolenia)",
+        "why": "Можливість безкоштовного проходження сертифікованих навчальних курсів коштом фонду праці та отримання стипендії на час навчання.",
+        "when": "Під час дії оголошених наборів на навчання",
+        "procedureSymbols": [
+          "GUP-10"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ]
+  },
+  "en": {
+    "title": "Job Search and Career Development in Kraków",
+    "forWhom": "Individuals seeking employment, unemployed residents, or professionals looking to upskill.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Registration as a jobseeker",
+        "why": "Access to local vacancies database, career advisory services, and activation events.",
+        "when": null,
+        "procedureSymbols": [
+          "GUP-1"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Municipal Labour Office in Kraków",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Registration as unemployed",
+        "why": "Public health insurance coverage, unemployment benefits (subject to statutory eligibility), and vocational programs.",
+        "when": "Anytime following termination of previous employment",
+        "procedureSymbols": [
+          "GUP-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Municipal Labour Office in Kraków",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Professional trainings and reskilling",
+        "why": "Funding opportunities for certified courses, professional qualifications, and training stipends.",
+        "when": "During open recruitment windows for training programs",
+        "procedureSymbols": [
+          "GUP-10"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ]
+  }
+}

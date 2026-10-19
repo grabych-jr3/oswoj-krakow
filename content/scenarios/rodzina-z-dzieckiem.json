@@ -1,0 +1,212 @@
+{
+  "id": "rodzina-z-dzieckiem",
+  "sources": [
+    "https://www.bip.krakow.pl/uslugi/SO-20",
+    "https://www.bip.krakow.pl/uslugi/MOPS-45",
+    "https://portaledukacyjny.krakow.pl"
+  ],
+  "pl": {
+    "title": "Rodzina z dzieckiem: opieka, edukacja i wsparcie",
+    "forWhom": "Rodzice i opiekunowie prawni z dziećmi do lat 18 zamieszkujący w Krakowie.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Wybór i zapis dziecka do żłobka, klubu dziecięcego lub przedszkola",
+        "why": "Zapewnienie opieki nad najmłodszymi dziećmi. Rekrutacja prowadzona jest przez scentralizowany miejski system elektroniczny.",
+        "when": "Zgodnie z harmonogramem miejskiej rekrutacji wiosną lub w miarę wolnych miejsc w ciągu roku",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "zlobek",
+          "klub_dzieciecy",
+          "przedszkole",
+          "klub_rodzica"
+        ],
+        "external": [
+          {
+            "title": "Krakowski Portal Edukacyjny",
+            "url": "https://portaledukacyjny.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Zapisanie dziecka do szkoły podstawowej lub ponadpodstawowej",
+        "why": "Realizacja ustawowego obowiązku szkolnego i nauki. Dzieci zamieszkałe w obwodzie danej szkoły przyjmowane są z urzędu.",
+        "when": "Przed rozpoczęciem roku szkolnego lub w dowolnym momencie w trakcie roku",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "szkola_podstawowa",
+          "szkola_ponadpodstawowa"
+        ],
+        "external": [
+          {
+            "title": "Wydział Edukacji UMK — Rekrutacja",
+            "url": "https://portaledukacyjny.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Zasiłek rodzinny i dodatki do zasiłku rodzinnego",
+        "why": "Miejskie wsparcie finansowe dla rodzin o niższych dochodach na częściowe pokrycie wydatków na utrzymanie dziecka.",
+        "when": "Wnioski przyjmowane są na bieżący okres zasiłkowy",
+        "procedureSymbols": [
+          "SO-20"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 4,
+        "title": "Stypendium szkolne o charakterze socjalnym",
+        "why": "Pomoc materialna dla uczniów znajdujących się w trudnej sytuacji materialnej na zakup podręczników i pomocy naukowych.",
+        "when": "Od 1 do 15 września danego roku szkolnego",
+        "procedureSymbols": [
+          "MOPS-45"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ]
+  },
+  "uk": {
+    "title": "Сім'я з дитиною: опіка, навчання та допомога",
+    "forWhom": "Батьки та опікуни з дітьми до 18 років, які проживають у Кракові.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Запис дитини до ясел, дитячого клубу або дитсадка",
+        "why": "Забезпечення догляду та розвитку малечі. Набір відбувається через міську електронну систему рекрутації.",
+        "when": "Згідно з графіком весняного набору або за наявності вільних місць упродовж року",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "zlobek",
+          "klub_dzieciecy",
+          "przedszkole",
+          "klub_rodzica"
+        ],
+        "external": [
+          {
+            "title": "Краківський освітній портал",
+            "url": "https://portaledukacyjny.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Запис дитини до початкової або середньої школи",
+        "why": "Реалізація обов'язку шкільної освіти. За місцем проживання школа закріплена за адресою і зобов'язана прийняти учня.",
+        "when": "Перед початком навчального року або в будь-який момент упродовж року",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "szkola_podstawowa",
+          "szkola_ponadpodstawowa"
+        ],
+        "external": [
+          {
+            "title": "Департамент освіти Кракова",
+            "url": "https://portaledukacyjny.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Сімейна допомога та доплати до неї (Zasiłek rodzinny)",
+        "why": "Міська фінансова підтримка сімей з невисоким рівнем доходу для покриття витрат на дитину.",
+        "when": "Заяви подаються на відповідний виплатний період",
+        "procedureSymbols": [
+          "SO-20"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 4,
+        "title": "Шкільна соціальна стипендія",
+        "why": "Матеріальна допомога учням у скрутному становищі на купівлю шкільного приладдя та підручників.",
+        "when": "З 1 по 15 вересня поточного навчального року",
+        "procedureSymbols": [
+          "MOPS-45"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ]
+  },
+  "en": {
+    "title": "Family with Children: Childcare, Education, and Support",
+    "forWhom": "Parents and legal guardians residing in Kraków with children under 18.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Enrolment in nurseries, kids clubs, or kindergartens",
+        "why": "Early childhood care and preschool education via Kraków's centralized electronic recruitment system.",
+        "when": "According to the spring admission calendar or upon available slots during the year",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "zlobek",
+          "klub_dzieciecy",
+          "przedszkole",
+          "klub_rodzica"
+        ],
+        "external": [
+          {
+            "title": "Kraków Educational Portal",
+            "url": "https://portaledukacyjny.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Enrolment in primary or secondary school",
+        "why": "Fulfilling statutory school obligation. District primary schools are guaranteed for children residing in the school's catchment area.",
+        "when": "Before the school year starts or anytime throughout the year",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "szkola_podstawowa",
+          "szkola_ponadpodstawowa"
+        ],
+        "external": [
+          {
+            "title": "Education Department — City of Kraków",
+            "url": "https://portaledukacyjny.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Family allowance and supplements",
+        "why": "Municipal financial assistance for families with eligible income thresholds to support childcare costs.",
+        "when": "Applications accepted for the applicable benefit period",
+        "procedureSymbols": [
+          "SO-20"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 4,
+        "title": "School social scholarship",
+        "why": "Financial assistance for students in need to cover educational supplies and school books.",
+        "when": "September 1 to September 15 of each school year",
+        "procedureSymbols": [
+          "MOPS-45"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ]
+  }
+}
