@@ -57,6 +57,8 @@ describe("mock GeoService", () => {
     expect(result.origin.label).toBe(sampleNearby.origin.label);
     const transit = await geo.nearby({ origin, mode: "transit", categories: ["przystanek"] });
     expect(transit.mode).toBe("transit");
+    expect(transit.area.properties.mode).toBe("transit");
+    expect(transit.method).toContain("transit not modelled");
     expect(transit.places.every((p) => p.category === "przystanek")).toBe(true);
     expect(Object.keys(transit.counts)).toEqual(["przystanek"]);
   });

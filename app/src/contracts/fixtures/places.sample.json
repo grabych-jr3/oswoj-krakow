@@ -3,10 +3,10 @@
     "id": "zlobek:zs-15",
     "category": "zlobek",
     "name": "Żłobek Samorządowy Nr 15",
-    "address": "ul. Krzemionki 35, 30-526 Kraków",
+    "address": "ul. Krzemionki 35, 30-525 Kraków",
     "coords": [
-      19.947059,
-      50.037424
+      19.94856,
+      50.039068
     ],
     "district": {
       "number": 13,
@@ -30,8 +30,8 @@
     "name": "Klub Dziecięcy „Niunia”",
     "address": "ul. Tadeusza Rejtana 8/1, 30-510 Kraków",
     "coords": [
-      19.94525,
-      50.043668
+      19.945253,
+      50.043665
     ],
     "district": {
       "number": 13,
@@ -55,8 +55,8 @@
     "name": "Samorządowe Przedszkole nr 92 „Dworek na Krzemionkach”",
     "address": "ul. Parkowa 14, 30-538 Kraków",
     "coords": [
-      19.953183,
-      50.040867
+      19.953184,
+      50.040868
     ],
     "district": {
       "number": 13,
@@ -82,8 +82,8 @@
     "name": "Samorządowe Przedszkole nr 57 „Kraina Małych Artystów”",
     "address": "ul. Generała Tadeusza Kutrzeby 6, 30-515 Kraków",
     "coords": [
-      19.940487,
-      50.040388
+      19.940529,
+      50.040426
     ],
     "district": {
       "number": 13,
@@ -109,8 +109,8 @@
     "name": "Szkoła Podstawowa nr 29 im. Jana Matejki",
     "address": "al. Edwarda Dembowskiego 12, 30-540 Kraków",
     "coords": [
-      19.955871,
-      50.042037
+      19.955105,
+      50.041896
     ],
     "district": {
       "number": 13,
@@ -136,8 +136,8 @@
     "name": "XXVIII Liceum Ogólnokształcące im. Wojciecha Bednarskiego",
     "address": "ul. Tadeusza Czackiego 11, 30-501 Kraków",
     "coords": [
-      19.936889,
-      50.041059
+      19.936892,
+      50.041061
     ],
     "district": {
       "number": 13,
@@ -165,7 +165,7 @@
     "address": "ul. Dąbrówki 3/3, 30-550 Kraków",
     "coords": [
       19.956837,
-      50.045922
+      50.04592
     ],
     "district": {
       "number": 13,
@@ -186,10 +186,10 @@
     "id": "biblioteka:filia-46",
     "category": "biblioteka",
     "name": "Biblioteka Kraków – Filia nr 46",
-    "address": "ul. Limanowskiego 4, 30-534 Kraków",
+    "address": "ul. Bolesława Limanowskiego 4, 30-534 Kraków",
     "coords": [
-      19.950831,
-      50.044618
+      19.950554,
+      50.044873
     ],
     "district": {
       "number": 13,
@@ -282,11 +282,11 @@
   {
     "id": "urzad:ul-wielicka-28a",
     "category": "urzad",
-    "name": "Wydział Spraw Administracyjnych UMK – Referat Ewidencji Ludności i Dowodów Osobistych (Dzielnice VIII–XIII)",
-    "address": "ul. Wielicka 28A, 30-553 Kraków",
+    "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic VIII-XIII (Podgórze)",
+    "address": "ul. Wielicka 28A, 30-552 Kraków",
     "coords": [
-      19.966368,
-      50.038792
+      19.96631,
+      50.038769
     ],
     "district": {
       "number": 13,
@@ -295,7 +295,7 @@
     "phone": "12 616 55 55",
     "url": null,
     "attrs": {
-      "hours": "pon.–śr. i pt. 7:40–18:00, czw. 8:00–18:00",
+      "hours": "poniedziałek-środa i piątek: 7.40 – 18.00, czwartek: 8.00 – 18.00",
       "bookingUrl": "https://umawianiewizyt.um.krakow.pl/branch/53",
       "procedures": "SA-34"
     },

@@ -134,6 +134,9 @@ export function createMockGeoService(places: Place[] = samplePlaces, nearbyFixtu
         ...base,
         origin: { label: base.origin.label, coords: origin },
         mode,
+        area: { ...base.area, properties: { ...base.area.properties, mode } },
+        // The mock has no transit routing: a transit request gets the walking zone, and says so.
+        method: mode === "transit" ? `${base.method}; transit not modelled, walking zone shown` : base.method,
         places: base.places.filter((p) => keep(p.category)),
         counts: Object.fromEntries(Object.entries(base.counts).filter(([c]) => keep(c))),
       };
