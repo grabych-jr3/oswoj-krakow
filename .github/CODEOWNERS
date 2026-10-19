@@ -1,0 +1,17 @@
+# PLAN.md §5.5: shared files need review from all three; root configs and app/package.json belong to C.
+# TODO: add the GitHub logins of the A and B owners next to each shared path once they are collaborators.
+
+# Shared (contract PRs)
+/app/src/contracts/     @grabych-jr3
+/PLAN.md                @grabych-jr3
+/AGENTS.md              @grabych-jr3
+/CLAUDE.md              @grabych-jr3
+
+# Zone C: root configs and dependencies
+/.github/               @grabych-jr3
+/app/package.json       @grabych-jr3
+/app/package-lock.json  @grabych-jr3
+/app/next.config.ts     @grabych-jr3
+/app/tsconfig.json      @grabych-jr3
+/app/eslint.config.mjs  @grabych-jr3
+/app/vitest.config.mts  @grabych-jr3

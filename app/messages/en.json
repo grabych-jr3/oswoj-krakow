@@ -1,0 +1,12 @@
+{
+  "Meta": {
+    "title": "Oswój Kraków",
+    "description": "AI assistant for new residents of Kraków – answers from official city data, shown on a map."
+  },
+  "Home": {
+    "title": "Oswój Kraków",
+    "tagline": "AI assistant for new residents of Kraków. Coming soon: chat, map and “Kraków in 15 minutes”.",
+    "language": "Language",
+    "disclaimer": "Information service – not legal advice. Do not enter personal data."
+  }
+}
