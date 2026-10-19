@@ -30,12 +30,27 @@ SECTION_MAPPING = {
 
 
 def slugify(text: str) -> str:
-    """Генерирует slug: 'al. Powstania Warszawskiego 10' -> 'al-powstania-warszawskiego-10'"""
+    """Генерирует slug по контракту kb.ts:
+    вулиця + номер: lowercase; ł->l, решта діакритики знімається;
+    ініціали імен («W.») прибираються; усе, що не літера/цифра -> "_"
+    'ul. Wielicka 28A, 30-553 Kraków' -> 'ul_wielicka_28a'
+    'ul. W. Reymonta 20' -> 'ul_reymonta_20'
+    """
+    # 1. Берем часть до первой запятой
+    text = text.split(",")[0].strip()
+    # 2. Убираем инициалы вроде W. или T.
+    text = re.sub(r"\b[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]\.\s*", "", text)
+    # 3. ł -> l
+    text = text.replace("ł", "l").replace("Ł", "l")
+    # 4. Нормализуем остальные диакритические знаки
     text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
     text = text.lower()
-    text = re.sub(r"[^\w\s-]", "", text)
-    text = re.sub(r"[\s_]+", "-", text).strip("-")
+    # 5. Все, что не буква/цифра -> _
+    text = re.sub(r"[^a-z0-9]+", "_", text)
+    # 6. Убираем повторные _ и по краям
+    text = text.strip("_")
     return text
+
 
 
 def clean_markdown(html_text: str | None) -> str | None:

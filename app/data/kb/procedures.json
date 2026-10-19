@@ -3618,7 +3618,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul-kasprowicza-29",
+        "id": "urzad:ul_kasprowicza_29",
         "name": "Wydział Skarbu Miasta\n\t\t\tReferat ds. Trwałego Zarządu i Użytkowania (GS-02)",
         "address": "ul. Kasprowicza 29, 31-523 Kraków",
         "hours": "Śródmieście: 12 616 98 22 12 616 98 77 Krowodrza: 12 616 98 75 12 616 98 79 Podgórze: 12 616-98 76 12 616 98 80 Nowa Huta: 12 616 98 10 12 616 98 74",
@@ -3754,7 +3754,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul-kasprowicza-29",
+        "id": "urzad:ul_kasprowicza_29",
         "name": "Wydział Skarbu Miasta\n\t\t\tReferat ds. Trwałego Zarządu i Użytkowania (GS-02)",
         "address": "ul. Kasprowicza 29, 31-523 Kraków",
         "hours": "Nieruchomości Gminy Miejskiej Kraków: Śródmieście: 12 616 98 22 12 616 98 77 Krowodrza: 12 616 98 75 12 616 98 79 Podgórze: 12 616-98 76 12 616 98 80 Nowa Huta: 12 616 98 10 12 616 98 74 Nieruchomości Skarbu Państwa – wszystkie dzielnice: 12 616 99 13",
@@ -4171,7 +4171,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul-kasprowicza-29",
+        "id": "urzad:ul_kasprowicza_29",
         "name": "Wydział Skarbu Miasta\n\t\t\tReferat ds. Trwałego Zarządu i Użytkowania (GS-02)",
         "address": "ul. Kasprowicza 29, 31-523 Kraków",
         "hours": "Nieruchomości Gminy Miejskiej Kraków: Śródmieście: 12 616 98 22 12 616 98 77 Krowodrza: 12 616 98 75 12 616 98 79 Podgórze: 12 616 98 76 12 616 98 80 Nowa Huta: 12 616 98 10 12 616 98 74 Nieruchomości Skarbu Państwa (wszystkie dzielnice): 12 616 99 13",
@@ -4513,7 +4513,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul-kasprowicza-29",
+        "id": "urzad:ul_kasprowicza_29",
         "name": "Wydział Skarbu Miasta\n\t\t\tReferat ds. Trwałego Zarządu i Użytkowania (GS-02)",
         "address": "ul. Kasprowicza 29, 31-523 Kraków",
         "hours": "Nieruchomości Gminy Miejskiej Kraków Śródmieście: 12 616 98 22 12 616 98 77 Krowodrza: 12 616 98 75 12 616 98 79 Podgórze: 12 616-98 76 12 616 98 80 Nowa Huta: 12 616 98 10 12 616 98 74 Nieruchomości Skarbu Państwa (wszystkie dzielnice): 12 616 99 13",
@@ -4748,7 +4748,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul-kasprowicza-29",
+        "id": "urzad:ul_kasprowicza_29",
         "name": "Wydział Skarbu Miasta\n\t\t\tReferat ds. Trwałego Zarządu i Użytkowania (GS-02)",
         "address": "ul. Kasprowicza 29, 31-523 Kraków",
         "hours": "Nieruchomości Gminy Miejskiej Kraków: Śródmieście: 12 616 98 22 12 616 98 77 Krowodrza: 12 616 98 75 12 616 98 79 Podgórze: 12 616-98 76 12 616 98 80 Nowa Huta: 12 616 98 10 12 616 98 74 Nieruchomości Skarbu Państwa (wszystkie dzielnice): 12 616 99 13",
@@ -4889,7 +4889,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul-kasprowicza-29",
+        "id": "urzad:ul_kasprowicza_29",
         "name": "Wydział Skarbu Miasta\n\t\t\tReferat ds. Trwałego Zarządu i Użytkowania\n\t\t\t(GS-02)",
         "address": "ul. Kasprowicza 29, 31-523 Kraków",
         "hours": "Nieruchomości Gminy Miejskiej Kraków: Śródmieście: 12 616 98 22 12 616 98 77 Krowodrza: 12 616 98 75 12 616 98 79 Podgórze: 12 616-98 76 12 616 98 80 Nowa Huta: 12 616 98 10 12 616 98 74 Nieruchomości Skarbu Państwa (wszystkie dzielnice): 12 616 99 13",
@@ -23975,7 +23975,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul-centralna-53",
+        "id": "urzad:ul_centralna_53",
         "name": "W zakresie etapu I oraz III Zarząd Dróg Miasta Krakowa, Dziennik Podawczy, budynek A, parter",
         "address": "ul. Centralna 53, 31-586 Kraków",
         "hours": "Od poniedziałku do piątku w godzinach 7:30 do 15:30",
@@ -23984,7 +23984,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul-reymonta-20",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Dróg Miasta Krakowa, Dział Biuro Obsługi Klienta OPP",
         "address": "ul. Reymonta 20, 30-059 Kraków",
         "hours": "Zgodnie z informacjami na stronie internetowej ZDMK",
@@ -26275,7 +26275,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul-w-reymonta-20",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Zieleni Miejskiej",
         "address": "ul. W. Reymonta 20, Sekretariat, Dziennik podawczy, 30-059 Kraków lub Sekretariat ul. Za Torem 22, 30-542 Kraków",
         "hours": "(12) 201-02-40 (12) 201-02-41",
