@@ -1,0 +1,58 @@
+{
+  "id": "obywatel-ua",
+  "locale": "pl",
+  "title": "Pierwsze kroki dla obywateli Ukrainy w Krakowie",
+  "forWhom": "Osoby przybywające z Ukrainy objęte ochroną czasową wraz z rodzinami.",
+  "steps": [
+    {
+      "order": 1,
+      "title": "Uzyskanie numeru PESEL ze statusem UKR",
+      "why": "Niezbędny do legalnego pobytu, podjęcia pracy oraz korzystania ze świadczeń medycznych i socjalnych.",
+      "when": "W ciągu 30 dni od momentu wjazdu do Polski",
+      "procedureSymbols": [
+        "SA-65"
+      ],
+      "placeCategories": [
+        "urzad"
+      ],
+      "external": []
+    },
+    {
+      "order": 2,
+      "title": "Zapisanie dziecka do przedszkola lub szkoły",
+      "why": "Dzieci w wieku 7-18 lat podlegają obowiązkowi szkolnemu w Polsce na takich samych warunkach jak obywatele RP.",
+      "when": "Przed rozpoczęciem nauki lub w trakcie roku szkolnego",
+      "procedureSymbols": [
+        "SO-20"
+      ],
+      "placeCategories": [
+        "przedszkole",
+        "szkola_podstawowa"
+      ],
+      "external": []
+    },
+    {
+      "order": 3,
+      "title": "Rejestracja w Grodzkim Urzędzie Pracy",
+      "why": "Dostęp do ofert pracy, bezpłatnych kursów języka polskiego i szkoleń zawodowych.",
+      "when": null,
+      "procedureSymbols": [
+        "GUP-1",
+        "GUP-2"
+      ],
+      "placeCategories": [
+        "urzad"
+      ],
+      "external": [
+        {
+          "title": "Grodzki Urząd Pracy w Krakowie",
+          "url": "https://gupkrakow.praca.gov.pl"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    "https://www.bip.krakow.pl/uslugi/SA-65",
+    "https://gupkrakow.praca.gov.pl"
+  ]
+}
