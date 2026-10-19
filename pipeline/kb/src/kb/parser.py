@@ -1,15 +1,20 @@
+import html
 import json
 import re
 import unicodedata
 from pathlib import Path
 from typing import Any
 
-from lxml import etree, html
+from lxml import etree
+from lxml import html as lhtml
 from markdownify import markdownify as md
 
+ROOT_DIR = Path(__file__).resolve().parents[4]
 XML_CACHE_DIR = Path(".cache/xml")
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+APP_KB_DIR = ROOT_DIR / "app" / "data" / "kb"
+APP_KB_DIR.mkdir(parents=True, exist_ok=True)
 
 SECTION_MAPPING = {
     "krótki opis usługi": "opis",
@@ -36,21 +41,13 @@ def slugify(text: str) -> str:
     'ul. Wielicka 28A, 30-553 Kraków' -> 'ul_wielicka_28a'
     'ul. W. Reymonta 20' -> 'ul_reymonta_20'
     """
-    # 1. Берем часть до первой запятой
     text = text.split(",")[0].strip()
-    # 2. Убираем инициалы вроде W. или T.
     text = re.sub(r"\b[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]\.\s*", "", text)
-    # 3. ł -> l
     text = text.replace("ł", "l").replace("Ł", "l")
-    # 4. Нормализуем остальные диакритические знаки
     text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
     text = text.lower()
-    # 5. Все, что не буква/цифра -> _
     text = re.sub(r"[^a-z0-9]+", "_", text)
-    # 6. Убираем повторные _ и по краям
-    text = text.strip("_")
-    return text
-
+    return text.strip("_")
 
 
 def clean_markdown(html_text: str | None) -> str | None:
@@ -62,78 +59,169 @@ def clean_markdown(html_text: str | None) -> str | None:
     return text if text else None
 
 
+def clean_text_field(raw_text: str | None) -> str | None:
+    if not raw_text:
+        return None
+    cleaned = re.sub(r"[\r\n\t]+", " ", raw_text)
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+    return cleaned if cleaned else None
+
+
 def clean_address(raw_addr: str) -> str:
     """Очищает строку адреса."""
     addr = re.sub(r"(?i)<br\s*/?>", ", ", raw_addr)
     addr = re.sub(r"<[^>]+>", " ", addr)
+    addr = re.sub(r"[\r\n\t]+", " ", addr)
     addr = re.sub(r"\s+", " ", addr).strip()
     return addr
 
 
-def parse_offices_from_html(html_content: str | None) -> list[dict[str, Any]]:
-    """Парсит отделения из HTML-таблицы или текста."""
-    if not html_content:
-        return []
+def extract_section_html(elem: etree._Element) -> str:
+    """Собирает полный HTML секции (текст из <Tresc> + таблицы <table*>) с декодированием entities."""
+    parts = []
+    c_el = elem.find("Tresc")
+    if c_el is not None and c_el.text:
+        parts.append(html.unescape(c_el.text))
 
-    offices = []
-    try:
-        doc = html.fromstring(html_content)
-    except Exception:  # noqa: BLE001
+    for tbl in elem.xpath("./table"):
+        parts.append(etree.tostring(tbl, encoding="unicode"))
+
+    full_html = "\n".join(parts).strip()
+    return full_html
+
+
+def parse_offices_from_element(elem: etree._Element) -> list[dict[str, Any]]:
+    """Парсит отделения из секции 'Miejsce przyjmowania dokumentów' (XML table или HTML table)."""
+    doc = None
+    tbl = elem.find("table")
+    if tbl is not None:
+        tbl_html = etree.tostring(tbl, encoding="unicode")
+        try:
+            doc = lhtml.fromstring(tbl_html)
+        except Exception:  # noqa: BLE001, S110
+            pass
+    else:
+        c_el = elem.find("Tresc")
+        if c_el is not None and c_el.text:
+            text = html.unescape(c_el.text)
+            if "<table" in text:
+                try:
+                    doc = lhtml.fromstring(text)
+                except Exception:  # noqa: BLE001, S110
+                    pass
+
+
+    if doc is None:
         return []
 
     tables = doc.xpath("//table")
-    if tables:
-        rows = tables[0].xpath(".//tr")
-        for tr in rows:
-            tds = tr.xpath("./td")
-            if not tds or len(tds) < 2:
-                continue
+    if not tables:
+        return []
 
-            name = tds[0].text_content().strip()
-            raw_addr = tds[1].text_content().strip()
+    rows = tables[0].xpath(".//tr")
+    if len(rows) < 2:
+        return []
 
-            if not raw_addr or "adres" in raw_addr.lower() or "nazwa" in name.lower():
-                continue
+    # Анализируем заголовки колонок
+    headers = [
+        th.text_content().strip().lower() for th in rows[0].xpath("./th | ./td")
+    ]
+    name_idx = -1
+    addr_idx = -1
+    hours_idx = -1
+    phone_idx = -1
+    booking_idx = -1
 
-            addr = clean_address(raw_addr)
-            base_addr_match = re.search(
-                r"^(?:ul\.|al\.|os\.|pl\.)?[^,]+?\d+[a-zA-Z]?", addr
-            )
-            slug_part = (
-                base_addr_match.group(0) if base_addr_match else addr.split(",")[0]
-            )
-            office_id = f"urzad:{slugify(slug_part)}"
+    for idx, h in enumerate(headers):
+        if any(w in h for w in ["komórka", "komorka", "nazwa", "podmiot"]):
+            name_idx = idx
+        elif any(w in h for w in ["adres", "siedziba"]):
+            addr_idx = idx
+        elif any(w in h for w in ["godzin", "otwarci", "czas"]):
+            hours_idx = idx
+        elif any(w in h for w in ["telefon", "kontakt"]):
+            phone_idx = idx
+        elif any(w in h for w in ["wizyt", "rezerwac", "umów", "umow"]):
+            booking_idx = idx
 
-            hours = tds[2].text_content().strip() if len(tds) > 2 else None
-            hours = re.sub(r"\s+", " ", hours) if hours else None
+    # Дефолты для стандартной таблицы BIP: Nazwa | Adres | Godziny | Wizyta | Telefon
+    if addr_idx == -1 and len(headers) >= 2:
+        name_idx = 0
+        addr_idx = 1
+        if len(headers) >= 5:
+            hours_idx = 2
+            booking_idx = 3
+            phone_idx = 4
+        elif len(headers) == 4:
+            phone_idx = 2
+            hours_idx = 3
 
-            booking_url = None
+    if addr_idx == -1:
+        return []
+
+    offices = []
+    for tr in rows[1:]:
+        tds = tr.xpath("./td")
+        if not tds or len(tds) <= addr_idx:
+            continue
+
+        raw_addr = tds[addr_idx].text_content().strip()
+        if not raw_addr or "adres" in raw_addr.lower() or len(raw_addr) < 4:
+            continue
+
+        addr = clean_address(raw_addr)
+        base_slug = slugify(addr)
+        if not base_slug:
+            continue
+        office_id = f"urzad:{base_slug}"
+
+        raw_name = (
+            tds[name_idx].text_content().strip()
+            if name_idx >= 0 and name_idx < len(tds)
+            else "Urząd Miasta Krakowa"
+        )
+        name = clean_text_field(raw_name) or "Urząd Miasta Krakowa"
+
+        raw_hours = (
+            tds[hours_idx].text_content().strip()
+            if hours_idx >= 0 and hours_idx < len(tds)
+            else None
+        )
+        hours = clean_text_field(raw_hours)
+
+        raw_phone = (
+            tds[phone_idx].text_content().strip()
+            if phone_idx >= 0 and phone_idx < len(tds)
+            else None
+        )
+        phone = clean_text_field(raw_phone)
+
+        booking_url = None
+        if booking_idx >= 0 and booking_idx < len(tds):
+            links = tds[booking_idx].xpath(".//a/@href")
+            if links and links[0].strip().startswith("http"):
+                booking_url = links[0].strip()
+        if not booking_url:
             links = tr.xpath(".//a/@href")
             for link in links:
-                if "umawianiewizyt" in link or "umow" in link:
-                    booking_url = link.strip()
+                l_str = link.strip()
+                if (
+                    "umawianiewizyt" in l_str or "umow" in l_str
+                ) and l_str.startswith("http"):
+                    booking_url = l_str
                     break
 
-            phone = None
-            text_all = tr.text_content()
-            phone_match = re.search(
-                r"(?:\+48\s*)?(?:\(?\d{2}\)?[\s-]?)?\d{3}[\s-]?\d{2}[\s-]?\d{2}",
-                text_all,
-            )
-            if phone_match:
-                phone = phone_match.group(0).strip()
-
-            offices.append(
-                {
-                    "id": office_id,
-                    "name": name if name else "Urząd Miasta Krakowa",
-                    "address": addr,
-                    "hours": hours if hours else None,
-                    "bookingUrl": booking_url,
-                    "phone": phone,
-                    "coords": None,
-                }
-            )
+        offices.append(
+            {
+                "id": office_id,
+                "name": name,
+                "address": addr,
+                "hours": hours,
+                "bookingUrl": booking_url,
+                "phone": phone,
+                "coords": None,
+            }
+        )
 
     return offices
 
@@ -153,8 +241,8 @@ def parse_xml_file(file_path: Path) -> dict[str, Any] | None:
         return None
 
     symbol = (naglowek.findtext("Symbol") or file_path.stem).strip()
-    title = (naglowek.findtext("Tytul") or "").strip()
-    department = (naglowek.findtext("Wydzial") or "").strip() or None
+    title = clean_text_field(naglowek.findtext("Tytul")) or ""
+    department = clean_text_field(naglowek.findtext("Wydzial"))
 
     # 2. Метка
     metka = root.find("Metka")
@@ -171,36 +259,39 @@ def parse_xml_file(file_path: Path) -> dict[str, Any] | None:
     offices = []
 
     for elem in root.xpath("//TrescUslugi/Element"):
-        t_el = elem.find("Tytul")
-        c_el = elem.find("Tresc")
-        if t_el is None or c_el is None:
-            continue
-
-        # ВАЖНО: берем весь текст внутри Tytul, даже если он внутри <h3>
         raw_title = elem.xpath("string(./Tytul)").strip().lower()
-        html_content = c_el.text or ""
+        full_html = extract_section_html(elem)
 
         # Если это секция отделений
         if "miejsce" in raw_title and (
-            "składania" in raw_title or "przyjmowania" in raw_title
+            "składania" in raw_title
+            or "przyjmowania" in raw_title
+            or "skladania" in raw_title
         ):
-            parsed_offices = parse_offices_from_html(html_content)
+            parsed_offices = parse_offices_from_element(elem)
             if parsed_offices:
                 offices = parsed_offices
 
         # Сопоставляем с текстовыми секциями контракта
         for pattern, field_name in SECTION_MAPPING.items():
             if pattern in raw_title:
-                sections[field_name] = clean_markdown(html_content)
+                sections[field_name] = clean_markdown(full_html)
                 break
 
-    # 4. Вложения
+    # 4. Вложения (берем Nazwa, Opis или fallback)
     attachments = []
     for zal in root.xpath("//ZalacznikiUslugi/Zalacznik"):
-        nazwa = zal.findtext("Nazwa") or "Załącznik"
+        nazwa = (
+            zal.findtext("Nazwa")
+            or zal.findtext("Opis")
+            or zal.findtext("Tytul")
+            or "Załącznik"
+        )
         url = zal.findtext("Url") or zal.findtext("Plik")
         if url and url.startswith("http"):
-            attachments.append({"title": nazwa.strip(), "url": url.strip()})
+            attachments.append(
+                {"title": clean_text_field(nazwa) or "Załącznik", "url": url.strip()}
+            )
 
     procedure = {
         "symbol": symbol,
@@ -238,8 +329,9 @@ def run_pipeline() -> None:
 
     offices_list = list(all_offices_map.values())
 
-    proc_file = OUTPUT_DIR / "procedures.json"
-    offices_file = OUTPUT_DIR / "offices_raw.json"
+    # Сохраняем сразу в app/data/kb/
+    proc_file = APP_KB_DIR / "procedures.json"
+    offices_file = APP_KB_DIR / "offices_raw.json"
 
     proc_file.write_text(
         json.dumps(all_procedures, ensure_ascii=False, indent=2), encoding="utf-8"

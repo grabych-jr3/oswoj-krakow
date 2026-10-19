@@ -2,7 +2,9 @@ import json
 import re
 from pathlib import Path
 
-PROCEDURES_FILE = Path("output/procedures.json")
+ROOT_DIR = Path(__file__).resolve().parents[4]
+PROCEDURES_FILE = ROOT_DIR / "app" / "data" / "kb" / "procedures.json"
+
 
 # Ключевые слова для тегов (поиск по названию, описанию и коду департамента)
 TAG_RULES = {

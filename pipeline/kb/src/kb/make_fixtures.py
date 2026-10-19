@@ -1,10 +1,13 @@
 import json
 from pathlib import Path
 
-FIXTURES_DIR = Path("output/fixtures")
+ROOT_DIR = Path(__file__).resolve().parents[4]
+
+FIXTURES_DIR = ROOT_DIR / "app" / "src" / "contracts" / "fixtures"
 FIXTURES_DIR.mkdir(parents=True, exist_ok=True)
 
-PROCEDURES_FILE = Path("output/procedures.json")
+PROCEDURES_FILE = ROOT_DIR / "app" / "data" / "kb" / "procedures.json"
+
 
 
 def export_procedure_sa34():
