@@ -3,10 +3,71 @@
     "title": "Oswój Kraków",
     "description": "AI assistant for new residents of Kraków – answers from official city data, shown on a map."
   },
-  "Home": {
-    "title": "Oswój Kraków",
-    "tagline": "AI assistant for new residents of Kraków. Coming soon: chat, map and “Kraków in 15 minutes”.",
+  "Header": {
+    "home": "Oswój Kraków – home page",
+    "pageTitle": "Oswój Kraków – AI assistant for new residents of Kraków",
     "language": "Language",
-    "disclaimer": "Information service – not legal advice. Do not enter personal data."
+    "about": "About"
+  },
+  "Address": {
+    "label": "Address for the “Kraków in 15 minutes” check",
+    "placeholder": "Enter an address – Kraków in 15 minutes",
+    "badge": "15 min"
+  },
+  "Map": {
+    "label": "Map of Kraków",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "sources": "Source: Kraków Open Data, MSIP"
+  },
+  "Chat": {
+    "title": "Assistant",
+    "subtitle": "Answers from BIP Kraków service cards",
+    "reset": "New chat",
+    "greet": "Hi! Ask about any city office matter in Kraków – in English, Polish or Ukrainian. I answer from the official service card and show the places on the map.",
+    "suggestions": [
+      "Where do I get a PESEL number and what do I bring?",
+      "How do I register my address in Kraków?",
+      "How do I enrol my child in a preschool?"
+    ],
+    "suggestionsLabel": "Example questions",
+    "inputLabel": "Your question",
+    "inputPlaceholder": "Type a question…",
+    "send": "Send",
+    "comingSoon": "The assistant is still being built – soon I will answer from BIP service cards.",
+    "note": "Information service – not legal advice. Do not enter personal data.",
+    "messages": "Conversation with the assistant",
+    "expand": "Expand chat",
+    "collapse": "Collapse chat"
+  },
+  "Welcome": {
+    "title": "Welcome to Oswój Kraków",
+    "intro": "We help new residents find their way around Kraków quickly.",
+    "point1": "Ask about an official matter – the answer comes from the official BIP service card.",
+    "point2": "See city offices, nurseries, preschools, schools, parks and stops on the map.",
+    "point3": "Check what is within 15 minutes of your address.",
+    "disclaimerTitle": "Important",
+    "disclaimer": "This is an information service, not legal advice. Do not enter personal data.",
+    "sourcesTitle": "Where the data comes from",
+    "sources": "Kraków Open Data, BIP service cards, MSIP, ZTP (public transport), OpenStreetMap.",
+    "start": "Get started"
+  },
+  "Categories": {
+    "zlobek": "Nurseries (żłobki)",
+    "klub_dzieciecy": "Children's clubs",
+    "przedszkole": "Preschools (przedszkola)",
+    "szkola_podstawowa": "Primary schools",
+    "szkola_ponadpodstawowa": "Secondary schools",
+    "klub_rodzica": "Parent clubs",
+    "biblioteka": "Libraries",
+    "park": "Parks",
+    "park_kieszonkowy": "Pocket parks",
+    "przystanek": "KMK stops",
+    "park_and_ride": "P+R car parks",
+    "urzad": "City offices",
+    "centrum_seniora": "Senior activity centres",
+    "obiekt_sportowy": "Sports facilities",
+    "muzeum": "Museums",
+    "teatr": "Theatres"
   }
 }

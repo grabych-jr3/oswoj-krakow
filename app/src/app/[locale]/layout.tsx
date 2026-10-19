@@ -1,15 +1,28 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { JetBrains_Mono, Onest } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
-const inter = Inter({
-  variable: "--font-sans",
+// Fonts from the design: Onest for UI text, JetBrains Mono for small labels.
+const onest = Onest({
+  variable: "--font-onest",
   subsets: ["latin", "latin-ext", "cyrillic"],
 });
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  weight: ["400", "500"],
+});
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#c8202f",
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -27,8 +40,8 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
+    <html lang={locale} className={`${onest.variable} ${jetbrainsMono.variable} h-full antialiased`}>
+      <body className="h-full overflow-hidden">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>

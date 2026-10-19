@@ -3,10 +3,71 @@
     "title": "Oswój Kraków",
     "description": "Asystent AI dla nowych mieszkańców Krakowa – odpowiedzi z oficjalnych danych miasta i mapa."
   },
-  "Home": {
-    "title": "Oswój Kraków",
-    "tagline": "Asystent AI dla nowych mieszkańców Krakowa. Wkrótce: czat, mapa i „Kraków w 15 minut”.",
+  "Header": {
+    "home": "Oswój Kraków – strona główna",
+    "pageTitle": "Oswój Kraków – asystent AI dla nowych mieszkańców Krakowa",
     "language": "Język",
-    "disclaimer": "Serwis informacyjny – nie stanowi porady prawnej. Nie podawaj danych osobowych."
+    "about": "O serwisie"
+  },
+  "Address": {
+    "label": "Adres do analizy „Kraków w 15 minut”",
+    "placeholder": "Wpisz adres – Kraków w 15 minut",
+    "badge": "15 min"
+  },
+  "Map": {
+    "label": "Mapa Krakowa",
+    "zoomIn": "Przybliż mapę",
+    "zoomOut": "Oddal mapę",
+    "sources": "Źródło: Otwarte Dane Miasta Krakowa, MSIP"
+  },
+  "Chat": {
+    "title": "Asystent",
+    "subtitle": "Odpowiedzi z kart usług BIP Kraków",
+    "reset": "Nowa rozmowa",
+    "greet": "Cześć! Zapytaj o dowolną sprawę urzędową w Krakowie – po polsku, ukraińsku lub angielsku. Odpowiem na podstawie oficjalnej karty usługi i pokażę miejsca na mapie.",
+    "suggestions": [
+      "Gdzie dostanę numer PESEL i co zabrać?",
+      "Jak zameldować się w Krakowie?",
+      "Jak zapisać dziecko do przedszkola?"
+    ],
+    "suggestionsLabel": "Przykładowe pytania",
+    "inputLabel": "Twoje pytanie",
+    "inputPlaceholder": "Napisz pytanie…",
+    "send": "Wyślij",
+    "comingSoon": "Asystent jest jeszcze w budowie – wkrótce odpowiem na podstawie kart usług BIP.",
+    "note": "Serwis informacyjny – nie stanowi porady prawnej. Nie podawaj danych osobowych.",
+    "messages": "Rozmowa z asystentem",
+    "expand": "Rozwiń czat",
+    "collapse": "Zwiń czat"
+  },
+  "Welcome": {
+    "title": "Witaj w Oswój Kraków",
+    "intro": "Pomagamy nowym mieszkańcom szybko odnaleźć się w Krakowie.",
+    "point1": "Zapytaj o sprawę urzędową – odpowiedź pochodzi z oficjalnej karty usługi BIP.",
+    "point2": "Zobacz na mapie urzędy, żłobki, przedszkola, szkoły, parki i przystanki.",
+    "point3": "Sprawdź, co masz w zasięgu 15 minut od swojego adresu.",
+    "disclaimerTitle": "Ważne",
+    "disclaimer": "To serwis informacyjny, nie porada prawna. Nie podawaj danych osobowych.",
+    "sourcesTitle": "Skąd są dane",
+    "sources": "Otwarte Dane Miasta Krakowa, karty usług BIP, MSIP, ZTP (komunikacja miejska), OpenStreetMap.",
+    "start": "Zaczynamy"
+  },
+  "Categories": {
+    "zlobek": "Żłobki",
+    "klub_dzieciecy": "Kluby dziecięce",
+    "przedszkole": "Przedszkola",
+    "szkola_podstawowa": "Szkoły podstawowe",
+    "szkola_ponadpodstawowa": "Szkoły ponadpodstawowe",
+    "klub_rodzica": "Kluby rodziców",
+    "biblioteka": "Biblioteki",
+    "park": "Parki",
+    "park_kieszonkowy": "Parki kieszonkowe",
+    "przystanek": "Przystanki KMK",
+    "park_and_ride": "Parkingi P+R",
+    "urzad": "Urzędy",
+    "centrum_seniora": "Centra aktywności seniora",
+    "obiekt_sportowy": "Obiekty sportowe",
+    "muzeum": "Muzea",
+    "teatr": "Teatry"
   }
 }
