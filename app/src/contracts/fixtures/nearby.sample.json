@@ -1,0 +1,245 @@
+{
+  "origin": {
+    "label": "ul. Wielicka 28, 30-552 Kraków",
+    "coords": [
+      19.965631,
+      50.040222
+    ]
+  },
+  "mode": "walk",
+  "minutes": 15,
+  "area": {
+    "type": "Feature",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            19.979058,
+            50.040222
+          ],
+          [
+            19.978036,
+            50.043544
+          ],
+          [
+            19.975126,
+            50.046361
+          ],
+          [
+            19.970769,
+            50.048243
+          ],
+          [
+            19.965631,
+            50.048904
+          ],
+          [
+            19.960493,
+            50.048243
+          ],
+          [
+            19.956136,
+            50.046361
+          ],
+          [
+            19.953226,
+            50.043544
+          ],
+          [
+            19.952204,
+            50.040222
+          ],
+          [
+            19.953226,
+            50.0369
+          ],
+          [
+            19.956136,
+            50.034083
+          ],
+          [
+            19.960493,
+            50.032201
+          ],
+          [
+            19.965631,
+            50.03154
+          ],
+          [
+            19.970769,
+            50.032201
+          ],
+          [
+            19.975126,
+            50.034083
+          ],
+          [
+            19.978036,
+            50.0369
+          ],
+          [
+            19.979058,
+            50.040222
+          ]
+        ]
+      ]
+    },
+    "properties": {
+      "mode": "walk",
+      "minutes": 15
+    }
+  },
+  "counts": {
+    "urzad": 1,
+    "przystanek": 1,
+    "szkola_podstawowa": 1,
+    "przedszkole": 1,
+    "klub_rodzica": 1
+  },
+  "places": [
+    {
+      "id": "urzad:ul-wielicka-28a",
+      "category": "urzad",
+      "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic VIII-XIII (Podgórze)",
+      "address": "ul. Wielicka 28A, 30-552 Kraków",
+      "coords": [
+        19.96631,
+        50.038769
+      ],
+      "district": {
+        "number": 13,
+        "name": "Podgórze"
+      },
+      "phone": "12 616 55 55",
+      "url": null,
+      "attrs": {
+        "hours": "poniedziałek-środa i piątek: 7.40 – 18.00, czwartek: 8.00 – 18.00",
+        "bookingUrl": "https://umawianiewizyt.um.krakow.pl/branch/53",
+        "procedures": "SA-34"
+      },
+      "source": {
+        "dataset": "bip",
+        "url": "https://www.bip.krakow.pl/uslugi/SA-34",
+        "updatedAt": null
+      },
+      "minutes": 3
+    },
+    {
+      "id": "przystanek:642-02",
+      "category": "przystanek",
+      "name": "Podgórze SKA 02",
+      "address": "przystanek Podgórze SKA, Kraków",
+      "coords": [
+        19.961478,
+        50.041806
+      ],
+      "district": {
+        "number": 13,
+        "name": "Podgórze"
+      },
+      "phone": null,
+      "url": null,
+      "attrs": {
+        "code": "642-02",
+        "type": "AT"
+      },
+      "source": {
+        "dataset": "ztp-arcgis",
+        "url": "https://services-eu1.arcgis.com/svTzSt3AvH7sK6q9/arcgis/rest/services/Przystanki_Komunikacji_Miejskiej_w_Krakowie/FeatureServer/0",
+        "updatedAt": null
+      },
+      "minutes": 5
+    },
+    {
+      "id": "szkola_podstawowa:rspo-20007",
+      "category": "szkola_podstawowa",
+      "name": "Szkoła Podstawowa nr 29 im. Jana Matejki",
+      "address": "al. Edwarda Dembowskiego 12, 30-540 Kraków",
+      "coords": [
+        19.955105,
+        50.041896
+      ],
+      "district": {
+        "number": 13,
+        "name": "Podgórze"
+      },
+      "phone": "12 656 15 44",
+      "url": null,
+      "attrs": {
+        "rspo": 20007,
+        "students": 472,
+        "groups": 23,
+        "public": true
+      },
+      "source": {
+        "dataset": "szkoly-podstawowe-w-krakowie-liczba-dzieci",
+        "url": "https://otwartedane.um.krakow.pl/zbiory-danych/szkoly-podstawowe-w-krakowie-liczba-dzieci",
+        "updatedAt": null
+      },
+      "minutes": 12
+    },
+    {
+      "id": "przedszkole:rspo-20883",
+      "category": "przedszkole",
+      "name": "Samorządowe Przedszkole nr 92 „Dworek na Krzemionkach”",
+      "address": "ul. Parkowa 14, 30-538 Kraków",
+      "coords": [
+        19.953184,
+        50.040868
+      ],
+      "district": {
+        "number": 13,
+        "name": "Podgórze"
+      },
+      "phone": "12 296 23 90",
+      "url": null,
+      "attrs": {
+        "rspo": 20883,
+        "children": 121,
+        "groups": 6,
+        "public": true
+      },
+      "source": {
+        "dataset": "przedszkola-w-krakowie-liczba-dzieci",
+        "url": "https://otwartedane.um.krakow.pl/zbiory-danych/przedszkola-w-krakowie-liczba-dzieci",
+        "updatedAt": null
+      },
+      "minutes": 14
+    },
+    {
+      "id": "klub_rodzica:pal-stare-podgorze-zablocie",
+      "category": "klub_rodzica",
+      "name": "PAL „Stare Podgórze/Zabłocie”",
+      "address": "ul. Dąbrówki 3/3, 30-550 Kraków",
+      "coords": [
+        19.956837,
+        50.04592
+      ],
+      "district": {
+        "number": 13,
+        "name": "Podgórze"
+      },
+      "phone": null,
+      "url": null,
+      "attrs": {
+        "operator": "Gmina Miejska Kraków"
+      },
+      "source": {
+        "dataset": "kluby-rodzicow-z-dziecmi-do-lat-3-w-krakowie",
+        "url": "https://otwartedane.um.krakow.pl/zbiory-danych/kluby-rodzicow-z-dziecmi-do-lat-3-w-krakowie",
+        "updatedAt": null
+      },
+      "minutes": 14
+    }
+  ],
+  "score": {
+    "value": 50,
+    "missing": [
+      "zlobek",
+      "park",
+      "biblioteka"
+    ]
+  },
+  "method": "mock fixture: straight-line distance × 1.25 at 80 m/min (not a routed isochrone)"
+}
