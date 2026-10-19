@@ -1,0 +1,17 @@
+# PLAN.md §5.5: shared files need review from all three; root configs and app/package.json belong to C.
+# Team: @grabych-jr3 — Vladyslav Hrabovskyi (C), @n0rthhh — Vladyslav Petynskyi, @KaidoQQ — Bohdan Razimovskyi
+
+# Shared (contract PRs)
+/app/src/contracts/     @grabych-jr3 @n0rthhh @KaidoQQ
+/PLAN.md                @grabych-jr3 @n0rthhh @KaidoQQ
+/AGENTS.md              @grabych-jr3 @n0rthhh @KaidoQQ
+/CLAUDE.md              @grabych-jr3 @n0rthhh @KaidoQQ
+
+# Zone C: root configs and dependencies
+/.github/               @grabych-jr3
+/app/package.json       @grabych-jr3
+/app/package-lock.json  @grabych-jr3
+/app/next.config.ts     @grabych-jr3
+/app/tsconfig.json      @grabych-jr3
+/app/eslint.config.mjs  @grabych-jr3
+/app/vitest.config.mts  @grabych-jr3

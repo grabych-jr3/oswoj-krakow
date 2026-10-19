@@ -1,0 +1,308 @@
+[
+  {
+    "id": "zlobek:zs-15",
+    "category": "zlobek",
+    "name": "Żłobek Samorządowy Nr 15",
+    "address": "ul. Krzemionki 35, 30-525 Kraków",
+    "coords": [
+      19.94856,
+      50.039068
+    ],
+    "district": {
+      "number": 13,
+      "name": "Podgórze"
+    },
+    "phone": "725 151 277",
+    "url": null,
+    "attrs": {
+      "places": 100,
+      "operator": "Gmina Miejska Kraków"
+    },
+    "source": {
+      "dataset": "zlobki-samorzadowe-w-krakowie",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/zlobki-samorzadowe-w-krakowie",
+      "updatedAt": null
+    }
+  },
+  {
+    "id": "klub_dzieciecy:niunia",
+    "category": "klub_dzieciecy",
+    "name": "Klub Dziecięcy „Niunia”",
+    "address": "ul. Tadeusza Rejtana 8/1, 30-510 Kraków",
+    "coords": [
+      19.945253,
+      50.043665
+    ],
+    "district": {
+      "number": 13,
+      "name": "Podgórze"
+    },
+    "phone": "660 533 214",
+    "url": null,
+    "attrs": {
+      "places": 15,
+      "operator": null
+    },
+    "source": {
+      "dataset": "kluby-dzieciece-w-krakowie",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/kluby-dzieciece-w-krakowie",
+      "updatedAt": null
+    }
+  },
+  {
+    "id": "przedszkole:rspo-20883",
+    "category": "przedszkole",
+    "name": "Samorządowe Przedszkole nr 92 „Dworek na Krzemionkach”",
+    "address": "ul. Parkowa 14, 30-538 Kraków",
+    "coords": [
+      19.953184,
+      50.040868
+    ],
+    "district": {
+      "number": 13,
+      "name": "Podgórze"
+    },
+    "phone": "12 296 23 90",
+    "url": null,
+    "attrs": {
+      "rspo": 20883,
+      "children": 121,
+      "groups": 6,
+      "public": true
+    },
+    "source": {
+      "dataset": "przedszkola-w-krakowie-liczba-dzieci",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/przedszkola-w-krakowie-liczba-dzieci",
+      "updatedAt": null
+    }
+  },
+  {
+    "id": "przedszkole:rspo-4355",
+    "category": "przedszkole",
+    "name": "Samorządowe Przedszkole nr 57 „Kraina Małych Artystów”",
+    "address": "ul. Generała Tadeusza Kutrzeby 6, 30-515 Kraków",
+    "coords": [
+      19.940529,
+      50.040426
+    ],
+    "district": {
+      "number": 13,
+      "name": "Podgórze"
+    },
+    "phone": "12 656 19 46",
+    "url": null,
+    "attrs": {
+      "rspo": 4355,
+      "children": 115,
+      "groups": 5,
+      "public": true
+    },
+    "source": {
+      "dataset": "przedszkola-w-krakowie-liczba-dzieci",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/przedszkola-w-krakowie-liczba-dzieci",
+      "updatedAt": null
+    }
+  },
+  {
+    "id": "szkola_podstawowa:rspo-20007",
+    "category": "szkola_podstawowa",
+    "name": "Szkoła Podstawowa nr 29 im. Jana Matejki",
+    "address": "al. Edwarda Dembowskiego 12, 30-540 Kraków",
+    "coords": [
+      19.955105,
+      50.041896
+    ],
+    "district": {
+      "number": 13,
+      "name": "Podgórze"
+    },
+    "phone": "12 656 15 44",
+    "url": null,
+    "attrs": {
+      "rspo": 20007,
+      "students": 472,
+      "groups": 23,
+      "public": true
+    },
+    "source": {
+      "dataset": "szkoly-podstawowe-w-krakowie-liczba-dzieci",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/szkoly-podstawowe-w-krakowie-liczba-dzieci",
+      "updatedAt": null
+    }
+  },
+  {
+    "id": "szkola_ponadpodstawowa:rspo-7709",
+    "category": "szkola_ponadpodstawowa",
+    "name": "XXVIII Liceum Ogólnokształcące im. Wojciecha Bednarskiego",
+    "address": "ul. Tadeusza Czackiego 11, 30-501 Kraków",
+    "coords": [
+      19.936892,
+      50.041061
+    ],
+    "district": {
+      "number": 13,
+      "name": "Podgórze"
+    },
+    "phone": "12 656 13 97",
+    "url": null,
+    "attrs": {
+      "rspo": 7709,
+      "students": 416,
+      "groups": 15,
+      "public": true,
+      "type": "Liceum ogólnokształcące"
+    },
+    "source": {
+      "dataset": "szkoly-ponadpodstawowe-w-krakowie-liczba-uczniow",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/szkoly-ponadpodstawowe-w-krakowie-liczba-uczniow",
+      "updatedAt": null
+    }
+  },
+  {
+    "id": "klub_rodzica:pal-stare-podgorze-zablocie",
+    "category": "klub_rodzica",
+    "name": "PAL „Stare Podgórze/Zabłocie”",
+    "address": "ul. Dąbrówki 3/3, 30-550 Kraków",
+    "coords": [
+      19.956837,
+      50.04592
+    ],
+    "district": {
+      "number": 13,
+      "name": "Podgórze"
+    },
+    "phone": null,
+    "url": null,
+    "attrs": {
+      "operator": "Gmina Miejska Kraków"
+    },
+    "source": {
+      "dataset": "kluby-rodzicow-z-dziecmi-do-lat-3-w-krakowie",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/kluby-rodzicow-z-dziecmi-do-lat-3-w-krakowie",
+      "updatedAt": null
+    }
+  },
+  {
+    "id": "biblioteka:filia-46",
+    "category": "biblioteka",
+    "name": "Biblioteka Kraków – Filia nr 46",
+    "address": "ul. Bolesława Limanowskiego 4, 30-534 Kraków",
+    "coords": [
+      19.950554,
+      50.044873
+    ],
+    "district": {
+      "number": 13,
+      "name": "Podgórze"
+    },
+    "phone": null,
+    "url": null,
+    "attrs": {},
+    "source": {
+      "dataset": "lista-bibliotek-miejskich-biblioteki-krakow",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/lista-bibliotek-miejskich-biblioteki-krakow",
+      "updatedAt": null
+    }
+  },
+  {
+    "id": "park:bednarskiego",
+    "category": "park",
+    "name": "Park im. Wojciecha Bednarskiego",
+    "address": "Park im. Wojciecha Bednarskiego, Podgórze, Kraków",
+    "coords": [
+      19.949499,
+      50.041756
+    ],
+    "district": {
+      "number": 13,
+      "name": "Podgórze"
+    },
+    "phone": null,
+    "url": null,
+    "attrs": {
+      "area_ha": 8.2419,
+      "type": "Park"
+    },
+    "source": {
+      "dataset": "parki-miejskie-w-krakowie",
+      "url": "https://otwartedane.um.krakow.pl/zbiory-danych/parki-miejskie-w-krakowie",
+      "updatedAt": null
+    }
+  },
+  {
+    "id": "przystanek:642-02",
+    "category": "przystanek",
+    "name": "Podgórze SKA 02",
+    "address": "przystanek Podgórze SKA, Kraków",
+    "coords": [
+      19.961478,
+      50.041806
+    ],
+    "district": {
+      "number": 13,
+      "name": "Podgórze"
+    },
+    "phone": null,
+    "url": null,
+    "attrs": {
+      "code": "642-02",
+      "type": "AT"
+    },
+    "source": {
+      "dataset": "ztp-arcgis",
+      "url": "https://services-eu1.arcgis.com/svTzSt3AvH7sK6q9/arcgis/rest/services/Przystanki_Komunikacji_Miejskiej_w_Krakowie/FeatureServer/0",
+      "updatedAt": null
+    }
+  },
+  {
+    "id": "park_and_ride:maly-plaszow",
+    "category": "park_and_ride",
+    "name": "P+R Mały Płaszów",
+    "address": "P+R Mały Płaszów, Kraków",
+    "coords": [
+      20.000669,
+      50.038856
+    ],
+    "district": {
+      "number": 13,
+      "name": "Podgórze"
+    },
+    "phone": "501 678 116",
+    "url": null,
+    "attrs": {
+      "spaces": 164,
+      "hours": "od godz. 4:30 do 2:30"
+    },
+    "source": {
+      "dataset": "ztp-arcgis",
+      "url": "https://services-eu1.arcgis.com/svTzSt3AvH7sK6q9/arcgis/rest/services/Park_and_Ride/FeatureServer/0",
+      "updatedAt": null
+    }
+  },
+  {
+    "id": "urzad:ul-wielicka-28a",
+    "category": "urzad",
+    "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic VIII-XIII (Podgórze)",
+    "address": "ul. Wielicka 28A, 30-552 Kraków",
+    "coords": [
+      19.96631,
+      50.038769
+    ],
+    "district": {
+      "number": 13,
+      "name": "Podgórze"
+    },
+    "phone": "12 616 55 55",
+    "url": null,
+    "attrs": {
+      "hours": "poniedziałek-środa i piątek: 7.40 – 18.00, czwartek: 8.00 – 18.00",
+      "bookingUrl": "https://umawianiewizyt.um.krakow.pl/branch/53",
+      "procedures": "SA-34"
+    },
+    "source": {
+      "dataset": "bip",
+      "url": "https://www.bip.krakow.pl/uslugi/SA-34",
+      "updatedAt": null
+    }
+  }
+]
