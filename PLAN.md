@@ -466,7 +466,12 @@ import { LngLat, Locale } from "./common";
 import { PlaceCategory } from "./place";
 
 export const Office = z.object({
-  id: z.string(),                      // "urzad:<slug адреси>" — генерує B; A геокодує з ТИМ САМИМ id
+  /** "urzad:<slug>" — генерує B; A геокодує з ТИМ САМИМ id.
+   *  slug = вулиця + номер (до першої коми): lowercase; ł→l, решта діакритики знімається;
+   *  ініціали імен («W.») прибираються; усе, що не літера/цифра → "_" (без повторів і на краях).
+   *  "ul. Wielicka 28A, 30-553 Kraków" → "urzad:ul_wielicka_28a"; "ul. W. Reymonta 20" → "urzad:ul_reymonta_20";
+   *  "os. Złotego Wieku 2" → "urzad:os_zlotego_wieku_2" */
+  id: z.string().regex(/^urzad:[a-z0-9]+(_[a-z0-9]+)*$/),
   name: z.string(),
   address: z.string(),
   hours: z.string().nullable(),
