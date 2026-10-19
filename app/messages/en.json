@@ -13,18 +13,7 @@
     "askLabel": "Your question for the assistant",
     "askPlaceholder": "E.g. where do I get a PESEL number?",
     "ask": "Ask",
-    "previewLabel": "Example answer from the assistant",
-    "cardKicker": "SA-34 · BIP service card",
-    "cardTitle": "Assigning a PESEL number (Nadanie numeru PESEL)",
-    "docs": [
-      "Completed PESEL application form",
-      "Valid passport or other ID document",
-      "Document confirming the basis of the application"
-    ],
-    "feeLabel": "Fee",
-    "fee": "Free",
-    "source": "Source: BIP",
-    "onMap": "Service points with opening hours on the map",
+    "mapPreviewTitle": "Map of Kraków – everything in one place",
     "modulesLabel": "What Oswój Kraków can do",
     "modules": [
       {

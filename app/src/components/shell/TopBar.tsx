@@ -32,12 +32,13 @@ export function TopBar({ onAbout }: { onAbout: () => void }) {
   );
 }
 
-export function LanguageSwitcher() {
+/** `onPrimary` = styling for the red sticky header of the home page. */
+export function LanguageSwitcher({ onPrimary = false }: { onPrimary?: boolean }) {
   const t = useTranslations("Header");
   const locale = useLocale();
   const pathname = usePathname();
   return (
-    <nav aria-label={t("language")} className="flex gap-0.5 rounded-[10px] bg-secondary p-[3px]">
+    <nav aria-label={t("language")} className={cn("flex gap-0.5 rounded-[10px] p-[3px]", onPrimary ? "bg-white/15" : "bg-secondary")}>
       {routing.locales.map((l) => {
         const active = l === locale;
         return (
@@ -49,8 +50,14 @@ export function LanguageSwitcher() {
             lang={l}
             aria-current={active ? "true" : undefined}
             className={cn(
-              "rounded-[7px] px-2.5 py-1.5 font-mono text-xs font-medium focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring",
-              active ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-card",
+              "rounded-[7px] px-2.5 py-1.5 font-mono text-xs font-medium focus-visible:outline-2 focus-visible:outline-offset-1",
+              onPrimary
+                ? active
+                  ? "bg-white text-primary focus-visible:outline-white"
+                  : "text-white hover:bg-white/15 focus-visible:outline-white"
+                : active
+                  ? "bg-primary text-primary-foreground focus-visible:outline-ring"
+                  : "text-foreground hover:bg-card focus-visible:outline-ring",
             )}
           >
             {LANG_LABELS[l]}
