@@ -43,6 +43,49 @@ function matches(haystack: string, query: string): boolean {
     .every((token) => h.includes(token));
 }
 
+// Mock walking estimate: straight-line distance × detour factor at walking speed (same as nearby.sample.json).
+const WALK_M_PER_MIN = 80;
+const DETOUR = 1.25;
+const MINUTES = 15;
+const AREA_VERTICES = 16;
+export const MOCK_METHOD = "mock fixture: straight-line distance × 1.25 at 80 m/min (not a routed isochrone)";
+
+// «Indeks 15 minut» base groups (PLAN.md §4.3); the first category names the group in `missing`.
+const SCORE_GROUPS: Place["category"][][] = [
+  ["zlobek", "klub_dzieciecy"], ["przedszkole"], ["szkola_podstawowa"],
+  ["park", "park_kieszonkowy"], ["biblioteka"], ["przystanek"],
+];
+
+/** Builds a NearbyResult around any point from the given places, using the mock walking estimate. */
+export function estimateNearby(places: Place[], origin: LngLat): NearbyResult {
+  const reachM = (MINUTES * WALK_M_PER_MIN) / DETOUR;
+  const ring: LngLat[] = [];
+  for (let i = 0; i <= AREA_VERTICES; i++) {
+    const t = ((i % AREA_VERTICES) / AREA_VERTICES) * 2 * Math.PI;
+    ring.push([
+      +(origin[0] + (reachM * Math.sin(t)) / (111320 * Math.cos((origin[1] * Math.PI) / 180))).toFixed(6),
+      +(origin[1] + (reachM * Math.cos(t)) / 110574).toFixed(6),
+    ]);
+  }
+  const reached = places
+    .map((p) => ({ ...p, minutes: Math.round((distanceM(origin, p.coords) * DETOUR) / WALK_M_PER_MIN) }))
+    .filter((p) => p.minutes <= MINUTES)
+    .sort((a, b) => a.minutes - b.minutes);
+  const counts: Record<string, number> = {};
+  for (const p of reached) counts[p.category] = (counts[p.category] ?? 0) + 1;
+  const missing = SCORE_GROUPS.filter((group) => !group.some((c) => counts[c])).map((group) => group[0]);
+  return {
+    origin: { label: `${origin[1].toFixed(5)}, ${origin[0].toFixed(5)}`, coords: origin },
+    mode: "walk",
+    minutes: MINUTES,
+    area: { type: "Feature", geometry: { type: "Polygon", coordinates: [ring] }, properties: { mode: "walk", minutes: MINUTES } },
+    counts,
+    places: reached,
+    score: { value: Math.round((100 * (SCORE_GROUPS.length - missing.length)) / SCORE_GROUPS.length), missing },
+    method: MOCK_METHOD,
+  };
+}
+
 export function createMockGeoService(places: Place[] = samplePlaces, nearbyFixture: NearbyResult = sampleNearby): GeoService {
   const byId = new Map(places.map((p) => [p.id, p]));
 
@@ -83,16 +126,16 @@ export function createMockGeoService(places: Place[] = samplePlaces, nearbyFixtu
     },
 
     async nearby({ origin, mode, categories }) {
-      // The fixture is precomputed for one origin; other origins get the same shape with their own coords.
+      // The fixture origin gets the fixture; any other point gets the same estimate computed around it.
       const sameOrigin = distanceM(origin, nearbyFixture.origin.coords) < 50;
-      const label = sameOrigin ? nearbyFixture.origin.label : `${origin[1].toFixed(5)}, ${origin[0].toFixed(5)}`;
+      const base = sameOrigin ? nearbyFixture : estimateNearby(places, origin);
       const keep = (c: string) => !categories || categories.includes(c as Place["category"]);
       return {
-        ...nearbyFixture,
-        origin: { label, coords: origin },
+        ...base,
+        origin: { label: base.origin.label, coords: origin },
         mode,
-        places: nearbyFixture.places.filter((p) => keep(p.category)),
-        counts: Object.fromEntries(Object.entries(nearbyFixture.counts).filter(([c]) => keep(c))),
+        places: base.places.filter((p) => keep(p.category)),
+        counts: Object.fromEntries(Object.entries(base.counts).filter(([c]) => keep(c))),
       };
     },
 

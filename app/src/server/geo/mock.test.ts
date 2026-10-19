@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { GeocodeResult, NearbyResult } from "@/contracts/geo";
 import { DistrictStats, Place } from "@/contracts/place";
-import { createMockGeoService, distanceM, sampleNearby, samplePlaces } from "./mock";
+import { createMockGeoService, distanceM, estimateNearby, sampleNearby, samplePlaces } from "./mock";
 
 const geo = createMockGeoService();
 const origin = sampleNearby.origin.coords;
@@ -55,10 +55,28 @@ describe("mock GeoService", () => {
   it("returns a contract-valid nearby result", async () => {
     const result = NearbyResult.parse(await geo.nearby({ origin, mode: "walk" }));
     expect(result.origin.label).toBe(sampleNearby.origin.label);
-    const transit = await geo.nearby({ origin: [19.94, 50.06], mode: "transit", categories: ["przystanek"] });
+    const transit = await geo.nearby({ origin, mode: "transit", categories: ["przystanek"] });
     expect(transit.mode).toBe("transit");
     expect(transit.places.every((p) => p.category === "przystanek")).toBe(true);
     expect(Object.keys(transit.counts)).toEqual(["przystanek"]);
+  });
+
+  it("matches the fixture when estimating around the fixture origin", () => {
+    const estimate = estimateNearby(samplePlaces, origin);
+    expect(estimate.places.map((p) => [p.id, p.minutes])).toEqual(sampleNearby.places.map((p) => [p.id, p.minutes]));
+    expect(estimate.score).toEqual(sampleNearby.score);
+    expect(estimate.area.geometry).toEqual(sampleNearby.area.geometry);
+  });
+
+  it("computes the zone around any other origin", async () => {
+    const elsewhere: [number, number] = [19.9475, 50.0425]; // between the park and the library
+    const result = NearbyResult.parse(await geo.nearby({ origin: elsewhere, mode: "walk" }));
+    expect(result.origin.coords).toEqual(elsewhere);
+    expect(result.places[0].id).not.toBe(sampleNearby.places[0].id);
+    const ring = result.area.geometry.coordinates[0] as [number, number][];
+    const center = ring.slice(0, -1).reduce((s, p) => [s[0] + p[0] / 16, s[1] + p[1] / 16], [0, 0]);
+    expect(distanceM(center as [number, number], elsewhere)).toBeLessThan(5);
+    expect((await geo.nearby({ origin: [19.8, 50.2], mode: "walk" })).places).toEqual([]);
   });
 
   it("gets a place by id", async () => {

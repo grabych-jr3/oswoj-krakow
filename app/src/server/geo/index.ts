@@ -13,4 +13,9 @@ function createGeoService(): GeoService {
   return createMockGeoService();
 }
 
+/**
+ * Conventions beyond the contract (apply to mock and real implementations):
+ * - findPlaces({ categories: [] }) means all categories.
+ * - findPlaces without `near` returns `distanceM: null` and ignores `radiusM`.
+ */
 export const geo: GeoService = createGeoService();
