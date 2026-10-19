@@ -13,18 +13,7 @@
     "askLabel": "Twoje pytanie do asystenta",
     "askPlaceholder": "Np. gdzie dostanę numer PESEL?",
     "ask": "Zapytaj",
-    "previewLabel": "Przykład odpowiedzi asystenta",
-    "cardKicker": "SA-34 · Karta usługi BIP",
-    "cardTitle": "Nadanie numeru PESEL na wniosek",
-    "docs": [
-      "Wypełniony wniosek o nadanie numeru PESEL",
-      "Ważny paszport lub inny dokument tożsamości",
-      "Dokument potwierdzający podstawę wniosku"
-    ],
-    "feeLabel": "Opłata",
-    "fee": "Bezpłatnie",
-    "source": "Źródło: BIP",
-    "onMap": "Punkty obsługi z godzinami pracy na mapie",
+    "mapPreviewTitle": "Mapa Krakowa – wszystko w jednym miejscu",
     "modulesLabel": "Co potrafi Oswój Kraków",
     "modules": [
       {
