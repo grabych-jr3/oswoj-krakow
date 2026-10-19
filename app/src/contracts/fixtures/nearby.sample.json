@@ -1,0 +1,245 @@
+{
+  "origin": {
+    "label": "ul. Wielicka 28, 30-552 Kraków",
+    "coords": [
+      19.965798,
+      50.040102
+    ]
+  },
+  "mode": "walk",
+  "minutes": 15,
+  "area": {
+    "type": "Feature",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            19.965798,
+            50.048784
+          ],
+          [
+            19.970936,
+            50.048123
+          ],
+          [
+            19.975293,
+            50.046241
+          ],
+          [
+            19.978203,
+            50.043424
+          ],
+          [
+            19.979225,
+            50.040102
+          ],
+          [
+            19.978203,
+            50.03678
+          ],
+          [
+            19.975293,
+            50.033963
+          ],
+          [
+            19.970936,
+            50.032081
+          ],
+          [
+            19.965798,
+            50.03142
+          ],
+          [
+            19.96066,
+            50.032081
+          ],
+          [
+            19.956303,
+            50.033963
+          ],
+          [
+            19.953393,
+            50.03678
+          ],
+          [
+            19.952371,
+            50.040102
+          ],
+          [
+            19.953393,
+            50.043424
+          ],
+          [
+            19.956303,
+            50.046241
+          ],
+          [
+            19.96066,
+            50.048123
+          ],
+          [
+            19.965798,
+            50.048784
+          ]
+        ]
+      ]
+    },
+    "properties": {
+      "mode": "walk",
+      "minutes": 15
+    }
+  },
+  "counts": {
+    "urzad": 1,
+    "przystanek": 1,
+    "szkola_podstawowa": 1,
+    "przedszkole": 1,
+    "klub_rodzica": 1
+  },
+  "places": [
+    {
+      "id": "urzad:umawianiewizyt-53",
+      "category": "urzad",
+      "name": "Wydział Spraw Administracyjnych UMK – Referat Ewidencji Ludności i Dowodów Osobistych (Dzielnice VIII–XIII)",
+      "address": "ul. Wielicka 28A, 30-553 Kraków",
+      "coords": [
+        19.966368,
+        50.038792
+      ],
+      "district": {
+        "number": 13,
+        "name": "Podgórze"
+      },
+      "phone": "12 616 55 55",
+      "url": null,
+      "attrs": {
+        "hours": "pon.–śr. i pt. 7:40–18:00, czw. 8:00–18:00",
+        "bookingUrl": "https://umawianiewizyt.um.krakow.pl/branch/53",
+        "procedures": "SA-34"
+      },
+      "source": {
+        "dataset": "bip",
+        "url": "https://www.bip.krakow.pl/uslugi/SA-34",
+        "updatedAt": null
+      },
+      "minutes": 2
+    },
+    {
+      "id": "przystanek:642-02",
+      "category": "przystanek",
+      "name": "Podgórze SKA 02",
+      "address": "przystanek Podgórze SKA, Kraków",
+      "coords": [
+        19.961478,
+        50.041806
+      ],
+      "district": {
+        "number": 13,
+        "name": "Podgórze"
+      },
+      "phone": null,
+      "url": null,
+      "attrs": {
+        "code": "642-02",
+        "type": "AT"
+      },
+      "source": {
+        "dataset": "ztp-arcgis",
+        "url": "https://services-eu1.arcgis.com/svTzSt3AvH7sK6q9/arcgis/rest/services/Przystanki_Komunikacji_Miejskiej_w_Krakowie/FeatureServer/0",
+        "updatedAt": null
+      },
+      "minutes": 6
+    },
+    {
+      "id": "szkola_podstawowa:rspo-20007",
+      "category": "szkola_podstawowa",
+      "name": "Szkoła Podstawowa nr 29 im. Jana Matejki",
+      "address": "al. Edwarda Dembowskiego 12, 30-540 Kraków",
+      "coords": [
+        19.955871,
+        50.042037
+      ],
+      "district": {
+        "number": 13,
+        "name": "Podgórze"
+      },
+      "phone": "12 656 15 44",
+      "url": null,
+      "attrs": {
+        "rspo": 20007,
+        "students": 472,
+        "groups": 23,
+        "public": true
+      },
+      "source": {
+        "dataset": "opendata-oswiata-szkoly-podstawowe-liczba-uczniow",
+        "url": "https://api.um.krakow.pl/opendata-oswiata-szkoly-podstawowe-liczba-uczniow/v1/uczniowie-szkoly-podstawowe-samorzadowe-2025-2026",
+        "updatedAt": null
+      },
+      "minutes": 12
+    },
+    {
+      "id": "przedszkole:rspo-20883",
+      "category": "przedszkole",
+      "name": "Samorządowe Przedszkole nr 92 „Dworek na Krzemionkach”",
+      "address": "ul. Parkowa 14, 30-538 Kraków",
+      "coords": [
+        19.953183,
+        50.040867
+      ],
+      "district": {
+        "number": 13,
+        "name": "Podgórze"
+      },
+      "phone": "12 296 23 90",
+      "url": null,
+      "attrs": {
+        "rspo": 20883,
+        "children": 121,
+        "groups": 6,
+        "public": true
+      },
+      "source": {
+        "dataset": "opendata-oswiata-przedszkola-liczba-dzieci",
+        "url": "https://api.um.krakow.pl/opendata-oswiata-przedszkola-liczba-dzieci/v1/liczba-dzieci-przedszkola-samorzadowe-2025-2026",
+        "updatedAt": null
+      },
+      "minutes": 14
+    },
+    {
+      "id": "klub_rodzica:pal-stare-podgorze-zablocie",
+      "category": "klub_rodzica",
+      "name": "PAL „Stare Podgórze/Zabłocie”",
+      "address": "ul. Dąbrówki 3/3, 30-550 Kraków",
+      "coords": [
+        19.956837,
+        50.045922
+      ],
+      "district": {
+        "number": 13,
+        "name": "Podgórze"
+      },
+      "phone": null,
+      "url": null,
+      "attrs": {
+        "operator": "Gmina Miejska Kraków"
+      },
+      "source": {
+        "dataset": "opendata-kluby",
+        "url": "https://api.um.krakow.pl/opendata-kluby/v1/Kluby",
+        "updatedAt": null
+      },
+      "minutes": 14
+    }
+  ],
+  "score": {
+    "value": 50,
+    "missing": [
+      "zlobek",
+      "park",
+      "biblioteka"
+    ]
+  },
+  "method": "mock fixture: straight-line distance × 1.25 at 80 m/min (not a routed isochrone)"
+}
