@@ -1,7 +1,7 @@
 // Agent eval (PLAN.md B6): runs every case in cases.json against the real model and checks
 // which tools were called and which sources the answer is built on. Writes results.json and report.md.
 //
-// Run from app/:  npx tsx --env-file=.env.local ../evals/run.ts [--only=id1,id2] [--failed] [--delay=8000]
+// Run from app/:  npx tsx --env-file=.env.local ../evals/run.ts [--only=id1,id2] [--failed] [--missing] [--delay=8000]
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { runAgent } from "../app/src/server/agent/agent";
@@ -81,6 +81,12 @@ function score(c: Case, calls: Call[], text: string, returned: Set<string>): Omi
   if (c.expect.noTools && called.size > 0) {
     toolsOk = false;
     problems.push(`expected no tools, got ${[...called].join(", ")}`);
+  }
+
+  // A stream cut by a quota error still has the right tool calls but no answer.
+  if (!text.trim()) {
+    toolsOk = false;
+    problems.push("empty answer");
   }
 
   let sourcesOk = true;
@@ -174,7 +180,10 @@ async function main() {
   const previous: Result[] = existsSync(RESULTS) ? JSON.parse(readFileSync(RESULTS, "utf8")) : [];
   const only = args.only?.split(",");
   const failedIds = new Set(previous.filter((r) => !r.passed).map((r) => r.id));
-  const todo = cases.filter((c) => (only ? only.includes(c.id) : args.failed ? failedIds.has(c.id) : true));
+  const done = new Set(previous.map((r) => r.id));
+  const todo = cases.filter((c) =>
+    only ? only.includes(c.id) : args.failed ? failedIds.has(c.id) : args.missing ? !done.has(c.id) : true,
+  );
 
   const results = new Map(previous.map((r) => [r.id, r]));
   for (const [i, c] of todo.entries()) {

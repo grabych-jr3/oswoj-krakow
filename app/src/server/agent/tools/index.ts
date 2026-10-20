@@ -8,7 +8,14 @@ import { LifeTag } from "@/contracts/kb";
 import { PlaceCategory } from "@/contracts/place";
 import type { GeoService } from "@/server/geo";
 import { listScenarioIds } from "../kb/scenarios";
-import { runGetProcedure, runGetScenario, runSearchProcedures, scenarioForModel } from "./knowledge";
+import {
+  procedureForModel,
+  runGetProcedure,
+  runGetScenario,
+  runSearchProcedures,
+  scenarioForModel,
+  searchForModel,
+} from "./knowledge";
 import { runFindPlaces, runGeocode, runNearby } from "./places";
 
 export { ToolError } from "./errors";
@@ -41,6 +48,7 @@ export function buildTools({ geo, locale, mapOrigin }: ToolContext) {
       }),
       outputSchema: ToolOutputs.search_procedures,
       execute: (input) => runSearchProcedures(input),
+      toModelOutput: ({ output }) => ({ type: "json", value: searchForModel(output) }),
     }),
 
     get_procedure: tool({
@@ -50,6 +58,7 @@ export function buildTools({ geo, locale, mapOrigin }: ToolContext) {
       inputSchema: z.object({ symbol: z.string().describe("Procedure symbol from search_procedures, e.g. 'SA-34'") }),
       outputSchema: ToolOutputs.get_procedure,
       execute: (input) => runGetProcedure(input, geo),
+      toModelOutput: ({ output }) => ({ type: "json", value: procedureForModel(output) }),
     }),
 
     get_scenario: tool({

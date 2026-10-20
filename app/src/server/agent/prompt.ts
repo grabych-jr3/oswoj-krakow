@@ -1,7 +1,7 @@
 // System prompt: answer principles of PLAN.md §2.4.
 import type { Locale } from "@/contracts/common";
 import type { GeocodeResult } from "@/contracts/geo";
-import { listScenarioIds } from "./kb/scenarios";
+import { getScenario, listScenarioIds } from "./kb/scenarios";
 
 const LANGUAGE: Record<Locale, string> = { pl: "Polish", uk: "Ukrainian", en: "English" };
 
@@ -13,6 +13,13 @@ export const EXTERNAL_WHITELIST = [
   { topic: "taxes", url: "https://www.podatki.gov.pl" },
   { topic: "central government services", url: "https://www.gov.pl" },
 ] as const;
+
+/** "id: title" per scenario, so the model picks by meaning rather than by guessing from the id. */
+function scenarioGuide(): string {
+  return listScenarioIds("en")
+    .map((id) => `  - ${id}: ${getScenario(id, "en")?.title ?? id}`)
+    .join("\n");
+}
 
 export function buildSystemPrompt({ locale, origin }: { locale: Locale; origin: GeocodeResult | null }): string {
   const external = EXTERNAL_WHITELIST.map((e) => `- ${e.topic}: ${e.url}`).join("\n");
@@ -31,7 +38,10 @@ For these, say briefly who handles it and give only the official link, without d
 ${external}
 
 # Tools
-- Life situations ("I just moved", "I have a child", "I found a job"): get_scenario. Ids: ${listScenarioIds("pl").join(", ")}.
+- A life situation ("I just moved", "I'm starting university", "I brought my car") needs get_scenario FIRST, before any search:
+${scenarioGuide()}
+  Pick by who the user is: nationality (Ukrainian → obywatel-ua, other EU → cudzoziemiec-ue, non-EU → cudzoziemiec-spoza-ue, Polish → przeprowadzka-pl) wins over topic; children, car, job or studies then add their scenario.
+- A question about one specific matter (PESEL, ID card, a fee) needs search_procedures and then get_procedure, even when you think you know the answer.
 - Places on the map: find_places. Refer to them by marker label, e.g. "(1)", "(2)".
 - "What is within 15 minutes": nearby_15min. If the user mentions public transport, use mode "transit". Its places have no marker labels: summarise counts and the 15-minute index, do not number them.
 

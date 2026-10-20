@@ -2,52 +2,55 @@
   {
     "id": "demo1-ua-kharkiv",
     "locale": "uk",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_scenario",
-      "expected scenario obywatel-ua, got none"
-    ],
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
     "calls": [
       {
-        "tool": "search_procedures",
+        "tool": "get_scenario",
         "input": {
-          "query_pl": "zameldowanie",
-          "tags": [
-            "przeprowadzka"
-          ]
+          "id": "obywatel-ua",
+          "locale": "uk"
+        }
+      },
+      {
+        "tool": "get_scenario",
+        "input": {
+          "id": "rodzina-z-dzieckiem",
+          "locale": "uk"
         }
       }
     ],
     "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 3578
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 4253
   },
   {
     "id": "demo2-pesel",
     "locale": "pl",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of SA-34/SA-65, fetched nothing"
-    ],
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
     "calls": [
       {
         "tool": "search_procedures",
         "input": {
           "query_pl": "PESEL",
-          "tags": [
-            "dokumenty"
-          ]
+          "tags": []
+        }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "SA-34"
         }
       }
     ],
     "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 3145
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 4855
   },
   {
     "id": "demo3-15min-walk",
@@ -65,9 +68,102 @@
         }
       }
     ],
+    "text": "W odległości 15 min spacerem od **ul. Wielickiej 28, Kraków** (dzielnica **Podgórze**) znajduje się:\n\n| Kategoria | Liczba miejsc | Przykłady (odległość od Twojego mieszkania) |\n|-----------|---------------|---------------------------------------------|\n| **Urzędy** | 1 | Referat Ewidencji Ludności i Dowodów Osobistych – ul. Wielicka 28A (≈ 3 min) |\n| **Przystanki komunikacji miejskiej** | 1 | Przystanek **Podgórze SKA 02** (≈ 5 min) |\n| **Szkoły podstawowe** | 1 | Szkoła Podstawowa nr 29 im. Jana Matejki, al. Edwarda Dembowskiego 12 (≈ 12 min) |\n| **Przedszkola** | 1 | Samorządowe Przedszkole nr 92 „Dworek na Krzemionkach”, ul. Parkowa 14 (≈ 14 min) |\n| **Kluby rodziców** | 1 | PAL „Stare Podgórze/Zabłocie”, ul. Dąbrówki 3/3 (≈ 14 min) |\n\n**Co brakuje w 15‑minutowym zasięgu:** żłobki, parki, biblioteki – nie ma ich w tej odległości według dostępnych danych.\n\nJeśli potrzebujesz szczegółowych informacji o którymś z wymienionych punktów (np. godziny otwarcia urzędu, numer telefonu przedszkola), daj znać, a podam dokładne dane.",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 1855
+  },
+  {
+    "id": "demo3-15min-transit",
+    "locale": "pl",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "nearby_15min",
+        "input": {
+          "address": "ul. Wielicka 28, Kraków",
+          "mode": "transit"
+        }
+      }
+    ],
+    "text": "W odległości 15 minut komunikacją miejską od **ul. Wielickiej 28** (dzielnica Podgórze) znajdują się:\n\n| Kategoria | Co znajdziesz | Odległość (min) |\n|-----------|---------------|-----------------|\n| **Urzęd** | Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic VIII‑XIII (Podgórze) – ul. Wielicka 28A | 3 min |\n| **Przystanek** | Przystanek **Podgórze SKA 02** (kod 642‑02) – linie tramwajowe i autobusowe | 5 min |\n| **Szkoła podstawowa** | Szkoła Podstawowa nr 29 im. Jana Matejki – al. Edwarda Dembowskiego 12 | 12 min |\n| **Przedszkole** | Samorządowe Przedszkole nr 92 „Dworek na Krzemionkach” – ul. Parkowa 14 | 14 min |\n| **Klub rodzica** | PAL „Stare Podgórze/Zabłocie” – ul. Dąbrówki 3/3 | 14 min |\n\n**Co brakuje w 15‑minutowym zasięgu?**  \n- Żłobki, parki, biblioteki – nie ma ich w wyznaczonej strefie.\n\nJeśli potrzebujesz szczegółowych danych (godziny otwarcia, kontakt, rejestracja), daj znać – podam odpowiednie procedury z BIP.",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 1826
+  },
+  {
+    "id": "demo4-kindergartens",
+    "locale": "en",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "find_places",
+        "input": {
+          "categories": [
+            "przedszkole"
+          ],
+          "address": "ul. Wielicka 28",
+          "limit": 10
+        }
+      },
+      {
+        "tool": "find_places",
+        "input": {
+          "categories": [
+            "przedszkole",
+            "zlobek"
+          ],
+          "address": "ul. Wielicka 28",
+          "limit": 20
+        }
+      }
+    ],
     "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 3196
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 5527
+  },
+  {
+    "id": "sc-student-pl",
+    "locale": "pl",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "get_scenario",
+        "input": {
+          "id": "student"
+        }
+      }
+    ],
+    "text": "**Co warto załatwić po przyjeździe do Krakowa na studia (np. na AGH)**  \n\n| Kolejność | Co zrobić | Dlaczego | Termin | Gdzie / jak |\n|-----------|-----------|----------|--------|--------------|\n| 1️⃣ | **Zameldowanie cudzoziemca na pobyt stały lub czasowy** (rejestracja miejsca zamieszkania) | Obowiązek meldunkowy dla osób przybywających do Krakowa w celu studiów (zarówno obywateli Polski, jak i cudzoziemców) | **30 dni od przybycia** (obywatele RP) / najpóźniej w 4./30. dniu (cudzoziemcy) | Urząd Miasta Krakowa – wydział ds. meldunków. Szczegóły w karcie: [🗂️ Zameldowanie cudzoziemca na pobyt stały lub czasowy](https://www.bip.krakow.pl/uslugi/SA-12) |\n| 2️⃣ | **Studencki bilet okresowy KMK i Karta Krakowska** (ulga 50 % na komunikację miejską) | Umożliwia tanie i wygodne poruszanie się po mieście tramwajami i autobusami | Przed pierwszym regularnym korzystaniem z komunikacji | Punkt sprzedaży biletów ZTP – [Zarząd Transportu Publicznego w Krakowie](https://ztp.krakow.pl) |\n| 3️⃣ | **Rejestracja w Bibliotece Kraków i jej filiach osiedlowych** | Darmowy dostęp do zbiorów naukowych, czytelni i przestrzeni do nauki | Dowolnie, najlepiej od razu po przyjeździe | Najbliższa filia biblioteki (np. przy ul. Krakowskiej). Informacje: [Biblioteka Kraków](https://biblioteka.krakow.pl) |\n\n### Krótkie wskazówki\n\n- **Meldunek** – weź ze sobą dowód osobisty lub paszport, umowę najmu (lub potwierdzenie zakwaterowania w akademiku) oraz wypełniony formularz dostępny w urzędzie lub online.  \n- **Bilet studencki** – potrzebny będzie ważny dokument potwierdzający status studenta (legitymacja lub zaświadczenie z uczelni).  \n- **Biblioteka** – wystarczy dowód osobisty; karta biblioteczna jest bezpłatna.\n\n> To jest jedynie ogólny przewodnik. Szczegółowe wymagania i godziny otwarcia znajdziesz w podlinkowanych kartach BIP oraz na stronach instytucji. Powodzenia w studiach!",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 2733
+  },
+  {
+    "id": "sc-student-en",
+    "locale": "en",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "get_scenario",
+        "input": {
+          "id": "student",
+          "locale": "en"
+        }
+      }
+    ],
+    "text": "**Student Guide to Kraków – quick checklist**\n\n| Step | What to do | When | Where / How |\n|------|------------|------|-------------|\n| 1️⃣ **Temporary residence registration** – *Zameldowanie cudzoziemca na pobyt stały lub czasowy* (registration of residence for foreign nationals) | Register your address (dormitory or rented flat) – required by law for all students staying in Kraków. | Within 30 days of arrival (or 4 days for foreign nationals). | Go to the nearest **Urzęd Miasta** (city office). See the official BIP card: [🗂 Zameldowanie cudzoziemca na pobyt stały lub czasowy](https://www.bip.krakow.pl/uslugi/SA-12) |\n| 2️⃣ **Student public‑transport pass (KMK) & City Card** – discounted 50 % fare on buses & trams | Get a student ticket (KMK) using your university ID. | Before you start commuting to lectures. | Purchase at any **przystanek** (tram/bus stop) ticket office or via the ZTP Kraków portal (https://ztp.krakow.pl). |\n| 3️⃣ **Register at Kraków libraries** – *Biblioteka Kraków* | Sign up for a library card to use academic databases, borrow books, and access study rooms. | As soon as you have your student ID. | Visit any **biblioteka** (library) branch; details at https://biblioteka.krakow.pl. |\n\n**How to use the checklist**\n\n1. **Find the nearest city office** (search “Urzęd Miasta” on a map or ask at your university’s student office). Bring your passport, visa/residence permit (if applicable), rental contract or dormitory confirmation, and a completed registration form (available at the office or online).  \n2. **Buy the KMK pass** – you’ll need a valid student ID (or a confirmation of enrollment). The pass can be loaded onto a contactless card or a mobile app.  \n3. **Library registration** – bring your student ID; most branches issue a card on the spot.\n\nThat covers the essential formalities for a new university student moving to Kraków. If you need details on any other city services (e.g., health‑care registration, tax number), let me know!",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 2592
   },
   {
     "id": "sc-family-pl",
@@ -88,32 +184,52 @@
     ],
     "text": "",
     "model": "openai/gpt-oss-120b",
-    "ms": 3351
+    "ms": 3242
   },
   {
     "id": "sc-car-uk",
     "locale": "uk",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_scenario",
-      "expected scenario samochod, got none"
-    ],
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
     "calls": [
       {
-        "tool": "search_procedures",
+        "tool": "get_scenario",
         "input": {
-          "query_pl": "rejestracja pojazdu",
-          "tags": [
-            "pojazd"
-          ]
+          "id": "samochod",
+          "locale": "uk"
+        }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "KM-2"
         }
       }
     ],
     "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 3068
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 6462
+  },
+  {
+    "id": "sc-work-en",
+    "locale": "en",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "get_scenario",
+        "input": {
+          "id": "praca"
+        }
+      }
+    ],
+    "text": "Here’s a quick checklist to get you started with the **Job Search and Career Development in Kraków** ( *praca* ) scenario:\n\n| Step | What to do | Why it helps | Where / How |\n|------|------------|--------------|-------------|\n| **1️⃣ Register as a job‑seeker** | Sign up at the Municipal Labour Office (GUP) to be entered into the local vacancies database and receive career‑advisory support. | Gives you access to job listings, activation events, and personalised counselling. | **Procedure:** [🔹 Rejestracja osób – status poszukującego pracy](https://www.bip.krakow.pl/uslugi/GUP-1) |\n| **2️⃣ Register as unemployed** (if you’ve already lost your job) | Complete the unemployment registration at the same office. | Enables eligibility for public health insurance, possible unemployment benefits, and participation in vocational programmes. | **Procedure:** [🔹 Rejestracja osób – status bezrobotnego](https://www.bip.krakow.pl/uslugi/GUP-2) |\n| **3️⃣ Explore professional trainings & reskilling** | Look for funded courses, certifications, or training stipends offered by the city. | Improves your qualifications and makes you more attractive to employers. | **Procedure:** [🔹 Szkolenia](https://www.bip.krakow.pl/uslugi/GUP-10) |\n\n**Where to go:**  \nAll of the above steps are handled by the **Municipal Labour Office in Kraków** (Urząd Pracy). You can visit their office in person or start many of the registrations online via the links above.\n\n**Next steps for you:**  \n\n1. **Visit the GUP website** (or the linked BIP cards) and create an account.  \n2. Fill out the registration form for “poszukującego pracy” (job‑seeker).  \n3. If you’re already officially unemployed, also complete the “status bezrobotnego” registration to unlock benefit eligibility.  \n4. Browse the “Szkolenia” (trainings) section for any courses that match your career goals.\n\nThat’s the starting point—once you’re registered, the office will guide you to current vacancies, workshops, and any financial support you may qualify for. Good luck with your job search!",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 2548
   },
   {
     "id": "sc-moving-pl",
@@ -126,14 +242,32 @@
       {
         "tool": "get_scenario",
         "input": {
-          "id": "przeprowadzka-pl",
-          "locale": "pl"
+          "id": "przeprowadzka-pl"
         }
       }
     ],
-    "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 5385
+    "text": "### Przeprowadzka do Krakowa – co musisz załatwić w urzędach\n\n| Kolejność | Co zrobić | Dlaczego | Termin | Procedura (BIP) |\n|-----------|-----------|----------|--------|-----------------|\n| **1** | **Zameldowanie na pobyt stały lub czasowy** | Obowiązek meldunkowy; umożliwia m.in. korzystanie z Krakowskiej Karty Miejskiej, przypisanie do obwodu wyborczego i placówek edukacyjnych. | **do 30 dni od przybycia** | [SA‑14 Zameldowanie na pobyt stały lub czasowy (nie dotyczy cudzoziemców)](https://www.bip.krakow.pl/uslugi/SA-14) |\n| **2** | **Aktualizacja adresu w dowodzie rejestracyjnym pojazdu** | Dane rejestracyjne pojazdu muszą zgadzać się z aktualnym miejscem zamieszkania właściciela. | – | [KM‑8 Zmiana nazwiska, adresu, rodzaju pojazdu oraz inne zmiany danych zawartych w dowodzie rejestracyjnym pojazdu](https://www.bip.krakow.pl/uslugi/KM-8) |\n| **3** | **Wybór lekarza podstawowej opieki zdrowotnej (POZ)** | Zapewnienie bezpłatnej opieki medycznej w ramach NFZ w pobliżu nowego miejsca zamieszkania. | – | <https://pacjent.gov.pl> (Internetowe Konto Pacjenta) |\n\n#### Jak załatwić formalności\n1. **Zameldowanie** – udaj się do najbliższego **Urzędu Miasta** (kategoria *urzad*). Weź ze sobą: dowód osobisty, umowę najmu lub akt własności mieszkania oraz wypełniony formularz (dostępny w urzędzie lub online).  \n2. **Zmiana adresu w dowodzie rejestracyjnym pojazdu** – w tym samym urzędzie (dział komunikacji). Potrzebny dowód własności pojazdu, dowód osobisty oraz aktualny dowód rejestracyjny.  \n3. **Wybór lekarza POZ** – zaloguj się na **Internetowe Konto Pacjenta** i wybierz przychodnię najbliższą Twojemu nowemu adresowi.\n\n> To podstawowy zestaw spraw urzędowych, które czekają na nowego mieszkańca Krakowa. Jeśli potrzebujesz dodatkowych informacji (np. o kartach miejskich, odpadach komunalnych, parkingach), daj znać – chętnie wskażę odpowiednie procedury i miejsca.",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 2671
+  },
+  {
+    "id": "sc-eu-en",
+    "locale": "en",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "get_scenario",
+        "input": {
+          "id": "cudzoziemiec-ue"
+        }
+      }
+    ],
+    "text": "**Welcome to Kraków!** As a German (EU) citizen who plans to stay permanently, the city paperwork you need is limited to the **registration of your residence**.  \n\n### 1️⃣ Register your residence (zameldowanie)  \n- **What:** “Zameldowanie cudzoziemca na pobyt stały lub czasowy” – registration of a foreigner’s permanent or temporary stay.  \n- **When:** No later than the **30th day** after you arrived (if you’ll stay longer than 3 months).  \n- **Where:** At the **Urząd Miasta Krakowa** (City Hall) – the office handling “urzad” services.  \n- **Required documents & fees:** (see the BIP card for the full list).  \n\n🔗 **Procedure card:** [SA-12 Zameldowanie cudzoziemca na pobyt stały lub czasowy](https://www.bip.krakow.pl/uslugi/SA-12)  \n\n### 2️⃣ Register your stay with the Voivodeship Office (outside city competence)  \n- **Why:** EU citizens staying more than 3 months must also register their stay at the **Department for Foreigners of the Małopolska Voivodship Office**.  \n- **When:** On the day after the 3‑month deadline.  \n- **Link:** https://malopolska.uw.gov.pl  \n\n### Quick checklist  \n\n| Step | Action | Deadline | Where |\n|------|--------|----------|-------|\n| 1 | Bring passport/ID, proof of address (rental contract or similar), and fill the registration form | ≤ 30 days after arrival | Urząd Miasta Krakowa (see SA‑12) |\n| 2 | Submit stay‑registration form to the Voivodeship Office | Day after 3 months of stay | Department for Foreigners, Małopolska Voivodeship (link above) |\n\nThat’s the full set of city‑level paperwork you need right now. If you later need a **PESEL number**, a **national ID card**, or other national‑level documents, those are handled by the national authorities (see the external links above).  \n\nFeel free to ask if you need details on any of the steps!",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 2677
   },
   {
     "id": "sc-noneu-en",
@@ -149,27 +283,30 @@
       {
         "tool": "search_procedures",
         "input": {
-          "query_pl": "zameldowanie",
+          "query_pl": "zameldowanie cudzoziemca",
           "tags": [
-            "przeprowadzka"
+            "cudzoziemiec"
           ]
+        }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "SA-12"
         }
       }
     ],
     "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 3065
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 4028
   },
   {
     "id": "p-zameldowanie-pl",
     "locale": "pl",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of SA-14/SA-12/SA-32, fetched nothing"
-    ],
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
     "calls": [
       {
         "tool": "search_procedures",
@@ -179,11 +316,17 @@
             "przeprowadzka"
           ]
         }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "SA-14"
+        }
       }
     ],
     "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 4046
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 5452
   },
   {
     "id": "p-zameldowanie-uk",
@@ -197,38 +340,33 @@
     ],
     "calls": [
       {
-        "tool": "search_procedures",
+        "tool": "get_scenario",
         "input": {
-          "query_pl": "zameldowanie",
-          "tags": [
-            "mieszkanie"
-          ]
+          "id": "obywatel-ua",
+          "locale": "uk"
         }
       },
       {
         "tool": "search_procedures",
         "input": {
-          "query_pl": "meldunek",
+          "query_pl": "zameldowanie",
           "tags": [
-            "mieszkanie"
+            "cudzoziemiec"
           ]
         }
       }
     ],
     "text": "",
     "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
-    "ms": 5465
+    "ms": 3668
   },
   {
     "id": "p-zameldowanie-en",
     "locale": "en",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of SA-14/SA-32, fetched nothing"
-    ],
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
     "calls": [
       {
         "tool": "search_procedures",
@@ -238,22 +376,25 @@
             "przeprowadzka"
           ]
         }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "SA-14"
+        }
       }
     ],
-    "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 3435
+    "text": "**Zameldowanie na pobyt stały lub czasowy (nie dotyczy cudzoziemców)** – the official city procedure for Polish citizens who want to register their address in Kraków.  \n\n**Link:** [🗂️ Zameldowanie na pobyt stały lub czasowy (nie dotyczy cudzoziemców)](https://www.bip.krakow.pl/uslugi/SA-14)\n\n### What you need\n| Document | When it’s required |\n|---|---|\n| **Formularz zgłoszenia pobytu stałego** or **formularz zgłoszenia pobytu czasowego** (official forms) | Always – you’ll fill out the one that matches the type of stay you need. |\n| **Dowód osobisty** or **paszport** (to be shown) | Always – proof of identity. |\n| **Document proving legal title to the dwelling** (e.g., notarial deed, rental contract, land‑registry excerpt, administrative decision, court judgment) | Always – the office must see who has the right to the premises. |\n| **Owner’s (or title‑holder’s) statement** confirming the stay (if applying electronically) | Required for e‑applications. |\n| **Full‑power of attorney** (if you use a representative) | When a third‑party files the request for you. |\n| **Short birth‑certificate excerpt** (if you have no PESEL) | Only for people who need a PESEL number. |\n| **Proof of fee payment** | When the fee is paid in advance. |\n\n### Fee\n| Fee | Amount | Payment method |\n|---|---|---|\n| Opłata skarbowa za wydanie zaświadczenia potwierdzającego zameldowanie na pobyt czasowy | **17 zł** | Cash at the office, bank transfer, or post office (account 49 1020 2892 2276 3005 0000 0000) |\n\n### Where to apply\nYou can submit the request **in person** (or via a fully‑authorized representative) at any of the following Population Registry offices:\n\n| Office | Address | Opening hours | Booking link |\n|---|---|---|---|\n| **Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic I‑VII (Śródmieście, Krowodrza)** | al. Powstania Warszawskiego 10, 31‑541 Kraków | Mon‑Wed & Fri 7:40‑18:00, Thu 8:00‑18:00 | [Umów wizytę](https://umawianiewizyt.um.krakow.pl/branch/49) |\n| **Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic XIV‑XVIII** | os. Zgody 2, 31‑949 Kraków | Same hours as above | [Umów wizytę](https://umawianiewizyt.um.krakow.pl/branch/10) |\n| **Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic VIII‑XIII** | ul. Wielicka 28A, 30‑552 Kraków | Same hours as above | [Umów wizytę](https://umawianiewizyt.um.krakow.pl/branch/11) |\n\n*You can book an appointment online via the links above to avoid waiting.*\n\n### How to proceed\n1. **Gather the documents** listed above.  \n2. **Fill out the appropriate form** (permanent or temporary stay).  \n3. **Pay the 17 zł fee** (cash or transfer).  \n4. **Visit the office** (or send a fully‑authorized representative) with the documents and fee receipt.  \n5. The clerk will **register your address immediately** and, if you chose a temporary stay, issue a confirmation certificate.\n\n### Quick checklist\n- [ ] Completed form (permanent / temporary)  \n- [ ] ID (dowód osobisty or passport)  \n- [ ] Proof of legal title to the dwelling  \n- [ ] Owner’s statement (if electronic)  \n- [ ] Power of attorney (if using a representative)  \n- [ ] Fee payment proof (17 zł)  \n- [ ] Book an appointment (optional but recommended)\n\nIf you need a step‑by‑step guide for moving to Kraków, you can also view the **“przeprowadzka‑pl”** scenario, but the above procedure contains all the official details you’ll need for address registration.",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 5763
   },
   {
     "id": "p-wymeldowanie",
     "locale": "pl",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of SA-15/SA-13, fetched nothing"
-    ],
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
     "calls": [
       {
         "tool": "search_procedures",
@@ -263,11 +404,17 @@
             "przeprowadzka"
           ]
         }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "SA-15"
+        }
       }
     ],
     "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 4064
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 3840
   },
   {
     "id": "p-pesel-ukr",
@@ -280,7 +427,7 @@
       {
         "tool": "search_procedures",
         "input": {
-          "query_pl": "PESEL status ukraiński",
+          "query_pl": "PESEL",
           "tags": [
             "obywatel_ua"
           ]
@@ -293,74 +440,63 @@
         }
       }
     ],
-    "text": "",
-    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
-    "ms": 3705
+    "text": "**PESEL зі статусом UKR** – [Nadanie numeru PESEL ze statusem UKR](https://www.bip.krakow.pl/uslugi/SA-65)\n\n**Кому стосується**  \n- громадянам України,  \n- їхньому подружжю,  \n- неповнолітнім дітям громадян України та їхньому подружжю.\n\n**Необхідні документи**  \n1. Заповнена паперова **заявка** (зразок — [тут](https://kontakt.krakow.pl/c/document_library/get_file?uuid=4476698a-63ad-a023-c70d-763dbd9cd967&groupId=536063)).  \n2. Кольорова **фотографія 35 × 45 мм** (не старша 6 міс., на фотопапері, згідно вимог).  \n3. Дійсний **паспорт**.\n\n**Оплата** – безкоштовно.  \n\n**Термін розгляду** – відразу після подачі.  \n\n**Як подати**  \n- Особисто принесіть заповнену заявку та документи.  \n- Якщо заявка стосується вашої дитини (вік > 6 років), дитина повинна бути присутня.  \n\n**Де подати** (офіси реєстрації населення та посвідчень особи):  \n\n| Офіс | Адреса | Години роботи |\n|------|--------|----------------|\n| Referat Ewidencji Ludności i Dowodów Osobistych для районів I‑VII (Śródmieście, Krowodrza) | al. Powstania Warszawskiego 10, Centrum Administracyjne, I piętro, 30‑541 Краків | Пн‑Ср, Пт 7:40‑14:30; Чт 8:00‑14:30 |\n| Referat Ewidencji Ludności i Dowodów Osobistych для районів VIII‑XIII (Podgórze) | ul. Wielicka 28a, 30‑552 Краків | Пн‑Ср, Пт 7:40‑14:30; Чт 8:00‑14:30 |\n| Referat Ewidencji Ludności i Dowodów Osobistych для районів XIV‑XVIII (Nowa Huta) | os. Zgody 2, 31‑949 Краків | Пн‑Ср, Пт 7:40‑14:30; Чт 8:00‑14:30 |\n\n**Коротка чек‑ліст**  \n\n- ☐ Завантажте та заповніть форму заявки.  \n- ☐ Підготуйте фото 35 × 45 мм (не старше 6 міс.).  \n- ☐ Візьміть дійсний паспорт.  \n- ☐ Прийдіть до одного з вказаних офісів у зазначені години.  \n\nЯкщо потрібна додаткова допомога, звертайтеся до будь‑якого з вищезазначених відділів. Успіхів!",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 3306
   },
   {
     "id": "p-pesel-en",
     "locale": "en",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of SA-34, fetched nothing"
-    ],
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
     "calls": [
       {
         "tool": "search_procedures",
         "input": {
-          "query_pl": "wydanie numeru PESEL cudzoziemca",
+          "query_pl": "nadanie numeru PESEL cudzoziemcowi",
           "tags": [
             "cudzoziemiec"
           ]
         }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "SA-34"
+        }
       }
     ],
     "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 2965
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 6053
   },
   {
     "id": "p-dowod",
     "locale": "pl",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of SA-10, fetched nothing"
-    ],
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
     "calls": [
       {
         "tool": "search_procedures",
         "input": {
           "query_pl": "dowód osobisty",
-          "tags": [
-            "dokumenty"
-          ]
+          "tags": []
+        }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "SA-10"
         }
       }
     ],
     "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 2991
-  },
-  {
-    "id": "p-dowod-lost",
-    "locale": "en",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of SA-11, fetched nothing"
-    ],
-    "calls": [],
-    "text": "A lost Polish ID card (dowód osobisty) is handled by the national civil‑registration authorities, not by the Kraków city offices.  \n\n**What to do**\n\n1. **Report the loss** – file a report at the nearest police station (or online, if available).  \n2. **Apply for a new card** – submit an application at the appropriate civil‑registration office (Urząd Stanu Cywilnego or the city office that handles identity documents).  \n3. Bring your passport or another valid ID, a recent photo, and the police report (if required).  \n\nFor detailed instructions and the application form, visit the central government portal: https://www.gov.pl.  \n\nIf you need help locating the nearest civil‑registration office in Kraków, let me know and I can show it on a map.",
-    "model": "openai/gpt-oss-120b",
-    "ms": 1125
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 5604
   },
   {
     "id": "p-car-new",
@@ -385,391 +521,29 @@
     ],
     "text": "",
     "model": "openai/gpt-oss-120b",
-    "ms": 5089
-  },
-  {
-    "id": "p-car-deregister",
-    "locale": "pl",
-    "toolsOk": true,
-    "sourcesOk": true,
-    "passed": true,
-    "problems": [],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "wyrejestrowanie pojazdu",
-          "tags": [
-            "pojazd"
-          ]
-        }
-      },
-      {
-        "tool": "get_procedure",
-        "input": {
-          "symbol": "KM-7"
-        }
-      }
-    ],
-    "text": "",
-    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
-    "ms": 3705
-  },
-  {
-    "id": "p-car-address",
-    "locale": "uk",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of KM-8, fetched nothing"
-    ],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "zmiana adresu w dowodzie rejestracyjnym samochodu",
-          "tags": [
-            "pojazd"
-          ]
-        }
-      }
-    ],
-    "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 3269
-  },
-  {
-    "id": "p-license-exchange",
-    "locale": "uk",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of KM-19, fetched nothing"
-    ],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "wymiana ukraińskiego prawa jazdy na polskie",
-          "tags": [
-            "pojazd"
-          ]
-        }
-      }
-    ],
-    "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 2963
-  },
-  {
-    "id": "p-pkk",
-    "locale": "pl",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of KM-21, fetched nothing"
-    ],
-    "calls": [],
-    "text": "Prawo jazdy (w tym kategoria K – PKK) wydaje Komenda Wojewódzka Policji. Szczegółowe informacje znajdziesz na oficjalnej stronie Policji: https://www.policja.gov.pl.",
-    "model": "openai/gpt-oss-120b",
-    "ms": 1138
-  },
-  {
-    "id": "p-mpj",
-    "locale": "en",
-    "toolsOk": true,
-    "sourcesOk": true,
-    "passed": true,
-    "problems": [],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "międzynarodowe prawo jazdy",
-          "tags": [
-            "pojazd"
-          ]
-        }
-      },
-      {
-        "tool": "get_procedure",
-        "input": {
-          "symbol": "KM-20"
-        }
-      }
-    ],
-    "text": "",
-    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
-    "ms": 6421
-  },
-  {
-    "id": "p-parking",
-    "locale": "pl",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of ZDMK-72/ZDMK-71, fetched nothing"
-    ],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "abonament parkingowy dla mieszkańca strefy",
-          "tags": [
-            "pojazd"
-          ]
-        }
-      }
-    ],
-    "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 3687
-  },
-  {
-    "id": "p-waste",
-    "locale": "pl",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of PD-17, fetched nothing"
-    ],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "deklaracja opłata za śmieci po przeprowadzce",
-          "tags": [
-            "przeprowadzka"
-          ]
-        }
-      }
-    ],
-    "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 3720
-  },
-  {
-    "id": "p-property-tax",
-    "locale": "en",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of PD-4, fetched nothing"
-    ],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "deklaracja podatku od nieruchomości",
-          "tags": [
-            "mieszkanie"
-          ]
-        }
-      }
-    ],
-    "text": "In Kraków the city does **not** collect the annual property‑tax (podatek od nieruchomości). That tax is administered by the state tax office, not by the municipal authorities.\n\n**What you need to do**\n\n1. **Check the tax‑office (Urząd Skarbowy) website** for the annual property‑tax declaration form and the deadline (usually 31 January for the previous year).  \n2. If you are a new owner, the declaration is usually required **once** after you have been entered in the land‑and‑building register (księga wieczysta).  \n3. Submit the completed form (paper or e‑declaration) to the appropriate tax‑office for Kraków.  \n\nFor detailed instructions, forms and deadlines, see the official tax‑office portal:\n\n🔗 **[Polish Tax Administration – Property Tax](https://www.podatki.gov.pl)**  \n\nIf you need help locating the nearest tax‑office or have questions about the form, let me know!",
-    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
-    "ms": 3923
-  },
-  {
-    "id": "p-birth",
-    "locale": "uk",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of SC-1/SC-29, fetched nothing"
-    ],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "zgłoszenie narodzin",
-          "tags": [
-            "dziecko"
-          ]
-        }
-      }
-    ],
-    "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 5279
-  },
-  {
-    "id": "p-big-family",
-    "locale": "pl",
-    "toolsOk": true,
-    "sourcesOk": true,
-    "passed": true,
-    "problems": [],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "Karta Dużej Rodziny",
-          "tags": [
-            "dziecko"
-          ]
-        }
-      },
-      {
-        "tool": "get_procedure",
-        "input": {
-          "symbol": "SO-27"
-        }
-      }
-    ],
-    "text": "",
-    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
-    "ms": 1043
-  },
-  {
-    "id": "p-housing-allowance",
-    "locale": "pl",
-    "toolsOk": true,
-    "sourcesOk": true,
-    "passed": true,
-    "problems": [],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "dodatek mieszkaniowy",
-          "tags": [
-            "pomoc_spoleczna"
-          ]
-        }
-      },
-      {
-        "tool": "get_procedure",
-        "input": {
-          "symbol": "SO-15"
-        }
-      }
-    ],
-    "text": "",
-    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
-    "ms": 1537
-  },
-  {
-    "id": "p-unemployed",
-    "locale": "en",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of GUP-2/GUP-1, fetched nothing"
-    ],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "rejestracja bezrobotnego",
-          "tags": []
-        }
-      }
-    ],
-    "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 2954
-  },
-  {
-    "id": "p-integration-uk",
-    "locale": "uk",
-    "toolsOk": true,
-    "sourcesOk": true,
-    "passed": true,
-    "problems": [],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "integracja cudzoziemców",
-          "tags": [
-            "cudzoziemiec"
-          ]
-        }
-      },
-      {
-        "tool": "get_procedure",
-        "input": {
-          "symbol": "MOPS-21"
-        }
-      }
-    ],
-    "text": "",
-    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
-    "ms": 3470
-  },
-  {
-    "id": "p-hire-foreigner",
-    "locale": "pl",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: get_procedure",
-      "expected one of GUP-5, fetched nothing"
-    ],
-    "calls": [
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "oświadczenie o powierzeniu pracy cudzoziemcowi",
-          "tags": [
-            "praca"
-          ]
-        }
-      }
-    ],
-    "text": "",
-    "model": "openai/gpt-oss-120b",
-    "ms": 2911
+    "ms": 4186
   },
   {
     "id": "pl-nurseries-district",
     "locale": "pl",
-    "toolsOk": false,
-    "sourcesOk": false,
-    "passed": false,
-    "problems": [
-      "missing tools: find_places",
-      "expected categories zlobek, got "
-    ],
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
     "calls": [
       {
-        "tool": "geocode",
+        "tool": "find_places",
         "input": {
-          "query": "Podgórze Kraków"
-        }
-      },
-      {
-        "tool": "search_procedures",
-        "input": {
-          "query_pl": "Podgórze numer dzielnicy Kraków",
-          "tags": [
-            "mieszkanie"
-          ]
+          "categories": [
+            "zlobek"
+          ],
+          "district": 17
         }
       }
     ],
     "text": "",
-    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
-    "ms": 6452
+    "model": "openai/gpt-oss-120b",
+    "ms": 4437
   },
   {
     "id": "pl-schools-uk",
@@ -785,13 +559,14 @@
           "categories": [
             "szkola_podstawowa"
           ],
-          "address": "Wielicka 28, Kraków"
+          "address": "Wielicka 28, Kraków",
+          "limit": 10
         }
       }
     ],
-    "text": "Ось одна початкова школа, розташована найближче до **вулиці Wielicka 28**:\n\n- **Szkoła Podstawowa nr 29 im. Jana Matejki** – al. Edwarda Dembowskiego 12, 30‑540 Kraków (район 13 Podgórze) – приблизно 770 м від вашої адреси.  \n\n(на карті позначена маркером **(1)**).  \n\nЯкщо потрібна додаткова інформація (наприклад, розклад, контактний телефон), звертайтеся безпосередньо до школи або до **Управління освіти міста Кракова**.  \n\n---  \n\n*Це лише один варіант, який система знайшла у відкритих даних. Якщо шукаєте інші школи або інші категорії (наприклад, середні школи), дайте знати – підберу ще.*",
-    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
-    "ms": 1112
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 3284
   },
   {
     "id": "pl-parks-en",
@@ -812,76 +587,8 @@
         }
       }
     ],
-    "text": "Here are the parks close to **ul. Wielicka 28** (the nearest one is shown on the map as marker (1)):\n\n| Park | District | Area |\n|------|----------|------|\n| **Park im. Wojciecha Bednarskiego** | Podgórze (13) | 8.24 ha |\n\nThe park is about 1.2 km from your address, easily reachable on foot or by a short bus ride. Let me know if you’d like more details (e.g., playgrounds, walking trails) or other nearby green spaces!",
-    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
-    "ms": 3155
-  },
-  {
-    "id": "pl-15min-en",
-    "locale": "en",
-    "toolsOk": true,
-    "sourcesOk": true,
-    "passed": true,
-    "problems": [],
-    "calls": [
-      {
-        "tool": "nearby_15min",
-        "input": {
-          "address": "ul. Wielicka 28",
-          "mode": "walk"
-        }
-      }
-    ],
     "text": "",
     "model": "openai/gpt-oss-120b",
-    "ms": 5430
-  },
-  {
-    "id": "out-karta-pobytu",
-    "locale": "uk",
-    "toolsOk": true,
-    "sourcesOk": true,
-    "passed": true,
-    "problems": [],
-    "calls": [],
-    "text": "Карту побиту (karta pobytu) у Кракові оформляє **Управління Wojewódzkie w Małopolsce**. Детальну інформацію та необхідні документи можна знайти на їхньому офіційному сайті:\n\n🔗 https://www.malopolska.uw.gov.pl\n\nЦе державна установа, а не міська, тому в місті Кракові окремих процедур щодо карти побиту немає. Якщо потрібна допомога з іншими питаннями, пов’язаними з життям у Кракові, звертайтеся!",
-    "model": "openai/gpt-oss-120b",
-    "ms": 964
-  },
-  {
-    "id": "out-nfz",
-    "locale": "en",
-    "toolsOk": true,
-    "sourcesOk": true,
-    "passed": true,
-    "problems": [],
-    "calls": [],
-    "text": "Public health insurance (NFZ) is managed at the national level, not by the City of Kraków. You can find all the necessary information and apply through the official website:\n\n**National Health Fund (NFZ):** https://www.nfz.gov.pl",
-    "model": "openai/gpt-oss-120b",
-    "ms": 354
-  },
-  {
-    "id": "out-zus",
-    "locale": "pl",
-    "toolsOk": true,
-    "sourcesOk": true,
-    "passed": true,
-    "problems": [],
-    "calls": [],
-    "text": "Obliczaniem emerytury zajmuje się Zakład Ubezpieczeń Społecznych (ZUS). Więcej informacji znajdziesz na ich stronie: https://www.zus.pl.",
-    "model": "openai/gpt-oss-120b",
-    "ms": 379
-  },
-  {
-    "id": "out-weather",
-    "locale": "en",
-    "toolsOk": true,
-    "sourcesOk": true,
-    "passed": true,
-    "problems": [],
-    "calls": [],
-    "text": "Weather forecasts for Kraków are provided by the Institute of Meteorology and Water Management (IMGW) – https://www.imgw.pl.",
-    "model": "openai/gpt-oss-120b",
-    "ms": 1210
+    "ms": 5380
   }
 ]
