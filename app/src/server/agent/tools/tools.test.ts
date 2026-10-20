@@ -5,7 +5,8 @@ import { Place } from "@/contracts/place";
 import nearbyJson from "@/contracts/fixtures/nearby.sample.json";
 import placesJson from "@/contracts/fixtures/places.sample.json";
 import { ToolError } from "./errors";
-import { runGetProcedure, runGetScenario, runSearchProcedures } from "./knowledge";
+import { getProcedure } from "../kb/procedures";
+import { runGetProcedure, runGetScenario, runSearchProcedures, scenarioForModel } from "./knowledge";
 import { runFindPlaces, runGeocode, runNearby } from "./places";
 
 // A stub instead of the zone A service keeps these tests independent of how A's data evolves.
@@ -66,6 +67,13 @@ describe("get_scenario", () => {
 
   it("throws a ToolError for an unknown id", () => {
     expect(() => runGetScenario({ id: "nope" }, "pl")).toThrow(ToolError);
+  });
+
+  it("shows the model the real BIP title of every referenced procedure", () => {
+    const forModel = scenarioForModel(runGetScenario({ id: "obywatel-ua" }, "uk"));
+    const gup1 = forModel.procedures.find((p) => p.symbol === "GUP-1");
+    expect(gup1?.title).toBe(getProcedure("GUP-1")!.title);
+    expect(gup1?.bipUrl).toMatch(/^https:\/\/www\.bip\.krakow\.pl\//);
   });
 });
 

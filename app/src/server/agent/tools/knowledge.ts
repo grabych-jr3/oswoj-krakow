@@ -41,3 +41,16 @@ export function runGetScenario(input: { id: string; locale?: Locale }, defaultLo
   if (!scenario) throw new ToolError(`Unknown scenario id "${input.id}".`);
   return { scenario };
 }
+
+/**
+ * What the model sees for get_scenario: the contract output plus the real title and BIP link of every
+ * referenced procedure, so the answer quotes them instead of inventing or translating titles.
+ */
+export function scenarioForModel(output: Output<"get_scenario">) {
+  const symbols = [...new Set(output.scenario.steps.flatMap((s) => s.procedureSymbols))];
+  const procedures = symbols.flatMap((symbol) => {
+    const p = getProcedure(symbol);
+    return p ? [{ symbol: p.symbol, title: p.title, bipUrl: p.bipUrl }] : [];
+  });
+  return { ...output, procedures };
+}

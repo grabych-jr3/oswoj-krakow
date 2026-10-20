@@ -2,18 +2,25 @@
 import { tool } from "ai";
 import { z } from "zod";
 import { ToolOutputs } from "@/contracts/chat";
-import { LngLat, type Locale } from "@/contracts/common";
+import type { LngLat, Locale } from "@/contracts/common";
 import { TravelMode } from "@/contracts/geo";
 import { LifeTag } from "@/contracts/kb";
 import { PlaceCategory } from "@/contracts/place";
 import type { GeoService } from "@/server/geo";
 import { listScenarioIds } from "../kb/scenarios";
-import { runGetProcedure, runGetScenario, runSearchProcedures } from "./knowledge";
+import { runGetProcedure, runGetScenario, runSearchProcedures, scenarioForModel } from "./knowledge";
 import { runFindPlaces, runGeocode, runNearby } from "./places";
 
 export { ToolError } from "./errors";
 
 const scenarioIds = listScenarioIds("pl") as [string, ...string[]];
+
+// Gemini rejects the JSON Schema of a tuple, so tool inputs take [lng, lat] as a two-number array.
+const LngLatInput = z
+  .array(z.number())
+  .length(2)
+  .describe("[lng, lat]")
+  .transform((v): LngLat => [v[0], v[1]]);
 
 export interface ToolContext {
   geo: GeoService;
@@ -53,15 +60,18 @@ export function buildTools({ geo, locale, mapOrigin }: ToolContext) {
       }),
       outputSchema: ToolOutputs.get_scenario,
       execute: (input) => runGetScenario(input, locale),
+      toModelOutput: ({ output }) => ({ type: "json", value: scenarioForModel(output) }),
     }),
 
     find_places: tool({
       description:
         "City places to show on the map (kindergartens, schools, libraries, parks, stops, offices…), " +
-        "optionally near an address or coordinates, or in a district. Refer to results by their marker label.",
+        "optionally near an address or coordinates, or in a district. Refer to results by their marker label. " +
+        "Each place has attrs for comparing size: kindergartens and schools give children / students and groups, " +
+        "nurseries give places, parks give area_ha. Ask for a larger limit when the user wants the biggest ones.",
       inputSchema: z.object({
         categories: z.array(PlaceCategory).min(1),
-        near: LngLat.optional().describe("[lng, lat]"),
+        near: LngLatInput.optional(),
         address: z.string().optional().describe("Address in Kraków to search around"),
         district: z.number().int().min(1).max(18).optional(),
         text: z.string().optional().describe("Part of a place name"),
@@ -77,7 +87,7 @@ export function buildTools({ geo, locale, mapOrigin }: ToolContext) {
         "Without address or coords, uses the point the user picked on the map.",
       inputSchema: z.object({
         address: z.string().optional(),
-        coords: LngLat.optional().describe("[lng, lat]"),
+        coords: LngLatInput.optional(),
         mode: TravelMode.default("walk"),
       }),
       outputSchema: ToolOutputs.nearby_15min,
