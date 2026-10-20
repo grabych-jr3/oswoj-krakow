@@ -105,9 +105,9 @@ def test_nominatim_client_caches_and_throttles(tmp_path):
 def test_extractors_read_each_layout():
     record = {"Numer RSPO": 5884, "Nazwa szkoły_placówki": "SP 133", "Ulica": "Mieczysława Wrony",
               "Nr domu": 115, "Kod pocztowy": "30-399"}
-    [school] = extract("szkoly_podstawowe_samorzadowe", [record])
+    [school], _ = extract("szkoly_podstawowe_samorzadowe", [record])
     assert (school.key, school.street, school.number) == ("rspo-5884", "Mieczysława Wrony", "115")
-    [library] = extract("biblioteki", [{"Nazwa lub numer filii": "Filia nr 1", "Nazwa ulicy": "Dietla",
+    [library], _ = extract("biblioteki", [{"Nazwa lub numer filii": "Filia nr 1", "Nazwa ulicy": "Dietla",
                                         "Numer budynku": "80", "Kod pocztowy": "31-073"}])
     assert (library.key, library.street, library.number) == ("filia-nr-1", "Dietla", "80")
 
@@ -115,7 +115,25 @@ def test_extractors_read_each_layout():
 def test_report_counts_and_target():
     rows = [(PRESCHOOL, geocode_place(PRESCHOOL, GEO, {}, None)),
             (InputAddress("d", "k", "F", "Wielicka", "30", None), GEO.geocode("Wielicka", "30"))]
-    report = render_report({"d": rows}, "2025-12-05", nominatim=False)
+    report = render_report({"d": rows}, "2025-12-05", online=False, duplicates={"d": 1})
     assert "| **Total** | **2** | **1** | **0** | **1** | **0** | **50.0%** |" in report
-    assert "not met" in report and "no house number in source" in report
+    assert "not met" in report and "no house number in source" in report and "--offline" in report
+    assert "counted once: 1" in report
     assert isinstance(rows[0][1], Outcome)
+
+
+def test_extract_drops_exact_repeats_and_keeps_units_apart():
+    def row(lokal, lp):
+        return {"Lp": lp, "Nazwa": "Żłobek X", "Ulica": "Strycharska", "Numer budynku": "10",
+                "Numer lokalu": lokal, "Kod pocztowy": "30-712"}
+
+    items, duplicates = extract("zlobki_prywatne", [row("LU1", 1), row("LU2", 2), row("LU2", 3)])
+    assert [i.key for i in items] == ["zlobek-x-strycharska-10-lu1", "zlobek-x-strycharska-10-lu2"]
+    assert duplicates == 1
+
+
+def test_recovered_number_keeps_the_approximation_flag():
+    geo = Geocoder([AddressPoint(1, "Wielicka", "28", "30-552", 13, 19.96, 50.04)])
+    nominatim = FakeNominatim([osm("Przedszkole nr 129 Skrzaty", "Wielicka", "28B")])  # 28B not in EMUiA
+    outcome = geocode_place(PRESCHOOL, geo, {}, nominatim)
+    assert outcome.hit.emuia_id == 1 and outcome.hit.method == "nominatim+emuia~number"

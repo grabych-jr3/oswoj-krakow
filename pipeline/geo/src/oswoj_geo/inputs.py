@@ -35,16 +35,17 @@ def _education(dataset: str, r: dict[str, Any]) -> InputAddress:
                         _str(r.get("Ulica")), _str(r.get("Nr domu")), _str(r.get("Kod pocztowy")))
 
 
+# Keys include the premise: one building can hold two registered units ("Strycharska 10" LU1 and LU2).
 def _childcare(dataset: str, r: dict[str, Any]) -> InputAddress:
     street, number = _str(r.get("Ulica")), _str(r.get("Numer budynku"))
-    return InputAddress(dataset, _slug(r["Nazwa"], street, number), r["Nazwa"], street, number,
-                        _str(r.get("Kod pocztowy")))
+    return InputAddress(dataset, _slug(r["Nazwa"], street, number, r.get("Numer lokalu")), r["Nazwa"],
+                        street, number, _str(r.get("Kod pocztowy")))
 
 
 def _parent_club(dataset: str, r: dict[str, Any]) -> InputAddress:
     street, number = _str(r.get("Ulica")), _str(r.get("Numer budynku"))
-    return InputAddress(dataset, _slug(r["Miejsce"], street, number), r["Miejsce"], street, number,
-                        _str(r.get("Kod pocztowy")))
+    return InputAddress(dataset, _slug(r["Miejsce"], street, number, r.get("Numer lokalu")), r["Miejsce"],
+                        street, number, _str(r.get("Kod pocztowy")))
 
 
 def _library(dataset: str, r: dict[str, Any]) -> InputAddress:
@@ -71,5 +72,14 @@ PLACE_DATASETS: dict[str, Extractor] = {
 }
 
 
-def extract(dataset: str, records: list[dict[str, Any]]) -> list[InputAddress]:
-    return [PLACE_DATASETS[dataset](dataset, r) for r in records]
+def extract(dataset: str, records: list[dict[str, Any]]) -> tuple[list[InputAddress], int]:
+    """Addresses with unique keys, and how many source rows were exact repeats of an earlier one."""
+    seen: dict[str, InputAddress] = {}
+    for r in records:
+        item = PLACE_DATASETS[dataset](dataset, r)
+        if item.key in seen:
+            if seen[item.key] != item:
+                raise ValueError(f"{dataset}: two different records share the key {item.key}")
+            continue
+        seen[item.key] = item
+    return list(seen.values()), len(records) - len(seen)

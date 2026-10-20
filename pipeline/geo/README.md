@@ -8,7 +8,7 @@ uv run geo-fetch                 # download every source into .cache/raw (cached
 uv run geo-fetch --skip-large    # everything except the OSM PBF (~200 MB)
 uv run geo-fetch biblioteki dzielnice --refresh   # selected sources, re-downloaded
 uv run geo-geocode               # geocode all place datasets (A2), write reports/geocoding.md
-uv run geo-geocode --no-nominatim  # EMUiA only, no network
+uv run geo-geocode --offline     # EMUiA only, no network
 uv run ruff check && uv run pytest
 ```
 
