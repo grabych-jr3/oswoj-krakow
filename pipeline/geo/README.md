@@ -17,7 +17,12 @@ uv run ruff check && uv run pytest
 - Coordinates come from EMUiA address points (MSIP, EPSG:2178 → 4326). Street lookup: exact key →
   partial ("Kutrzeby" → "Generała Tadeusza Kutrzeby") → fuzzy; street kind (osiedle/aleja/plac) and
   postal code break ties, a wrong postal code never rejects a match.
-- The portal stores "Nr domu" as a number, so "28A" arrives as null. For those records Nominatim (OSM)
+- The portal stores "Nr domu" as a number, so "28A" arrives as null. Kindergartens and schools carry an
+  RSPO number: their building number is read from the national register (`rspo.gov.pl/api/Institution/<rspo>`,
+  1 request/s, cached in `.cache/rspo.json`), used only if the RSPO street is the city record's street.
+  Checked on 52 records also found via OSM: same building 40, neighbouring building (≤125 m) 10, wrong 2,
+  so RSPO goes first.
+- For the other datasets Nominatim (OSM)
   is asked for the institution; its house number is accepted only if the street and the institution
   ("nr 129" or a distinctive name word) match, and the point is then taken from EMUiA again.
   Nominatim answers are cached in `.cache/nominatim.json` (1 request/s).

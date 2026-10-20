@@ -21,6 +21,7 @@ from .inputs import PLACE_DATASETS, InputAddress, extract
 from .nominatim import NominatimClient
 from .osm import SNAP_MAX_M, OsmInstitution, amenities_for, fetch_institutions, same_institution
 from .portal import make_client
+from .rspo import RspoClient
 from .streets import fold, street_key
 
 EMUIA_ZIP = RAW_DIR / "Adresy_JSON.zip"
@@ -29,6 +30,7 @@ GEOCODED_DIR = CACHE_DIR / "geocoded"
 REPORT = PIPELINE_DIR / "reports" / "geocoding.md"
 NOMINATIM_CACHE = CACHE_DIR / "nominatim.json"
 OSM_CACHE = CACHE_DIR / "osm_institutions.json"
+RSPO_CACHE = CACHE_DIR / "rspo.json"
 TARGET_SHARE = 0.95  # A2: ≥95% of places with address precision
 
 
@@ -131,9 +133,27 @@ def recover_from_osm(item: InputAddress, geocoder: Geocoder,
     return None
 
 
+def recover_from_rspo(item: InputAddress, geocoder: Geocoder, rspo: RspoClient) -> Outcome | None:
+    """Address-level outcome from the RSPO register's street and building number (education datasets)."""
+    if not item.key.startswith("rspo-"):
+        return None
+    seat = rspo.address(item.key.removeprefix("rspo-"))
+    if not seat or not seat.get("street") or not seat.get("number"):
+        return None
+    # RSPO holds the registered seat; if it is on another street than the city's record, the place
+    # itself may be elsewhere ("Happy Kids": portal Lipińskiego, RSPO Armii Krajowej), so skip it.
+    if not item.street or not same_street(seat["street"], item.street):
+        return None
+    outcome = geocoder.geocode(item.street, seat["number"], item.postal or seat.get("postal"))
+    if outcome.is_address and outcome.hit:
+        return Outcome(replace(outcome.hit, method="rspo+emuia"))
+    return None
+
+
 def geocode_place(item: InputAddress, geocoder: Geocoder, fixes: dict[tuple[str, str], ManualFix],
                   nominatim: NominatimClient | None,
-                  institutions: list[OsmInstitution] | None = None) -> Outcome:
+                  institutions: list[OsmInstitution] | None = None,
+                  rspo: RspoClient | None = None) -> Outcome:
     fix = fixes.get((item.dataset, item.key))
     if fix and fix.lon is not None and fix.lat is not None:
         return Outcome(GeocodeHit(fix.lon, fix.lat, "address", "manual", fix.street, fix.number, item.postal,
@@ -143,6 +163,8 @@ def geocode_place(item: InputAddress, geocoder: Geocoder, fixes: dict[tuple[str,
     outcome = geocoder.geocode(street, number, item.postal)
     if fix and outcome.hit:
         outcome = Outcome(replace(outcome.hit, method="manual+" + outcome.hit.method), outcome.reason)
+    if not outcome.is_address and rspo is not None:
+        outcome = recover_from_rspo(item, geocoder, rspo) or outcome
     if not outcome.is_address and nominatim is not None:
         outcome = recover_number(item, geocoder, nominatim) or outcome
     if not outcome.is_address and institutions:
@@ -210,7 +232,9 @@ def render_report(results: dict[str, list[tuple[InputAddress, Outcome]]], emuia:
         "",
         "`exact`: same street key and number · `partial`: source street is part of the EMUiA name "
         "(\"Kutrzeby\" → \"Generała Tadeusza Kutrzeby\") · `fuzzy`: rapidfuzz ≥ 85 · `~number`: the exact "
-        "number is not in EMUiA, the plain number is used (\"1A\" → \"1\") · `nominatim+emuia`: house number "
+        "number is not in EMUiA, the plain number is used (\"1A\" → \"1\") · `rspo+emuia`: house number "
+        "from the national school register RSPO (same street as the city record), coordinates from EMUiA · "
+        "`nominatim+emuia`: house number "
         "from OSM, coordinates from EMUiA · `osm+emuia`: the same institution in OSM (matching type, number "
         "or name, street), placed on the nearest EMUiA address point of the source street (≤ 60 m) · "
         "`manual`: `manual_fixes.csv`.",
@@ -237,8 +261,9 @@ def run(use_nominatim: bool = True) -> dict[str, list[tuple[InputAddress, Outcom
     with make_client() as http:
         nominatim = NominatimClient(http, NOMINATIM_CACHE) if use_nominatim else None
         institutions = fetch_institutions(http, OSM_CACHE) if use_nominatim else None
+        rspo = RspoClient(http, RSPO_CACHE) if use_nominatim else None
         for dataset in PLACE_DATASETS:
-            results[dataset] = [(item, geocode_place(item, geocoder, fixes, nominatim, institutions))
+            results[dataset] = [(item, geocode_place(item, geocoder, fixes, nominatim, institutions, rspo))
                                 for item in extract(dataset, load_table(dataset))]
     GEOCODED_DIR.mkdir(parents=True, exist_ok=True)
     for dataset, rows in results.items():
