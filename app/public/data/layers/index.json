@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-10-20T21:52:01+00:00",
+  "categories": [
+    {
+      "category": "zlobek",
+      "count": 309,
+      "updatedAt": "2026-10-19",
+      "source": [
+        {
+          "dataset": "zlobki-samorzadowe-w-krakowie",
+          "url": "https://otwartedane.um.krakow.pl/zbiory-danych/zlobki-samorzadowe-w-krakowie",
+          "updatedAt": "2026-10-19"
+        },
+        {
+          "dataset": "zlobki-prywatne-w-krakowie",
+          "url": "https://otwartedane.um.krakow.pl/zbiory-danych/zlobki-prywatne-w-krakowie",
+          "updatedAt": "2026-07-22"
+        },
+        {
+          "dataset": "zlobki-niesamorzadowe-prowadzone-na-zlecenie-gminy-miejskiej-krakow",
+          "url": "https://otwartedane.um.krakow.pl/zbiory-danych/zlobki-niesamorzadowe-prowadzone-na-zlecenie-gminy-miejskiej-krakow",
+          "updatedAt": "2026-07-22"
+        }
+      ]
+    },
+    {
+      "category": "klub_dzieciecy",
+      "count": 21,
+      "updatedAt": "2026-07-22",
+      "source": [
+        {
+          "dataset": "kluby-dzieciece-w-krakowie",
+          "url": "https://otwartedane.um.krakow.pl/zbiory-danych/kluby-dzieciece-w-krakowie",
+          "updatedAt": "2026-07-22"
+        }
+      ]
+    },
+    {
+      "category": "przedszkole",
+      "count": 486,
+      "updatedAt": "2025-09-30",
+      "source": [
+        {
+          "dataset": "przedszkola-w-krakowie-liczba-dzieci",
+          "url": "https://otwartedane.um.krakow.pl/zbiory-danych/przedszkola-w-krakowie-liczba-dzieci",
+          "updatedAt": "2025-09-30"
+        }
+      ]
+    },
+    {
+      "category": "szkola_podstawowa",
+      "count": 208,
+      "updatedAt": "2025-09-30",
+      "source": [
+        {
+          "dataset": "szkoly-podstawowe-w-krakowie-liczba-dzieci",
+          "url": "https://otwartedane.um.krakow.pl/zbiory-danych/szkoly-podstawowe-w-krakowie-liczba-dzieci",
+          "updatedAt": "2025-09-30"
+        }
+      ]
+    },
+    {
+      "category": "szkola_ponadpodstawowa",
+      "count": 233,
+      "updatedAt": "2025-09-30",
+      "source": [
+        {
+          "dataset": "szkoly-ponadpodstawowe-w-krakowie-liczba-uczniow",
+          "url": "https://otwartedane.um.krakow.pl/zbiory-danych/szkoly-ponadpodstawowe-w-krakowie-liczba-uczniow",
+          "updatedAt": "2025-09-30"
+        }
+      ]
+    },
+    {
+      "category": "klub_rodzica",
+      "count": 50,
+      "updatedAt": null,
+      "source": [
+        {
+          "dataset": "kluby-rodzicow-z-dziecmi-do-lat-3-w-krakowie",
+          "url": "https://otwartedane.um.krakow.pl/zbiory-danych/kluby-rodzicow-z-dziecmi-do-lat-3-w-krakowie",
+          "updatedAt": null
+        }
+      ]
+    },
+    {
+      "category": "biblioteka",
+      "count": 62,
+      "updatedAt": null,
+      "source": [
+        {
+          "dataset": "lista-bibliotek-miejskich-biblioteki-krakow",
+          "url": "https://otwartedane.um.krakow.pl/zbiory-danych/lista-bibliotek-miejskich-biblioteki-krakow",
+          "updatedAt": null
+        }
+      ]
+    }
+  ]
+}

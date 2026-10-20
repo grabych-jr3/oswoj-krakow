@@ -2,6 +2,7 @@
 
 import json
 import math
+import re
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -62,6 +63,20 @@ def parse_emuia(collection: dict) -> list[AddressPoint]:
         )
         for f, lon, lat in zip(features, lons, lats, strict=True)
     ]
+
+
+def district_names(zip_path: Path) -> dict[int, str]:
+    """District number → name from EMUiA ("Dzielnica XIII Podgórze" → {13: "Podgórze"})."""
+    with zipfile.ZipFile(zip_path) as archive:
+        name = next(n for n in archive.namelist() if n.endswith(".geojson"))
+        collection = json.loads(archive.read(name))
+    names: dict[int, str] = {}
+    for f in collection["features"]:
+        number = _int_or_none(f["properties"].get("numer_dzielnicy"))
+        label = f["properties"].get("nazwa_dzielnicy") or ""
+        if number is not None and number not in names and label:
+            names[number] = re.sub(r"^Dzielnica\s+[IVXLC]+\s+", "", label).strip()
+    return names
 
 
 def load_emuia(zip_path: Path) -> list[AddressPoint]:
