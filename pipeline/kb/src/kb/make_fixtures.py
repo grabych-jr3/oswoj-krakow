@@ -14,18 +14,18 @@ def export_procedure_sa34():
     procedures = json.loads(PROCEDURES_FILE.read_text(encoding="utf-8"))
     sa34 = next((p for p in procedures if p["symbol"] == "SA-34"), None)
     if not sa34:
-        print("Внимание: SA-34 не найдена, берем первую процедуру как образец")
+        print("Warning: SA-34 not found, falling back to first procedure")
         sa34 = procedures[0]
 
     out_file = FIXTURES_DIR / "procedure.SA-34.json"
     out_file.write_text(
         json.dumps(sa34, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    print(f"Фикстура процедуры сохранена: {out_file}")
+    print(f"Procedure fixture exported: {out_file}")
 
 
 def export_sample_scenario():
-    # Эталонный сценарий по схеме Scenario из contracts/kb.ts
+    # Canonical scenario adhering to Scenario schema in contracts/kb.ts
     sample_scenario = {
         "id": "obywatel-ua",
         "locale": "pl",
@@ -36,18 +36,18 @@ def export_sample_scenario():
                 "order": 1,
                 "title": "Uzyskanie numeru PESEL ze statusem UKR",
                 "why": "Niezbędny do legalnego pobytu, podjęcia pracy oraz korzystania ze świadczeń medycznych i socjalnych.",
-                "when": "W ciągu 30 dni od momentu wjazdu do Polski",
+                "when": None,
                 "procedureSymbols": ["SA-65"],
                 "placeCategories": ["urzad"],
                 "external": [],
             },
             {
                 "order": 2,
-                "title": "Zapisanie dziecka do przedszkola lub szkoły",
-                "why": "Dzieci w wieku 7-18 lat podlegają obowiązkowi szkolnemu w Polsce na takich samych warunkach jak obywatele RP.",
-                "when": "Przed rozpoczęciem nauki lub w trakcie roku szkolnego",
-                "procedureSymbols": ["SO-20"],
-                "placeCategories": ["przedszkole", "szkola_podstawowa"],
+                "title": "Zameldowanie i zgłoszenie adresu zamieszkania",
+                "why": "Oficjalna rejestracja miejsca zamieszkania w Krakowie ułatwiająca rekrutację do przedszkoli i szkół.",
+                "when": "Najpóźniej w 4. dniu od przybycia (jeśli pobyt czasowy przekracza 30 dni)",
+                "procedureSymbols": ["SA-12"],
+                "placeCategories": ["urzad"],
                 "external": [],
             },
             {
@@ -67,6 +67,7 @@ def export_sample_scenario():
         ],
         "sources": [
             "https://www.bip.krakow.pl/uslugi/SA-65",
+            "https://www.bip.krakow.pl/uslugi/SA-12",
             "https://gupkrakow.praca.gov.pl",
         ],
     }
@@ -75,7 +76,7 @@ def export_sample_scenario():
     out_file.write_text(
         json.dumps(sample_scenario, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    print(f"Фикстура сценария сохранена: {out_file}")
+    print(f"Scenario fixture exported: {out_file}")
 
 
 if __name__ == "__main__":

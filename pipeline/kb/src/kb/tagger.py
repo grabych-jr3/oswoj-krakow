@@ -6,7 +6,7 @@ ROOT_DIR = Path(__file__).resolve().parents[4]
 PROCEDURES_FILE = ROOT_DIR / "app" / "data" / "kb" / "procedures.json"
 
 
-# Ключевые слова для тегов (поиск по названию, описанию и коду департамента)
+# Tag keywords rules (searching titles, descriptions, and department codes)
 TAG_RULES = {
     "obywatel_ua": [
         r"ukrain",
@@ -140,12 +140,12 @@ def tag_procedure(proc: dict) -> tuple[list[str], float]:
                 "renta planistyczna",
             ]
         ):
-            # Специфические строительные и музейные процедуры
+            # Specific construction / spatial planning / museum procedures
             relevance = 0.05
         else:
             relevance = 0.2
 
-    # Если ни один тег не подошел — помечаем как "inne"
+    # If no tags matched, mark as "inne"
     if not tags:
         tags.add("inne")
 
@@ -154,11 +154,11 @@ def tag_procedure(proc: dict) -> tuple[list[str], float]:
 
 def main():
     if not PROCEDURES_FILE.exists():
-        print(f"Файл {PROCEDURES_FILE} не найден! Сначала запусти parser.py")
+        print(f"File {PROCEDURES_FILE} not found. Run parser.py first.")
         return
 
     procedures = json.loads(PROCEDURES_FILE.read_text(encoding="utf-8"))
-    print(f"Тегируем {len(procedures)} процедур...")
+    print(f"Tagging {len(procedures)} procedures...")
 
     tagged_count = 0
     high_rel_count = 0
@@ -175,9 +175,9 @@ def main():
     PROCEDURES_FILE.write_text(
         json.dumps(procedures, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    print("Готово! Размечено процедур:")
-    print(f"- С конкретными тегами (не 'inne'): {tagged_count}/{len(procedures)}")
-    print(f"- С высоким приоритетом (relevance >= 0.7): {high_rel_count}")
+    print("Done! Tagging statistics:")
+    print(f"- Specific tags (not 'inne'): {tagged_count}/{len(procedures)}")
+    print(f"- High relevance (relevance >= 0.7): {high_rel_count}")
 
 
 if __name__ == "__main__":

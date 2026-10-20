@@ -22,7 +22,7 @@
         "order": 2,
         "title": "Update address in vehicle registration certificate",
         "why": "Requirement to keep vehicle registration records aligned with the owner's actual residence.",
-        "when": "Within 30 days from the change of residential address",
+        "when": null,
         "procedureSymbols": [
           "KM-8"
         ],
@@ -60,8 +60,8 @@
       {
         "order": 1,
         "title": "Registration of foreigner residence (zameldowanie)",
-        "why": "Fulfillment of statutory residence registration for foreigners staying in Poland for more than 30 days.",
-        "when": "No later than the 30th day from arrival",
+        "why": "Fulfillment of statutory residence registration for foreigners staying in Poland for more than 3 months.",
+        "when": "No later than the 30th day from arrival (if staying more than 3 months)",
         "procedureSymbols": [
           "SA-12"
         ],
@@ -183,7 +183,7 @@
         "order": 1,
         "title": "Obtaining PESEL number with UKR status",
         "why": "Confirmation of temporary protection, legal stay, public healthcare eligibility, and access to work and benefits.",
-        "when": "Promptly upon entry into Poland",
+        "when": null,
         "procedureSymbols": [
           "SA-65"
         ],
@@ -196,7 +196,7 @@
         "order": 2,
         "title": "Address registration (zameldowanie)",
         "why": "Official proof of local residence simplifying kindergarten and school enrolment.",
-        "when": "No later than 30 days from arrival",
+        "when": "No later than the 4th day from arrival (if staying more than 30 days)",
         "procedureSymbols": [
           "SA-12"
         ],
@@ -306,7 +306,7 @@
         "order": 4,
         "title": "School social scholarship",
         "why": "Financial assistance for students in need to cover educational supplies and school books.",
-        "when": "September 1 to September 15 of each school year",
+        "when": null,
         "procedureSymbols": [
           "MOPS-45"
         ],
@@ -395,7 +395,7 @@
         "order": 1,
         "title": "Registration of a used vehicle purchased in Poland",
         "why": "Transfer of vehicle registration title to the new owner's details in Kraków.",
-        "when": "Within 30 days from acquiring the vehicle",
+        "when": null,
         "procedureSymbols": [
           "KM-2"
         ],
@@ -408,7 +408,7 @@
         "order": 2,
         "title": "Registration of a vehicle imported from abroad",
         "why": "Official road registration in Poland following technical inspection and excise duty payment.",
-        "when": "Within 30 days from bringing the vehicle into Poland from the EU",
+        "when": null,
         "procedureSymbols": [
           "KM-14"
         ],
@@ -421,7 +421,7 @@
         "order": 3,
         "title": "Update of address in vehicle registration document",
         "why": "Reflecting the owner's updated address of residence in vehicle records.",
-        "when": "Within 30 days of the change",
+        "when": null,
         "procedureSymbols": [
           "KM-8"
         ],

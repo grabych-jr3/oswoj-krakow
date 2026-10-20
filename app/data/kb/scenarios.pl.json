@@ -22,7 +22,7 @@
         "order": 2,
         "title": "Aktualizacja adresu w dowodzie rejestracyjnym pojazdu",
         "why": "Konieczność zachowania zgodności danych rejestracyjnych pojazdu z aktualnym miejscem zamieszkania właściciela.",
-        "when": "W terminie 30 dni od dnia zmiany adresu zamieszkania",
+        "when": null,
         "procedureSymbols": [
           "KM-8"
         ],
@@ -61,7 +61,7 @@
         "order": 1,
         "title": "Zameldowanie cudzoziemca na pobyt stały lub czasowy",
         "why": "Realizacja ustawowego obowiązku meldunkowego dla cudzoziemców przebywających w Polsce.",
-        "when": "Najpóźniej w 30. dniu od dnia przybycia, jeśli pobyt przekracza 30 dni",
+        "when": "Najpóźniej w 30. dniu od dnia przybycia, jeśli pobyt przekracza 3 miesiące",
         "procedureSymbols": [
           "SA-12"
         ],
@@ -183,7 +183,7 @@
         "order": 1,
         "title": "Nadanie numeru PESEL ze statusem UKR",
         "why": "Potwierdzenie ochrony czasowej, legalnego pobytu oraz dostęp do opieki medycznej, rynku pracy i świadczeń.",
-        "when": "Niezwłocznie po przybyciu do Polski (zgodnie z przepisami ustawy o pomocy obywatelom Ukrainy)",
+        "when": null,
         "procedureSymbols": [
           "SA-65"
         ],
@@ -196,7 +196,7 @@
         "order": 2,
         "title": "Zameldowanie i zgłoszenie adresu zamieszkania",
         "why": "Oficjalna rejestracja miejsca zamieszkania w Krakowie ułatwiająca rekrutację do przedszkoli i szkół.",
-        "when": "Najpóźniej w 30. dniu od przybycia",
+        "when": "Najpóźniej w 4. dniu od przybycia (jeśli pobyt czasowy przekracza 30 dni)",
         "procedureSymbols": [
           "SA-12"
         ],
@@ -306,7 +306,7 @@
         "order": 4,
         "title": "Stypendium szkolne o charakterze socjalnym",
         "why": "Pomoc materialna dla uczniów znajdujących się w trudnej sytuacji materialnej na zakup podręczników i pomocy naukowych.",
-        "when": "Od 1 do 15 września danego roku szkolnego",
+        "when": null,
         "procedureSymbols": [
           "MOPS-45"
         ],
@@ -395,7 +395,7 @@
         "order": 1,
         "title": "Rejestracja pojazdu używanego zarejestrowanego w Polsce",
         "why": "Przerejestrowanie nabytego pojazdu na dane nowego właściciela i przypisanie do krakowskiego urzędu.",
-        "when": "W terminie 30 dni od dnia nabycia pojazdu",
+        "when": null,
         "procedureSymbols": [
           "KM-2"
         ],
@@ -408,7 +408,7 @@
         "order": 2,
         "title": "Rejestracja pojazdu sprowadzonego z zagranicy",
         "why": "Dopuszczenie do ruchu w Polsce pojazdu importowanego z innego kraju po opłaceniu akcyzy i badaniu technicznym.",
-        "when": "W terminie 30 dni od dnia sprowadzenia pojazdu z terytorium państwa członkowskiego UE",
+        "when": null,
         "procedureSymbols": [
           "KM-14"
         ],
@@ -421,7 +421,7 @@
         "order": 3,
         "title": "Zgłoszenie zmiany danych i adresu w dowodzie rejestracyjnym",
         "why": "Aktualizacja miejsca zamieszkania właściciela w dokumentach zarejestrowanego już wcześniej pojazdu.",
-        "when": "W terminie 30 dni od zaistnienia zmiany",
+        "when": null,
         "procedureSymbols": [
           "KM-8"
         ],

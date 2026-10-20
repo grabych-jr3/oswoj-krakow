@@ -16,7 +16,7 @@
         "order": 1,
         "title": "Nadanie numeru PESEL ze statusem UKR",
         "why": "Potwierdzenie ochrony czasowej, legalnego pobytu oraz dostęp do opieki medycznej, rynku pracy i świadczeń.",
-        "when": "Niezwłocznie po przybyciu do Polski (zgodnie z przepisami ustawy o pomocy obywatelom Ukrainy)",
+        "when": null,
         "procedureSymbols": [
           "SA-65"
         ],
@@ -29,7 +29,7 @@
         "order": 2,
         "title": "Zameldowanie i zgłoszenie adresu zamieszkania",
         "why": "Oficjalna rejestracja miejsca zamieszkania w Krakowie ułatwiająca rekrutację do przedszkoli i szkół.",
-        "when": "Najpóźniej w 30. dniu od przybycia",
+        "when": "Najpóźniej w 4. dniu od przybycia (jeśli pobyt czasowy przekracza 30 dni)",
         "procedureSymbols": [
           "SA-12"
         ],
@@ -80,7 +80,7 @@
         "order": 1,
         "title": "Отримання номера PESEL зі статусом UKR",
         "why": "Підтвердження тимчасового захисту, легальності перебування, права на безкоштовну медицину, роботу та допомоги.",
-        "when": "Одразу після прибуття до Польщі",
+        "when": null,
         "procedureSymbols": [
           "SA-65"
         ],
@@ -93,7 +93,7 @@
         "order": 2,
         "title": "Реєстрація місця проживання (zameldowanie)",
         "why": "Підтвердження адреси проживання в Кракові, що значно спрощує запис дітей до садочків і шкіл за місцем проживання.",
-        "when": "Не пізніше 30 днів від прибуття",
+        "when": "Не пізніше 4-го дня від прибуття (якщо перебування понад 30 днів)",
         "procedureSymbols": [
           "SA-12"
         ],
@@ -144,7 +144,7 @@
         "order": 1,
         "title": "Obtaining PESEL number with UKR status",
         "why": "Confirmation of temporary protection, legal stay, public healthcare eligibility, and access to work and benefits.",
-        "when": "Promptly upon entry into Poland",
+        "when": null,
         "procedureSymbols": [
           "SA-65"
         ],
@@ -157,7 +157,7 @@
         "order": 2,
         "title": "Address registration (zameldowanie)",
         "why": "Official proof of local residence simplifying kindergarten and school enrolment.",
-        "when": "No later than 30 days from arrival",
+        "when": "No later than the 4th day from arrival (if staying more than 30 days)",
         "procedureSymbols": [
           "SA-12"
         ],

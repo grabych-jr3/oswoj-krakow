@@ -62,7 +62,7 @@
         "order": 4,
         "title": "Stypendium szkolne o charakterze socjalnym",
         "why": "Pomoc materialna dla uczniów znajdujących się w trudnej sytuacji materialnej na zakup podręczników i pomocy naukowych.",
-        "when": "Od 1 do 15 września danego roku szkolnego",
+        "when": null,
         "procedureSymbols": [
           "MOPS-45"
         ],
@@ -130,7 +130,7 @@
         "order": 4,
         "title": "Шкільна соціальна стипендія",
         "why": "Матеріальна допомога учням у скрутному становищі на купівлю шкільного приладдя та підручників.",
-        "when": "З 1 по 15 вересня поточного навчального року",
+        "when": null,
         "procedureSymbols": [
           "MOPS-45"
         ],
@@ -198,7 +198,7 @@
         "order": 4,
         "title": "School social scholarship",
         "why": "Financial assistance for students in need to cover educational supplies and school books.",
-        "when": "September 1 to September 15 of each school year",
+        "when": null,
         "procedureSymbols": [
           "MOPS-45"
         ],

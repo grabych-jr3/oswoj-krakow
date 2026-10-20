@@ -35,23 +35,54 @@ SECTION_MAPPING = {
 
 
 def slugify(text: str) -> str:
-    """Генерирует slug по контракту kb.ts:
-    вулиця + номер: lowercase; ł->l, решта діакритики знімається;
-    ініціали імен («W.») прибираються; усе, що не літера/цифра -> "_"
-    'ul. Wielicka 28A, 30-553 Kraków' -> 'ul_wielicka_28a'
-    'ul. W. Reymonta 20' -> 'ul_reymonta_20'
+    """Generate office slug following the kb.ts contract.
+
+    Target structure: street + house number (lowercase, ł->l, diacritics stripped,
+    name initials removed, non-alphanumeric chars replaced with single underscore).
+    Examples:
+    - 'ul. Wielicka 28A, 30-553 Kraków' -> 'ul_wielicka_28a'
+    - 'ul. W. Reymonta 20' -> 'ul_reymonta_20'
+    - 'os. Złotego Wieku 2' -> 'os_zlotego_wieku_2'
+    - 'Grodzki Urząd Pracy w Krakowie, ul. Wąwozowa 34' -> 'ul_wawozowa_34'
+    - '31-541 Kraków, al. Powstania Warszawskiego 10' -> 'al_powstania_warszawskiego_10'
     """
-    text = text.split(",")[0].strip()
-    text = re.sub(r"\b[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]\.\s*", "", text)
-    text = text.replace("ł", "l").replace("Ł", "l")
-    text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
-    text = text.lower()
-    text = re.sub(r"[^a-z0-9]+", "_", text)
-    return text.strip("_")
+    lower = text.lower()
+    if "w kazdym" in lower or "w każdym" in lower:
+        return ""
+
+    # Clean redundant city suffix and normalize formatting
+    text_cleaned = re.sub(r"\bw\s+krakowie\b", "", text, flags=re.IGNORECASE)
+    text_cleaned = re.sub(r"([a-zA-Z])(\d+)", r"\1 \2", text_cleaned)
+    text_cleaned = re.sub(r"(\d+)\s+([a-zA-Z])\b", r"\1\2", text_cleaned)
+    text_cleaned = re.sub(r"\bul\.\s*ul\.", "ul.", text_cleaned, flags=re.IGNORECASE)
+
+    # Search for street / square / estate pattern
+    pattern = r"\b(ul\.|aleja|al\.|osiedle|os\.|plac|pl\.|rynek|rondo)\s+.*?\d+[a-zA-Z]?(?:[-/]\d+[a-zA-Z]?)?"
+    m = re.search(pattern, text_cleaned, re.IGNORECASE)
+    if m:
+        target = m.group(0).strip()
+    else:
+        target = text_cleaned.split(",")[0].strip()
+
+    target = re.sub(r"\baleja\b", "al", target, flags=re.IGNORECASE)
+    target = re.sub(r"\bosiedle\b", "os", target, flags=re.IGNORECASE)
+    target = re.sub(r"\bplac\b", "pl", target, flags=re.IGNORECASE)
+
+    # Remove personal initials (e.g. 'W.', 'H.')
+    target = re.sub(r"\b[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]\.\s*", "", target)
+    target = target.replace("ł", "l").replace("Ł", "l")
+    target = unicodedata.normalize("NFKD", target).encode("ascii", "ignore").decode("ascii")
+    target = target.lower()
+    target = re.sub(r"[^a-z0-9]+", "_", target)
+    slug = target.strip("_")
+
+    if not re.search(r"\d", slug):
+        return ""
+    return slug
 
 
 def clean_markdown(html_text: str | None) -> str | None:
-    """Переводит сырой HTML секции в Markdown без лишних пустот."""
+    """Convert raw section HTML into clean Markdown without excessive whitespace."""
     if not html_text:
         return None
     text = md(html_text, heading_style="ATX", strip=["script", "style"])
@@ -68,7 +99,7 @@ def clean_text_field(raw_text: str | None) -> str | None:
 
 
 def clean_address(raw_addr: str) -> str:
-    """Очищает строку адреса."""
+    """Clean raw address string from HTML tags and whitespace."""
     addr = re.sub(r"(?i)<br\s*/?>", ", ", raw_addr)
     addr = re.sub(r"<[^>]+>", " ", addr)
     addr = re.sub(r"[\r\n\t]+", " ", addr)
@@ -77,7 +108,7 @@ def clean_address(raw_addr: str) -> str:
 
 
 def extract_section_html(elem: etree._Element) -> str:
-    """Собирает полный HTML секции (текст из <Tresc> + таблицы <table*>) с декодированием entities."""
+    """Extract complete HTML of a section (Tresc + tables) unescaping entities."""
     parts = []
     c_el = elem.find("Tresc")
     if c_el is not None and c_el.text:
@@ -91,7 +122,7 @@ def extract_section_html(elem: etree._Element) -> str:
 
 
 def parse_offices_from_element(elem: etree._Element) -> list[dict[str, Any]]:
-    """Парсит отделения из секции 'Miejsce przyjmowania dokumentów' (XML table или HTML table)."""
+    """Parse office locations from 'Miejsce przyjmowania dokumentów' table."""
     doc = None
     tbl = elem.find("table")
     if tbl is not None:
@@ -110,7 +141,6 @@ def parse_offices_from_element(elem: etree._Element) -> list[dict[str, Any]]:
                 except Exception:  # noqa: BLE001, S110
                     pass
 
-
     if doc is None:
         return []
 
@@ -122,7 +152,7 @@ def parse_offices_from_element(elem: etree._Element) -> list[dict[str, Any]]:
     if len(rows) < 2:
         return []
 
-    # Анализируем заголовки колонок
+    # Analyze column headers
     headers = [
         th.text_content().strip().lower() for th in rows[0].xpath("./th | ./td")
     ]
@@ -144,7 +174,7 @@ def parse_offices_from_element(elem: etree._Element) -> list[dict[str, Any]]:
         elif any(w in h for w in ["wizyt", "rezerwac", "umów", "umow"]):
             booking_idx = idx
 
-    # Дефолты для стандартной таблицы BIP: Nazwa | Adres | Godziny | Wizyta | Telefon
+    # Defaults for standard BIP table: Nazwa | Adres | Godziny | Wizyta | Telefon
     if addr_idx == -1 and len(headers) >= 2:
         name_idx = 0
         addr_idx = 1
@@ -230,12 +260,12 @@ def parse_xml_file(file_path: Path) -> dict[str, Any] | None:
     try:
         tree = etree.parse(str(file_path))
     except Exception as e:  # noqa: BLE001
-        print(f"Ошибка чтения {file_path.name}: {e}")
+        print(f"Error reading {file_path.name}: {e}")
         return None
 
     root = tree.getroot()
 
-    # 1. Заголовок
+    # 1. Header
     naglowek = root.find("Naglowek")
     if naglowek is None:
         return None
@@ -244,7 +274,7 @@ def parse_xml_file(file_path: Path) -> dict[str, Any] | None:
     title = clean_text_field(naglowek.findtext("Tytul")) or ""
     department = clean_text_field(naglowek.findtext("Wydzial"))
 
-    # 2. Метка
+    # 2. Metadata
     metka = root.find("Metka")
     version = None
     published_at = None
@@ -254,7 +284,7 @@ def parse_xml_file(file_path: Path) -> dict[str, Any] | None:
             version = int(ver_text)
         published_at = metka.findtext("DataPublikacji") or None
 
-    # 3. Секции
+    # 3. Sections
     sections = {v: None for v in SECTION_MAPPING.values()}
     offices = []
 
@@ -262,7 +292,7 @@ def parse_xml_file(file_path: Path) -> dict[str, Any] | None:
         raw_title = elem.xpath("string(./Tytul)").strip().lower()
         full_html = extract_section_html(elem)
 
-        # Если это секция отделений
+        # Office intake locations section
         if "miejsce" in raw_title and (
             "składania" in raw_title
             or "przyjmowania" in raw_title
@@ -272,13 +302,13 @@ def parse_xml_file(file_path: Path) -> dict[str, Any] | None:
             if parsed_offices:
                 offices = parsed_offices
 
-        # Сопоставляем с текстовыми секциями контракта
+        # Match content sections against contract fields
         for pattern, field_name in SECTION_MAPPING.items():
             if pattern in raw_title:
                 sections[field_name] = clean_markdown(full_html)
                 break
 
-    # 4. Вложения (берем Nazwa, Opis или fallback)
+    # 4. Attachments
     attachments = []
     for zal in root.xpath("//ZalacznikiUslugi/Zalacznik"):
         nazwa = (
@@ -311,7 +341,7 @@ def parse_xml_file(file_path: Path) -> dict[str, Any] | None:
 
 def run_pipeline() -> None:
     xml_files = list(XML_CACHE_DIR.glob("*.xml"))
-    print(f"Найдено XML-файлов для парсинга: {len(xml_files)}")
+    print(f"Found XML files to parse: {len(xml_files)}")
 
     all_procedures = []
     all_offices_map: dict[str, dict[str, Any]] = {}
@@ -325,11 +355,10 @@ def run_pipeline() -> None:
                     all_offices_map[off["id"]] = off
 
         if idx % 100 == 0 or idx == len(xml_files):
-            print(f"Обработано {idx}/{len(xml_files)}...")
+            print(f"Parsed {idx}/{len(xml_files)}...")
 
     offices_list = list(all_offices_map.values())
 
-    # Сохраняем сразу в app/data/kb/
     proc_file = APP_KB_DIR / "procedures.json"
     offices_file = APP_KB_DIR / "offices_raw.json"
 
@@ -340,10 +369,10 @@ def run_pipeline() -> None:
         json.dumps(offices_list, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
-    print("\nПарсинг успешно завершен!")
-    print(f"- Процедур сохранено: {len(all_procedures)} -> {proc_file}")
+    print("\nParsing completed successfully!")
+    print(f"- Procedures saved: {len(all_procedures)} -> {proc_file}")
     print(
-        f"- Уникальных отделений для геокодирования: {len(offices_list)} -> {offices_file}"
+        f"- Unique offices for geocoding: {len(offices_list)} -> {offices_file}"
     )
 
 

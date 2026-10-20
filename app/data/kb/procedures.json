@@ -310,7 +310,7 @@
     },
     "offices": [
       {
-        "id": "urzad:plac_wszystkich_swietych_3_4",
+        "id": "urzad:pl_wszystkich_swietych_3_4",
         "name": "Dziennik podawczy Urzędu Miasta Krakowa (Kancelaria Magistratu - OR-01)",
         "address": "Plac Wszystkich Świętych 3-4, 31 - 004 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -2426,7 +2426,7 @@
     },
     "offices": [
       {
-        "id": "urzad:aleja_powstania_warszawskiego_10",
+        "id": "urzad:al_powstania_warszawskiego_10",
         "name": "Wydział Egzekucji Administracyjnej i Windykacji Urzędu Miasta Krakowa – Referat Windykacji Należności Cywilnoprawnych",
         "address": "Aleja Powstania Warszawskiego 10, 31-541 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:40 - 15:30",
@@ -2523,7 +2523,7 @@
     },
     "offices": [
       {
-        "id": "urzad:aleja_powstania_warszawskiego_10",
+        "id": "urzad:al_powstania_warszawskiego_10",
         "name": "Wydział Egzekucji Administracyjnej i Windykacji Urzędu Miasta Krakowa - Referat ds. Orzecznictwa i Egzekucji Obowiązków Niepieniężnych",
         "address": "Aleja Powstania Warszawskiego 10, 31-541 Kraków, Centrum Administracyjne: Box 51-52",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:40 - 15:30",
@@ -2588,7 +2588,7 @@
     },
     "offices": [
       {
-        "id": "urzad:plac_wszystkich_swietych_3_4",
+        "id": "urzad:pl_wszystkich_swietych_3_4",
         "name": "Referat Obsługi Finansowo-Księgowej Inwestycji",
         "address": "Plac Wszystkich Świętych 3-4, 31-004 Kraków",
         "hours": "7.30-15.30",
@@ -4528,7 +4528,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_czerwienskiego_16_31_319_krakow",
+        "id": "urzad:ul_czerwienskiego_16",
         "name": "Zarząd Budynków Komunalnych w Krakowie",
         "address": "ul. Czerwieńskiego 16 31-319 Kraków",
         "hours": "pn.-pt. 7.30 – 15.30",
@@ -4609,7 +4609,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_czerwienskiego_16_31_319_krakow",
+        "id": "urzad:ul_czerwienskiego_16",
         "name": "Zarząd Budynków Komunalnych w Krakowie",
         "address": "ul. Czerwieńskiego 16 31-319 Kraków",
         "hours": "7:30 -15:30",
@@ -4645,7 +4645,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_czerwienskiego_16_31_319_krakow",
+        "id": "urzad:ul_czerwienskiego_16",
         "name": "Zarząd Budynków Komunalnych w Krakowie",
         "address": "ul. Czerwieńskiego 16 31-319 Kraków",
         "hours": "pn.-pt. 7.30 – 15.30",
@@ -4891,7 +4891,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_czerwienskiego_16_31_319_krakow",
+        "id": "urzad:ul_czerwienskiego_16",
         "name": "Zarząd Budynków Komunalnych w Krakowie",
         "address": "ul. Czerwieńskiego 16 31-319 Kraków",
         "hours": "7.30 – 15.30",
@@ -5773,7 +5773,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_kasprowicza_29_31_523_krakow",
+        "id": "urzad:ul_kasprowicza_29",
         "name": "Wydział Skarbu Miasta",
         "address": "ul. Kasprowicza 29 31-523 Kraków",
         "hours": "7:30-15:30",
@@ -5969,7 +5969,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_kasprowicza_29_31_523_krakow",
+        "id": "urzad:ul_kasprowicza_29",
         "name": "Wydział Skarbu Miasta",
         "address": "ul. Kasprowicza 29 31-523 Kraków",
         "hours": "7.30 – 15.30",
@@ -6205,7 +6205,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_kasprowicza_29_31_523_krakow",
+        "id": "urzad:ul_kasprowicza_29",
         "name": "Wydział Skarbu Miasta",
         "address": "ul. Kasprowicza 29 31-523 Kraków",
         "hours": "7:30-15:30",
@@ -6250,7 +6250,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_kasprowicza_29_31_523_krakow",
+        "id": "urzad:ul_kasprowicza_29",
         "name": "Wydział Skarbu Miasta",
         "address": "ul. Kasprowicza 29 31-523 Kraków",
         "hours": "7:30 - 15:30",
@@ -6370,7 +6370,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_czerwienskiego_16_31_319_krakow",
+        "id": "urzad:ul_czerwienskiego_16",
         "name": "Zarząd Budynków Komunalnych w Krakowie",
         "address": "ul. Czerwieńskiego 16 31-319 Kraków",
         "hours": "7.30 – 15.30",
@@ -6494,7 +6494,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_kasprowicza_29_31_523_krakow",
+        "id": "urzad:ul_kasprowicza_29",
         "name": "Wydział Skarbu Miasta",
         "address": "ul. Kasprowicza 29 31-523 Kraków",
         "hours": "7:30 - 15:30",
@@ -6965,7 +6965,7 @@
     },
     "offices": [
       {
-        "id": "urzad:grodzki_urzad_pracy_w_krakowie",
+        "id": "urzad:ul_wawozowa_34",
         "name": "Dziennik Podawczy",
         "address": "Grodzki Urząd Pracy w Krakowie, ul. Wąwozowa 34, 31-752 Kraków",
         "hours": "7.45 – 14.45",
@@ -7015,7 +7015,7 @@
     },
     "offices": [
       {
-        "id": "urzad:grodzki_urzad_pracy_w_krakowie",
+        "id": "urzad:ul_wawozowa_34",
         "name": "Dziennik Podawczy",
         "address": "Grodzki Urząd Pracy w Krakowie, ul. Wąwozowa 34, 31-752 Kraków",
         "hours": "7.45 – 14.45",
@@ -7065,7 +7065,7 @@
     },
     "offices": [
       {
-        "id": "urzad:grodzki_urzad_pracy_w_krakowie",
+        "id": "urzad:ul_wawozowa_34",
         "name": "Dziennik Podawczy",
         "address": "Grodzki Urząd Pracy w Krakowie, ul. Wąwozowa 34, 31-752 Kraków",
         "hours": "7.45 – 14.45",
@@ -9674,7 +9674,7 @@
     },
     "offices": [
       {
-        "id": "urzad:krakow_al_powstania_warszawskiego_10",
+        "id": "urzad:al_powstania_warszawskiego_10",
         "name": "Referat Transportu i Działalności Regulowanej (KM-05)<br/>",
         "address": "Kraków al. Powstania Warszawskiego 10, Centrum Administracyjne, boks 81",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40-15:30 oraz w czwartek w godzinach 8:00-15:30",
@@ -10732,7 +10732,7 @@
     },
     "offices": [
       {
-        "id": "urzad:dziennik_podawczy_parter",
+        "id": "urzad:rynek_podgorski_1",
         "name": "Wydział Mieszkalnictwa,<br/>Referat Regulacji Tytułów Prawnych (ML-01)",
         "address": "Dziennik podawczy (parter), Rynek Podgórski 1,, 30-533 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -10978,7 +10978,7 @@
     },
     "offices": [
       {
-        "id": "urzad:aleja_powstania_warszawskiego_10",
+        "id": "urzad:al_powstania_warszawskiego_10",
         "name": "Dziennik podawczy",
         "address": "Aleja Powstania Warszawskiego 10, 31-541 Kraków",
         "hours": "poniedziałek, wtorek, środa i piątek 7:40 - 15:30; czwartek 8.00 - 15.30",
@@ -11070,7 +11070,7 @@
     },
     "offices": [
       {
-        "id": "urzad:plac_wszystkich_swietych_3_4",
+        "id": "urzad:pl_wszystkich_swietych_3_4",
         "name": "Dziennik podawczy",
         "address": "Plac Wszystkich Świętych 3-4, 31-004 Kraków",
         "hours": "Czynne w poniedziałki, wtorki, środy i piątki w godzinach od 7.40 do 15.30 oraz w czwartki w godzinach od 8.00 do 15.30",
@@ -11257,7 +11257,7 @@
         "coords": null
       },
       {
-        "id": "urzad:plac_wszystkich_swietych_3_4",
+        "id": "urzad:pl_wszystkich_swietych_3_4",
         "name": "Dziennik podawczy",
         "address": "Plac Wszystkich Świętych 3-4, 31-004 Kraków",
         "hours": "Czynne w poniedziałki, wtorki, środy i piątki w godzinach od 7.40 do 15.30 oraz w czwartki w godzinach od 8.00 do 15.30",
@@ -11329,7 +11329,7 @@
     },
     "offices": [
       {
-        "id": "urzad:rynek_podgorski_1_parter",
+        "id": "urzad:rynek_podgorski_1",
         "name": "Dziennik podawczy<br/>",
         "address": "Rynek Podgórski 1 - parter, 30-533 Kraków, Dziennik Podawczy,",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30<br/>",
@@ -11338,7 +11338,7 @@
         "coords": null
       },
       {
-        "id": "urzad:aleja_powstania_warszawskiego_10",
+        "id": "urzad:al_powstania_warszawskiego_10",
         "name": "Dziennik podawczy",
         "address": "Aleja Powstania Warszawskiego 10, 31-541 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -11406,7 +11406,7 @@
     },
     "offices": [
       {
-        "id": "urzad:rynek_podgorski_1_dziennik_podawczy_parter",
+        "id": "urzad:rynek_podgorski_1",
         "name": "Wydział Mieszkalnictwa, Referat Przedłużeń Umów Najmu (ML-07)<br/>",
         "address": "Rynek Podgórski 1; Dziennik podawczy (parter) , 30-533 Kraków,",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -11476,7 +11476,7 @@
     },
     "offices": [
       {
-        "id": "urzad:dziennik_podawczy_parter",
+        "id": "urzad:rynek_podgorski_1",
         "name": "Wydział Mieszkalnictwa,<br/>Referat Regulacji Tytułów Prawnych<br/>",
         "address": "Dziennik podawczy (parter), Rynek Podgórski 1,, 30-533 Kraków,",
         "hours": "pn-pt. 7:40-15:30<br/>",
@@ -11542,7 +11542,7 @@
     },
     "offices": [
       {
-        "id": "urzad:rynek_podgorski_1_parter",
+        "id": "urzad:rynek_podgorski_1",
         "name": "Wydział Mieszkalnictwa, Referat Pomocy Mieszkaniowej (ML-02)",
         "address": "Rynek Podgórski 1 - parter,, 30-533 Kraków,",
         "hours": "7:40-15:30",
@@ -11754,7 +11754,7 @@
     },
     "offices": [
       {
-        "id": "urzad:dziennik_podawczy_parter_rynek_podgorski_1",
+        "id": "urzad:rynek_podgorski_1",
         "name": "Wydział Mieszkalnictwa, Referat Postępowań Eksmisyjnych (ML-08)",
         "address": "Dziennik podawczy (parter) - Rynek Podgórski 1, 30-533 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -11815,7 +11815,7 @@
     },
     "offices": [
       {
-        "id": "urzad:dziennik_podawczy_parter_rynek_podgorski_1",
+        "id": "urzad:rynek_podgorski_1",
         "name": "Wydział Mieszkalnictwa, Referat Postępowań Eksmisyjnych (ML-08)",
         "address": "Dziennik podawczy (parter) - Rynek Podgórski 1, 30-533 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -11864,7 +11864,7 @@
     },
     "offices": [
       {
-        "id": "urzad:rynek_podgorski_1_dziennik_podawczy_parter_30_533_krakow",
+        "id": "urzad:rynek_podgorski_1",
         "name": "Wydział Mieszkalnictwa, Referat Regulacji Tytułów Prawnych",
         "address": "Rynek Podgórski 1 Dziennik podawczy (parter) 30-533 Kraków",
         "hours": "Pn-pt. 7:40-15:30",
@@ -12077,7 +12077,7 @@
     },
     "offices": [
       {
-        "id": "urzad:dziennik_podawczy_parter",
+        "id": "urzad:rynek_podgorski_1",
         "name": "Wydział Mieszkalnictwa",
         "address": "Dziennik podawczy (parter), Rynek Podgórski 1,, 30-533 Kraków,",
         "hours": "pn-pt 7:40-15:30",
@@ -12122,7 +12122,7 @@
     },
     "offices": [
       {
-        "id": "urzad:dziennik_podawczy_parter",
+        "id": "urzad:rynek_podgorski_1",
         "name": "Wydział Mieszkalnictwa, Referat Regulacji Tytułów Prawnych",
         "address": "Dziennik podawczy (parter), Rynek Podgórski 1,, 30-533 Kraków,",
         "hours": "pn-pt 7:40 - 15:30",
@@ -12328,7 +12328,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -12475,7 +12475,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -12640,7 +12640,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -12776,7 +12776,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -12942,7 +12942,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -13105,7 +13105,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30<br/>",
@@ -13268,7 +13268,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -13445,7 +13445,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -13600,7 +13600,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -13740,7 +13740,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -13868,7 +13868,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -13965,7 +13965,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_limanowskiego_13_5_6",
+        "id": "urzad:ul_limanowskiego_13_5",
         "name": "Dział Pomocy Dzieciom MOPS",
         "address": "ul. Limanowskiego 13/5-6, 30-529 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -14040,7 +14040,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie<br/> <br/><br/> <br/><br/> <br/>",
         "address": "ul. Na Kozłówce 27 (II piętro), 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -14257,7 +14257,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -14402,7 +14402,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_limanowskiego_13_5_6",
+        "id": "urzad:ul_limanowskiego_13_5",
         "name": "Dział Pomocy Dzieciom MOPS w Krakowie",
         "address": "ul. Limanowskiego 13/5-6, 30-529 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -14518,7 +14518,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -14687,7 +14687,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_limanowskiego_13_5_6",
+        "id": "urzad:ul_limanowskiego_13_5",
         "name": "Dział Pomocy Dzieciom MOPS",
         "address": "ul. Limanowskiego 13/5-6, 30-529 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -14798,7 +14798,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -14904,7 +14904,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_limanowskiego_13_5_6",
+        "id": "urzad:ul_limanowskiego_13_5",
         "name": "Dział Pomocy Dzieciom MOPS",
         "address": "ul. Limanowskiego 13/5-6, 30-529 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -14966,7 +14966,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_limanowskiego_13_5_6",
+        "id": "urzad:ul_limanowskiego_13_5",
         "name": "Dział Pomocy Dzieciom MOPS",
         "address": "ul. Limanowskiego 13/5-6, 30-529 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -15020,7 +15020,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_limanowskiego_13_5_6",
+        "id": "urzad:ul_limanowskiego_13_5",
         "name": "Dział Pomocy Dzieciom MOPS",
         "address": "ul. Limanowskiego 13/5-6,, 30-529 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -15541,7 +15541,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_mostowa_4_31_061_krakow",
+        "id": "urzad:ul_mostowa_4",
         "name": "Dział Pomocy Dzieciom (rodziny zastępcze zawodowe oraz rodzinne domy dziecka)",
         "address": "ul. Mostowa 4/ 31-061 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -15664,7 +15664,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30<br/>",
@@ -16005,7 +16005,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -16378,7 +16378,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30<br/>",
@@ -16541,7 +16541,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -16706,7 +16706,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -16870,7 +16870,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -17033,7 +17033,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -17195,7 +17195,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:3",
@@ -17501,7 +17501,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -17663,7 +17663,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -17958,7 +17958,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -18163,7 +18163,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_na_kozlowce_27_ii_pietro",
+        "id": "urzad:ul_na_kozlowce_27",
         "name": "Filia nr 8 MOPS w Krakowie",
         "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
@@ -18960,7 +18960,7 @@
     },
     "offices": [
       {
-        "id": "urzad:al_powstania_warszawskiego_10_ul_wielicka_28a_os_zgody_2",
+        "id": "urzad:al_powstania_warszawskiego_10",
         "name": "Punkt Obsługi Podatnika",
         "address": "al. Powstania Warszawskiego 10 ul. Wielicka 28a os. Zgody 2",
         "hours": "07.40 - 15.30",
@@ -20084,7 +20084,7 @@
     },
     "offices": [
       {
-        "id": "urzad:punkt_obslugi_mieszkancow_galeria_bronowice",
+        "id": "urzad:ul_stawowa_61",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od I do VII (SA-02)",
         "address": "Punkt Obsługi Mieszkańców – Galeria Bronowice, 31-346 Kraków, ul. Stawowa 61, lokal nr 157",
         "hours": "Od poniedziałku do soboty w godzinach 10:00 - 18:00",
@@ -20093,7 +20093,7 @@
         "coords": null
       },
       {
-        "id": "urzad:31_949_krakow",
+        "id": "urzad:os_zgody_2",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od XIV do XVIII (SA-04)",
         "address": "31-949 Kraków, os. Zgody 2, parter, pokój nr 15",
         "hours": "<br/><br/>Od poniedziałku do środy i w piątek w godzinach 7:40 – 18:00 oraz w czwartek w godzinach 8:00 – 18:00<br/>",
@@ -20102,7 +20102,7 @@
         "coords": null
       },
       {
-        "id": "urzad:punkt_obslugi_mieszkancow_bonarka_city_center",
+        "id": "urzad:ul_henryka_kamienskiego_11",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od VIII do XIII (SA-03)",
         "address": "Punkt Obsługi Mieszkańców – Bonarka City Center, 30-664 Kraków, ul. Henryka Kamieńskiego 11, lokal nr M1",
         "hours": "Od poniedziałku do soboty w godzinach 10:00 - 18:00",
@@ -20111,7 +20111,7 @@
         "coords": null
       },
       {
-        "id": "urzad:30_553_krakow",
+        "id": "urzad:ul_wielicka_28a",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od VIII do XIII (SA-03)",
         "address": "30-553 Kraków, ul. Wielicka 28a, I piętro – sala obsługi",
         "hours": "Od poniedziałku do środy i w piątek w godzinach 7:40 – 18:00 oraz w czwartek w godzinach 8:00 – 18:00",
@@ -20120,7 +20120,7 @@
         "coords": null
       },
       {
-        "id": "urzad:punkt_obslugi_mieszkancow_galeria_serenada",
+        "id": "urzad:al_gen_tadeusza_bora_komorowskiego_41",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od XIV do XVIII (SA-04)",
         "address": "Punkt Obsługi Mieszkańców – Galeria Serenada, 31-876 Kraków, al. Gen. Tadeusza Bora-Komorowskiego 41, lokal nr B213",
         "hours": "Od poniedziałku do soboty w godzinach 10:00 - 18:00",
@@ -20129,7 +20129,7 @@
         "coords": null
       },
       {
-        "id": "urzad:31_541_krakow",
+        "id": "urzad:al_powstania_warszawskiego_10",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od I do VII (SA-02)",
         "address": "31-541 Kraków, al. Powstania Warszawskiego 10, Centrum Administracyjne - I piętro, stanowiska 71-72",
         "hours": "Od poniedziałku do środy i w piątek w godzinach 7:40 – 18:00 oraz w czwartek w godzinach 8:00 – 18:00",
@@ -20174,7 +20174,7 @@
     },
     "offices": [
       {
-        "id": "urzad:punkt_obslugi_mieszkancow_bonarka_city_center",
+        "id": "urzad:ul_henryka_kamienskiego_11",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od VIII do XIII (SA-03)",
         "address": "Punkt Obsługi Mieszkańców – Bonarka City Center, 31-644 Kraków, ul. Henryka Kamieńskiego 11, lokal nr M1",
         "hours": "Od poniedziałku do soboty od 10:00 do 18:00",
@@ -20183,7 +20183,7 @@
         "coords": null
       },
       {
-        "id": "urzad:30_553_krakow",
+        "id": "urzad:ul_wielicka_28a",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic VIII-XIII",
         "address": "30-553 Kraków, ul. Wielicka 28a, I piętro - sala obsługi,",
         "hours": "Od poniedziałku do środy i w piątek w godzinach 7:40 – 18:00 oraz w czwartek w godzinach 8:00 – 18:00",
@@ -20192,7 +20192,7 @@
         "coords": null
       },
       {
-        "id": "urzad:punkt_obslugi_mieszkancow_galeria_bronowice",
+        "id": "urzad:ul_stawowa_61",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od I do VII (SA-02)",
         "address": "Punkt Obsługi Mieszkańców – Galeria Bronowice, 31-346 Kraków, ul. Stawowa 61, lokal nr 157",
         "hours": "Od poniedziałku do soboty od 10:00 do 18:00",
@@ -20201,7 +20201,7 @@
         "coords": null
       },
       {
-        "id": "urzad:31_949_krakow",
+        "id": "urzad:os_zgody_2",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic XIV-XVIII",
         "address": "31-949 Kraków, Os. Zgody 2, parter pokój nr 15,",
         "hours": "Od poniedziałku do środy i w piątek w godzinach 7:40 – 18:00 oraz w czwartek w godzinach 8:00 – 18:00",
@@ -20210,7 +20210,7 @@
         "coords": null
       },
       {
-        "id": "urzad:punkt_obslugi_mieszkancow_galeria_serenada",
+        "id": "urzad:al_gen_tadeusza_bora_komorowskiego_41",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od XIV do XVIII (SA-04)",
         "address": "Punkt Obsługi Mieszkańców – Galeria Serenada, 31-876 Kraków, Al. Gen. Tadeusza Bora-Komorowskiego 41, lokal nr B213",
         "hours": "Od poniedziałku do soboty od 10:00 do 18:00",
@@ -20219,7 +20219,7 @@
         "coords": null
       },
       {
-        "id": "urzad:31_541_krakow",
+        "id": "urzad:al_powstania_warszawskiego_10",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic I-VII",
         "address": "31-541 Kraków, Al. Powstania Warszawskiego 10, Centrum Administracyjne I piętro stanowiska 71-72",
         "hours": "Od poniedziałku do środy i w piątek w godzinach 7:40 – 18:00 oraz w czwartek w godzinach 8:00 – 18:00",
@@ -20631,7 +20631,7 @@
     },
     "offices": [
       {
-        "id": "urzad:31_949_krakow",
+        "id": "urzad:os_zgody_2",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic XIV-XVIII (Nowa Huta)",
         "address": "31-949 Kraków, os. Zgody 2",
         "hours": "poniedziałek-środa i piątek: 7.40 – 18.00, czwartek: 8.00 – 18.00<br/>",
@@ -20640,7 +20640,7 @@
         "coords": null
       },
       {
-        "id": "urzad:30_552_krakow",
+        "id": "urzad:ul_wielicka_28a",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic VIII-XIII (Podgórze)",
         "address": "30-552 Kraków, ul. Wielicka 28A",
         "hours": "poniedziałek-środa i piątek: 7.40 – 18.00, czwartek: 8.00 – 18.00<br/>",
@@ -20649,7 +20649,7 @@
         "coords": null
       },
       {
-        "id": "urzad:31_541_krakow",
+        "id": "urzad:al_powstania_warszawskiego_10",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic I-VII ( Śródmieście, Krowodrza)",
         "address": "31-541 Kraków, al. Powstania Warszawskiego 10",
         "hours": "poniedziałek-środa i piątek: 7.40 – 18.00, czwartek: 8.00 – 18.00<br/>",
@@ -20724,15 +20724,6 @@
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 18:00 oraz w czwartek w godzinach 8:00 - 18:00",
         "bookingUrl": null,
         "phone": "12 616 5555<br/>",
-        "coords": null
-      },
-      {
-        "id": "urzad:w_kazdym_punkcie_podawczym_urzedu_miasta_krakowa_bez_udzialu_pracownika_merytorycznego",
-        "name": "Referat Udostępniania Danych i Informacji Adresowej (SA-07)",
-        "address": "W każdym punkcie podawczym Urzędu Miasta Krakowa (bez udziału pracownika merytorycznego)",
-        "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
-        "bookingUrl": null,
-        "phone": "12 616 5555",
         "coords": null
       }
     ],
@@ -21695,7 +21686,7 @@
     },
     "offices": [
       {
-        "id": "urzad:al_powstania_warszawskiego10",
+        "id": "urzad:al_powstania_warszawskiego_10",
         "name": "Wydział Spraw Administracyjnych",
         "address": "al. Powstania Warszawskiego10, 31-541 Kraków",
         "hours": "poniedziałek-środa i piątek: 7.40 – 15.30, czwartek: 8.00 – 15.30<br/>",
@@ -21809,7 +21800,7 @@
     },
     "offices": [
       {
-        "id": "urzad:punkt_obslugi_mieszkancow_bonarka_city_center",
+        "id": "urzad:ul_henryka_kamienskiego_11",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od VIII do XIII (SA-03)",
         "address": "Punkt Obsługi Mieszkańców – Bonarka City Center, ul. Henryka Kamieńskiego 11, lokal nr M1, 30-644 Kraków",
         "hours": "Od poniedziałku do soboty od 10:00 do 18:00",
@@ -21827,7 +21818,7 @@
         "coords": null
       },
       {
-        "id": "urzad:punkt_obslugi_mieszkancow_galeria_serenada",
+        "id": "urzad:al_gen_tadeusza_bora_komorowskiego_41",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od XIV do XVIII (SA-04)",
         "address": "Punkt Obsługi Mieszkańców – Galeria Serenada, Al. Gen. Tadeusza Bora-Komorowskiego 41, lokal nr B213, 31-876 Kraków",
         "hours": "Od poniedziałku do soboty od 10:00 do 18:00",
@@ -21854,7 +21845,7 @@
         "coords": null
       },
       {
-        "id": "urzad:punkt_obslugi_mieszkancow_galeria_bronowice",
+        "id": "urzad:ul_stawowa_61",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od I do VII (SA-02)",
         "address": "Punkt Obsługi Mieszkańców – Galeria Bronowice, ul. Stawowa 61, lokal nr 157, 31-346 Kraków",
         "hours": "Od poniedziałku do soboty od 10:00 do 18:00",
@@ -23485,7 +23476,7 @@
     },
     "offices": [
       {
-        "id": "urzad:punkt_obslugi_mieszkancow_bonarka_city_center",
+        "id": "urzad:ul_henryka_kamienskiego_11",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od VIII do XIII (SA-03)",
         "address": "Punkt Obsługi Mieszkańców – Bonarka City Center, ul. Henryka Kamieńskiego 11, lokal nr M1, 30-644 Kraków",
         "hours": "Od poniedziałku do soboty od 10:00 do 18:00",
@@ -23503,7 +23494,7 @@
         "coords": null
       },
       {
-        "id": "urzad:punkt_obslugi_mieszkancow_galeria_serenada",
+        "id": "urzad:al_gen_tadeusza_bora_komorowskiego_41",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od XIV do XVIII (SA-04)",
         "address": "Punkt Obsługi Mieszkańców – Galeria Serenada, Al. Gen. Tadeusza Bora-Komorowskiego 41, lokal nr B213, 31-876 Kraków",
         "hours": "Od poniedziałku do soboty od 10:00 do 18:00",
@@ -23530,7 +23521,7 @@
         "coords": null
       },
       {
-        "id": "urzad:punkt_obslugi_mieszkancow_galeria_bronowice",
+        "id": "urzad:ul_stawowa_61",
         "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic od I do VII (SA-02)",
         "address": "Punkt Obsługi Mieszkańców – Galeria Bronowice, ul. Stawowa 61, lokal nr 157, 31-346 Kraków",
         "hours": "Od poniedziałku do soboty od 10:00 do 18:00",
@@ -25949,7 +25940,7 @@
         "coords": null
       },
       {
-        "id": "urzad:plac_wszystkich_swietych_3_4",
+        "id": "urzad:pl_wszystkich_swietych_3_4",
         "name": "Kancelaria Magistratu",
         "address": "Plac Wszystkich Świętych 3-4,, 31-004 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -26035,7 +26026,7 @@
         "coords": null
       },
       {
-        "id": "urzad:plac_wszystkich_swietych_3_4",
+        "id": "urzad:pl_wszystkich_swietych_3_4",
         "name": "Kancelaria Magistratu",
         "address": "Plac Wszystkich Świętych 3-4,, 31-004 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -26300,7 +26291,7 @@
         "coords": null
       },
       {
-        "id": "urzad:plac_wszystkich_swietych_3_4",
+        "id": "urzad:pl_wszystkich_swietych_3_4",
         "name": "Kancelaria Magistratu",
         "address": "plac Wszystkich Świętych 3-4, 31-004 Kraków",
         "hours": "w dni robocze (z wyjątkiem czwartków): 7:40–15:30, <br/>w czwartki: 8:00–15:30",
@@ -26648,7 +26639,7 @@
         "coords": null
       },
       {
-        "id": "urzad:plac_wszystkich_sw_3_4",
+        "id": "urzad:pl_wszystkich_sw_3_4",
         "name": "Kancelaria Magistratu",
         "address": "Plac Wszystkich Św. 3-4, 31-004 Kraków",
         "hours": "W dni robocze (z wyjątkiem czwartków): 7:40–15:30,<br/>w czwartki: 8:00–15:30",
@@ -26695,7 +26686,7 @@
     },
     "offices": [
       {
-        "id": "urzad:plac_wszystkich_swietych_3_4",
+        "id": "urzad:pl_wszystkich_swietych_3_4",
         "name": "Kancelaria Magistratu",
         "address": "Plac Wszystkich Świętych 3-4, 31-004 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 – 15:30 oraz w czwartek w godzinach 8:00 – 15:30",
@@ -27450,7 +27441,7 @@
         "coords": null
       },
       {
-        "id": "urzad:plac_wszystkich_swietych_3_4",
+        "id": "urzad:pl_wszystkich_swietych_3_4",
         "name": "Kancelaria Magistratu",
         "address": "Plac Wszystkich Świętych 3-4,, 31-004 Kraków",
         "hours": "w dni robocze (z wyjątkiem czwartków): 7:40–15:30, <br/>w czwartki: 8:00–15:30",
@@ -27568,7 +27559,7 @@
         "coords": null
       },
       {
-        "id": "urzad:plac_wszystkich_swietych_3_4",
+        "id": "urzad:pl_wszystkich_swietych_3_4",
         "name": "Kancelaria Magistratu",
         "address": "Plac Wszystkich Świętych 3-4,, 31-004 Kraków",
         "hours": "w dni robocze (z wyjątkiem czwartków): 7:40–15:30, <br/>w czwartki: 8:00–15:30",
@@ -27644,7 +27635,7 @@
         "coords": null
       },
       {
-        "id": "urzad:plac_wszystkich_swietych_3_4",
+        "id": "urzad:pl_wszystkich_swietych_3_4",
         "name": "Kancelaria Magistratu",
         "address": "Plac Wszystkich Świętych 3-4,, 31-004 Kraków",
         "hours": "w dni robocze (z wyjątkiem czwartków): 7:40–15:30, <br/>w czwartki: 8:00–15:30",
@@ -28464,7 +28455,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_stawowa_61_galeria_bronowice",
+        "id": "urzad:ul_stawowa_61",
         "name": "Referat ds. Obsługi Mieszkańców",
         "address": "ul. Stawowa 61 (Galeria Bronowice), 31-346 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:40 - 18:00 (w okresie od 1 sierpnia do 30 września bieżącego roku). Wydawanie numerków do godziny 17:30.<br/><br/>",
@@ -28473,7 +28464,7 @@
         "coords": null
       },
       {
-        "id": "urzad:osiedle_zgody_2",
+        "id": "urzad:os_zgody_2",
         "name": "Referat ds. Obsługi Mieszkańców",
         "address": "osiedle Zgody 2, 31-949 Kraków, pokój 117 i 119",
         "hours": "Czynne od poniedziałku do środy i piątek w godzinach 7:40 – 15:30 oraz w czwartek od godzinach 8:00 - 15:30. Wydawanie numerków do godziny 15:00.",
@@ -28482,7 +28473,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wielicka_28_a",
+        "id": "urzad:ul_wielicka_28a",
         "name": "Referat ds. Obsługi Mieszkańców",
         "address": "ul. Wielicka 28 A, 30-552 Kraków",
         "hours": "Czynne od poniedziałku do piątku w godzinach 7:40 - 15:30 (w okresie od 1 sierpnia do 30 września bieżącego roku). Wydawanie numerków do godziny 15:00.",
@@ -30801,7 +30792,7 @@
     },
     "offices": [
       {
-        "id": "urzad:osiedle_zgody_2",
+        "id": "urzad:os_zgody_2",
         "name": "Referat Ochrony Wód, Klimatu Akustycznego i Ochrony Przed Polami Elektromagnetycznymi <br/>",
         "address": "Osiedle Zgody 2, 31-949 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -30850,7 +30841,7 @@
     },
     "offices": [
       {
-        "id": "urzad:osiedle_zgody_2",
+        "id": "urzad:os_zgody_2",
         "name": "Referat Ochrony Wód, Klimatu Akustycznego i Ochrony Przed Polami Elektromagnetycznymi<br/>",
         "address": "Osiedle Zgody 2, 31-949 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -30899,7 +30890,7 @@
     },
     "offices": [
       {
-        "id": "urzad:osiedle_zgody_2",
+        "id": "urzad:os_zgody_2",
         "name": "Referat Ochrony Wód, Klimatu Akustycznego i Ochrony Przed Polami Elektromagnetycznymi <br/>",
         "address": "Osiedle Zgody 2, 31-949 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -31073,7 +31064,7 @@
     },
     "offices": [
       {
-        "id": "urzad:osiedle_zgody_2",
+        "id": "urzad:os_zgody_2",
         "name": "Referat Ochrony Wód, Klimatu Akustycznego i Ochrony Przed Polami Elektromagnetycznymi",
         "address": "Osiedle Zgody 2, 31-949 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -31122,7 +31113,7 @@
     },
     "offices": [
       {
-        "id": "urzad:osiedle_zgody_2",
+        "id": "urzad:os_zgody_2",
         "name": "Referat Ochrony Wód, Klimatu Akustycznego <br/>i Ochrony Przed Polami Elektromagnetycznymi <br/>",
         "address": "Osiedle Zgody 2, 31-949 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -31171,7 +31162,7 @@
     },
     "offices": [
       {
-        "id": "urzad:osiedle_zgody_2",
+        "id": "urzad:os_zgody_2",
         "name": "Referat Ochrony Wód, Klimatu Akustycznego i Ochrony Przed Polami Elektromagnetycznymi <br/>",
         "address": "Osiedle Zgody 2, 31-949 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -31220,7 +31211,7 @@
     },
     "offices": [
       {
-        "id": "urzad:osiedle_zgody_2",
+        "id": "urzad:os_zgody_2",
         "name": "Referat Ochrony Wód, Klimatu Akustycznego i Ochrony Przed Polami Elektromagnetycznymi <br/>",
         "address": "Osiedle Zgody 2, 31-949 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -31269,7 +31260,7 @@
     },
     "offices": [
       {
-        "id": "urzad:osiedle_zgody_2",
+        "id": "urzad:os_zgody_2",
         "name": "Referat Ochrony Wód, Klimatu Akustycznego i Ochrony Przed Polami Elektromagnetycznymi <br/>",
         "address": "Osiedle Zgody 2, 31-949 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -31502,7 +31493,7 @@
     },
     "offices": [
       {
-        "id": "urzad:dziennik_podawczy",
+        "id": "urzad:os_zgody_2",
         "name": "Wydział Środowiska, Klimatu i Powietrza Referat Geologii (WS-10)",
         "address": "Dziennik Podawczy, pokój 25, os. Zgody 2, 31-949 Kraków",
         "hours": "Czynne od poniedziałku do środy i w piątek w godzinach 7:40 - 15:30 oraz w czwartek w godzinach 8:00 - 15:30",
@@ -32858,7 +32849,7 @@
         "coords": null
       },
       {
-        "id": "urzad:os_centrum_c_10_b",
+        "id": "urzad:os_centrum_c_10b",
         "name": "Biuro Obsługi Mieszkańców nr 4",
         "address": "os. Centrum C 10 B, 31-931Kraków,",
         "hours": "Pn-pt 7:30-15:30",
@@ -33497,7 +33488,7 @@
     },
     "offices": [
       {
-        "id": "urzad:plac_na_groblach_7",
+        "id": "urzad:pl_na_groblach_7",
         "name": "Biuro Obsługi Mieszkańców nr 6",
         "address": "plac Na Groblach 7, 31-101 Kraków,",
         "hours": "Pn-Pt: 7:30-15:30",
@@ -33744,7 +33735,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_powstancow_48_w_krakowie",
+        "id": "urzad:ul_powstancow_48",
         "name": "Rejon III Prądnik Czerwony (Batowice) - Cmentarz Prądnik Czerwony",
         "address": "ul. Powstańców 48 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -33753,7 +33744,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wapienna_13_w_krakowie",
+        "id": "urzad:ul_wapienna_13",
         "name": "Rejon II Podgórze (Stary Cmentarz Podgórski, Nowy Cmentarz Podgórski, Cmentarz Prokocim, Cmentarz Wola Duchacka, Cmentarz Pychowice, Cmentarz Maki Czerwone, Cmentarz Kobierzyn- Lubostroń)",
         "address": "ul. Wapienna 13 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -33762,7 +33753,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wielogorska_16_w_krakowie",
+        "id": "urzad:ul_wielogorska_16",
         "name": "Biuro obsługi P.U.K. Klepsydra (Cmentarz Podgórki Tynieckie)",
         "address": "ul. Wielogórska 16 w Krakowie",
         "hours": "7.30-15.30",
@@ -33771,7 +33762,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_rakowicka_26_w_krakowie",
+        "id": "urzad:ul_rakowicka_26",
         "name": "Rejon I Rakowice (Cmentarz Rakowicki, Cmentarz Bronowice, Cmentarz Mydlniki)",
         "address": "ul. Rakowicka 26 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -33780,7 +33771,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_darwina_1g_w_krakowie",
+        "id": "urzad:ul_darwina_1g",
         "name": "Rejon IV Grębałów (Cmentarz Grębałów)",
         "address": "ul. Darwina 1g w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -33821,7 +33812,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_powstancow_48_w_krakowie",
+        "id": "urzad:ul_powstancow_48",
         "name": "Rejon III Prądnik Czerwony (Batowice) - Cmentarz Prądnik Czerwony",
         "address": "ul. Powstańców 48 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -33830,7 +33821,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wapienna_13_w_krakowie",
+        "id": "urzad:ul_wapienna_13",
         "name": "Rejon II Podgórze (Stary Cmentarz Podgórski, Nowy Cmentarz Podgórski, Cmentarz Prokocim, Cmentarz Wola Duchacka, Cmentarz Pychowice, Cmentarz Maki Czerwone, Cmentarz Kobierzyn-Lubostroń)",
         "address": "ul. Wapienna 13 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -33839,7 +33830,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wielogorska_16_w_krakowie",
+        "id": "urzad:ul_wielogorska_16",
         "name": "Biuro obsługi P.U.K. Klepsydra (Cmentarz Podgórki Tynieckie)",
         "address": "ul. Wielogórska 16 w Krakowie",
         "hours": "7.30-15.30",
@@ -33848,7 +33839,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_rakowicka_26_w_krakowie",
+        "id": "urzad:ul_rakowicka_26",
         "name": "Rejon I Rakowice (Cmentarz Rakowicki, Cmentarz Bronowice, Cmentarz Mydlniki)",
         "address": "ul. Rakowicka 26 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -33857,7 +33848,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_darwina_1g_w_krakowie",
+        "id": "urzad:ul_darwina_1g",
         "name": "Rejon IV Grębałów (Cmentarz Grębałów)",
         "address": "ul. Darwina 1g w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -33902,7 +33893,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_powstancow_48_w_krakowie",
+        "id": "urzad:ul_powstancow_48",
         "name": "Rejon III Prądnik Czerwony (Batowice) - Cmentarz Prądnik Czerwony",
         "address": "ul. Powstańców 48 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -33911,7 +33902,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wapienna_13_w_krakowie",
+        "id": "urzad:ul_wapienna_13",
         "name": "Rejon II Podgórze (Stary Cmentarz Podgórski, Nowy Cmentarz Podgórski, Cmentarz Prokocim, Cmentarz Wola Duchacka, Cmentarz Pychowice, Cmentarz Maki Czerwone, Cmentarz Kobierzyn- Lubostroń)",
         "address": "ul. Wapienna 13 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -33920,7 +33911,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wielogorska_16_w_krakowie",
+        "id": "urzad:ul_wielogorska_16",
         "name": "Biuro obsługi P.U.K. Klepsydra (Cmentarz Podgórki Tynieckie)",
         "address": "ul. Wielogórska 16 w Krakowie",
         "hours": "7.30-15.30",
@@ -33929,7 +33920,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_rakowicka_26_w_krakowie",
+        "id": "urzad:ul_rakowicka_26",
         "name": "Rejon I Rakowice (Cmentarz Rakowicki, Cmentarz Bronowice, Cmentarz Mydlniki)",
         "address": "ul. Rakowicka 26 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -33938,7 +33929,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_darwina_1g_w_krakowie",
+        "id": "urzad:ul_darwina_1g",
         "name": "Rejon IV Grębałów (Cmentarz Grębałów)",
         "address": "ul. Darwina 1g w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34183,7 +34174,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_ul_wielogorska_16",
+        "id": "urzad:ul_wielogorska_16",
         "name": "Biuro obsługi P.U.K. Klepsydra (Cmentarz Podgórki Tynieckie)",
         "address": "ul. ul. Wielogórska 16, 30-398 Kraków",
         "hours": "7.30-15.30",
@@ -34250,7 +34241,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_rakowicka_26_w_krakowie",
+        "id": "urzad:ul_rakowicka_26",
         "name": "Dziennik Podawczy Zarządu Cmentarzy Komunalnych",
         "address": "ul. Rakowicka 26 w Krakowie",
         "hours": "pn. – pt. 7:30 – 15:30",
@@ -34259,7 +34250,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_darwina_1g_w_krakowie",
+        "id": "urzad:ul_darwina_1g",
         "name": "Biuro Obsługi Cmentarza Grębałów",
         "address": "ul. Darwina 1g w Krakowie",
         "hours": "pn. – pt. 7:30 – 15:30",
@@ -34268,7 +34259,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_powstancow_48_w_krakowie",
+        "id": "urzad:ul_powstancow_48",
         "name": "Biuro Obsługi Cmentarza Prądnik Czerwony",
         "address": "ul. Powstańców 48 w Krakowie",
         "hours": "pn. – pt. 7:30 – 15:30",
@@ -34277,7 +34268,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wapienna_13_w_krakowie",
+        "id": "urzad:ul_wapienna_13",
         "name": "Biuro Obsługi Rejonu Podgórze",
         "address": "ul. Wapienna 13 w Krakowie",
         "hours": "pn. – pt. 7:30 – 15:30",
@@ -34506,7 +34497,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_powstancow_48_w_krakowie",
+        "id": "urzad:ul_powstancow_48",
         "name": "Rejon III Prądnik Czerwony (Batowice) - Cmentarz Prądnik Czerwony",
         "address": "ul. Powstańców 48 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34515,7 +34506,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wapienna_13_w_krakowie",
+        "id": "urzad:ul_wapienna_13",
         "name": "Rejon II Podgórze (Stary Cmentarz Podgórski, Nowy Cmentarz Podgórski, Cmentarz Prokocim, Cmentarz Wola Duchacka, Cmentarz Pychowice, Cmentarz Maki Czerwone, Cmentarz Kobierzyn- Lubostroń)",
         "address": "ul. Wapienna 13 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34524,7 +34515,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wielogorska_16_w_krakowie",
+        "id": "urzad:ul_wielogorska_16",
         "name": "Biuro obsługi P.U.K. Klepsydra (Cmentarz Podgórki Tynieckie)",
         "address": "ul. Wielogórska 16 w Krakowie",
         "hours": "7.30-15.30",
@@ -34533,7 +34524,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_rakowicka_26_w_krakowie",
+        "id": "urzad:ul_rakowicka_26",
         "name": "Rejon I Rakowice (Cmentarz Rakowicki, Cmentarz Bronowice, Cmentarz Mydlniki)",
         "address": "ul. Rakowicka 26 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00<br/>",
@@ -34542,7 +34533,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_darwina_1g_w_krakowie",
+        "id": "urzad:ul_darwina_1g",
         "name": "Rejon IV Grębałów (Cmentarz Grębałów)",
         "address": "ul. Darwina 1g w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34599,7 +34590,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_powstancow_48_w_krakowie",
+        "id": "urzad:ul_powstancow_48",
         "name": "Rejon III Prądnik Czerwony (Batowice) - Cmentarz Prądnik Czerwony",
         "address": "ul. Powstańców 48 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34608,7 +34599,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wapienna_13_w_krakowie",
+        "id": "urzad:ul_wapienna_13",
         "name": "Rejon II Podgórze (Stary Cmentarz Podgórski, Nowy Cmentarz Podgórski, Cmentarz Prokocim, Cmentarz Wola Duchacka, Cmentarz Pychowice, Cmentarz Maki Czerwone, Cmentarz Kobierzyn- Lubostroń)",
         "address": "ul. Wapienna 13 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34617,7 +34608,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wielogorska_16_w_krakowie",
+        "id": "urzad:ul_wielogorska_16",
         "name": "Biuro obsługi P.U.K. Klepsydra (Cmentarz Podgórki Tynieckie)",
         "address": "ul. Wielogórska 16 w Krakowie",
         "hours": "7.30-15.30",
@@ -34626,7 +34617,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_rakowicka_26_w_krakowie",
+        "id": "urzad:ul_rakowicka_26",
         "name": "Rejon I Rakowice (Cmentarz Rakowicki, Cmentarz Bronowice, Cmentarz Mydlniki)",
         "address": "ul. Rakowicka 26 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00<br/>",
@@ -34635,7 +34626,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_darwina_1g_w_krakowie",
+        "id": "urzad:ul_darwina_1g",
         "name": "Rejon IV Grębałów (Cmentarz Grębałów)",
         "address": "ul. Darwina 1g w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34692,7 +34683,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_powstancow_48_w_krakowie",
+        "id": "urzad:ul_powstancow_48",
         "name": "Rejon III Prądnik Czerwony (Batowice) - Cmentarz Prądnik Czerwony",
         "address": "ul. Powstańców 48 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34701,7 +34692,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wapienna_13_w_krakowie",
+        "id": "urzad:ul_wapienna_13",
         "name": "Rejon II Podgórze (Stary Cmentarz Podgórski, Nowy Cmentarz Podgórski, Cmentarz Prokocim, Cmentarz Wola Duchacka, Cmentarz Pychowice, Cmentarz Maki Czerwone, Cmentarz Kobierzyn- Lubostroń)",
         "address": "ul. Wapienna 13 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34710,7 +34701,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wielogorska_16_w_krakowie",
+        "id": "urzad:ul_wielogorska_16",
         "name": "Biuro obsługi P.U.K. Klepsydra (Cmentarz Podgórki Tynieckie)",
         "address": "ul. Wielogórska 16 w Krakowie",
         "hours": "7.30-15.30",
@@ -34719,7 +34710,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_rakowicka_26_w_krakowie",
+        "id": "urzad:ul_rakowicka_26",
         "name": "Rejon I Rakowice (Cmentarz Rakowicki, Cmentarz Bronowice, Cmentarz Mydlniki)",
         "address": "ul. Rakowicka 26 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34728,7 +34719,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_darwina_1g_w_krakowie",
+        "id": "urzad:ul_darwina_1g",
         "name": "Rejon IV Grębałów (Cmentarz Grębałów)",
         "address": "ul. Darwina 1g w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34782,7 +34773,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_powstancow_48_w_krakowie",
+        "id": "urzad:ul_powstancow_48",
         "name": "Rejon III Prądnik Czerwony (Batowice) - Cmentarz Prądnik Czerwony",
         "address": "ul. Powstańców 48 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34791,7 +34782,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wapienna_13_w_krakowie",
+        "id": "urzad:ul_wapienna_13",
         "name": "Rejon II Podgórze (Stary Cmentarz Podgórski, Nowy Cmentarz Podgórski, Cmentarz Prokocim, Cmentarz Wola Duchacka, Cmentarz Pychowice, Cmentarz Maki Czerwone, Cmentarz Kobierzyn- Lubostroń)",
         "address": "ul. Wapienna 13 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34800,7 +34791,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_wielogorska_16_w_krakowie",
+        "id": "urzad:ul_wielogorska_16",
         "name": "Biuro obsługi P.U.K. Klepsydra (Cmentarz Podgórki Tynieckie)",
         "address": "ul. Wielogórska 16 w Krakowie",
         "hours": "7.30-15.30",
@@ -34809,7 +34800,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_rakowicka_26_w_krakowie",
+        "id": "urzad:ul_rakowicka_26",
         "name": "Rejon I Rakowice (Cmentarz Rakowicki, Cmentarz Bronowice, Cmentarz Mydlniki)",
         "address": "ul. Rakowicka 26 w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -34818,7 +34809,7 @@
         "coords": null
       },
       {
-        "id": "urzad:ul_darwina_1g_w_krakowie",
+        "id": "urzad:ul_darwina_1g",
         "name": "Rejon IV Grębałów (Cmentarz Grębałów)",
         "address": "ul. Darwina 1g w Krakowie",
         "hours": "7.30-15.30 kasa: 7.30- 15.00",
@@ -36787,7 +36778,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_reymonta_20_wejscie_od_ul_reymana_park_jordana",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Dróg Miasta Krakowa",
         "address": "ul. W. Reymonta 20 (wejście od ul. H. Reymana - Park Jordana)",
         "hours": "Czynne od poniedziałku do wtorku w godzinach 10:00 – 18:00 oraz od środy do piątku w godzinach 8:00 – 16:00",
@@ -36835,7 +36826,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_reymonta_20_wejscie_od_ul_reymana_park_jordana",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Dróg Miasta Krakowa",
         "address": "ul. W. Reymonta 20 (wejście od ul. H. Reymana - Park Jordana)",
         "hours": "Czynne od poniedziałku do wtorku w godzinach 10:00 – 18:00 oraz od środy do piątku w godzinach 8:00 – 16:00",
@@ -36888,7 +36879,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_reymonta_20_wejscie_od_ul_reymana_park_jordana",
+        "id": "urzad:ul_reymonta_20",
         "name": "Dział - Biuro Obsługi Klienta OPP",
         "address": "ul. W. Reymonta 20 (wejście od ul. H. Reymana - Park Jordana)",
         "hours": "Czynne od poniedziałku do wtorku w godzinach 10:00 - 18:00 oraz od środy do piątku w godzinach 8:00 - 16:00",
@@ -36937,7 +36928,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_reymonta_20_wejscie_od_ul_reymana_park_jordana",
+        "id": "urzad:ul_reymonta_20",
         "name": "Dział - Biuro Obsługi Klienta OPP",
         "address": "ul. W. Reymonta 20 (wejście od ul. H. Reymana - Park Jordana)",
         "hours": "Czynne od poniedziałku do wtorku w godzinach 10:00 - 18:00 oraz od środy do piątku w godzinach 8:00 - 16:00",
@@ -36978,7 +36969,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_reymonta_20_wejscie_od_ul_reymana_park_jordana",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Dróg Miasta Krakowa",
         "address": "ul. W. Reymonta 20 (wejście od ul. H. Reymana - Park Jordana)",
         "hours": "Czynne od poniedziałku do wtorku w godzinach 10:00 - 18:00 oraz od środy do piątku w godzinach 8:00 - 16:00",
@@ -37019,7 +37010,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_reymonta_20_wejscie_od_ul_reymana_park_jordana",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Dróg Miasta Krakowa",
         "address": "ul. W. Reymonta 20 (wejście od ul. H. Reymana (Park Jordana)), 30-059 Kraków",
         "hours": "Czynne od poniedziałku do wtorku w godzinach 10:00 - 18:00 oraz od środy do piątku w godzinach 8:00 - 16:00",
@@ -37064,7 +37055,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_reymonta_20_wejscie_od_ul_reymana_park_jordana",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Dróg Miasta Krakowa",
         "address": "ul. W. Reymonta 20 (wejście od ul. H. Reymana - Park Jordana)",
         "hours": "Czynne od poniedziałku do wtorku w godzinach 10:00 – 18:00 oraz od środy do piątku w godzinach 8:00 – 16:00",
@@ -37109,7 +37100,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_reymonta_20_wejscie_od_ul_reymana_park_jordana",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Dróg Miasta Krakowa",
         "address": "ul. W. Reymonta 20 (wejście od ul. H. Reymana - Park Jordana)",
         "hours": "Czynne od poniedziałku do wtorku w godzinach 10:00 – 18:00 oraz od środy do piątku w godzinach 8:00 – 16:00",
@@ -37467,7 +37458,7 @@
     },
     "offices": [
       {
-        "id": "urzad:ul_reymonta_20_wejscie_od_ul_reymana_park_jordana",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Dróg Miasta Krakowa",
         "address": "ul. W. Reymonta 20 (wejście od ul. H. Reymana - Park Jordana)",
         "hours": "Czynne od poniedziałku do wtorku w godzinach 10:00 – 18:00 oraz od środy do piątku w godzinach 8:00 – 16:00",
@@ -38350,7 +38341,7 @@
     },
     "offices": [
       {
-        "id": "urzad:sekretariat_ul_reymonta_20",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Zieleni Miejskiej w Krakowie",
         "address": "Sekretariat - ul. W. Reymonta 20, 30-059 Kraków,, ,",
         "hours": "Od poniedziałku do piątku w godzinach 7:30 - 15:30",
@@ -38359,7 +38350,7 @@
         "coords": null
       },
       {
-        "id": "urzad:sekretariat_ul_za_torem_22",
+        "id": "urzad:ul_za_torem_22",
         "name": "Zarząd Zieleni Miejskiej w Krakowie",
         "address": "Sekretariat - ul. Za Torem 22, 30-542 Kraków,",
         "hours": "Od poniedziałku do piątku w godzinach 7:30 - 15:30",
@@ -38404,7 +38395,7 @@
     },
     "offices": [
       {
-        "id": "urzad:sekretariat_ul_reymonta_20",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Zieleni Miejskiej w Krakowie",
         "address": "sekretariat ul. W. Reymonta 20, 30-059 Kraków,, sekretariat ul. Za Torem 22, , 30-542 Kraków,",
         "hours": "7:30 - 15:30",
@@ -38449,7 +38440,7 @@
     },
     "offices": [
       {
-        "id": "urzad:sekretariat_ul_reymonta_20",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Zieleni Miejskiej w Krakowie",
         "address": "sekretariat ul. W. Reymonta 20, 30-059 Kraków,, sekretariat ul. Za Torem 22, , 30-542 Kraków,, email: sekretariat@zzm.krakow.pl,",
         "hours": "7:30 - 15:30",
@@ -38494,7 +38485,7 @@
     },
     "offices": [
       {
-        "id": "urzad:sekretariat_ul_reymonta_20",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Zieleni Miejskiej w Krakowie",
         "address": "sekretariat ul. W. Reymonta 20, 30-059 Kraków,, sekretariat ul. Za Torem 22, , 30-542 Kraków,, e mail: sekretariat@zzm.krakow.pl,",
         "hours": "7:30 - 15:30",
@@ -38812,7 +38803,7 @@
     },
     "offices": [
       {
-        "id": "urzad:sekretariat_ul_reymonta_20",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Zieleni Miejskiej w Krakowie",
         "address": "Sekretariat - ul. W. Reymonta 20, 30-059 Kraków,",
         "hours": "Od poniedziałku do piątku w godzinach 7:30 - 15:30",
@@ -38821,7 +38812,7 @@
         "coords": null
       },
       {
-        "id": "urzad:sekretariat_ul_za_torem_22",
+        "id": "urzad:ul_za_torem_22",
         "name": "Zarząd Zieleni Miejskiej w Krakowie",
         "address": "Sekretariat - ul. Za Torem 22, 30-542 Kraków",
         "hours": "Od poniedziałku do piątku w godzinach 7:30 - 15:30",
@@ -39023,7 +39014,7 @@
     },
     "offices": [
       {
-        "id": "urzad:sekretariat_ul_reymonta_20",
+        "id": "urzad:ul_reymonta_20",
         "name": "Zarząd Zieleni Miejskiej w Krakowie",
         "address": "Sekretariat - ul. W. Reymonta 20, 30-059 Kraków",
         "hours": "Od poniedziałku do piątku w godzinach 7:30 - 15:30",
@@ -39032,7 +39023,7 @@
         "coords": null
       },
       {
-        "id": "urzad:sekretariat_ul_za_torem_22",
+        "id": "urzad:ul_za_torem_22",
         "name": "Zarząd Zieleni Miejskiej w Krakowie",
         "address": "Sekretariat - ul. Za Torem 22, 30-542 Kraków",
         "hours": "Od poniedziałku do piątku w godzinach 7:30 - 15:30",

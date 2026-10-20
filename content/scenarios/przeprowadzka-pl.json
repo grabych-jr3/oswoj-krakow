@@ -25,7 +25,7 @@
         "order": 2,
         "title": "Aktualizacja adresu w dowodzie rejestracyjnym pojazdu",
         "why": "Konieczność zachowania zgodności danych rejestracyjnych pojazdu z aktualnym miejscem zamieszkania właściciela.",
-        "when": "W terminie 30 dni od dnia zmiany adresu zamieszkania",
+        "when": null,
         "procedureSymbols": [
           "KM-8"
         ],
@@ -71,7 +71,7 @@
         "order": 2,
         "title": "Оновлення адреси в техпаспорті автомобіля",
         "why": "Необхідність відповідності реєстраційних даних транспортного засобу актуальному місцю проживання власника.",
-        "when": "Протягом 30 днів від дати зміни адреси проживання",
+        "when": null,
         "procedureSymbols": [
           "KM-8"
         ],
@@ -117,7 +117,7 @@
         "order": 2,
         "title": "Update address in vehicle registration certificate",
         "why": "Requirement to keep vehicle registration records aligned with the owner's actual residence.",
-        "when": "Within 30 days from the change of residential address",
+        "when": null,
         "procedureSymbols": [
           "KM-8"
         ],
