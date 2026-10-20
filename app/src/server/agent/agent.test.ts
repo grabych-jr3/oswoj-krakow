@@ -25,6 +25,16 @@ describe("resolveModelChain", () => {
     expect(resolveModelChain({ LLM_FALLBACK_PROVIDER: "mistral", GOOGLE_GENERATIVE_AI_API_KEY: "g" })).toHaveLength(2);
   });
 
+  it("accepts several fallback providers", () => {
+    const chain = resolveModelChain({
+      LLM_FALLBACK_PROVIDER: "mistral, groq",
+      GOOGLE_GENERATIVE_AI_API_KEY: "g",
+      MISTRAL_API_KEY: "m",
+      GROQ_API_KEY: "q",
+    });
+    expect(chain.map((c) => c.provider)).toEqual(["google", "mistral", "groq", "google"]);
+  });
+
   it("honours LLM_MODEL and is empty without keys", () => {
     expect(resolveModelChain({ LLM_MODEL: "gemini-x", GOOGLE_GENERATIVE_AI_API_KEY: "g" })[0].modelId).toBe("gemini-x");
     expect(resolveModelChain({})).toEqual([]);

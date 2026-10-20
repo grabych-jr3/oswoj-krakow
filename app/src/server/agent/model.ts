@@ -10,7 +10,7 @@ type ProviderName = "google" | "mistral" | "groq";
 const PROVIDERS: Record<ProviderName, { create: (id: string) => Model; keyEnv: string; defaultModel: string }> = {
   google: { create: (id) => google(id), keyEnv: "GOOGLE_GENERATIVE_AI_API_KEY", defaultModel: "gemini-2.5-flash" },
   mistral: { create: (id) => mistral(id), keyEnv: "MISTRAL_API_KEY", defaultModel: "mistral-small-latest" },
-  groq: { create: (id) => groq(id), keyEnv: "GROQ_API_KEY", defaultModel: "llama-3.3-70b-versatile" },
+  groq: { create: (id) => groq(id), keyEnv: "GROQ_API_KEY", defaultModel: "openai/gpt-oss-120b" },
 };
 /** Same provider, separate free-tier quota: used when no other provider has a key. */
 const GOOGLE_SPARE_MODEL = "gemini-2.5-flash-lite";
@@ -27,10 +27,14 @@ function isProvider(name: string | undefined): name is ProviderName {
 /** Ordered candidates: configured primary, configured fallback, then a spare Gemini model. Only those with a key. */
 export function resolveModelChain(env: Record<string, string | undefined> = process.env): ModelChoice[] {
   const primary: ProviderName = isProvider(env.LLM_PROVIDER) ? env.LLM_PROVIDER : "google";
-  const fallback = isProvider(env.LLM_FALLBACK_PROVIDER) ? env.LLM_FALLBACK_PROVIDER : null;
+  // A comma-separated list, e.g. "mistral,groq"; LLM_FALLBACK_MODEL applies to the first one only.
+  const fallbacks = (env.LLM_FALLBACK_PROVIDER ?? "").split(",").map((s) => s.trim()).filter(isProvider);
   const chain: ModelChoice[] = [
     { provider: primary, modelId: env.LLM_MODEL || PROVIDERS[primary].defaultModel },
-    ...(fallback ? [{ provider: fallback, modelId: env.LLM_FALLBACK_MODEL || PROVIDERS[fallback].defaultModel }] : []),
+    ...fallbacks.map((p, i) => ({
+      provider: p,
+      modelId: (i === 0 && env.LLM_FALLBACK_MODEL) || PROVIDERS[p].defaultModel,
+    })),
     { provider: "google", modelId: GOOGLE_SPARE_MODEL },
   ];
   const seen = new Set<string>();

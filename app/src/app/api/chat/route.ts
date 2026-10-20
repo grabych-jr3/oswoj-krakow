@@ -1,19 +1,16 @@
-import { convertToModelMessages, createUIMessageStreamResponse, stepCountIs, streamText, type UIMessage } from "ai";
+import { convertToModelMessages, createUIMessageStreamResponse, type UIMessage } from "ai";
 import { NextRequest, NextResponse } from "next/server";
 import { ChatRequestBody } from "@/contracts/chat";
+import { runAgent } from "@/server/agent/agent";
 import { cachedAnswer, recordAnswer } from "@/server/agent/answer-cache";
 import { mockChatStream } from "@/server/agent/mock-stream";
 import { createAgentModel } from "@/server/agent/model";
-import { buildSystemPrompt } from "@/server/agent/prompt";
 import { checkRateLimit, clientIp } from "@/server/agent/rate-limit";
 import { matchStarter } from "@/server/agent/starters";
 import { buildTools } from "@/server/agent/tools";
 import { geo } from "@/server/geo";
 
 export const maxDuration = 60;
-
-/** Enough for search → card → places → answer, with room for one recovery from a tool error. */
-const MAX_STEPS = 6;
 
 function lastUserText(messages: UIMessage[]): string {
   const last = messages.findLast((m) => m.role === "user");
@@ -50,15 +47,12 @@ export async function POST(req: NextRequest) {
 
   const origin = map?.origin ?? null;
   const tools = buildTools({ geo, locale, mapOrigin: origin?.coords ?? null });
-  const result = streamText({
+  const result = runAgent({
     model,
-    system: buildSystemPrompt({ locale, origin }),
+    geo,
+    locale,
+    origin,
     messages: await convertToModelMessages(messages, { tools, ignoreIncompleteToolCalls: true }),
-    tools,
-    stopWhen: stepCountIs(MAX_STEPS),
-    temperature: 0.2,
-    // One retry on the same model; after that the fallback middleware switches provider.
-    maxRetries: 1,
   });
 
   const stream = result.toUIMessageStream({

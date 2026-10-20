@@ -1,0 +1,887 @@
+[
+  {
+    "id": "demo1-ua-kharkiv",
+    "locale": "uk",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_scenario",
+      "expected scenario obywatel-ua, got none"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "zameldowanie",
+          "tags": [
+            "przeprowadzka"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 3578
+  },
+  {
+    "id": "demo2-pesel",
+    "locale": "pl",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of SA-34/SA-65, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "PESEL",
+          "tags": [
+            "dokumenty"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 3145
+  },
+  {
+    "id": "demo3-15min-walk",
+    "locale": "pl",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "nearby_15min",
+        "input": {
+          "address": "ul. Wielicka 28, Kraków",
+          "mode": "walk"
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 3196
+  },
+  {
+    "id": "sc-family-pl",
+    "locale": "pl",
+    "toolsOk": true,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "expected scenario rodzina-z-dzieckiem, got przeprowadzka-pl"
+    ],
+    "calls": [
+      {
+        "tool": "get_scenario",
+        "input": {
+          "id": "przeprowadzka-pl"
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 3351
+  },
+  {
+    "id": "sc-car-uk",
+    "locale": "uk",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_scenario",
+      "expected scenario samochod, got none"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "rejestracja pojazdu",
+          "tags": [
+            "pojazd"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 3068
+  },
+  {
+    "id": "sc-moving-pl",
+    "locale": "pl",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "get_scenario",
+        "input": {
+          "id": "przeprowadzka-pl",
+          "locale": "pl"
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 5385
+  },
+  {
+    "id": "sc-noneu-en",
+    "locale": "en",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_scenario",
+      "expected scenario cudzoziemiec-spoza-ue, got none"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "zameldowanie",
+          "tags": [
+            "przeprowadzka"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 3065
+  },
+  {
+    "id": "p-zameldowanie-pl",
+    "locale": "pl",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of SA-14/SA-12/SA-32, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "zameldowanie na pobyt stały",
+          "tags": [
+            "przeprowadzka"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 4046
+  },
+  {
+    "id": "p-zameldowanie-uk",
+    "locale": "uk",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of SA-12, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "zameldowanie",
+          "tags": [
+            "mieszkanie"
+          ]
+        }
+      },
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "meldunek",
+          "tags": [
+            "mieszkanie"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 5465
+  },
+  {
+    "id": "p-zameldowanie-en",
+    "locale": "en",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of SA-14/SA-32, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "zameldowanie w Krakowie",
+          "tags": [
+            "przeprowadzka"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 3435
+  },
+  {
+    "id": "p-wymeldowanie",
+    "locale": "pl",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of SA-15/SA-13, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "wymeldowanie",
+          "tags": [
+            "przeprowadzka"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 4064
+  },
+  {
+    "id": "p-pesel-ukr",
+    "locale": "uk",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "PESEL status ukraiński",
+          "tags": [
+            "obywatel_ua"
+          ]
+        }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "SA-65"
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 3705
+  },
+  {
+    "id": "p-pesel-en",
+    "locale": "en",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of SA-34, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "wydanie numeru PESEL cudzoziemca",
+          "tags": [
+            "cudzoziemiec"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 2965
+  },
+  {
+    "id": "p-dowod",
+    "locale": "pl",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of SA-10, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "dowód osobisty",
+          "tags": [
+            "dokumenty"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 2991
+  },
+  {
+    "id": "p-dowod-lost",
+    "locale": "en",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of SA-11, fetched nothing"
+    ],
+    "calls": [],
+    "text": "A lost Polish ID card (dowód osobisty) is handled by the national civil‑registration authorities, not by the Kraków city offices.  \n\n**What to do**\n\n1. **Report the loss** – file a report at the nearest police station (or online, if available).  \n2. **Apply for a new card** – submit an application at the appropriate civil‑registration office (Urząd Stanu Cywilnego or the city office that handles identity documents).  \n3. Bring your passport or another valid ID, a recent photo, and the police report (if required).  \n\nFor detailed instructions and the application form, visit the central government portal: https://www.gov.pl.  \n\nIf you need help locating the nearest civil‑registration office in Kraków, let me know and I can show it on a map.",
+    "model": "openai/gpt-oss-120b",
+    "ms": 1125
+  },
+  {
+    "id": "p-car-new",
+    "locale": "en",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of KM-1, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "rejestracja nowego samochodu",
+          "tags": [
+            "pojazd"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 5089
+  },
+  {
+    "id": "p-car-deregister",
+    "locale": "pl",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "wyrejestrowanie pojazdu",
+          "tags": [
+            "pojazd"
+          ]
+        }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "KM-7"
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 3705
+  },
+  {
+    "id": "p-car-address",
+    "locale": "uk",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of KM-8, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "zmiana adresu w dowodzie rejestracyjnym samochodu",
+          "tags": [
+            "pojazd"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 3269
+  },
+  {
+    "id": "p-license-exchange",
+    "locale": "uk",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of KM-19, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "wymiana ukraińskiego prawa jazdy na polskie",
+          "tags": [
+            "pojazd"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 2963
+  },
+  {
+    "id": "p-pkk",
+    "locale": "pl",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of KM-21, fetched nothing"
+    ],
+    "calls": [],
+    "text": "Prawo jazdy (w tym kategoria K – PKK) wydaje Komenda Wojewódzka Policji. Szczegółowe informacje znajdziesz na oficjalnej stronie Policji: https://www.policja.gov.pl.",
+    "model": "openai/gpt-oss-120b",
+    "ms": 1138
+  },
+  {
+    "id": "p-mpj",
+    "locale": "en",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "międzynarodowe prawo jazdy",
+          "tags": [
+            "pojazd"
+          ]
+        }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "KM-20"
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 6421
+  },
+  {
+    "id": "p-parking",
+    "locale": "pl",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of ZDMK-72/ZDMK-71, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "abonament parkingowy dla mieszkańca strefy",
+          "tags": [
+            "pojazd"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 3687
+  },
+  {
+    "id": "p-waste",
+    "locale": "pl",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of PD-17, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "deklaracja opłata za śmieci po przeprowadzce",
+          "tags": [
+            "przeprowadzka"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 3720
+  },
+  {
+    "id": "p-property-tax",
+    "locale": "en",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of PD-4, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "deklaracja podatku od nieruchomości",
+          "tags": [
+            "mieszkanie"
+          ]
+        }
+      }
+    ],
+    "text": "In Kraków the city does **not** collect the annual property‑tax (podatek od nieruchomości). That tax is administered by the state tax office, not by the municipal authorities.\n\n**What you need to do**\n\n1. **Check the tax‑office (Urząd Skarbowy) website** for the annual property‑tax declaration form and the deadline (usually 31 January for the previous year).  \n2. If you are a new owner, the declaration is usually required **once** after you have been entered in the land‑and‑building register (księga wieczysta).  \n3. Submit the completed form (paper or e‑declaration) to the appropriate tax‑office for Kraków.  \n\nFor detailed instructions, forms and deadlines, see the official tax‑office portal:\n\n🔗 **[Polish Tax Administration – Property Tax](https://www.podatki.gov.pl)**  \n\nIf you need help locating the nearest tax‑office or have questions about the form, let me know!",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 3923
+  },
+  {
+    "id": "p-birth",
+    "locale": "uk",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of SC-1/SC-29, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "zgłoszenie narodzin",
+          "tags": [
+            "dziecko"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 5279
+  },
+  {
+    "id": "p-big-family",
+    "locale": "pl",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "Karta Dużej Rodziny",
+          "tags": [
+            "dziecko"
+          ]
+        }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "SO-27"
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 1043
+  },
+  {
+    "id": "p-housing-allowance",
+    "locale": "pl",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "dodatek mieszkaniowy",
+          "tags": [
+            "pomoc_spoleczna"
+          ]
+        }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "SO-15"
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 1537
+  },
+  {
+    "id": "p-unemployed",
+    "locale": "en",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of GUP-2/GUP-1, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "rejestracja bezrobotnego",
+          "tags": []
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 2954
+  },
+  {
+    "id": "p-integration-uk",
+    "locale": "uk",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "integracja cudzoziemców",
+          "tags": [
+            "cudzoziemiec"
+          ]
+        }
+      },
+      {
+        "tool": "get_procedure",
+        "input": {
+          "symbol": "MOPS-21"
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 3470
+  },
+  {
+    "id": "p-hire-foreigner",
+    "locale": "pl",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: get_procedure",
+      "expected one of GUP-5, fetched nothing"
+    ],
+    "calls": [
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "oświadczenie o powierzeniu pracy cudzoziemcowi",
+          "tags": [
+            "praca"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 2911
+  },
+  {
+    "id": "pl-nurseries-district",
+    "locale": "pl",
+    "toolsOk": false,
+    "sourcesOk": false,
+    "passed": false,
+    "problems": [
+      "missing tools: find_places",
+      "expected categories zlobek, got "
+    ],
+    "calls": [
+      {
+        "tool": "geocode",
+        "input": {
+          "query": "Podgórze Kraków"
+        }
+      },
+      {
+        "tool": "search_procedures",
+        "input": {
+          "query_pl": "Podgórze numer dzielnicy Kraków",
+          "tags": [
+            "mieszkanie"
+          ]
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 6452
+  },
+  {
+    "id": "pl-schools-uk",
+    "locale": "uk",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "find_places",
+        "input": {
+          "categories": [
+            "szkola_podstawowa"
+          ],
+          "address": "Wielicka 28, Kraków"
+        }
+      }
+    ],
+    "text": "Ось одна початкова школа, розташована найближче до **вулиці Wielicka 28**:\n\n- **Szkoła Podstawowa nr 29 im. Jana Matejki** – al. Edwarda Dembowskiego 12, 30‑540 Kraków (район 13 Podgórze) – приблизно 770 м від вашої адреси.  \n\n(на карті позначена маркером **(1)**).  \n\nЯкщо потрібна додаткова інформація (наприклад, розклад, контактний телефон), звертайтеся безпосередньо до школи або до **Управління освіти міста Кракова**.  \n\n---  \n\n*Це лише один варіант, який система знайшла у відкритих даних. Якщо шукаєте інші школи або інші категорії (наприклад, середні школи), дайте знати – підберу ще.*",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 1112
+  },
+  {
+    "id": "pl-parks-en",
+    "locale": "en",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "find_places",
+        "input": {
+          "categories": [
+            "park"
+          ],
+          "address": "ul. Wielicka 28, Kraków",
+          "limit": 10
+        }
+      }
+    ],
+    "text": "Here are the parks close to **ul. Wielicka 28** (the nearest one is shown on the map as marker (1)):\n\n| Park | District | Area |\n|------|----------|------|\n| **Park im. Wojciecha Bednarskiego** | Podgórze (13) | 8.24 ha |\n\nThe park is about 1.2 km from your address, easily reachable on foot or by a short bus ride. Let me know if you’d like more details (e.g., playgrounds, walking trails) or other nearby green spaces!",
+    "model": "openai/gpt-oss-120b → openai/gpt-oss-120b",
+    "ms": 3155
+  },
+  {
+    "id": "pl-15min-en",
+    "locale": "en",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [
+      {
+        "tool": "nearby_15min",
+        "input": {
+          "address": "ul. Wielicka 28",
+          "mode": "walk"
+        }
+      }
+    ],
+    "text": "",
+    "model": "openai/gpt-oss-120b",
+    "ms": 5430
+  },
+  {
+    "id": "out-karta-pobytu",
+    "locale": "uk",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [],
+    "text": "Карту побиту (karta pobytu) у Кракові оформляє **Управління Wojewódzkie w Małopolsce**. Детальну інформацію та необхідні документи можна знайти на їхньому офіційному сайті:\n\n🔗 https://www.malopolska.uw.gov.pl\n\nЦе державна установа, а не міська, тому в місті Кракові окремих процедур щодо карти побиту немає. Якщо потрібна допомога з іншими питаннями, пов’язаними з життям у Кракові, звертайтеся!",
+    "model": "openai/gpt-oss-120b",
+    "ms": 964
+  },
+  {
+    "id": "out-nfz",
+    "locale": "en",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [],
+    "text": "Public health insurance (NFZ) is managed at the national level, not by the City of Kraków. You can find all the necessary information and apply through the official website:\n\n**National Health Fund (NFZ):** https://www.nfz.gov.pl",
+    "model": "openai/gpt-oss-120b",
+    "ms": 354
+  },
+  {
+    "id": "out-zus",
+    "locale": "pl",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [],
+    "text": "Obliczaniem emerytury zajmuje się Zakład Ubezpieczeń Społecznych (ZUS). Więcej informacji znajdziesz na ich stronie: https://www.zus.pl.",
+    "model": "openai/gpt-oss-120b",
+    "ms": 379
+  },
+  {
+    "id": "out-weather",
+    "locale": "en",
+    "toolsOk": true,
+    "sourcesOk": true,
+    "passed": true,
+    "problems": [],
+    "calls": [],
+    "text": "Weather forecasts for Kraków are provided by the Institute of Meteorology and Water Management (IMGW) – https://www.imgw.pl.",
+    "model": "openai/gpt-oss-120b",
+    "ms": 1210
+  }
+]
