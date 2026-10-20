@@ -3,10 +3,15 @@ name = "oswoj-geo"
 version = "0.1.0"
 description = "Geo & Data pipeline for Oswój Kraków (stream A)"
 requires-python = ">=3.12,<3.13"
-dependencies = ["httpx>=0.28"]
+dependencies = [
+    "httpx>=0.28",
+    "pyproj>=3.8.0",
+    "rapidfuzz>=3.14.6",
+]
 
 [project.scripts]
 geo-fetch = "oswoj_geo.fetch:main"
+geo-geocode = "oswoj_geo.places:main"
 
 [dependency-groups]
 dev = ["pytest>=8.3", "ruff>=0.9"]
