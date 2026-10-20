@@ -1,0 +1,498 @@
+[
+  {
+    "id": "przeprowadzka-pl",
+    "locale": "uk",
+    "title": "Переїзд до Кракова (для громадян Польщі)",
+    "forWhom": "Громадяни Польщі, які змінюють місце проживання та переїжджають до Кракова.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Реєстрація місця проживання (zameldowanie)",
+        "why": "Обов'язок реєстрації згідно із законодавством. Дозволяє користуватися пільгами Картки Краків'янина, голосувати та записувати дітей до навчальних закладів.",
+        "when": "Не пізніше 30-го дня з моменту прибуття на нове місце проживання",
+        "procedureSymbols": [
+          "SA-14"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Оновлення адреси в техпаспорті автомобіля",
+        "why": "Необхідність відповідності реєстраційних даних транспортного засобу актуальному місцю проживання власника.",
+        "when": null,
+        "procedureSymbols": [
+          "KM-8"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Вибір лікаря первинної медичної допомоги (POZ)",
+        "why": "Забезпечення медичного обслуговування за програмою NFZ поруч із новим місцем проживання.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Інтернет-кабінет пацієнта (pacjent.gov.pl)",
+            "url": "https://pacjent.gov.pl"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-14",
+      "https://www.bip.krakow.pl/uslugi/KM-8"
+    ]
+  },
+  {
+    "id": "cudzoziemiec-ue",
+    "locale": "uk",
+    "title": "Перші кроки для громадян ЄС (ЄС/ЄЕЗ/Швейцарія)",
+    "forWhom": "Громадяни країн-членів ЄС, ЄЕЗ та Швейцарії та члени їхніх сімей у Кракові.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Реєстрація місця проживання іноземця (zameldowanie)",
+        "why": "Виконання обов'язку реєстрації для іноземців, які перебувають у Польщі понад 3 місяці.",
+        "when": "Не пізніше 30-го дня від дати прибуття (якщо перебування довше 3 місяців)",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Реєстрація перебування громадянина ЄС у Воєводському управлінні",
+        "why": "Вимога закону при перебуванні в Польщі понад 3 місяці (компетенція Малопольського воєводи).",
+        "when": "Наступного дня після спливу 3 місяців від дня в'їзду до Польщі",
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Відділ у справах іноземців Малопольського воєводського управління",
+            "url": "https://malopolska.uw.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Міський транспорт і проїзні квитки у Кракові",
+        "why": "Оформлення міської карти або проїзних квитків KMK для зручного пересування містом.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [
+          "przystanek"
+        ],
+        "external": [
+          {
+            "title": "Управління міського транспорту Кракова (ZTP)",
+            "url": "https://ztp.krakow.pl"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-12",
+      "https://malopolska.uw.gov.pl"
+    ]
+  },
+  {
+    "id": "cudzoziemiec-spoza-ue",
+    "locale": "uk",
+    "title": "Перші кроки для іноземців з-поза меж ЄС",
+    "forWhom": "Громадяни третіх країн (не члени ЄС/ЄЕЗ), які прибувають до Кракова на роботу, навчання або до родини.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Отримання номера PESEL за заявою",
+        "why": "Головний ідентифікаційний номер для банків, податкової, медицини та офіційних установ.",
+        "when": "Після прибуття до Польщі за наявності правової підстави",
+        "procedureSymbols": [
+          "SA-34"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Реєстрація місця проживання (zameldowanie)",
+        "why": "Офіційне підтвердження адреси в Кракові, необхідне для подальшої легалізації перебування.",
+        "when": "Не пізніше 4-го дня від прибуття, якщо планований термін перебування понад 30 днів",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Легалізація перебування — Карта побиту у Воєводському управлінні",
+        "why": "Подання заяви на дозвіл на тимчасове перебування до Малопольського воєводського управління (компетенція Воєводи).",
+        "when": "Не пізніше останнього дня легального перебування в Польщі",
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Малопольське воєводське управління — Справи іноземців",
+            "url": "https://malopolska.uw.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 4,
+        "title": "Інтеграційна підтримка та консультації (MOPS)",
+        "why": "Консультації, інформаційна та соціальна підтримка від Міського осередку соціальної допомоги Кракова.",
+        "when": null,
+        "procedureSymbols": [
+          "MOPS-21"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-34",
+      "https://www.bip.krakow.pl/uslugi/SA-12",
+      "https://www.bip.krakow.pl/uslugi/MOPS-21",
+      "https://malopolska.uw.gov.pl"
+    ]
+  },
+  {
+    "id": "obywatel-ua",
+    "locale": "uk",
+    "title": "Перші кроки для громадян України під тимчасовим захистом",
+    "forWhom": "Громадяни України та члени їхніх сімей, які прибули до Кракова у зв'язку з війною.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Отримання номера PESEL зі статусом UKR",
+        "why": "Підтвердження тимчасового захисту, легальності перебування, права на безкоштовну медицину, роботу та допомоги.",
+        "when": null,
+        "procedureSymbols": [
+          "SA-65"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Реєстрація місця проживання (zameldowanie)",
+        "why": "Підтвердження адреси проживання в Кракові, що значно спрощує запис дітей до садочків і шкіл за місцем проживання.",
+        "when": "Не пізніше 4-го дня від прибуття (якщо перебування понад 30 днів)",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Реєстрація у Міському центрі зайнятості (GUP Kraków)",
+        "why": "Допомога з працевлаштуванням, стажуваннями та запис на безкоштовні курси польської мови.",
+        "when": null,
+        "procedureSymbols": [
+          "GUP-1",
+          "GUP-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Міський центр зайнятості у Кракові (GUP)",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 4,
+        "title": "Соціальна підтримка та інтеграційна допомога (MOPS)",
+        "why": "Отримання консультацій, психологічної допомоги та соціальних послуг через осередки MOPS.",
+        "when": null,
+        "procedureSymbols": [
+          "MOPS-21"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-65",
+      "https://www.bip.krakow.pl/uslugi/SA-12",
+      "https://www.bip.krakow.pl/uslugi/MOPS-21",
+      "https://www.bip.krakow.pl/uslugi/GUP-1",
+      "https://www.bip.krakow.pl/uslugi/GUP-2",
+      "https://gupkrakow.praca.gov.pl"
+    ]
+  },
+  {
+    "id": "rodzina-z-dzieckiem",
+    "locale": "uk",
+    "title": "Сім'я з дитиною: опіка, навчання та допомога",
+    "forWhom": "Батьки та опікуни з дітьми до 18 років, які проживають у Кракові.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Запис дитини до ясел, дитячого клубу або дитсадка",
+        "why": "Забезпечення догляду та розвитку малечі. Набір відбувається через міську електронну систему рекрутації.",
+        "when": "Згідно з графіком весняного набору або за наявності вільних місць упродовж року",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "zlobek",
+          "klub_dzieciecy",
+          "przedszkole",
+          "klub_rodzica"
+        ],
+        "external": [
+          {
+            "title": "Краківський освітній портал",
+            "url": "https://portaledukacyjny.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Запис дитини до початкової або середньої школи",
+        "why": "Реалізація обов'язку шкільної освіти. За місцем проживання школа закріплена за адресою і зобов'язана прийняти учня.",
+        "when": "Перед початком навчального року або в будь-який момент упродовж року",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "szkola_podstawowa",
+          "szkola_ponadpodstawowa"
+        ],
+        "external": [
+          {
+            "title": "Департамент освіти Кракова",
+            "url": "https://portaledukacyjny.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Сімейна допомога та доплати до неї (Zasiłek rodzinny)",
+        "why": "Міська фінансова підтримка сімей з невисоким рівнем доходу для покриття витрат на дитину.",
+        "when": "Заяви подаються на відповідний виплатний період",
+        "procedureSymbols": [
+          "SO-20"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 4,
+        "title": "Шкільна соціальна стипендія",
+        "why": "Матеріальна допомога учням у скрутному становищі на купівлю шкільного приладдя та підручників.",
+        "when": null,
+        "procedureSymbols": [
+          "MOPS-45"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SO-20",
+      "https://www.bip.krakow.pl/uslugi/MOPS-45",
+      "https://portaledukacyjny.krakow.pl"
+    ]
+  },
+  {
+    "id": "praca",
+    "locale": "uk",
+    "title": "Пошук роботи та професійний розвиток у Кракові",
+    "forWhom": "Особи, які шукають роботу, безробітні або планують підвищити свою кваліфікацію.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Реєстрація зі статусом шукача роботи",
+        "why": "Отримання доступу до вакансій, консультацій кар'єрного радника та спеціальних міських програм.",
+        "when": null,
+        "procedureSymbols": [
+          "GUP-1"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Міський центр зайнятості у Кракові",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Реєстрація зі статусом безробітного",
+        "why": "Отримання медичного страхування, допомоги по безробіттю (за наявності страхового стажу) та повного пакету підтримки.",
+        "when": "У будь-який час після завершення роботи",
+        "procedureSymbols": [
+          "GUP-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Міський центр зайнятості у Кракові",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Курси та перекваліфікація (Szkolenia)",
+        "why": "Можливість безкоштовного проходження сертифікованих навчальних курсів коштом фонду праці та отримання стипендії на час навчання.",
+        "when": "Під час дії оголошених наборів на навчання",
+        "procedureSymbols": [
+          "GUP-10"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/GUP-1",
+      "https://www.bip.krakow.pl/uslugi/GUP-2",
+      "https://www.bip.krakow.pl/uslugi/GUP-10",
+      "https://gupkrakow.praca.gov.pl"
+    ]
+  },
+  {
+    "id": "samochod",
+    "locale": "uk",
+    "title": "Автомобіль і транспорт: реєстрація та формальності у Кракові",
+    "forWhom": "Власники автомобілів, які переїжджають до Кракова або купують транспортний засіб у Польщі чи з-за кордону.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Реєстрація авто, раніше зареєстрованого в Польщі",
+        "why": "Переоформлення купленого або набутого транспортного засобу на нового власника у Кракові.",
+        "when": null,
+        "procedureSymbols": [
+          "KM-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Реєстрація ввезеного з-за кордону автомобіля",
+        "why": "Офіційний допуск до руху в Польщі авто, імпортованого з іншої країни після сплати акцизу та техогляду.",
+        "when": null,
+        "procedureSymbols": [
+          "KM-14"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Внесення змін до техпаспорта при зміні адреси",
+        "why": "Оновлення адреси проживання власника у документах на автомобіль після переїзду.",
+        "when": null,
+        "procedureSymbols": [
+          "KM-8"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/KM-2",
+      "https://www.bip.krakow.pl/uslugi/KM-8",
+      "https://www.bip.krakow.pl/uslugi/KM-14"
+    ]
+  },
+  {
+    "id": "student",
+    "locale": "uk",
+    "title": "Гід для студента у Кракові",
+    "forWhom": "Студенти краківських університетів (UJ, AGH, PK, UEK тощо), які приїжджають на навчання.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Тимчасова реєстрація (zameldowanie) в гуртожитку або орендованій квартирі",
+        "why": "Виконання вимоги реєстрації місця проживання для студентів, зокрема іноземних.",
+        "when": "У межах 30 днів від заселення",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Студентський проїзний квиток KMK та Картка Краків'янина",
+        "why": "50% студентська пільга на проїзд трамваями й автобусами Кракова за наявності студентського квитка (legitymacja).",
+        "when": "Перед початком регулярних поїздок містом",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "przystanek"
+        ],
+        "external": [
+          {
+            "title": "Квитки та тарифи ZTP Kraków",
+            "url": "https://ztp.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Запис до мережі Бібліотеки Кракова",
+        "why": "Безкоштовний доступ до фондів книг, наукової літератури, читальних залів і коворкінг-зон біля дому.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [
+          "biblioteka"
+        ],
+        "external": [
+          {
+            "title": "Biblioteka Kraków",
+            "url": "https://biblioteka.krakow.pl"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-12",
+      "https://ztp.krakow.pl",
+      "https://biblioteka.krakow.pl"
+    ]
+  }
+]

@@ -1,0 +1,145 @@
+{
+  "id": "przeprowadzka-pl",
+  "sources": [
+    "https://www.bip.krakow.pl/uslugi/SA-14",
+    "https://www.bip.krakow.pl/uslugi/KM-8"
+  ],
+  "pl": {
+    "title": "Przeprowadzka do Krakowa (dla obywateli Polski)",
+    "forWhom": "Obywatele Polski zmieniający miejsce zamieszkania i przeprowadzający się do Krakowa.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Zameldowanie na pobyt stały lub czasowy",
+        "why": "Obowiązek meldunkowy wynikający z ustawy. Pozwala m.in. na korzystanie z Krakowskiej Karty Miejskiej ze zniżkami oraz przypisanie do obwodu wyborczego i placówek edukacyjnych.",
+        "when": "Najpóźniej w 30. dniu od dnia przybycia do nowego miejsca zamieszkania",
+        "procedureSymbols": [
+          "SA-14"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Aktualizacja adresu w dowodzie rejestracyjnym pojazdu",
+        "why": "Konieczność zachowania zgodności danych rejestracyjnych pojazdu z aktualnym miejscem zamieszkania właściciela.",
+        "when": null,
+        "procedureSymbols": [
+          "KM-8"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Wybór lekarza podstawowej opieki zdrowotnej (POZ)",
+        "why": "Zapewnienie bezpłatnej opieki medycznej w ramach NFZ blisko nowego miejsca zamieszkania.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Internetowe Konto Pacjenta (pacjent.gov.pl)",
+            "url": "https://pacjent.gov.pl"
+          }
+        ]
+      }
+    ]
+  },
+  "uk": {
+    "title": "Переїзд до Кракова (для громадян Польщі)",
+    "forWhom": "Громадяни Польщі, які змінюють місце проживання та переїжджають до Кракова.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Реєстрація місця проживання (zameldowanie)",
+        "why": "Обов'язок реєстрації згідно із законодавством. Дозволяє користуватися пільгами Картки Краків'янина, голосувати та записувати дітей до навчальних закладів.",
+        "when": "Не пізніше 30-го дня з моменту прибуття на нове місце проживання",
+        "procedureSymbols": [
+          "SA-14"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Оновлення адреси в техпаспорті автомобіля",
+        "why": "Необхідність відповідності реєстраційних даних транспортного засобу актуальному місцю проживання власника.",
+        "when": null,
+        "procedureSymbols": [
+          "KM-8"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Вибір лікаря первинної медичної допомоги (POZ)",
+        "why": "Забезпечення медичного обслуговування за програмою NFZ поруч із новим місцем проживання.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Інтернет-кабінет пацієнта (pacjent.gov.pl)",
+            "url": "https://pacjent.gov.pl"
+          }
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "Moving to Kraków (for Polish citizens)",
+    "forWhom": "Polish citizens relocating and moving their residence to Kraków.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Registration of permanent or temporary residence (zameldowanie)",
+        "why": "Statutory registration obligation. Enables access to Kraków City Card discounts, voter lists, and school district assignments.",
+        "when": "No later than the 30th day from arriving at the new address",
+        "procedureSymbols": [
+          "SA-14"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Update address in vehicle registration certificate",
+        "why": "Requirement to keep vehicle registration records aligned with the owner's actual residence.",
+        "when": null,
+        "procedureSymbols": [
+          "KM-8"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Select a primary care physician (POZ)",
+        "why": "Ensuring public NFZ healthcare coverage close to the new place of residence.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Patient Online Account (pacjent.gov.pl)",
+            "url": "https://pacjent.gov.pl"
+          }
+        ]
+      }
+    ]
+  }
+}

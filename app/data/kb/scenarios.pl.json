@@ -1,0 +1,498 @@
+[
+  {
+    "id": "przeprowadzka-pl",
+    "locale": "pl",
+    "title": "Przeprowadzka do Krakowa (dla obywateli Polski)",
+    "forWhom": "Obywatele Polski zmieniający miejsce zamieszkania i przeprowadzający się do Krakowa.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Zameldowanie na pobyt stały lub czasowy",
+        "why": "Obowiązek meldunkowy wynikający z ustawy. Pozwala m.in. na korzystanie z Krakowskiej Karty Miejskiej ze zniżkami oraz przypisanie do obwodu wyborczego i placówek edukacyjnych.",
+        "when": "Najpóźniej w 30. dniu od dnia przybycia do nowego miejsca zamieszkania",
+        "procedureSymbols": [
+          "SA-14"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Aktualizacja adresu w dowodzie rejestracyjnym pojazdu",
+        "why": "Konieczność zachowania zgodności danych rejestracyjnych pojazdu z aktualnym miejscem zamieszkania właściciela.",
+        "when": null,
+        "procedureSymbols": [
+          "KM-8"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Wybór lekarza podstawowej opieki zdrowotnej (POZ)",
+        "why": "Zapewnienie bezpłatnej opieki medycznej w ramach NFZ blisko nowego miejsca zamieszkania.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Internetowe Konto Pacjenta (pacjent.gov.pl)",
+            "url": "https://pacjent.gov.pl"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-14",
+      "https://www.bip.krakow.pl/uslugi/KM-8"
+    ]
+  },
+  {
+    "id": "cudzoziemiec-ue",
+    "locale": "pl",
+    "title": "Pierwsze kroki dla obywateli Unii Europejskiej (UE/EOG/Szwajcaria)",
+    "forWhom": "Obywatele państw członkowskich Unii Europejskiej, EOG oraz Szwajcarii i członkowie ich rodzin.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Zameldowanie cudzoziemca na pobyt stały lub czasowy",
+        "why": "Realizacja ustawowego obowiązku meldunkowego dla cudzoziemców przebywających w Polsce.",
+        "when": "Najpóźniej w 30. dniu od dnia przybycia, jeśli pobyt przekracza 3 miesiące",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Zarejestrowanie pobytu obywatela UE w Urzędzie Wojewódzkim",
+        "why": "Formalny wymóg legalizacyjny dla pobytów obywateli UE w Polsce przekraczających 3 miesiące (sprawa w gestii Wojewody Małopolskiego).",
+        "when": "W kolejnym dniu po upływie 3 miesięcy od dnia wjazdu na terytorium RP",
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Wydział Spraw Cudzoziemców Małopolskiego Urzędu Wojewódzkiego",
+            "url": "https://malopolska.uw.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Karta miejska i transport publiczny w Krakowie",
+        "why": "Zakup biletów okresowych KMK lub wyrobienie Krakowskiej Karty Miejskiej w celu sprawnego poruszania się po mieście.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [
+          "przystanek"
+        ],
+        "external": [
+          {
+            "title": "Zarząd Transportu Publicznego w Krakowie (ZTP)",
+            "url": "https://ztp.krakow.pl"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-12",
+      "https://malopolska.uw.gov.pl"
+    ]
+  },
+  {
+    "id": "cudzoziemiec-spoza-ue",
+    "locale": "pl",
+    "title": "Pierwsze kroki dla cudzoziemców spoza Unii Europejskiej",
+    "forWhom": "Obywatele państw trzecich (spoza UE/EOG) przyjeżdżający do Krakowa do pracy, nauki lub z rodziną.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Uzyskanie numeru PESEL na wniosek",
+        "why": "Kluczowy numer identyfikacyjny w kontaktach z urzędami, bankami, opieką zdrowotną oraz przy rozliczeniach podatkowych.",
+        "when": "Po przybyciu do Polski w przypadku posiadania podstawy prawnej",
+        "procedureSymbols": [
+          "SA-34"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Meldunek czasowy lub stały cudzoziemca",
+        "why": "Potwierdzenie legalnego adresu zamieszkania w Krakowie, niezbędne m.in. w procedurach legalizacji pobytu.",
+        "when": "Najpóźniej w 4. dniu od dnia przybycia, jeśli pobyt przekracza 30 dni",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Legalizacja pobytu — Karta Pobytu w Urzędzie Wojewódzkim",
+        "why": "Złożenie wniosku o zezwolenie na pobyt czasowy w Małopolskim Urzędzie Wojewódzkim (poza kompetencją Urzędu Miasta).",
+        "when": "Najpóźniej w ostatnim dniu legalnego pobytu na terytorium RP",
+        "procedureSymbols": [],
+        "placeCategories": [],
+        "external": [
+          {
+            "title": "Małopolski Urząd Wojewódzki — Sprawy Cudzoziemców",
+            "url": "https://malopolska.uw.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 4,
+        "title": "Wsparcie integracyjne i poradnictwo socjalne (MOPS)",
+        "why": "Konsultacje, pomoc doradcza i integracyjna oferowana przez Miejski Ośrodek Pomocy Społecznej w Krakowie.",
+        "when": null,
+        "procedureSymbols": [
+          "MOPS-21"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-34",
+      "https://www.bip.krakow.pl/uslugi/SA-12",
+      "https://www.bip.krakow.pl/uslugi/MOPS-21",
+      "https://malopolska.uw.gov.pl"
+    ]
+  },
+  {
+    "id": "obywatel-ua",
+    "locale": "pl",
+    "title": "Pierwsze kroki dla obywateli Ukrainy objętych ochroną czasową",
+    "forWhom": "Obywatele Ukrainy oraz członkowie ich rodzin przybyli do Polski w związku z działaniami wojennymi.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Nadanie numeru PESEL ze statusem UKR",
+        "why": "Potwierdzenie ochrony czasowej, legalnego pobytu oraz dostęp do opieki medycznej, rynku pracy i świadczeń.",
+        "when": null,
+        "procedureSymbols": [
+          "SA-65"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Zameldowanie i zgłoszenie adresu zamieszkania",
+        "why": "Oficjalna rejestracja miejsca zamieszkania w Krakowie ułatwiająca rekrutację do przedszkoli i szkół.",
+        "when": "Najpóźniej w 4. dniu od przybycia (jeśli pobyt czasowy przekracza 30 dni)",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Rejestracja w Grodzkim Urzędzie Pracy w Krakowie",
+        "why": "Pomoc w znalezieniu zatrudnienia, staży zawodowych oraz dostęp do bezpłatnych kursów języka polskiego.",
+        "when": null,
+        "procedureSymbols": [
+          "GUP-1",
+          "GUP-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Grodzki Urząd Pracy w Krakowie",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 4,
+        "title": "Wsparcie socjalne i pomoc integracyjna (MOPS)",
+        "why": "Skorzystanie z programów wsparcia socjalnego, poradnictwa psychologicznego i pomocy rzeczowej dla uchodźców.",
+        "when": null,
+        "procedureSymbols": [
+          "MOPS-21"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-65",
+      "https://www.bip.krakow.pl/uslugi/SA-12",
+      "https://www.bip.krakow.pl/uslugi/MOPS-21",
+      "https://www.bip.krakow.pl/uslugi/GUP-1",
+      "https://www.bip.krakow.pl/uslugi/GUP-2",
+      "https://gupkrakow.praca.gov.pl"
+    ]
+  },
+  {
+    "id": "rodzina-z-dzieckiem",
+    "locale": "pl",
+    "title": "Rodzina z dzieckiem: opieka, edukacja i wsparcie",
+    "forWhom": "Rodzice i opiekunowie prawni z dziećmi do lat 18 zamieszkujący w Krakowie.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Wybór i zapis dziecka do żłobka, klubu dziecięcego lub przedszkola",
+        "why": "Zapewnienie opieki nad najmłodszymi dziećmi. Rekrutacja prowadzona jest przez scentralizowany miejski system elektroniczny.",
+        "when": "Zgodnie z harmonogramem miejskiej rekrutacji wiosną lub w miarę wolnych miejsc w ciągu roku",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "zlobek",
+          "klub_dzieciecy",
+          "przedszkole",
+          "klub_rodzica"
+        ],
+        "external": [
+          {
+            "title": "Krakowski Portal Edukacyjny",
+            "url": "https://portaledukacyjny.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Zapisanie dziecka do szkoły podstawowej lub ponadpodstawowej",
+        "why": "Realizacja ustawowego obowiązku szkolnego i nauki. Dzieci zamieszkałe w obwodzie danej szkoły przyjmowane są z urzędu.",
+        "when": "Przed rozpoczęciem roku szkolnego lub w dowolnym momencie w trakcie roku",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "szkola_podstawowa",
+          "szkola_ponadpodstawowa"
+        ],
+        "external": [
+          {
+            "title": "Wydział Edukacji UMK — Rekrutacja",
+            "url": "https://portaledukacyjny.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Zasiłek rodzinny i dodatki do zasiłku rodzinnego",
+        "why": "Miejskie wsparcie finansowe dla rodzin o niższych dochodach na częściowe pokrycie wydatków na utrzymanie dziecka.",
+        "when": "Wnioski przyjmowane są na bieżący okres zasiłkowy",
+        "procedureSymbols": [
+          "SO-20"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 4,
+        "title": "Stypendium szkolne o charakterze socjalnym",
+        "why": "Pomoc materialna dla uczniów znajdujących się w trudnej sytuacji materialnej na zakup podręczników i pomocy naukowych.",
+        "when": null,
+        "procedureSymbols": [
+          "MOPS-45"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SO-20",
+      "https://www.bip.krakow.pl/uslugi/MOPS-45",
+      "https://portaledukacyjny.krakow.pl"
+    ]
+  },
+  {
+    "id": "praca",
+    "locale": "pl",
+    "title": "Poszukiwanie pracy i rozwój zawodowy w Krakowie",
+    "forWhom": "Osoby poszukujące zatrudnienia, bezrobotne lub planujące zmianę i podniesienie kwalifikacji zawodowych.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Rejestracja ze statusem osoby poszukującej pracy",
+        "why": "Uzyskanie dostępu do bazy ofert pracy, pomocy doradcy zawodowego oraz udziału w wybranych programach aktywizacyjnych.",
+        "when": null,
+        "procedureSymbols": [
+          "GUP-1"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Grodzki Urząd Pracy w Krakowie",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 2,
+        "title": "Rejestracja ze statusem osoby bezrobotnej",
+        "why": "Nabycie prawa do ubezpieczenia zdrowotnego, zasiłku dla bezrobotnych (przy spełnieniu warunków stażowych) oraz pełnego pakietu form wsparcia.",
+        "when": "W dowolnym momencie po ustaniu zatrudnienia",
+        "procedureSymbols": [
+          "GUP-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": [
+          {
+            "title": "Grodzki Urząd Pracy w Krakowie",
+            "url": "https://gupkrakow.praca.gov.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Szkolenia i przekwalifikowanie zawodowe",
+        "why": "Możliwość sfinansowania przez urząd pracy kursów, szkoleń podnoszących kwalifikacje oraz uzyskania stypendium szkoleniowego.",
+        "when": "W trakcie trwania naborów wniosków na szkolenia",
+        "procedureSymbols": [
+          "GUP-10"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/GUP-1",
+      "https://www.bip.krakow.pl/uslugi/GUP-2",
+      "https://www.bip.krakow.pl/uslugi/GUP-10",
+      "https://gupkrakow.praca.gov.pl"
+    ]
+  },
+  {
+    "id": "samochod",
+    "locale": "pl",
+    "title": "Samochód i pojazdy: rejestracja i formalności w Krakowie",
+    "forWhom": "Właściciele pojazdów przeprowadzający się do Krakowa lub nabywający pojazd w kraju bądź z zagranicy.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Rejestracja pojazdu używanego zarejestrowanego w Polsce",
+        "why": "Przerejestrowanie nabytego pojazdu na dane nowego właściciela i przypisanie do krakowskiego urzędu.",
+        "when": null,
+        "procedureSymbols": [
+          "KM-2"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Rejestracja pojazdu sprowadzonego z zagranicy",
+        "why": "Dopuszczenie do ruchu w Polsce pojazdu importowanego z innego kraju po opłaceniu akcyzy i badaniu technicznym.",
+        "when": null,
+        "procedureSymbols": [
+          "KM-14"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 3,
+        "title": "Zgłoszenie zmiany danych i adresu w dowodzie rejestracyjnym",
+        "why": "Aktualizacja miejsca zamieszkania właściciela w dokumentach zarejestrowanego już wcześniej pojazdu.",
+        "when": null,
+        "procedureSymbols": [
+          "KM-8"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/KM-2",
+      "https://www.bip.krakow.pl/uslugi/KM-8",
+      "https://www.bip.krakow.pl/uslugi/KM-14"
+    ]
+  },
+  {
+    "id": "student",
+    "locale": "pl",
+    "title": "Przewodnik dla studenta w Krakowie",
+    "forWhom": "Studenci uczelni wyższych (UJ, AGH, PK, UEK, UR i in.) przybywający do Krakowa na studia.",
+    "steps": [
+      {
+        "order": 1,
+        "title": "Meldunek czasowy w akademiku lub wynajmowanym mieszkaniu",
+        "why": "Wypełnienie obowiązku meldunkowego dla osób studiujących w Krakowie (w tym studentów zagranicznych).",
+        "when": "W terminie 30 dni od przybycia (obywatele RP) lub najpóźniej w 4./30. dniu (cudzoziemcy)",
+        "procedureSymbols": [
+          "SA-12"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
+      },
+      {
+        "order": 2,
+        "title": "Studencki bilet okresowy KMK i Karta Krakowska",
+        "why": "Korzystanie z 50% ulgi ustawowej na przejazdy tramwajami i autobusami oraz zniżek miejskich dla studentów.",
+        "when": "Przed rozpoczęciem regularnego korzystania z komunikacji miejskiej",
+        "procedureSymbols": [],
+        "placeCategories": [
+          "przystanek"
+        ],
+        "external": [
+          {
+            "title": "Zarząd Transportu Publicznego w Krakowie (Bilety)",
+            "url": "https://ztp.krakow.pl"
+          }
+        ]
+      },
+      {
+        "order": 3,
+        "title": "Zapisanie się do Biblioteki Kraków i filii osiedlowych",
+        "why": "Darmowy dostęp do zbiorów naukowych, literatury, czytelni oraz przestrzeni do nauki w filiach w całym mieście.",
+        "when": null,
+        "procedureSymbols": [],
+        "placeCategories": [
+          "biblioteka"
+        ],
+        "external": [
+          {
+            "title": "Biblioteka Kraków",
+            "url": "https://biblioteka.krakow.pl"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      "https://www.bip.krakow.pl/uslugi/SA-12",
+      "https://ztp.krakow.pl",
+      "https://biblioteka.krakow.pl"
+    ]
+  }
+]
