@@ -12,6 +12,7 @@ dependencies = [
 [project.scripts]
 geo-fetch = "oswoj_geo.fetch:main"
 geo-geocode = "oswoj_geo.places:main"
+geo-layers = "oswoj_geo.layers:main"
 
 [dependency-groups]
 dev = ["pytest>=8.3", "ruff>=0.9"]
