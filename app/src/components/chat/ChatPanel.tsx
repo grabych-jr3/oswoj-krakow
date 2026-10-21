@@ -55,15 +55,25 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel(
   const suggestions = t.raw("suggestions") as string[];
 
   // --- Mobile swipe on the sheet header -------------------------------------------------
+  // The sheet stays anchored to the bottom edge and its height follows the finger, so it never
+  // detaches from the screen bottom; on release it snaps open or closed.
   const SWIPE_PX = 40; // distance that counts as a swipe
-  const drag = useRef<{ startY: number; moved: boolean; onHandle: boolean } | null>(null);
-  const [dragY, setDragY] = useState(0);
+  const MIN_SHEET_PX = 96;
+  const drag = useRef<{ startY: number; startH: number; moved: boolean; onHandle: boolean } | null>(null);
+  const [dragH, setDragH] = useState<number | null>(null);
 
   function onDragStart(e: React.PointerEvent<HTMLDivElement>) {
     if (window.matchMedia("(min-width: 768px)").matches) return; // desktop: no sheet
     const target = e.target as HTMLElement;
     if (target.closest("button")) return; // let the header buttons work normally
-    drag.current = { startY: e.clientY, moved: false, onHandle: !!target.closest("[data-drag-handle]") };
+    const sheet = e.currentTarget.closest("aside");
+    if (!sheet) return;
+    drag.current = {
+      startY: e.clientY,
+      startH: sheet.getBoundingClientRect().height,
+      moved: false,
+      onHandle: !!target.closest("[data-drag-handle]"),
+    };
     e.currentTarget.setPointerCapture(e.pointerId);
   }
 
@@ -72,8 +82,9 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel(
     if (!d) return;
     const dy = e.clientY - d.startY;
     if (Math.abs(dy) > 6) d.moved = true;
-    // Follow the finger: down when open (to close), a little up when closed (to open).
-    setDragY(expanded ? Math.max(0, dy) : Math.max(-60, Math.min(0, dy)));
+    if (!d.moved) return;
+    const maxH = window.innerHeight * 0.85;
+    setDragH(Math.min(maxH, Math.max(MIN_SHEET_PX, d.startH - dy)));
   }
 
   function onDragEnd(e: React.PointerEvent<HTMLDivElement>) {
@@ -81,7 +92,7 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel(
     drag.current = null;
     if (!d) return;
     const dy = e.clientY - d.startY;
-    setDragY(0);
+    setDragH(null);
     if (!d.moved) {
       if (d.onHandle) onExpandedChange(!expanded); // tap on the handle
       return;
@@ -95,9 +106,10 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel(
       ref={ref}
       aria-label={t("title")}
       data-expanded={expanded}
-      style={dragY ? { transform: `translateY(${dragY}px)`, transition: "none" } : undefined}
+      data-dragging={dragH !== null}
+      style={dragH !== null ? { height: dragH } : undefined}
       className={cn(
-        "group fixed inset-x-0 bottom-0 z-20 flex max-h-[85dvh] flex-col rounded-t-3xl bg-primary text-primary-foreground shadow-[0_-12px_40px_-16px_rgb(80_10_10/0.55)] transition-transform duration-200",
+        "group fixed inset-x-0 bottom-0 z-20 flex max-h-[85dvh] flex-col rounded-t-3xl bg-primary text-primary-foreground shadow-[0_-12px_40px_-16px_rgb(80_10_10/0.55)]",
         "data-[expanded=true]:h-[85dvh]",
         "md:static md:z-auto md:h-auto md:max-h-none md:w-[30%] md:min-w-[380px] md:shrink-0 md:rounded-none md:shadow-none md:data-[expanded=true]:h-auto",
       )}
@@ -151,7 +163,7 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel(
         role="log"
         aria-live="polite"
         aria-label={t("messages")}
-        className="hidden min-h-0 flex-1 flex-col gap-3.5 overflow-y-auto px-[18px] pt-1.5 pb-[18px] group-data-[expanded=true]:flex md:flex"
+        className="hidden min-h-0 flex-1 flex-col gap-3.5 overflow-y-auto px-[18px] pt-1.5 pb-[18px] group-data-[dragging=true]:flex group-data-[expanded=true]:flex md:flex"
       >
         <div className="flex max-w-[92%] flex-col gap-3 self-start rounded-[18px] rounded-bl-[4px] bg-card p-4 text-card-foreground">
           <p className="text-[15px] leading-normal text-pretty">{t("greet")}</p>

@@ -43,13 +43,14 @@
   "Address": {
     "label": "Address for the “Kraków in 15 minutes” check",
     "placeholder": "Enter an address – Kraków in 15 minutes",
-    "badge": "15 min"
+    "submit": "Search"
   },
   "Map": {
     "label": "Map of Kraków",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",
-    "sources": "Source: Kraków Open Data, MSIP"
+    "sources": "Source: Kraków Open Data, MSIP",
+    "attribution": "Map sources and licences"
   },
   "Chat": {
     "title": "Assistant",
@@ -106,7 +107,8 @@
     "showAll": "Show all",
     "hideAll": "Hide all",
     "loading": "Loading…",
-    "error": "Could not load the map layers."
+    "error": "Could not load the map layers.",
+    "collapse": "Collapse layers"
   },
   "Place": {
     "close": "Close",

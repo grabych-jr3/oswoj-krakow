@@ -1,6 +1,6 @@
 "use client";
 
-import { Info } from "lucide-react";
+import { Info, Search } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Logo } from "@/components/brand/Logo";
 import { LanguageMenu } from "@/components/shell/LanguageMenu";
@@ -71,11 +71,11 @@ export function LanguageSwitcher({ onPrimary = false, className }: { onPrimary?:
   );
 }
 
-/** Address field for "Kraków w 15 minut". Visual only in C1; the search is wired in C4. */
+/** Address field for "Kraków w 15 minut". Visual only so far; the search is wired in C4. */
 export function AddressSearch() {
   const t = useTranslations("Address");
   return (
-    <form role="search" onSubmit={(e) => e.preventDefault()} className="flex h-12 items-center gap-2.5 rounded-[14px] bg-card px-3.5 shadow-float">
+    <form role="search" onSubmit={(e) => e.preventDefault()} className="flex h-12 items-center gap-2.5 rounded-[14px] bg-card pr-1.5 pl-3.5 shadow-float">
       <span className="size-2.5 shrink-0 rounded-full border-2 border-primary" aria-hidden />
       <label htmlFor="address-search" className="sr-only">
         {t("label")}
@@ -87,9 +87,14 @@ export function AddressSearch() {
         placeholder={t("placeholder")}
         className="min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none"
       />
-      <span className="font-mono text-[11px] font-medium whitespace-nowrap text-primary" aria-hidden>
-        {t("badge")}
-      </span>
+      <button
+        type="submit"
+        aria-label={t("submit")}
+        title={t("submit")}
+        className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-primary text-primary-foreground hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+      >
+        <Search className="size-[18px]" strokeWidth={2.5} aria-hidden />
+      </button>
     </form>
   );
 }

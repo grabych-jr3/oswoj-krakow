@@ -36,7 +36,11 @@ export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
   const chatRef = useRef<HTMLElement>(null);
   const tLayers = useTranslations("Layers");
   const layers = useMapLayers();
+  // Phones start with the map clear; desktop has room for the open panel.
   const [layersOpen, setLayersOpen] = useState(false);
+  const [desktopLayersOpen, setDesktopLayersOpen] = useState(true);
+  const layersBtnRef = useRef<HTMLButtonElement>(null);
+  const desktopLayersBtnRef = useRef<HTMLButtonElement>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const selected = selectedId ? (layers.byId.get(selectedId) ?? null) : null;
 
@@ -59,6 +63,24 @@ export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
     return () => ro.disconnect();
   }, []);
 
+  // The collapse button disappears with the panel: hand focus back to the round layers button.
+  function collapseLayers(desktop: boolean) {
+    if (desktop) setDesktopLayersOpen(false);
+    else setLayersOpen(false);
+    requestAnimationFrame(() => (desktop ? desktopLayersBtnRef : layersBtnRef).current?.focus());
+  }
+
+  const layerPanelProps = {
+    index: layers.index,
+    error: layers.error,
+    enabled: layers.enabled,
+    loading: layers.loading,
+    onToggle: layers.toggle,
+    onSetAll: layers.setAll,
+  };
+  const roundBtn = (on: boolean) =>
+    `grid size-11 shrink-0 place-items-center self-end rounded-full shadow-float focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${on ? "bg-primary text-primary-foreground" : "bg-card text-primary"}`;
+
   function closeWelcome() {
     setWelcomeOpen(false);
     try {
@@ -77,50 +99,60 @@ export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
             <PlaceLayers places={layers.places} selected={selected} onClose={() => setSelectedId(null)} />
           </BaseMap>
 
-          <div className="absolute inset-x-3 top-3 z-10 flex flex-col gap-2.5 md:inset-x-auto md:top-4 md:left-4 md:w-[min(400px,calc(100%-32px))]">
+          {/* Overlay column. On phones it ends just above the chat sheet, so an open layer panel
+              scrolls inside the free space instead of sliding under the chat. */}
+          <div
+            style={{ "--sheet-h": `${sheetHeight}px` } as React.CSSProperties}
+            className="pointer-events-none absolute inset-x-3 top-3 bottom-[calc(var(--sheet-h)+12px)] z-10 flex flex-col gap-2.5 *:pointer-events-auto md:inset-x-auto md:top-4 md:bottom-auto md:left-4 md:w-[min(400px,calc(100%-32px))]"
+          >
             <TopBar onAbout={() => setWelcomeOpen(true)} />
             <AddressSearch />
             <ZoomControls className="hidden self-start md:flex" />
             {/* Phones: layers open from a round button so the panel does not cover the map */}
             <button
+              ref={layersBtnRef}
               type="button"
               onClick={() => setLayersOpen((o) => !o)}
               aria-expanded={layersOpen}
               aria-controls="layers-mobile-panel"
               aria-label={tLayers("title")}
-              className={`grid size-11 place-items-center self-end rounded-full shadow-float focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:hidden ${layersOpen ? "bg-primary text-primary-foreground" : "bg-card text-primary"}`}
+              className={`${roundBtn(layersOpen)} md:hidden`}
             >
               <Layers className="size-5" aria-hidden />
             </button>
             <LayerPanel
-              index={layers.index}
-              error={layers.error}
-              enabled={layers.enabled}
-              loading={layers.loading}
-              onToggle={layers.toggle}
-              onSetAll={layers.setAll}
+              {...layerPanelProps}
               idPrefix="layers-mobile"
-              className={`max-h-[50dvh] overflow-y-auto md:hidden ${layersOpen ? "" : "hidden"}`}
+              onClose={() => collapseLayers(false)}
+              className={`min-h-0 overflow-y-auto md:hidden ${layersOpen ? "" : "hidden"}`}
             />
           </div>
 
-          {/* Desktop: the layer list stays open in the top-right corner of the map */}
-          <div className="absolute top-4 right-4 z-10 hidden w-72 md:block">
+          {/* Desktop: the layer panel in the top-right corner, collapsible to a round button */}
+          <div className="absolute top-4 right-4 z-10 hidden md:block">
+            <button
+              ref={desktopLayersBtnRef}
+              type="button"
+              onClick={() => setDesktopLayersOpen(true)}
+              aria-expanded={desktopLayersOpen}
+              aria-controls="layers-desktop-panel"
+              aria-label={tLayers("title")}
+              title={tLayers("title")}
+              className={`${roundBtn(false)} ${desktopLayersOpen ? "hidden" : ""}`}
+            >
+              <Layers className="size-5" aria-hidden />
+            </button>
             <LayerPanel
-              index={layers.index}
-              error={layers.error}
-              enabled={layers.enabled}
-              loading={layers.loading}
-              onToggle={layers.toggle}
-              onSetAll={layers.setAll}
+              {...layerPanelProps}
               idPrefix="layers-desktop"
-              className="max-h-[calc(100dvh-32px)] overflow-y-auto"
+              onClose={() => collapseLayers(true)}
+              className={`max-h-[calc(100dvh-32px)] w-72 overflow-y-auto ${desktopLayersOpen ? "" : "hidden"}`}
             />
           </div>
 
-          {/* On mobile it sits just above the chat sheet; hidden while the sheet covers the map. */}
+          {/* On mobile it sits just above the chat sheet; hidden while the sheet or the layer panel covers that spot. */}
           <MapAttribution
-            className={`absolute left-3 z-10 max-w-[calc(100%-24px)] md:bottom-2 md:left-4 ${chatExpanded ? "max-md:hidden" : ""}`}
+            className={`absolute left-3 z-10 max-w-[calc(100%-24px)] md:bottom-2 md:left-4 ${chatExpanded || layersOpen ? "max-md:hidden" : ""}`}
             style={{ bottom: sheetHeight ? sheetHeight + 8 : undefined }}
           />
         </section>

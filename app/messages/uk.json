@@ -43,13 +43,14 @@
   "Address": {
     "label": "Адреса для аналізу «Kraków w 15 minut»",
     "placeholder": "Введіть адресу – Kraków w 15 minut",
-    "badge": "15 хв"
+    "submit": "Шукати"
   },
   "Map": {
     "label": "Карта Кракова",
     "zoomIn": "Наблизити карту",
     "zoomOut": "Віддалити карту",
-    "sources": "Джерело: Otwarte Dane Miasta Krakowa, MSIP"
+    "sources": "Джерело: Otwarte Dane Miasta Krakowa, MSIP",
+    "attribution": "Джерела та ліцензії карти"
   },
   "Chat": {
     "title": "Асистент",
@@ -106,7 +107,8 @@
     "showAll": "Показати всі",
     "hideAll": "Приховати всі",
     "loading": "Завантаження…",
-    "error": "Не вдалося завантажити шари карти."
+    "error": "Не вдалося завантажити шари карти.",
+    "collapse": "Згорнути шари"
   },
   "Place": {
     "close": "Закрити",

@@ -1,6 +1,6 @@
 "use client";
 
-import { Layers, LoaderCircle } from "lucide-react";
+import { Layers, LoaderCircle, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { PlaceCategory } from "@/contracts/place";
 import { CATEGORY_STYLES } from "@/lib/categories";
@@ -17,10 +17,12 @@ type Props = {
   className?: string;
   /** Keeps element ids unique when the panel is rendered twice (phone + desktop). */
   idPrefix?: string;
+  /** Collapses the panel back to the round layers button. */
+  onClose?: () => void;
 };
 
 /** List of map layers with counts and switches (C2). */
-export function LayerPanel({ index, error, enabled, loading, onToggle, onSetAll, className, idPrefix = "layers" }: Props) {
+export function LayerPanel({ index, error, enabled, loading, onToggle, onSetAll, className, idPrefix = "layers", onClose }: Props) {
   const t = useTranslations("Layers");
   const tCat = useTranslations("Categories");
   const allOn = !!index && index.every((c) => enabled.has(c.category));
@@ -32,15 +34,28 @@ export function LayerPanel({ index, error, enabled, loading, onToggle, onSetAll,
           <Layers className="size-4 text-primary" aria-hidden />
           {t("title")}
         </h2>
-        {index && (
-          <button
-            type="button"
-            onClick={() => onSetAll(!allOn)}
-            className="rounded-md px-1.5 py-0.5 text-xs font-medium text-primary-strong hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-ring"
-          >
-            {allOn ? t("hideAll") : t("showAll")}
-          </button>
-        )}
+        <div className="flex items-center gap-1">
+          {index && (
+            <button
+              type="button"
+              onClick={() => onSetAll(!allOn)}
+              className="rounded-md px-1.5 py-0.5 text-xs font-medium text-primary-strong hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-ring"
+            >
+              {allOn ? t("hideAll") : t("showAll")}
+            </button>
+          )}
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={t("collapse")}
+              title={t("collapse")}
+              className="grid size-7 place-items-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring"
+            >
+              <X className="size-4" aria-hidden />
+            </button>
+          )}
+        </div>
       </div>
 
       {error && <p className="px-1 text-xs text-muted-foreground">{t("error")}</p>}

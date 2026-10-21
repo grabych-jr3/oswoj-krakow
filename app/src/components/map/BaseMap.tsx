@@ -95,22 +95,38 @@ export function ZoomControls({ className }: { className?: string }) {
   );
 }
 
+/** Compact attribution: a small "©" button that unfolds the credits required by the OSM licence. */
 export function MapAttribution({ className, style }: { className?: string; style?: React.CSSProperties }) {
   const t = useTranslations("Map");
+  const [open, setOpen] = useState(false);
   const link = "underline-offset-2 hover:underline";
   return (
-    <p
-      style={style}
-      className={`rounded-md bg-white/85 px-1.5 py-0.5 font-mono text-[10px] leading-4 text-[oklch(0.38_0.02_27)] ${className ?? ""}`}
-    >
-      <a className={link} href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">
-        © OpenStreetMap
-      </a>{" "}
-      ·{" "}
-      <a className={link} href="https://openfreemap.org" target="_blank" rel="noreferrer">
-        OpenFreeMap
-      </a>{" "}
-      · {t("sources")}
-    </p>
+    <div style={style} className={`flex items-end gap-1 ${className ?? ""}`}>
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-controls="map-attribution"
+        aria-label={t("attribution")}
+        title={t("attribution")}
+        className="grid size-6 shrink-0 place-items-center rounded-full bg-white/85 font-mono text-[11px] font-semibold text-[oklch(0.38_0.02_27)] shadow-sm hover:bg-white focus-visible:outline-2 focus-visible:outline-ring"
+      >
+        ©
+      </button>
+      <p
+        id="map-attribution"
+        hidden={!open}
+        className="rounded-md bg-white/90 px-1.5 py-0.5 font-mono text-[10px] leading-4 text-[oklch(0.38_0.02_27)]"
+      >
+        <a className={link} href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">
+          © OpenStreetMap
+        </a>{" "}
+        ·{" "}
+        <a className={link} href="https://openfreemap.org" target="_blank" rel="noreferrer">
+          OpenFreeMap
+        </a>{" "}
+        · {t("sources")}
+      </p>
+    </div>
   );
 }
