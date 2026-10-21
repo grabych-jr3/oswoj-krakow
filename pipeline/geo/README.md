@@ -115,3 +115,17 @@ uv run ruff check && uv run pytest
 - `uv run geo-access --report-only` rebuilds the report from those files.
 - Runtime: `app/src/server/geo/access.ts` maps a point to its cell (or a neighbour ≤ 2 rings away), unions
   the reachable cells into the zone (h3-js) and answers `nearby()` in under a millisecond.
+
+## Fallback without r5py (A8b)
+
+- `uv run geo-access --engine osmnx` computes the 15 minutes on foot only, on the OSM footway network of
+  Kraków (osmnx via Overpass, cached in `.cache/osmnx`), with Dijkstra at the same 4.8 km/h — no Java.
+  The data format is the same; `transit` repeats the walking reach and `method` says so. It overwrites
+  `app/data/geo` unless `--out <dir>` is given.
+- Cross-check against r5py (walk, 2026-10-21): same «Indeks 15 minut» at all 5 control addresses and in
+  82% of cells; reachable places overlap 89% (median Jaccard); minutes within ±1 for 84% of places,
+  osmnx 0.65 min slower on average.
+- `uv run geo-isochrones`: ZTP's walking isochrones to KMK stops (100–500 m, July 2026) merged into
+  distance bands and sampled on H3 res 10 → `app/public/data/layers/stop-isochrones.json`
+  (`{res, levels, source, cells: [[h3, toM]]}`, ~0.3 MB). 54% of Kraków's area is within 500 m of a
+  stop on foot, 27% within 300 m.
