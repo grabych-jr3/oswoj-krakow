@@ -48,9 +48,11 @@ type BaseMapProps = {
   children?: React.ReactNode;
   interactiveLayerIds?: string[];
   onClick?: (e: MapLayerMouseEvent) => void;
+  /** The MapLibre instance once loaded, for code outside the map tree (chat requests, camera moves). */
+  onMapLoad?: (map: MapLibreMap) => void;
 };
 
-export function BaseMap({ children, interactiveLayerIds, onClick }: BaseMapProps) {
+export function BaseMap({ children, interactiveLayerIds, onClick, onMapLoad }: BaseMapProps) {
   const [cursor, setCursor] = useState<string>();
   return (
     <MapGL
@@ -63,6 +65,7 @@ export function BaseMap({ children, interactiveLayerIds, onClick }: BaseMapProps
       style={{ position: "absolute", inset: 0 }}
       onLoad={(e) => {
         applyBrandTint(e.target);
+        onMapLoad?.(e.target);
         // Test hook for browser checks; only in builds made with NEXT_PUBLIC_EXPOSE_MAP=1.
         if (process.env.NEXT_PUBLIC_EXPOSE_MAP === "1") (window as unknown as { __map: unknown }).__map = e.target;
       }}

@@ -65,5 +65,8 @@ export function useMapLayers() {
     [index],
   );
 
-  return { index, error, enabled, loading, places, byId, toggle, setAll };
+  /** Show just these categories, e.g. for a step of a chat checklist. */
+  const showOnly = useCallback((categories: PlaceCategory[]) => setEnabled(new Set(categories)), []);
+
+  return { index, error, enabled, loading, places, byId, toggle, setAll, showOnly };
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { ExternalLink, MapPin, Phone, X } from "lucide-react";
+import { ExternalLink, MapPin, MessageCircle, Phone, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { Place } from "@/contracts/place";
 import { CATEGORY_STYLES } from "@/lib/categories";
@@ -20,7 +20,18 @@ function sourceName(url: string): string {
 // Numeric attributes worth showing, in display order (keys from zone A layers, PLAN.md §5.3 Place.attrs).
 const NUMBER_ATTRS = ["children", "students", "groups", "places"] as const;
 
-export function PlacePopup({ place, onClose }: { place: Place; onClose: () => void }) {
+export function PlacePopup({
+  place,
+  onClose,
+  onAsk,
+  className = "w-[min(300px,calc(100vw-48px))]",
+}: {
+  place: Place;
+  onClose: () => void;
+  /** Map → chat: ask the assistant about this place. */
+  onAsk?: (place: Place) => void;
+  className?: string;
+}) {
   const t = useTranslations("Place");
   const tCat = useTranslations("Categories");
   const { color, icon: Icon } = CATEGORY_STYLES[place.category];
@@ -31,7 +42,7 @@ export function PlacePopup({ place, onClose }: { place: Place; onClose: () => vo
   const updated = place.source.updatedAt;
 
   return (
-    <article aria-labelledby={`place-${place.id}`} className="flex w-[min(300px,calc(100vw-48px))] flex-col gap-3 text-foreground">
+    <article aria-labelledby={`place-${place.id}`} className={`flex flex-col gap-3 text-foreground ${className}`}>
       <header className="flex items-start gap-2.5">
         <span className="grid size-8 shrink-0 place-items-center rounded-full text-white" style={{ background: color }} aria-hidden>
           <Icon className="size-4" />
@@ -91,6 +102,17 @@ export function PlacePopup({ place, onClose }: { place: Place; onClose: () => vo
           <Phone className="size-3.5" aria-hidden />
           {place.phone}
         </a>
+      )}
+
+      {onAsk && (
+        <button
+          type="button"
+          onClick={() => onAsk(place)}
+          className="flex items-center justify-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-[13px] font-semibold text-primary-foreground hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        >
+          <MessageCircle className="size-4" aria-hidden />
+          {t("ask")}
+        </button>
       )}
 
       <a
