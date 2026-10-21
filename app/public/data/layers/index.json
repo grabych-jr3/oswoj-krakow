@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T14:08:24+00:00",
+  "generatedAt": "2026-10-21T14:47:19+00:00",
   "categories": [
     {
       "category": "zlobek",
@@ -140,6 +140,18 @@
           "dataset": "ztp-arcgis",
           "url": "https://www.arcgis.com/home/item.html?id=ad56306213d640ada0a65598b8592827",
           "updatedAt": "2024-10-02"
+        }
+      ]
+    },
+    {
+      "category": "urzad",
+      "count": 56,
+      "updatedAt": null,
+      "source": [
+        {
+          "dataset": "bip",
+          "url": "https://www.bip.krakow.pl/",
+          "updatedAt": null
         }
       ]
     }

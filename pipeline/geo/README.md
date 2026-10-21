@@ -90,3 +90,14 @@ uv run ruff check && uv run pytest
   post code); `attrs.type` "A" | "T" | "AT"; stops without any GTFS trip keep `lines: null`.
 - Source: the arcgis.com item pages of the ZTP layers (`SourceRef.dataset` "ztp-arcgis").
 - Build order: … → `geo-parks` → `geo-stops` → `geo-districts` (counts per district).
+
+## Offices (A7)
+
+- `uv run geo-offices` reads `app/data/kb/offices_raw.json` and `procedures.json` (stream B) and writes the
+  `urzad` layer: one place per office with B's id (`Office.id`), so `getPlace(office.id)` finds it.
+- The free-text address is cut at commas, " - " and the postal code; room, floor and desk parts are
+  skipped; each "street + number" part is tried against EMUiA, the first address-level hit wins. A number
+  missing from EMUiA whose plain form is missing too ("8W") goes to the middle building of the lettered
+  complex (8a…8j), flagged `~number`. Offices outside Kraków (postal code not 30-/31-) are left out.
+- `attrs`: hours, bookingUrl, procedures ("SA-34,SA-65"), location; source = the first BIP card naming it.
+- Run after B regenerates `offices_raw.json`; then `geo-districts` for the counts.

@@ -24,7 +24,7 @@ KIND_WORDS: dict[str, str | None] = {
 # Titles that EMUiA and sources write inconsistently (abbreviated or not); dropped on both sides.
 TITLE_WORDS = frozenset({
     "ks", "ksiedza", "gen", "generala", "prof", "profesora", "profesor", "kard", "kardynala",
-    "bp", "bpa", "biskupa", "dr", "doktora", "sw", "swietego", "swietej", "plk", "pulkownika",
+    "bp", "bpa", "biskupa", "dr", "doktora", "sw", "swietego", "swietej", "swietych", "plk", "pulkownika",
     "mjr", "majora", "kpt", "kapitana", "marsz", "marszalka", "hetm", "hetmana",
     "insp", "inspektora", "inz", "inzyniera", "im", "imienia",
 })

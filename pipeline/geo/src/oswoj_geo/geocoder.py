@@ -7,6 +7,7 @@ the source never rejects a match. Then the house number: exact → leading part 
 Without a usable number the result is street-level, and the outcome says why.
 """
 
+import re
 from collections import defaultdict
 from dataclasses import dataclass
 from typing import Literal
@@ -137,6 +138,13 @@ class Geocoder:
             found = self._pick([p for n in names if (p := self._by_number.get((n, base)))], postal)
             if found:
                 return found, True
+            # "8W" missing and no plain "8", but 8a, 8g, 8h… exist: one complex; take its middle building.
+            lettered = re.compile(rf"{base}[a-z]")
+            family = [p for n in names for p in self._points[n] if lettered.fullmatch(p.number_key)]
+            if len({p.street for p in family}) == 1:
+                cx = sum(p.lon for p in family) / len(family)
+                cy = sum(p.lat for p in family) / len(family)
+                return min(family, key=lambda q: (q.lon - cx) ** 2 + (q.lat - cy) ** 2), True
         return None, False
 
     def geocode(self, street: str | None, number: object = None, postal: str | None = None) -> Outcome:
