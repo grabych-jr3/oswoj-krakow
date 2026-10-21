@@ -78,8 +78,8 @@ Sam prompt nie wystarcza, dlatego ograniczenia są wbudowane w kod:
 Dostawca i model są ustawiane zmiennymi środowiskowymi (`LLM_PROVIDER`, `LLM_MODEL`, `LLM_FALLBACK_PROVIDER`), bez zmian w kodzie. Domyślny łańcuch:
 
 1. Google Gemini 2.5 Flash (podstawowy),
-2. dostawcy zapasowi z `LLM_FALLBACK_PROVIDER`, np. Mistral, Groq (`openai/gpt-oss-120b`),
-3. Gemini 2.5 Flash-Lite (osobny limit tego samego dostawcy).
+2. Gemini 2.5 Flash-Lite (ten sam dostawca, osobny limit),
+3. dostawcy zapasowi z `LLM_FALLBACK_PROVIDER`, w podanej kolejności: Infercom i Groq (oba `gpt-oss-120b`), Mistral.
 
 Przy błędzie 429 (limit) lub 5xx zapytanie automatycznie przechodzi do kolejnego modelu. Przy błędzie 400 (błąd zapytania) nie przechodzi, żeby nie maskować błędów w kodzie. Dostawca bez klucza API jest pomijany.
 
@@ -87,6 +87,7 @@ Dodatkowe zabezpieczenia:
 - **Limit zapytań na IP** (`RATE_LIMIT_PER_MIN`, domyślnie 10 na minutę). Jeden użytkownik nie wyczerpie limitu dla wszystkich.
 - **Pamięć odpowiedzi na pytania startowe.** Odpowiedzi na podpowiedzi z czatu są zapamiętywane na 6 godzin i odtwarzane bez wywołania modelu. Odpowiedź zakończona błędem nie jest zapamiętywana.
 - **Kompaktowy widok wyników dla modelu.** Model dostaje skrót wyników: 5 trafień zamiast 8, karta tylko z polami potrzebnymi do odpowiedzi. Interfejs dostaje pełne dane. Jedna odpowiedź to kilka kroków, a każdy krok wysyła cały kontekst, więc skrót mieści odpowiedź w małych limitach tokenów na minutę i przyspiesza ją.
+- **Ostatni krok bez narzędzi.** Odpowiedź może mieć najwyżej 6 kroków, a w ostatnim model nie może już wywołać narzędzia. Dzięki temu nawet model, który utknął na wyszukiwaniu, zawsze zwraca tekst.
 - **Tryb bez modelu** (`LLM_MOCK=1`). Skryptowane odpowiedzi z danych testowych służą do pracy nad interfejsem bez kluczy API.
 
 ## 7. Ewaluacja
@@ -104,9 +105,19 @@ Skrypt `evals/run.ts` zadaje pytania prawdziwemu modelowi w tej samej konfigurac
 - czy wywołano właściwe narzędzia,
 - czy odpowiedź opiera się na właściwym źródle,
 - czy odpowiedź nie jest pusta,
+- czy odpowiedź o procedurze zawiera link do karty BIP,
 - czy nie zawiera linków BIP spoza wyników narzędzi.
 
 Wynik trafia do `evals/report.md`. Kryterium jakości: ≥85% pytań z właściwymi narzędziami i źródłami.
+
+**Wynik (21.10.2026): 44 z 46 pytań (96%)**, model `gpt-oss-120b`, dane przestrzenne testowe. Dwa nieudane pytania nie powtarzają się w kolejnych przebiegach.
+
+Ewaluacja wykryła i pomogła usunąć kilka błędów, których nie złapały testy jednostkowe:
+- odpowiedzi bez linku do karty BIP,
+- linki do kart, których żadne narzędzie nie zwróciło (model kopiował przykład z promptu),
+- puste odpowiedzi, gdy model wyczerpywał limit kroków na wyszukiwaniu,
+- mylenie przedszkola (3–6 lat) ze żłobkiem (do 3 lat),
+- nieznajomość numerów dzielnic. Narzędzie przyjmuje teraz nazwę dzielnicy.
 
 Niezależnie od modelu testy jednostkowe sprawdzają wyszukiwarkę: dla 25 polskich zapytań z ewaluacji właściwa karta musi być w pierwszych 5 wynikach. Testy działają bez kluczy API i są uruchamiane w CI.
 
@@ -115,6 +126,6 @@ Niezależnie od modelu testy jednostkowe sprawdzają wyszukiwarkę: dla 25 polsk
 - **Aktualność:** baza wiedzy to stan kart BIP z dnia pobrania. Każda odpowiedź linkuje do karty źródłowej, gdzie obowiązuje aktualna wersja.
 - **Zakres:** asystent zna procedury Urzędu Miasta Krakowa. Sprawy wojewody, NFZ, ZUS czy urzędu skarbowego tylko wskazuje z linkiem i nie opisuje.
 - **Wyszukiwanie leksykalne:** indeks nie rozumie synonimów. Lukę tę pokrywa tłumaczenie pytania przez model na urzędowe terminy. Wyszukiwanie semantyczne jest planowane jako rozszerzenie.
-- **Limity darmowych planów:** darmowe plany dostawców LLM mają dzienne limity (np. kilkadziesiąt zapytań dziennie dla Gemini). Wystarczają na prezentację i testy, a do szerszego użycia potrzebny jest płatny plan. Konfiguracja dostawcy nie wymaga zmian w kodzie.
+- **Limity darmowych planów:** darmowe plany dostawców LLM mają dzienne limity (Gemini: 20 zapytań dziennie na model, Groq: 200 tys. tokenów dziennie). Jedna odpowiedź to 2–4 zapytania, więc darmowe plany wystarczają na prezentację, a pełna ewaluacja wymagała płatnego dostawcy (koszt: kilka eurocentów). Do szerszego użycia potrzebny jest płatny plan. Konfiguracja dostawcy nie wymaga zmian w kodzie.
 - **Model może się mylić:** zabezpieczenia z sekcji 5 ograniczają błędy, ale ich nie wykluczają. Dlatego interfejs pokazuje źródło przy każdej odpowiedzi, a serwis ma charakter informacyjny.
 - **Prywatność:** rozmowy nie są zapisywane po stronie serwera, poza krótkotrwałą pamięcią odpowiedzi na pytania startowe, które nie zawierają danych użytkownika.
