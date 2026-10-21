@@ -7,6 +7,7 @@ from oswoj_geo.offices import (
     clean,
     locate,
     office_feature,
+    phones,
     postal_code,
     procedures_by_office,
     render_report,
@@ -111,3 +112,14 @@ def test_office_feature_keeps_b_id_and_reads_the_card():
     assert office_feature(outside, out, [], {}) is None
     report = render_report([(office, outcome), (outside, out)])
     assert "on the map: 1 (address level 1, street level 0); not placed: 1" in report
+
+
+def test_phones_are_found_formatted_and_deduplicated():
+    assert phones("Informacje podstawowe: 12 616 55 55") == "12 616 55 55"
+    assert phones("Krakowskie Centrum Kontaktu, tel. +48 12 616 55 55") == "12 616 55 55"
+    assert phones("12-291 -29-59") == "12 291 29 59"
+    assert phones("12 616 94 34, 12 616 97 96") == "12 616 94 34, 12 616 97 96"
+    assert phones("12 20 10 857, 12 20 10 857") == "12 201 08 57"
+    assert phones("12 352 44 44, +48 502 930 185") == "12 352 44 44, 502 930 185"
+    assert phones(None) is None
+    assert phones("zgodnie z informacją na stronie") == "zgodnie z informacją na stronie"

@@ -17,6 +17,7 @@ from .emuia import district_names, load_emuia
 from .fetch import PIPELINE_DIR
 from .geocoder import Geocoder, Outcome
 from .layers import write_index, write_layer
+from .normalize import format_phone
 from .places import EMUIA_ZIP
 
 KB_DIR = PIPELINE_DIR.parents[1] / "app" / "data" / "kb"
@@ -39,6 +40,22 @@ def clean(text: str) -> str:
     text = re.sub(r"\s+", " ", text or "").strip()
     text = re.sub(r"(\d{2})\s*-\s*(\d{3})", r"\1-\2", text)  # "30 - 703" → "30-703"
     return re.sub(r"(\d{2}-\d{3})(?=[^\s\d,])", r"\1 ", text)  # "31-931Kraków" → "31-931 Kraków"
+
+
+_PHONE = re.compile(r"\+?\d[\d\s\-()]{7,}\d")
+
+
+def phones(text: str | None) -> str | None:
+    """Phone numbers in a BIP text, formatted and deduplicated: "Informacje podstawowe: 12 616 55 55" →
+    "12 616 55 55"; "12-291 -29-59" → "12 291 29 59". Text without a 9-digit number is kept as written."""
+    found: list[str] = []
+    for match in _PHONE.finditer(text or ""):
+        digits = re.sub(r"\D", "", match.group(0))
+        if len(digits) == 11 and digits.startswith("48"):
+            digits = digits[2:]
+        if len(digits) == 9 and (formatted := format_phone(digits)) and formatted not in found:
+            found.append(formatted)
+    return ", ".join(found) if found else (clean(text or "") or None)
 
 
 def postal_code(address: str) -> str | None:
@@ -110,7 +127,7 @@ def office_feature(
         "district": {"number": hit.district, "name": districts[hit.district]}
         if hit.district in districts
         else None,
-        "phone": clean(office.get("phone") or "") or None,
+        "phone": phones(office.get("phone")),
         "url": None,
         "attrs": attrs,
         # the first card that names the office: where the address, hours and phone were read
