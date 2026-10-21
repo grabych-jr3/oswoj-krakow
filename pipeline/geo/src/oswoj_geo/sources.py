@@ -111,6 +111,9 @@ SOURCES: tuple[Source, ...] = (
                 ARCGIS_ITEM.format(id="73cfc1778d0d4305a643ef0d2cb13e1f"), "2026-10-01"),
     ArcGisLayer("park_and_ride", f"{_ARCGIS}/Park_and_Ride/FeatureServer/0",
                 ARCGIS_ITEM.format(id="ad56306213d640ada0a65598b8592827"), "2024-10-02"),
+    # walking isochrones to KMK stops computed by ZTP (A8b map layer)
+    ArcGisLayer("izochrony_kmk", f"{_ARCGIS}/Izochrony_/FeatureServer/0",
+                ARCGIS_ITEM.format(id="a83f7241c5e84f1380003a8b6694c331"), "2026-07-24"),
     # pocket parks as polygons, published by the city with the open data (A5)
     ArcGisLayer("parki_kieszonkowe_zasieg",
                 f"{_ARCGIS}/Otwarte_Dane___Parki_Kieszonkowe_Krak%C3%B3w_WFL1/FeatureServer/0"),

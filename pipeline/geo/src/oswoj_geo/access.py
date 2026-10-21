@@ -70,11 +70,15 @@ def ensure_java() -> None:
             return
 
 
+def city_shape(districts_file: Path = DISTRICTS_FILE) -> Any:
+    collection = json.loads(districts_file.read_text(encoding="utf-8"))
+    return unary_union([shape(f["geometry"]) for f in collection["features"]])
+
+
 def city_cells(districts_file: Path = DISTRICTS_FILE) -> list[str]:
     import h3
 
-    collection = json.loads(districts_file.read_text(encoding="utf-8"))
-    city = unary_union([shape(f["geometry"]) for f in collection["features"]])
+    city = city_shape(districts_file)
     polygons = [city] if city.geom_type == "Polygon" else list(city.geoms)
     cells: set[str] = set()
     for poly in polygons:
@@ -157,10 +161,16 @@ def compute(cells: list[str], places: list[dict[str, Any]]) -> dict[str, dict[in
 
 
 def write_outputs(
-    cells: list[str], places: list[dict[str, Any]], reach: dict[str, dict[int, dict[str, list]]], method: str
+    cells: list[str],
+    places: list[dict[str, Any]],
+    reach: dict[str, dict[int, dict[str, list]]],
+    method: str,
+    app_data: Path = APP_DATA,
+    layers_dir: Path = LAYERS_DIR,
 ) -> dict[str, Any]:
-    APP_DATA.mkdir(parents=True, exist_ok=True)
-    (APP_DATA / "places.json").write_text(
+    app_data.mkdir(parents=True, exist_ok=True)
+    layers_dir.mkdir(parents=True, exist_ok=True)
+    (app_data / "places.json").write_text(
         "[\n"
         + ",\n".join(json.dumps(p, ensure_ascii=False, separators=(",", ":")) for p in places)
         + "\n]\n",
@@ -175,7 +185,7 @@ def write_outputs(
             mode: [reach[mode].get(i, {"c": [], "p": []}) for i in range(len(cells))] for mode in reach
         },
     }
-    (APP_DATA / "access.json").write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
+    (app_data / "access.json").write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
     index_cells = []
     for i, cell in enumerate(cells):
         row: list[Any] = [cell]
@@ -183,7 +193,7 @@ def write_outputs(
             cats = {places[p]["category"] for p, _ in reach[mode].get(i, {"p": []})["p"]}
             row.append(score(cats)[0])
         index_cells.append(row)
-    (LAYERS_DIR / "access-index.json").write_text(
+    (layers_dir / "access-index.json").write_text(
         json.dumps(
             {"res": H3_RES, "minutes": MINUTES, "method": method, "cells": index_cells}, separators=(",", ":")
         ),
@@ -257,6 +267,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--report-only", action="store_true", help="rebuild reports/access.md from the outputs"
     )
+    parser.add_argument(
+        "--engine",
+        choices=("r5py", "osmnx"),
+        default="r5py",
+        help="osmnx: walking-only fallback without Java (A8b); transit repeats the walking reach",
+    )
+    parser.add_argument(
+        "--out", type=Path, help="write the data here instead of app/ (e.g. to compare engines)"
+    )
     args = parser.parse_args(argv)
     if args.report_only:
         payload = json.loads((APP_DATA / "access.json").read_text(encoding="utf-8"))
@@ -266,16 +285,27 @@ def main(argv: list[str] | None = None) -> int:
     cells = city_cells()
     places = load_places()
     print(f"{len(cells)} cells, {len(places)} places", flush=True)
-    feed = DEPARTURE.strftime("%Y-%m-%d")
-    method = (
-        f"r5py: walk {WALK_KMH:g} km/h and walk + KMK, Tuesday {feed} 08:00, 30-min window (median); "
-        f"OSM Małopolska + GTFS A/T/M; H3 res {H3_RES}"
-    )
-    reach = compute(cells, places)
-    payload = write_outputs(cells, places, reach, method)
-    REPORT.parent.mkdir(parents=True, exist_ok=True)
-    REPORT.write_text(render_report(payload, places), encoding="utf-8")
-    print("written", APP_DATA / "access.json", REPORT)
+    if args.engine == "osmnx":
+        from .access_osmnx import compute_walk
+
+        method = (
+            f"osmnx (fallback): walk {WALK_KMH:g} km/h on the OSM footway network, Dijkstra; "
+            f"transit not computed, walking zone shown; H3 res {H3_RES}"
+        )
+        reach = compute_walk(cells, places, city_shape(), WALK_KMH, MINUTES)
+    else:
+        feed = DEPARTURE.strftime("%Y-%m-%d")
+        method = (
+            f"r5py: walk {WALK_KMH:g} km/h and walk + KMK, Tuesday {feed} 08:00, 30-min window (median); "
+            f"OSM Małopolska + GTFS A/T/M; H3 res {H3_RES}"
+        )
+        reach = compute(cells, places)
+    app_data, layers_dir = (args.out, args.out) if args.out else (APP_DATA, LAYERS_DIR)
+    payload = write_outputs(cells, places, reach, method, app_data, layers_dir)
+    if not args.out:
+        REPORT.parent.mkdir(parents=True, exist_ok=True)
+        REPORT.write_text(render_report(payload, places), encoding="utf-8")
+    print("written", app_data / "access.json")
     return 0
 
 

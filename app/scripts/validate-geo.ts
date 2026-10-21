@@ -161,5 +161,23 @@ if (existsSync(placesFile) && existsSync(accessFile)) {
   }
 }
 
+// A8b: ZTP walking isochrones to stops, sampled on H3 cells
+const isochronesFile = path.join(layersDir, "stop-isochrones.json");
+if (existsSync(isochronesFile)) {
+  const StopIsochrones = z.object({
+    res: z.number().int().min(0).max(15),
+    levels: z.array(z.number().int().positive()).min(1),
+    walkMetresPerMinute: z.number().positive(),
+    source: SourceRef,
+    cells: z.array(z.tuple([z.string().regex(/^[0-9a-f]{15}$/), z.number().int()])).min(1),
+  });
+  const layer = read(isochronesFile);
+  if (check("public/data/layers/stop-isochrones.json", StopIsochrones, layer)) {
+    const { levels, cells } = layer as z.infer<typeof StopIsochrones>;
+    if (cells.some(([, m]) => !levels.includes(m))) errors.push("stop-isochrones.json: a cell has an unknown level");
+    if (new Set(cells.map(([c]) => c)).size !== cells.length) errors.push("stop-isochrones.json: repeated cells");
+  }
+}
+
 for (const e of errors) console.error(`  ✗ ${e}`);
 process.exit(errors.length ? 1 : 0);
