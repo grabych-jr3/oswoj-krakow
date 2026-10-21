@@ -3,7 +3,13 @@
 import re
 from pathlib import Path
 
-from kb.parser import SECTION_MAPPING, parse_xml_file, slugify
+from kb.parser import (
+    SECTION_MAPPING,
+    clean_text_field,
+    parse_xml_file,
+    slugify,
+    strip_markup,
+)
 
 CACHE_DIR = Path(__file__).resolve().parents[1] / ".cache" / "xml"
 
@@ -114,3 +120,15 @@ def test_parse_xml_sa34():
         assert o["bookingUrl"] is not None and o["bookingUrl"].startswith("https://umawianiewizyt.um.krakow.pl")
         assert o["phone"] is not None
         assert o["coords"] is None
+
+
+def test_strip_markup_cleans_escaped_html_in_office_cells():
+    """BIP cells contain escaped HTML: literal tags and empty lines must not reach the UI."""
+    assert strip_markup("ul. Mogilska 41, parter, , 31-545 Kraków") == "ul. Mogilska 41, parter, 31-545 Kraków"
+    assert strip_markup("ul. Wielicka 28a, 30-552 Kraków, , , ") == "ul. Wielicka 28a, 30-552 Kraków"
+    assert strip_markup("Wydział Mieszkalnictwa,<br/>Referat Regulacji Tytułów Prawnych (ML-01)") == (
+        "Wydział Mieszkalnictwa, Referat Regulacji Tytułów Prawnych (ML-01)"
+    )
+    assert strip_markup("07:30 – 15:30<br/>od poniedziałku do piątku<br/>") == "07:30 – 15:30, od poniedziałku do piątku"
+    assert strip_markup("12 616 9661, 12 616 9594<br/>") == "12 616 9661, 12 616 9594"
+    assert clean_text_field(" <br/> ") is None

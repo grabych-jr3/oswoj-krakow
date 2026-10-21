@@ -90,21 +90,30 @@ def clean_markdown(html_text: str | None) -> str | None:
     return text if text else None
 
 
+def strip_markup(raw: str) -> str:
+    """Plain one-line text from a BIP table cell.
+
+    Cells hold escaped HTML, so text_content() still contains literal tags: <br/> becomes a
+    comma, other tags a space. Empty parts of multi-line cells ("parter, , 31-545") collapse.
+    """
+    text = re.sub(r"(?i)<br\s*/?>", ", ", raw)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"\s*,(\s*,)+", ",", text)  # ", , ," -> ","
+    text = re.sub(r"\s+,", ",", text)
+    return text.strip(" ,")
+
+
 def clean_text_field(raw_text: str | None) -> str | None:
     if not raw_text:
         return None
-    cleaned = re.sub(r"[\r\n\t]+", " ", raw_text)
-    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+    cleaned = strip_markup(raw_text)
     return cleaned if cleaned else None
 
 
 def clean_address(raw_addr: str) -> str:
     """Clean raw address string from HTML tags and whitespace."""
-    addr = re.sub(r"(?i)<br\s*/?>", ", ", raw_addr)
-    addr = re.sub(r"<[^>]+>", " ", addr)
-    addr = re.sub(r"[\r\n\t]+", " ", addr)
-    addr = re.sub(r"\s+", " ", addr).strip()
-    return addr
+    return strip_markup(raw_addr)
 
 
 def extract_section_html(elem: etree._Element) -> str:

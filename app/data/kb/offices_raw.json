@@ -155,7 +155,7 @@
   {
     "id": "urzad:ul_kamienskiego_11",
     "name": "Punkt Obsługi Mieszkańca Galeria Bonarka",
-    "address": "ul. Kamieńskiego 11, 30-644 Kraków - poziom -1, lokal M01 ,",
+    "address": "ul. Kamieńskiego 11, 30-644 Kraków - poziom -1, lokal M01",
     "hours": "Czynne od poniedziałku do soboty w godzinach 10:00 - 18:00",
     "bookingUrl": null,
     "phone": "12 616 5555",
@@ -165,9 +165,9 @@
     "id": "urzad:ul_lubelska_29",
     "name": "Urząd Stanu Cywilnego",
     "address": "ul. Lubelska 29, ul. Wadowicka 8W, os. Zgody 2",
-    "hours": "w dni robocze (z wyjątkiem czwartków): 7:40–18:00,<br/>w czwartki: 8:00–18:00<br/>",
+    "hours": "w dni robocze (z wyjątkiem czwartków): 7:40–18:00, w czwartki: 8:00–18:00",
     "bookingUrl": null,
-    "phone": "12 616 55 31, 12 616 55 30, 12 616 88 56 <br/>",
+    "phone": "12 616 55 31, 12 616 55 30, 12 616 88 56",
     "coords": null
   },
   {
@@ -182,16 +182,16 @@
   {
     "id": "urzad:ul_mazowiecka_4_6",
     "name": "Filia nr 6 MOPS w Krakowie",
-    "address": "ul. Mazowiecka 4-6,, 30-019 Kraków",
+    "address": "ul. Mazowiecka 4-6, 30-019 Kraków",
     "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
     "bookingUrl": null,
-    "phone": "12 375 38 61,<br/>12 375 38 60",
+    "phone": "12 375 38 61, 12 375 38 60",
     "coords": null
   },
   {
     "id": "urzad:ul_rzeznicza_2",
     "name": "Filia nr 3 MOPS w Krakowie",
-    "address": "ul. Rzeźnicza 2,, 31-540 Kraków",
+    "address": "ul. Rzeźnicza 2, 31-540 Kraków",
     "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
     "bookingUrl": null,
     "phone": "12 375 36 90",
@@ -200,7 +200,7 @@
   {
     "id": "urzad:os_teatralne_24",
     "name": "Filia nr 1 MOPS w Krakowie",
-    "address": "os. Teatralne 24, , 31-946 Kraków",
+    "address": "os. Teatralne 24, 31-946 Kraków",
     "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
     "bookingUrl": null,
     "phone": "12 375 35 00",
@@ -209,7 +209,7 @@
   {
     "id": "urzad:ul_radzikowskiego_39",
     "name": "Filia nr 2 MOPS w Krakowie",
-    "address": "ul. Radzikowskiego 39,, 30-962 Kraków",
+    "address": "ul. Radzikowskiego 39, 30-962 Kraków",
     "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
     "bookingUrl": null,
     "phone": "12 375 36 40",
@@ -218,8 +218,8 @@
   {
     "id": "urzad:os_szkolne_34",
     "name": "Filia nr 4 MOPS w Krakowie",
-    "address": "os. Szkolne 34,, 31-978 Kraków",
-    "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30<br/>",
+    "address": "os. Szkolne 34, 31-978 Kraków",
+    "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
     "bookingUrl": null,
     "phone": "12 375 37 50",
     "coords": null
@@ -227,19 +227,19 @@
   {
     "id": "urzad:ul_praska_52",
     "name": "Filia nr 5 MOPS w Krakowie",
-    "address": "ul. Praska 52,, 30-322 Kraków",
+    "address": "ul. Praska 52, 30-322 Kraków",
     "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
     "bookingUrl": null,
-    "phone": "12 375 38 00,<br/>12 375 38 01",
+    "phone": "12 375 38 00, 12 375 38 01",
     "coords": null
   },
   {
     "id": "urzad:ul_na_kozlowce_27",
     "name": "Filia nr 8 MOPS w Krakowie",
-    "address": "ul. Na Kozłówce 27 (II piętro),, 30-664 Kraków",
+    "address": "ul. Na Kozłówce 27 (II piętro), 30-664 Kraków",
     "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
     "bookingUrl": null,
-    "phone": "12 375 39 40,<br/>12 375 39 41",
+    "phone": "12 375 39 40, 12 375 39 41",
     "coords": null
   },
   {
@@ -255,7 +255,7 @@
     "id": "urzad:ul_mostowa_4",
     "name": "Dział Pomocy Dzieciom MOPS (rodziny zastępcze zawodowe i rodzinne domy dziecka)",
     "address": "ul. Mostowa 4, 31-061 Kraków",
-    "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30<br/>",
+    "hours": "Czynne od poniedziałku do piątku w godzinach 7:30-15:30",
     "bookingUrl": null,
     "phone": "12 375 33 43, 12 375 33 31, 12 375 34 55",
     "coords": null
@@ -289,16 +289,16 @@
   },
   {
     "id": "urzad:ul_nowohucka_1",
-    "name": "Referat ds. Opłat i Niepodatkowych Należności Budżetowych <br/>PD-02-6<br/>",
-    "address": "ul. Nowohucka 1, 31-580 Kraków - pokój nr 19,",
+    "name": "Referat ds. Opłat i Niepodatkowych Należności Budżetowych, PD-02-6",
+    "address": "ul. Nowohucka 1, 31-580 Kraków - pokój nr 19",
     "hours": "Czynne od poniedziałku do piątku w godzinach 7:00 - 15:00",
     "bookingUrl": null,
-    "phone": "12 616 1170,<br/>12 616 9091,<br/>12 616 9090,<br/>12 616 9179<br/>",
+    "phone": "12 616 1170, 12 616 9091, 12 616 9090, 12 616 9179",
     "coords": null
   },
   {
     "id": "urzad:al_gen_tadeusza_bora_komorowskiego_41",
-    "name": "Punkt Obsługi Mieszkańców w Galerii Serenada <br/>",
+    "name": "Punkt Obsługi Mieszkańców w Galerii Serenada",
     "address": "al. gen. Tadeusza Bora-Komorowskiego 41, 31-876 Kraków, lokal B213",
     "hours": "Czynne od poniedziałku do soboty w godzinach 10:00-18:00",
     "bookingUrl": null,
@@ -326,8 +326,8 @@
   {
     "id": "urzad:ul_wadowicka_8w",
     "name": "II Referat Rejestracji Stanu Cywilnego",
-    "address": "ul. Wadowicka 8W,, 30-415 Kraków",
-    "hours": "w dni robocze (z wyjątkiem czwartków): 7:40–18:00, <br/>w czwartki: 8:00–18:00.",
+    "address": "ul. Wadowicka 8W, 30-415 Kraków",
+    "hours": "w dni robocze (z wyjątkiem czwartków): 7:40–18:00, w czwartki: 8:00–18:00.",
     "bookingUrl": "https://umawianiewizyt.um.krakow.pl/branch/12",
     "phone": "12 616 55 55",
     "coords": null
@@ -336,7 +336,7 @@
     "id": "urzad:pl_wszystkich_sw_3_4",
     "name": "Kancelaria Magistratu",
     "address": "Plac Wszystkich Św. 3-4, 31-004 Kraków",
-    "hours": "W dni robocze (z wyjątkiem czwartków): 7:40–15:30,<br/>w czwartki: 8:00–15:30",
+    "hours": "W dni robocze (z wyjątkiem czwartków): 7:40–15:30, w czwartki: 8:00–15:30",
     "bookingUrl": null,
     "phone": "12 616 5555",
     "coords": null
@@ -344,7 +344,7 @@
   {
     "id": "urzad:ul_walerego_slawka_10",
     "name": "Wydział Sportu",
-    "address": "ul. Walerego Sławka 10, 30-633 Kraków ,",
+    "address": "ul. Walerego Sławka 10, 30-633 Kraków",
     "hours": "Czynne od poniedziałku do piątku w godzinach 7:40 - 15:30",
     "bookingUrl": null,
     "phone": "12 323 34 24",
@@ -354,7 +354,7 @@
     "id": "urzad:ul_dekerta_24",
     "name": "Miejski Zespół do Spraw Orzekania o Niepełnosprawności",
     "address": "ul. Dekerta 24, 30 - 703 Kraków",
-    "hours": "Poniedziałek, wtorek, środa: 7.40 - 15.30, czwartek: 8.00-15.30, piątek: 7.40-15.30.<br/>Wydawanie bloczków z systemu kolejkowego zostanie zakończone, gdy przewidywany czas obsługi osób oczekujących w kolejce z już pobranymi bloczkami, nie pozwoli na obsługę kolejnych osób w godzinach pracy urzędu.",
+    "hours": "Poniedziałek, wtorek, środa: 7.40 - 15.30, czwartek: 8.00-15.30, piątek: 7.40-15.30., Wydawanie bloczków z systemu kolejkowego zostanie zakończone, gdy przewidywany czas obsługi osób oczekujących w kolejce z już pobranymi bloczkami, nie pozwoli na obsługę kolejnych osób w godzinach pracy urzędu.",
     "bookingUrl": null,
     "phone": "12 616 52 12",
     "coords": null
@@ -363,7 +363,7 @@
     "id": "urzad:ul_jana_dekerta_24",
     "name": "Wydział Polityki Społecznej, Równości i Zdrowia",
     "address": "ul. Jana Dekerta 24, 30-703 Kraków",
-    "hours": "poniedziałek-środa oraz piątek 7.40-15.30,<br/>czwartek 8.00-15.30",
+    "hours": "poniedziałek-środa oraz piątek 7.40-15.30, czwartek 8.00-15.30",
     "bookingUrl": null,
     "phone": "12 616 78 12",
     "coords": null
@@ -389,7 +389,7 @@
   {
     "id": "urzad:rynek_kleparski_4",
     "name": "Biuro Obsługi Mieszkańców nr 1",
-    "address": "Rynek Kleparski 4, 31-150 Kraków,",
+    "address": "Rynek Kleparski 4, 31-150 Kraków",
     "hours": "Pn-pt 7:30-15:30",
     "bookingUrl": null,
     "phone": "12-291-29-01",
@@ -416,7 +416,7 @@
   {
     "id": "urzad:os_centrum_c_10b",
     "name": "Biuro Obsługi Mieszkańców nr 4",
-    "address": "os. Centrum C 10 B, 31-931Kraków,",
+    "address": "os. Centrum C 10 B, 31-931Kraków",
     "hours": "Pn-pt 7:30-15:30",
     "bookingUrl": null,
     "phone": "12-291-29-59",
@@ -444,7 +444,7 @@
     "id": "urzad:ul_darwina_1g",
     "name": "Rejon IV Grębałów (Cmentarz Grębałów)",
     "address": "ul. Darwina 1g, 31-764 Kraków",
-    "hours": "7.30-15.30,<br/>kasa: <br/>7.30- 15.00",
+    "hours": "7.30-15.30, kasa:, 7.30- 15.00",
     "bookingUrl": null,
     "phone": "12 645 31 14, 12 645 44 34",
     "coords": null
@@ -453,7 +453,7 @@
     "id": "urzad:ul_wapienna_13",
     "name": "Rejon II Podgórze (Stary Cmentarz Podgórski, Nowy Cmentarz Podgórski, Cmentarz Prokocim, Cmentarz Wola Duchacka, Cmentarz Pychowice, Cmentarz Maki Czerwone, Cmentarz Kobierzyn- Lubostroń)",
     "address": "ul. Wapienna 13, 30-544 Kraków",
-    "hours": "7.30-15.30,<br/>kasa: <br/>7.30- 15.00",
+    "hours": "7.30-15.30, kasa:, 7.30- 15.00",
     "bookingUrl": null,
     "phone": "12 656 17 25, 12 656 25 23",
     "coords": null
@@ -462,7 +462,7 @@
     "id": "urzad:ul_rakowicka_26",
     "name": "Rejon I Rakowice (Cmentarz Rakowicki, Cmentarz Bronowice, Cmentarz Mydlniki)",
     "address": "ul. Rakowicka 26, 31-510 Kraków",
-    "hours": "7.30-15.30,<br/>kasa: <br/>7.30- 15.00<br/>",
+    "hours": "7.30-15.30, kasa:, 7.30- 15.00",
     "bookingUrl": null,
     "phone": "12 619 99 11, 12 619 99 12, 12 619 99 14, 12 619 99 15, 12 619 99 26",
     "coords": null
@@ -471,7 +471,7 @@
     "id": "urzad:ul_centralna_53",
     "name": "Zarząd Dróg Miasta Krakowa",
     "address": "ul. Centralna 53, 31-586 Kraków",
-    "hours": "W poniedziałki w godz. 7:30-17:00. <br/>Od wtorku do piątku w godz. 7:30-15:30<br/>",
+    "hours": "W poniedziałki w godz. 7:30-17:00., Od wtorku do piątku w godz. 7:30-15:30",
     "bookingUrl": null,
     "phone": null,
     "coords": null
@@ -497,10 +497,10 @@
   {
     "id": "urzad:ul_za_torem_22",
     "name": "Zarząd Zieleni Miejskiej w Krakowie",
-    "address": "Sekretariat - ul. Za Torem 22, 30-542 Kraków,",
+    "address": "Sekretariat - ul. Za Torem 22, 30-542 Kraków",
     "hours": "Od poniedziałku do piątku w godzinach 7:30 - 15:30",
     "bookingUrl": null,
-    "phone": "12 20 10 857 <br/><br/><br/>12 20 10 857<br/>",
+    "phone": "12 20 10 857, 12 20 10 857",
     "coords": null
   },
   {
