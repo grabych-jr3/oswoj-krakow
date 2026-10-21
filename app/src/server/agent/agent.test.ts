@@ -35,6 +35,22 @@ describe("resolveModelChain", () => {
     expect(chain.map((c) => c.provider)).toEqual(["google", "google", "mistral", "groq"]);
   });
 
+  it("puts the spare Gemini model right after Google when Google is a fallback", () => {
+    const chain = resolveModelChain({
+      LLM_PROVIDER: "infercom",
+      LLM_FALLBACK_PROVIDER: "google,groq",
+      INFERCOM_API_KEY: "i",
+      GOOGLE_GENERATIVE_AI_API_KEY: "g",
+      GROQ_API_KEY: "q",
+    });
+    expect(chain.map((c) => `${c.provider}:${c.modelId}`)).toEqual([
+      "infercom:gpt-oss-120b",
+      "google:gemini-2.5-flash",
+      "google:gemini-2.5-flash-lite",
+      "groq:openai/gpt-oss-120b",
+    ]);
+  });
+
   it("honours LLM_MODEL and is empty without keys", () => {
     expect(resolveModelChain({ LLM_MODEL: "gemini-x", GOOGLE_GENERATIVE_AI_API_KEY: "g" })[0].modelId).toBe("gemini-x");
     expect(resolveModelChain({})).toEqual([]);

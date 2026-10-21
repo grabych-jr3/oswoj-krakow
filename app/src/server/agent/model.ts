@@ -28,21 +28,25 @@ function isProvider(name: string | undefined): name is ProviderName {
   return name !== undefined && name in PROVIDERS;
 }
 
-/** Ordered candidates: configured primary, configured fallback, then a spare Gemini model. Only those with a key. */
+/** Ordered candidates: configured primary and fallbacks, plus a spare Gemini model. Only those with a key. */
 export function resolveModelChain(env: Record<string, string | undefined> = process.env): ModelChoice[] {
   const primary: ProviderName = isProvider(env.LLM_PROVIDER) ? env.LLM_PROVIDER : "google";
   // A comma-separated list, e.g. "mistral,groq"; LLM_FALLBACK_MODEL applies to the first one only.
   const fallbacks = (env.LLM_FALLBACK_PROVIDER ?? "").split(",").map((s) => s.trim()).filter(isProvider);
   const spare: ModelChoice = { provider: "google", modelId: GOOGLE_SPARE_MODEL };
-  const chain: ModelChoice[] = [
+  const configured: ModelChoice[] = [
     { provider: primary, modelId: env.LLM_MODEL || PROVIDERS[primary].defaultModel },
-    ...(primary === "google" ? [spare] : []),
     ...fallbacks.map((p, i) => ({
       provider: p,
       modelId: (i === 0 && env.LLM_FALLBACK_MODEL) || PROVIDERS[p].defaultModel,
     })),
-    spare,
   ];
+  // The spare Gemini model follows the first Google entry, or ends the chain when Google is not configured.
+  const googleAt = configured.findIndex((c) => c.provider === "google");
+  const chain =
+    googleAt === -1
+      ? [...configured, spare]
+      : [...configured.slice(0, googleAt + 1), spare, ...configured.slice(googleAt + 1)];
   const seen = new Set<string>();
   return chain.filter((c) => {
     const key = `${c.provider}:${c.modelId}`;
