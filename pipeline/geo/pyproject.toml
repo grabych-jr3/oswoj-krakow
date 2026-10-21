@@ -7,12 +7,14 @@ dependencies = [
     "httpx>=0.28",
     "pyproj>=3.8.0",
     "rapidfuzz>=3.14.6",
+    "shapely>=2.2.0",
 ]
 
 [project.scripts]
 geo-fetch = "oswoj_geo.fetch:main"
 geo-geocode = "oswoj_geo.places:main"
 geo-layers = "oswoj_geo.layers:main"
+geo-districts = "oswoj_geo.districts:main"
 
 [dependency-groups]
 dev = ["pytest>=8.3", "ruff>=0.9"]

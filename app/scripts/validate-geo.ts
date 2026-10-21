@@ -6,7 +6,7 @@ import { z, type ZodType } from "zod";
 import { LngLat, SourceRef } from "../src/contracts/common";
 import { NearbyResult } from "../src/contracts/geo";
 import { Place, PlaceCategory } from "../src/contracts/place";
-import { DistrictArea } from "../src/server/geo/district-area";
+import { DistrictArea, DistrictCollection } from "../src/server/geo/district-area";
 
 const app = path.join(__dirname, "..");
 const src = path.join(app, "src");
@@ -84,6 +84,32 @@ if (existsSync(indexFile)) {
       const name = file.replace(/\.geojson$/, "");
       if (file.endsWith(".geojson") && PlaceCategory.safeParse(name).success && !listed.has(name)) {
         errors.push(`public/data/layers/${file}: not listed in index.json`);
+      }
+    }
+  }
+}
+
+// A4 districts: map layer and the server copy used by getDistrict must be the same valid file.
+const districtsLayer = path.join(layersDir, "districts.geojson");
+const districtsServer = path.join(app, "data", "geo", "districts.json");
+if (existsSync(districtsLayer) || existsSync(districtsServer)) {
+  if (!existsSync(districtsLayer) || !existsSync(districtsServer)) {
+    errors.push("districts: public/data/layers/districts.geojson and data/geo/districts.json must both exist");
+  } else if (readFileSync(districtsLayer, "utf8") !== readFileSync(districtsServer, "utf8")) {
+    errors.push("districts: data/geo/districts.json differs from public/data/layers/districts.geojson");
+  } else if (check("public/data/layers/districts.geojson", DistrictCollection, read(districtsLayer))) {
+    const features = (read(districtsLayer) as DistrictCollection).features;
+    const numbers = features.map((f) => f.properties.number).sort((a, b) => a - b);
+    if (numbers.join() !== Array.from({ length: 18 }, (_, i) => i + 1).join()) {
+      errors.push(`districts: numbers ${numbers.join()} are not 1..18`);
+    }
+    // placeCounts must add up to the places of each layer that carry a district
+    if (existsSync(indexFile)) {
+      for (const { category } of (read(indexFile) as z.infer<typeof LayerIndex>).categories) {
+        const layer = read(path.join(layersDir, `${category}.geojson`)) as z.infer<typeof PlaceLayer>;
+        const withDistrict = layer.features.filter((f) => f.properties.district).length;
+        const counted = features.reduce((s, f) => s + (f.properties.placeCounts[category] ?? 0), 0);
+        if (counted !== withDistrict) errors.push(`districts: placeCounts.${category} = ${counted}, layer has ${withDistrict}`);
       }
     }
   }
