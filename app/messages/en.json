@@ -100,5 +100,23 @@
     "obiekt_sportowy": "Sports facilities",
     "muzeum": "Museums",
     "teatr": "Theatres"
+  },
+  "Layers": {
+    "title": "Layers",
+    "showAll": "Show all",
+    "hideAll": "Hide all",
+    "loading": "Loading…",
+    "error": "Could not load the map layers."
+  },
+  "Place": {
+    "close": "Close",
+    "children": "Children",
+    "students": "Students",
+    "groups": "Groups",
+    "places": "Places",
+    "public": "Public",
+    "nonPublic": "Non-public",
+    "source": "Source",
+    "asOf": "as of {date}"
   }
 }

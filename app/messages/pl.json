@@ -100,5 +100,23 @@
     "obiekt_sportowy": "Obiekty sportowe",
     "muzeum": "Muzea",
     "teatr": "Teatry"
+  },
+  "Layers": {
+    "title": "Warstwy",
+    "showAll": "Pokaż wszystkie",
+    "hideAll": "Ukryj wszystkie",
+    "loading": "Wczytywanie…",
+    "error": "Nie udało się wczytać warstw mapy."
+  },
+  "Place": {
+    "close": "Zamknij",
+    "children": "Dzieci",
+    "students": "Uczniowie",
+    "groups": "Oddziały",
+    "places": "Miejsca",
+    "public": "Publiczna",
+    "nonPublic": "Niepubliczna",
+    "source": "Źródło",
+    "asOf": "stan na {date}"
   }
 }

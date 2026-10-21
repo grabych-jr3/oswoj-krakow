@@ -19,9 +19,11 @@ async function MapWithQuestion({ searchParams }: { searchParams: PageProps<"/[lo
 export default function MapPage({ params, searchParams }: PageProps<"/[locale]/mapa">) {
   const { locale } = use(params);
   setRequestLocale(locale);
-  // Search params are request-time data: the static shell (no question) renders first.
+  // Search params are request-time data, so the page streams in. The fallback is a plain
+  // map-coloured placeholder, not a second AppShell: mounting a map in the fallback and
+  // replacing it a moment later aborted MapLibre mid-initialisation ("'container' must be …").
   return (
-    <Suspense fallback={<AppShell />}>
+    <Suspense fallback={<div aria-hidden className="h-dvh bg-map" />}>
       <MapWithQuestion searchParams={searchParams} />
     </Suspense>
   );

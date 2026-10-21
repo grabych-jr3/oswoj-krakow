@@ -84,3 +84,17 @@
     color: oklch(0.5 0.02 27);
   }
 }
+
+/* Place popup on the map (C2): card look from the design instead of the default MapLibre box. */
+@layer components {
+  .place-popup .maplibregl-popup-content {
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: var(--shadow-panel);
+  }
+  .place-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip,
+  .place-popup.maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip,
+  .place-popup.maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip {
+    border-top-color: #fff;
+  }
+}
