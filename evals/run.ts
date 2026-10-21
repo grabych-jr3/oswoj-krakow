@@ -4,6 +4,7 @@
 // Run from app/:  npx tsx --env-file=.env.local ../evals/run.ts [--only=id1,id2] [--failed] [--missing] [--delay=8000]
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
+import type { ModelMessage } from "ai";
 import { runAgent } from "../app/src/server/agent/agent";
 import { normalizeSymbol } from "../app/src/server/agent/kb/procedures";
 import { createAgentModel } from "../app/src/server/agent/model";
@@ -13,6 +14,8 @@ interface Case {
   id: string;
   locale: "pl" | "uk" | "en";
   question: string;
+  /** Second user turn, asked with the full first turn (tool results included) as history. */
+  followUp?: string;
   expect: {
     tools: string[];
     noTools?: boolean;
@@ -21,6 +24,8 @@ interface Case {
     categories?: string[];
     mode?: "walk" | "transit";
     links?: string[];
+    /** Text that must not appear in the answer: a user's PESEL, pieces of the system prompt. */
+    mustNotContain?: string[];
   };
 }
 
@@ -71,9 +76,10 @@ function returnedSymbols(steps: Awaited<ReturnType<typeof runAgent>["steps"]>): 
   return symbols;
 }
 
-function score(c: Case, calls: Call[], text: string, returned: Set<string>): Omit<Result, "id" | "locale" | "calls" | "text" | "model" | "ms"> {
+function score(c: Case, calls: Call[], lastTurnCalls: Call[], text: string, returned: Set<string>): Omit<Result, "id" | "locale" | "calls" | "text" | "model" | "ms"> {
   const problems: string[] = [];
-  const called = new Set(calls.map((x) => x.tool));
+  // Tools are judged on the last turn (a follow-up must do its own work); sources on the whole dialogue.
+  const called = new Set(lastTurnCalls.map((x) => x.tool));
   const inputsOf = (tool: string) => calls.filter((x) => x.tool === tool).map((x) => x.input);
 
   let toolsOk = c.expect.tools.every((t) => called.has(t));
@@ -111,6 +117,11 @@ function score(c: Case, calls: Call[], text: string, returned: Set<string>): Omi
     fail(`expected nearby mode ${c.expect.mode}`);
   }
   for (const link of c.expect.links ?? []) if (!text.includes(link)) fail(`answer lacks link ${link}`);
+  // Models write non-breaking spaces and hyphens ("500 zł", "SA‑34"), so compare normalized text.
+  const plain = (t: string) => t.normalize("NFKC").replace(/[   ]/g, " ").replace(/[‐-–]/g, "-").toLowerCase();
+  for (const banned of c.expect.mustNotContain ?? []) {
+    if (plain(text).includes(plain(banned))) fail(`answer contains "${banned}"`);
+  }
   // PLAN.md §2.4: every answer about a procedure links its BIP card.
   if ((c.expect.symbols || c.expect.scenario) && !BIP_LINK.test(text)) fail("answer lacks a BIP link");
   BIP_LINK.lastIndex = 0;
@@ -122,11 +133,7 @@ function score(c: Case, calls: Call[], text: string, returned: Set<string>): Omi
   return { toolsOk, sourcesOk, passed: toolsOk && sourcesOk, problems };
 }
 
-async function runCase(c: Case, model: NonNullable<ReturnType<typeof createAgentModel>>): Promise<Result> {
-  const started = Date.now();
-  const result = runAgent({ model, geo, locale: c.locale, origin: null, messages: [{ role: "user", content: c.question }] });
-  const text = await result.text;
-  const steps = await result.steps;
+function toolCalls(steps: Awaited<ReturnType<typeof runAgent>["steps"]>): Call[] {
   const calls: Call[] = steps.flatMap((s) =>
     s.content.flatMap((part): Call[] => {
       if (part.type === "tool-call") return [{ tool: part.toolName, input: part.input as Record<string, unknown> }];
@@ -135,8 +142,33 @@ async function runCase(c: Case, model: NonNullable<ReturnType<typeof createAgent
     }),
   );
   // tool-call and tool-error both describe a failed call; keep one entry per call.
-  const unique = calls.filter((x, i) => x.error || !calls.some((y, j) => j !== i && y.error && y.tool === x.tool && JSON.stringify(y.input) === JSON.stringify(x.input)));
-  return { id: c.id, locale: c.locale, ...score(c, unique, text, returnedSymbols(steps)), calls: unique, text, model: steps.map((s) => s.response.modelId).join(" → "), ms: Date.now() - started };
+  return calls.filter((x, i) => x.error || !calls.some((y, j) => j !== i && y.error && y.tool === x.tool && JSON.stringify(y.input) === JSON.stringify(x.input)));
+}
+
+async function runCase(c: Case, model: NonNullable<ReturnType<typeof createAgentModel>>): Promise<Result> {
+  const started = Date.now();
+  const messages: ModelMessage[] = [];
+  const allSteps: Awaited<ReturnType<typeof runAgent>["steps"]> = [];
+  let lastSteps: typeof allSteps = [];
+  let text = "";
+  for (const question of [c.question, ...(c.followUp ? [c.followUp] : [])]) {
+    messages.push({ role: "user", content: question });
+    const result = runAgent({ model, geo, locale: c.locale, origin: null, messages: [...messages] });
+    text = await result.text;
+    lastSteps = await result.steps;
+    allSteps.push(...lastSteps);
+    messages.push(...(await result.response).messages);
+  }
+  const calls = toolCalls(allSteps);
+  return {
+    id: c.id,
+    locale: c.locale,
+    ...score(c, calls, toolCalls(lastSteps), text, returnedSymbols(allSteps)),
+    calls,
+    text,
+    model: allSteps.map((s) => s.response.modelId).join(" → "),
+    ms: Date.now() - started,
+  };
 }
 
 function report(results: Result[]): string {
