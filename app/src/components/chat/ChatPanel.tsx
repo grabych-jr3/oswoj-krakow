@@ -54,27 +54,66 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel(
 
   const suggestions = t.raw("suggestions") as string[];
 
+  // --- Mobile swipe on the sheet header -------------------------------------------------
+  const SWIPE_PX = 40; // distance that counts as a swipe
+  const drag = useRef<{ startY: number; moved: boolean; onHandle: boolean } | null>(null);
+  const [dragY, setDragY] = useState(0);
+
+  function onDragStart(e: React.PointerEvent<HTMLDivElement>) {
+    if (window.matchMedia("(min-width: 768px)").matches) return; // desktop: no sheet
+    const target = e.target as HTMLElement;
+    if (target.closest("button")) return; // let the header buttons work normally
+    drag.current = { startY: e.clientY, moved: false, onHandle: !!target.closest("[data-drag-handle]") };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  }
+
+  function onDragMove(e: React.PointerEvent<HTMLDivElement>) {
+    const d = drag.current;
+    if (!d) return;
+    const dy = e.clientY - d.startY;
+    if (Math.abs(dy) > 6) d.moved = true;
+    // Follow the finger: down when open (to close), a little up when closed (to open).
+    setDragY(expanded ? Math.max(0, dy) : Math.max(-60, Math.min(0, dy)));
+  }
+
+  function onDragEnd(e: React.PointerEvent<HTMLDivElement>) {
+    const d = drag.current;
+    drag.current = null;
+    if (!d) return;
+    const dy = e.clientY - d.startY;
+    setDragY(0);
+    if (!d.moved) {
+      if (d.onHandle) onExpandedChange(!expanded); // tap on the handle
+      return;
+    }
+    if (!expanded && dy < -SWIPE_PX) onExpandedChange(true);
+    else if (expanded && dy > SWIPE_PX) onExpandedChange(false);
+  }
+
   return (
     <aside
       ref={ref}
       aria-label={t("title")}
       data-expanded={expanded}
+      style={dragY ? { transform: `translateY(${dragY}px)`, transition: "none" } : undefined}
       className={cn(
-        "group fixed inset-x-0 bottom-0 z-20 flex max-h-[85dvh] flex-col rounded-t-3xl bg-primary text-primary-foreground shadow-[0_-12px_40px_-16px_rgb(80_10_10/0.55)]",
+        "group fixed inset-x-0 bottom-0 z-20 flex max-h-[85dvh] flex-col rounded-t-3xl bg-primary text-primary-foreground shadow-[0_-12px_40px_-16px_rgb(80_10_10/0.55)] transition-transform duration-200",
         "data-[expanded=true]:h-[85dvh]",
         "md:static md:z-auto md:h-auto md:max-h-none md:w-[30%] md:min-w-[380px] md:shrink-0 md:rounded-none md:shadow-none md:data-[expanded=true]:h-auto",
       )}
     >
-      {/* Mobile grab handle: touch affordance only; keyboard/screen readers use the chevron button below. */}
-      <button
-        type="button"
-        onClick={() => onExpandedChange(!expanded)}
-        tabIndex={-1}
-        aria-hidden
-        className="flex justify-center pt-2.5 pb-1 md:hidden"
+      {/* Mobile drag zone (grab handle + header): swipe up opens, swipe down closes, tap on the handle toggles.
+          Keyboard and screen readers use the chevron button. */}
+      <div
+        onPointerDown={onDragStart}
+        onPointerMove={onDragMove}
+        onPointerUp={onDragEnd}
+        onPointerCancel={onDragEnd}
+        className="touch-none select-none md:touch-auto md:select-auto"
       >
+      <div data-drag-handle aria-hidden className="flex cursor-grab justify-center pt-2.5 pb-1 md:hidden">
         <span className="h-1.5 w-11 rounded-full bg-white/60" />
-      </button>
+      </div>
 
       <header className="flex items-center justify-between gap-3 px-5 pt-2 pb-3 md:px-[22px] md:pt-5 md:pb-4">
         <div className="flex min-w-0 flex-col gap-0.5">
@@ -104,6 +143,7 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel(
           </button>
         </div>
       </header>
+      </div>
 
       <div
         id="chat-messages"

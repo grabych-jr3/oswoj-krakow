@@ -3,6 +3,7 @@
 import { Info } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Logo } from "@/components/brand/Logo";
+import { LanguageMenu } from "@/components/shell/LanguageMenu";
 import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -12,12 +13,14 @@ const LANG_LABELS: Record<string, string> = { pl: "PL", uk: "UA", en: "EN" };
 export function TopBar({ onAbout }: { onAbout: () => void }) {
   const t = useTranslations("Header");
   return (
-    <div className="flex w-full flex-wrap items-center gap-3 rounded-2xl bg-card py-2 pr-2 pl-3 shadow-float md:w-max md:max-w-full">
-      <Link href="/" aria-label={t("home")} className="rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
+    <div className="flex w-full items-center gap-3 rounded-2xl bg-card py-2 pr-2 pl-3 shadow-float md:w-max md:max-w-full">
+      <Link href="/" aria-label={t("home")} className="min-w-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
         <Logo />
       </Link>
-      <div className="ml-auto flex items-center gap-1.5 md:ml-0">
-        <LanguageSwitcher />
+      <div className="ml-auto flex shrink-0 items-center gap-1.5 md:ml-0">
+        {/* Phones: dropdown keeps logo and language on one row; desktop: segmented switch */}
+        <LanguageMenu className="md:hidden" />
+        <LanguageSwitcher className="hidden md:flex" />
         <button
           type="button"
           onClick={onAbout}
@@ -33,12 +36,12 @@ export function TopBar({ onAbout }: { onAbout: () => void }) {
 }
 
 /** `onPrimary` = styling for the red sticky header of the home page. */
-export function LanguageSwitcher({ onPrimary = false }: { onPrimary?: boolean }) {
+export function LanguageSwitcher({ onPrimary = false, className }: { onPrimary?: boolean; className?: string }) {
   const t = useTranslations("Header");
   const locale = useLocale();
   const pathname = usePathname();
   return (
-    <nav aria-label={t("language")} className={cn("flex gap-0.5 rounded-[10px] p-[3px]", onPrimary ? "bg-white/15" : "bg-secondary")}>
+    <nav aria-label={t("language")} className={cn("flex gap-0.5 rounded-[10px] p-[3px]", onPrimary ? "bg-white/15" : "bg-secondary", className)}>
       {routing.locales.map((l) => {
         const active = l === locale;
         return (
