@@ -84,6 +84,15 @@ SOURCES: tuple[Source, ...] = (
                 "zameldowani-na-pobyt-czasowy-km-31-12-2025"),
     PortalTable("mieszkancy_staly", "opendata-mieszkancy-pobyt-staly",
                 "zameldowani-na-pobyt-staly-km-31-12-2025"),
+    # same populations in detail (birth / registration year): cross-check of the district sums (A4)
+    PortalTable("mieszkancy_staly_szczegoly", "opendata-mieszkancy-pobyt-staly",
+                "zameldowani-na-pobyt-staly-31-12-2025"),
+    PortalTable("mieszkancy_czasowy_szczegoly", "opendata-mieszkancy-pobyt-czasowy",
+                "zameldowani-na-pobyt-czasowy-31-12-2025"),
+    PortalTable("cudzoziemcy_staly_szczegoly", "opendata-mieszkancy-cudzoziemcy-pobyt-staly",
+                "cudzoziemcy-zameldowani-na-pobyt-staly-31-12-2025"),
+    PortalTable("cudzoziemcy_czasowy_szczegoly", "opendata-mieszkancy-cudzoziemcy-pobyt-czasowy",
+                "cudzoziemcy-zameldowani-na-pobyt-czasowy-31-12-2025"),
     # 13–14 MSIP (EPSG:2178)
     FileDownload("emuia_adresy", "https://msip.um.krakow.pl/Dane/Adresy_JSON.zip", "Adresy_JSON.zip"),
     FileDownload("dzielnice", "https://msip.um.krakow.pl/Dane/Dzielnice_JSON.zip", "Dzielnice_JSON.zip"),
