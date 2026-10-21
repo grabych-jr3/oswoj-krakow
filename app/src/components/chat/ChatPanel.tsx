@@ -1,58 +1,56 @@
 "use client";
 
-import { ChevronUp, RotateCcw } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { forwardRef, useEffect, useRef, useState } from "react";
+import type { UIMessage } from "ai";
+import { AlertCircle, ChevronUp, LoaderCircle, RotateCcw, Square } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import type { Locale } from "@/contracts/common";
+import { parseToolPart } from "@/lib/toolParts";
 import { cn } from "@/lib/utils";
-
-type Msg = { id: number; role: "user" | "bot"; text: string };
+import { messageMarkers } from "@/map/chatMap";
+import { getStarters } from "@/server/agent/starters";
+import { useChatActions } from "./ChatActions";
+import { Markdown } from "./Markdown";
+import { ToolPart } from "./ToolPart";
+import type { Assistant } from "./useAssistant";
 
 type Props = {
+  assistant: Assistant;
   /** Mobile bottom sheet state; on md+ the panel is always fully open. */
   expanded: boolean;
   onExpandedChange: (expanded: boolean) => void;
-  /** Question typed on the home page (`/mapa?q=`); asked as soon as the chat opens. */
-  initialQuestion?: string;
 };
 
-/**
- * Chat shell from the design (red panel). C1: layout, greeting, suggestions and input.
- * Real answers (streaming, procedure cards, map actions) arrive in C3 via /api/chat.
- */
-export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel(
-  { expanded, onExpandedChange, initialQuestion },
-  ref,
-) {
+/** Chat with the assistant (C3): streamed answers, tool cards and links to the map. */
+export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ assistant, expanded, onExpandedChange }, ref) {
   const t = useTranslations("Chat");
-  // Derived from props during render, so server and client markup match.
-  const [msgs, setMsgs] = useState<Msg[]>(() =>
-    initialQuestion
-      ? [
-          { id: 1, role: "user", text: initialQuestion },
-          { id: 2, role: "bot", text: t("comingSoon") },
-        ]
-      : [],
-  );
+  const locale = useLocale() as Locale;
+  const { messages, status, error, busy, rateLimited } = assistant;
   const [input, setInput] = useState("");
   const listRef = useRef<HTMLDivElement>(null);
-  const nextId = useRef(initialQuestion ? 3 : 1);
 
+  // A new question scrolls to the top of the list, so its answer reads from the beginning
+  // (cards can be long); errors and the "thinking" bubble at the end stay in view.
+  const count = messages.length;
   useEffect(() => {
-    const el = listRef.current;
-    if (el) el.scrollTop = el.scrollHeight;
-  }, [msgs]);
+    const list = listRef.current;
+    const question = [...(list?.querySelectorAll<HTMLElement>("[data-user-message]") ?? [])].at(-1);
+    if (list && question) list.scrollTo({ top: question.offsetTop - 8, behavior: "smooth" });
+  }, [count]);
+  useEffect(() => {
+    const list = listRef.current;
+    if (list && error) list.scrollTo({ top: list.scrollHeight, behavior: "smooth" });
+  }, [error]);
 
   function send(text: string) {
-    const q = text.trim();
-    if (!q) return;
-    const id = nextId.current;
-    nextId.current += 2;
-    setMsgs((m) => [...m, { id, role: "user", text: q }, { id: id + 1, role: "bot", text: t("comingSoon") }]);
+    if (busy || !text.trim()) return;
+    assistant.ask(text);
     setInput("");
     onExpandedChange(true);
   }
 
-  const suggestions = t.raw("suggestions") as string[];
+  const starters = getStarters(locale);
+  const waiting = status === "submitted" && messages.at(-1)?.role === "user";
 
   // --- Mobile swipe on the sheet header -------------------------------------------------
   // The sheet stays anchored to the bottom edge and its height follows the finger, so it never
@@ -123,76 +121,98 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel(
         onPointerCancel={onDragEnd}
         className="touch-none select-none md:touch-auto md:select-auto"
       >
-      <div data-drag-handle aria-hidden className="flex cursor-grab justify-center pt-2.5 pb-1 md:hidden">
-        <span className="h-1.5 w-11 rounded-full bg-white/60" />
-      </div>
+        <div data-drag-handle aria-hidden className="flex cursor-grab justify-center pt-2.5 pb-1 md:hidden">
+          <span className="h-1.5 w-11 rounded-full bg-white/60" />
+        </div>
 
-      <header className="flex items-center justify-between gap-3 px-5 pt-2 pb-3 md:px-[22px] md:pt-5 md:pb-4">
-        <div className="flex min-w-0 flex-col gap-0.5">
-          <h2 className="text-xl font-bold tracking-[-0.02em] md:text-[22px]">{t("title")}</h2>
-          <p className="truncate text-[13px] text-on-primary-muted">{t("subtitle")}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setMsgs([])}
-            aria-label={t("reset")}
-            title={t("reset")}
-            className="grid size-9 place-items-center rounded-[10px] border-[1.5px] border-white/55 text-[13px] font-medium whitespace-nowrap hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white md:flex md:size-auto md:px-3 md:py-[7px]"
-          >
-            <RotateCcw className="size-4 md:hidden" aria-hidden />
-            <span className="hidden md:inline">{t("reset")}</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => onExpandedChange(!expanded)}
-            aria-expanded={expanded}
-            aria-controls="chat-messages"
-            aria-label={expanded ? t("collapse") : t("expand")}
-            className="grid size-9 place-items-center rounded-[10px] hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white md:hidden"
-          >
-            <ChevronUp className={cn("size-5 transition-transform", expanded && "rotate-180")} aria-hidden />
-          </button>
-        </div>
-      </header>
+        <header className="flex items-center justify-between gap-3 px-5 pt-2 pb-3 md:px-[22px] md:pt-5 md:pb-4">
+          <div className="flex min-w-0 flex-col gap-0.5">
+            <h2 className="text-xl font-bold tracking-[-0.02em] md:text-[22px]">{t("title")}</h2>
+            <p className="truncate text-[13px] text-on-primary-muted">{t("subtitle")}</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={assistant.reset}
+              aria-label={t("reset")}
+              title={t("reset")}
+              className="grid size-9 place-items-center rounded-[10px] border-[1.5px] border-white/55 text-[13px] font-medium whitespace-nowrap hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white md:flex md:size-auto md:px-3 md:py-[7px]"
+            >
+              <RotateCcw className="size-4 md:hidden" aria-hidden />
+              <span className="hidden md:inline">{t("reset")}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => onExpandedChange(!expanded)}
+              aria-expanded={expanded}
+              aria-controls="chat-messages"
+              aria-label={expanded ? t("collapse") : t("expand")}
+              className="grid size-9 place-items-center rounded-[10px] hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-white md:hidden"
+            >
+              <ChevronUp className={cn("size-5 transition-transform", expanded && "rotate-180")} aria-hidden />
+            </button>
+          </div>
+        </header>
       </div>
 
       <div
         id="chat-messages"
         ref={listRef}
         role="log"
-        aria-live="polite"
         aria-label={t("messages")}
-        className="hidden min-h-0 flex-1 flex-col gap-3.5 overflow-y-auto px-[18px] pt-1.5 pb-[18px] group-data-[dragging=true]:flex group-data-[expanded=true]:flex md:flex"
+        aria-busy={busy}
+        className="relative hidden min-h-0 flex-1 flex-col gap-3.5 overflow-y-auto px-[18px] pt-1.5 pb-[18px] group-data-[dragging=true]:flex group-data-[expanded=true]:flex md:flex"
       >
         <div className="flex max-w-[92%] flex-col gap-3 self-start rounded-[18px] rounded-bl-[4px] bg-card p-4 text-card-foreground">
           <p className="text-[15px] leading-normal text-pretty">{t("greet")}</p>
-          {msgs.length === 0 && (
+          {messages.length === 0 && (
             <ul aria-label={t("suggestionsLabel")} className="flex flex-col gap-1.5">
-              {suggestions.map((s) => (
-                <li key={s}>
+              {starters.map((s) => (
+                <li key={s.id}>
                   <button
                     type="button"
-                    onClick={() => send(s)}
+                    onClick={() => send(s.question)}
                     className="w-full rounded-xl border-[1.5px] border-[oklch(0.88_0.04_27)] bg-[oklch(0.98_0.01_27)] px-3 py-2.5 text-left text-sm font-medium text-primary-strong hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-ring"
                   >
-                    {s}
+                    {s.question}
                   </button>
                 </li>
               ))}
             </ul>
           )}
         </div>
-        {msgs.map((m) =>
+
+        {messages.map((m) =>
           m.role === "user" ? (
-            <p key={m.id} className="max-w-[85%] self-end rounded-[18px] rounded-br-[4px] bg-primary-strong px-4 py-3 text-[15px] leading-normal">
-              {m.text}
+            <p key={m.id} data-user-message className="max-w-[85%] self-end rounded-[18px] rounded-br-[4px] bg-primary-strong px-4 py-3 text-[15px] leading-normal whitespace-pre-wrap">
+              {textOf(m)}
             </p>
           ) : (
-            <p key={m.id} className="max-w-[92%] self-start rounded-[18px] rounded-bl-[4px] bg-card p-4 text-[15px] leading-normal text-card-foreground">
-              {m.text}
-            </p>
+            <AssistantMessage key={m.id} message={m} />
           ),
+        )}
+
+        {waiting && (
+          <p role="status" className="flex items-center gap-2 self-start rounded-[18px] rounded-bl-[4px] bg-card px-4 py-3 text-[14px] text-muted-foreground">
+            <LoaderCircle className="size-4 animate-spin text-primary" aria-hidden />
+            {t("thinking")}
+          </p>
+        )}
+
+        {error && (
+          <div role="alert" className="flex max-w-[92%] flex-col items-start gap-2 self-start rounded-[18px] rounded-bl-[4px] bg-card p-4 text-[14px] text-card-foreground">
+            <p className="flex gap-2">
+              <AlertCircle className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
+              {rateLimited ? t("rateLimited") : t("error")}
+            </p>
+            <button
+              type="button"
+              onClick={assistant.retry}
+              className="rounded-lg bg-primary px-3 py-1.5 text-[13px] font-semibold text-primary-foreground hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              {t("retry")}
+            </button>
+          </div>
         )}
       </div>
 
@@ -213,17 +233,65 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel(
             onChange={(e) => setInput(e.target.value)}
             placeholder={t("inputPlaceholder")}
             autoComplete="off"
+            maxLength={500}
             className="h-10 min-w-0 flex-1 bg-transparent text-[15px] text-foreground outline-none"
           />
-          <button
-            type="submit"
-            className="h-10 rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-          >
-            {t("send")}
-          </button>
+          {busy ? (
+            <button
+              type="button"
+              onClick={() => void assistant.stop()}
+              className="flex h-10 items-center gap-1.5 rounded-xl bg-primary-strong px-4 text-sm font-semibold text-primary-foreground hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              <Square className="size-3 fill-current" aria-hidden />
+              {t("stop")}
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="h-10 rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              {t("send")}
+            </button>
+          )}
         </div>
         <p className="hidden text-xs leading-snug text-on-primary-muted group-data-[expanded=true]:block md:block">{t("note")}</p>
       </form>
     </aside>
   );
 });
+
+const textOf = (m: UIMessage) => m.parts.flatMap((p) => (p.type === "text" ? [p.text] : [])).join("\n");
+
+/** One answer: text with clickable marker numbers, and a card per tool result. */
+function AssistantMessage({ message }: { message: UIMessage }) {
+  const t = useTranslations("Chat");
+  const { showPlace } = useChatActions();
+  const markers = useMemo(() => messageMarkers(message), [message]);
+  const labels = useMemo(() => new Set(markers.keys()), [markers]);
+
+  const blocks = message.parts.flatMap((part, i) => {
+    if (part.type === "text") {
+      if (!part.text.trim()) return [];
+      return [
+        <div key={i} className="text-[15px] leading-normal">
+          <Markdown
+            text={part.text}
+            markers={labels}
+            onMarker={(label) => {
+              const place = markers.get(label);
+              if (place) showPlace(place);
+            }}
+            markerLabel={(label) => t("markerLabel", { label })}
+          />
+        </div>,
+      ];
+    }
+    const tool = parseToolPart(part);
+    return tool ? [<ToolPart key={i} part={tool} />] : [];
+  });
+  if (!blocks.length) return null;
+
+  return (
+    <div className="flex w-full max-w-[96%] flex-col gap-3 self-start rounded-[18px] rounded-bl-[4px] bg-card p-4 text-card-foreground">{blocks}</div>
+  );
+}

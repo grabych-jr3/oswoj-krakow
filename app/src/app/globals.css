@@ -98,3 +98,11 @@
     border-top-color: #fff;
   }
 }
+
+/* Phones show the selected place as a card above the chat sheet instead of a map popup.
+   Unlayered on purpose: MapLibre's own (unlayered) popup CSS would beat a layered utility. */
+@media (width < 48rem) {
+  .maplibregl-popup.place-popup {
+    display: none;
+  }
+}

@@ -22,10 +22,12 @@ export function PlaceLayers({
   places,
   selected,
   onClose,
+  onAsk,
 }: {
   places: Place[];
   selected: Place | null;
   onClose: () => void;
+  onAsk?: (place: Place) => void;
 }) {
   const { current: map } = useMap();
   const [imagesReady, setImagesReady] = useState(false);
@@ -108,9 +110,10 @@ export function PlaceLayers({
           closeOnClick={false}
           offset={22}
           maxWidth="320px"
+          // Hidden on phones (globals.css): they show the place in a card above the chat sheet (AppShell).
           className="place-popup"
         >
-          <PlacePopup place={selected} onClose={onClose} />
+          <PlacePopup place={selected} onClose={onClose} onAsk={onAsk} />
         </Popup>
       )}
     </>
