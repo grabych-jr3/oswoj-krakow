@@ -4,6 +4,7 @@ import { use } from "react";
 import { Logo } from "@/components/brand/Logo";
 import { AskForm } from "@/components/home/AskForm";
 import { MapPreview } from "@/components/home/MapPreview";
+import { LanguageMenu } from "@/components/shell/LanguageMenu";
 import { LanguageSwitcher } from "@/components/shell/TopBar";
 import { Link } from "@/i18n/navigation";
 
@@ -33,7 +34,8 @@ export default function HomePage({ params }: PageProps<"/[locale]">) {
           >
             <Logo inverted />
           </Link>
-          <LanguageSwitcher onPrimary />
+          <LanguageMenu onPrimary className="sm:hidden" />
+          <LanguageSwitcher onPrimary className="hidden sm:flex" />
           <Link
             href="/mapa"
             className="rounded-xl bg-white px-3 py-2.5 text-sm font-semibold text-primary hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-4"

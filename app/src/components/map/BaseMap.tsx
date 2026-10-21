@@ -3,7 +3,8 @@
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { Map as MapLibreMap } from "maplibre-gl";
 import { useTranslations } from "next-intl";
-import { Map as MapGL, useMap } from "react-map-gl/maplibre";
+import { useState } from "react";
+import { Map as MapGL, type MapLayerMouseEvent, useMap } from "react-map-gl/maplibre";
 
 export const MAP_ID = "main";
 
@@ -43,7 +44,14 @@ function applyBrandTint(map: MapLibreMap) {
   }
 }
 
-export function BaseMap() {
+type BaseMapProps = {
+  children?: React.ReactNode;
+  interactiveLayerIds?: string[];
+  onClick?: (e: MapLayerMouseEvent) => void;
+};
+
+export function BaseMap({ children, interactiveLayerIds, onClick }: BaseMapProps) {
+  const [cursor, setCursor] = useState<string>();
   return (
     <MapGL
       id={MAP_ID}
@@ -53,8 +61,19 @@ export function BaseMap() {
       attributionControl={false}
       dragRotate={false}
       style={{ position: "absolute", inset: 0 }}
-      onLoad={(e) => applyBrandTint(e.target)}
-    />
+      onLoad={(e) => {
+        applyBrandTint(e.target);
+        // Test hook for browser checks; only in builds made with NEXT_PUBLIC_EXPOSE_MAP=1.
+        if (process.env.NEXT_PUBLIC_EXPOSE_MAP === "1") (window as unknown as { __map: unknown }).__map = e.target;
+      }}
+      interactiveLayerIds={interactiveLayerIds}
+      onClick={onClick}
+      cursor={cursor}
+      onMouseEnter={() => setCursor("pointer")}
+      onMouseLeave={() => setCursor(undefined)}
+    >
+      {children}
+    </MapGL>
   );
 }
 

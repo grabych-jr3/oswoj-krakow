@@ -1,10 +1,14 @@
 "use client";
 
+import { Layers } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { MapProvider } from "react-map-gl/maplibre";
+import { MapProvider, type MapLayerMouseEvent } from "react-map-gl/maplibre";
 import { ChatPanel } from "@/components/chat/ChatPanel";
 import { BaseMap, MapAttribution, ZoomControls } from "@/components/map/BaseMap";
+import { LayerPanel } from "@/components/map/LayerPanel";
+import { handlePlaceClick, PLACE_LAYER_IDS, PlaceLayers } from "@/components/map/PlaceLayers";
+import { useMapLayers } from "@/map/useMapLayers";
 import { AddressSearch, TopBar } from "@/components/shell/TopBar";
 import { WELCOME_SEEN_KEY, WelcomeDialog } from "@/components/shell/WelcomeDialog";
 
@@ -30,6 +34,18 @@ export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
   });
   const [sheetHeight, setSheetHeight] = useState(0);
   const chatRef = useRef<HTMLElement>(null);
+  const tLayers = useTranslations("Layers");
+  const layers = useMapLayers();
+  const [layersOpen, setLayersOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected = selectedId ? (layers.byId.get(selectedId) ?? null) : null;
+
+  function onMapClick(e: MapLayerMouseEvent) {
+    // undefined = cluster zoom (keep selection); null = empty map (close the popup)
+    void handlePlaceClick(e).then((id) => {
+      if (id !== undefined) setSelectedId(id);
+    });
+  }
 
   // On mobile the chat is a fixed sheet: keep the map attribution just above it.
   useEffect(() => {
@@ -57,12 +73,49 @@ export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
       <h1 className="sr-only">{t("pageTitle")}</h1>
       <div className="flex h-dvh overflow-hidden">
         <section aria-label={tMap("label")} className="relative min-w-0 flex-1 overflow-hidden bg-map">
-          <BaseMap />
+          <BaseMap interactiveLayerIds={PLACE_LAYER_IDS} onClick={onMapClick}>
+            <PlaceLayers places={layers.places} selected={selected} onClose={() => setSelectedId(null)} />
+          </BaseMap>
 
           <div className="absolute inset-x-3 top-3 z-10 flex flex-col gap-2.5 md:inset-x-auto md:top-4 md:left-4 md:w-[min(400px,calc(100%-32px))]">
             <TopBar onAbout={() => setWelcomeOpen(true)} />
             <AddressSearch />
             <ZoomControls className="hidden self-start md:flex" />
+            {/* Phones: layers open from a round button so the panel does not cover the map */}
+            <button
+              type="button"
+              onClick={() => setLayersOpen((o) => !o)}
+              aria-expanded={layersOpen}
+              aria-controls="layers-mobile-panel"
+              aria-label={tLayers("title")}
+              className={`grid size-11 place-items-center self-end rounded-full shadow-float focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:hidden ${layersOpen ? "bg-primary text-primary-foreground" : "bg-card text-primary"}`}
+            >
+              <Layers className="size-5" aria-hidden />
+            </button>
+            <LayerPanel
+              index={layers.index}
+              error={layers.error}
+              enabled={layers.enabled}
+              loading={layers.loading}
+              onToggle={layers.toggle}
+              onSetAll={layers.setAll}
+              idPrefix="layers-mobile"
+              className={`max-h-[50dvh] overflow-y-auto md:hidden ${layersOpen ? "" : "hidden"}`}
+            />
+          </div>
+
+          {/* Desktop: the layer list stays open in the top-right corner of the map */}
+          <div className="absolute top-4 right-4 z-10 hidden w-72 md:block">
+            <LayerPanel
+              index={layers.index}
+              error={layers.error}
+              enabled={layers.enabled}
+              loading={layers.loading}
+              onToggle={layers.toggle}
+              onSetAll={layers.setAll}
+              idPrefix="layers-desktop"
+              className="max-h-[calc(100dvh-32px)] overflow-y-auto"
+            />
           </div>
 
           {/* On mobile it sits just above the chat sheet; hidden while the sheet covers the map. */}
