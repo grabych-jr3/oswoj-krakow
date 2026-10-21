@@ -77,4 +77,16 @@ uv run ruff check && uv run pytest
   with exactly the same name in the district (Nominatim; mostly the `tourism=checkpoint` posts).
 - `attrs.location` is `area` (point inside the mapped park) or `point` (OSM point of the park).
 - Matched polygons go to `.cache/parks_areas.geojson` for the 15-minute analysis (A8).
-- Build order: `geo-fetch` → `geo-geocode` → `geo-layers` → `geo-districts` → `geo-parks` → `geo-districts`.
+- Build order: `geo-fetch` → `geo-geocode` → `geo-layers` → `geo-districts` → `geo-parks` → `geo-stops` → `geo-districts`.
+
+## Stops and P+R (A6)
+
+- `uv run geo-stops` (after `geo-districts`) writes `przystanek.geojson` and `park_and_ride.geojson`.
+- The ZTP layer has one feature per post ("Podgórze SKA 02", code `642-02`); posts are grouped into one
+  stop per number (`przystanek:642`). Kept: groups `KMK` / `KMK_inny` and types A, T, TA and terminal
+  platforms pA, pT, pTA. Left out: not served by KMK (`GMK`), private, suspended, temporary, virtual,
+  service and historic stops, posts valid from a future date, stops with no post in Kraków.
+- `attrs.lines` (e.g. "3, 13, 158") and the stop name come from the GTFS feeds A, T, M (`stop_code` =
+  post code); `attrs.type` "A" | "T" | "AT"; stops without any GTFS trip keep `lines: null`.
+- Source: the arcgis.com item pages of the ZTP layers (`SourceRef.dataset` "ztp-arcgis").
+- Build order: … → `geo-parks` → `geo-stops` → `geo-districts` (counts per district).

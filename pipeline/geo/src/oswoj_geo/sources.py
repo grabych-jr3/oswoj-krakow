@@ -32,6 +32,11 @@ class FileDownload:
 class ArcGisLayer:
     name: str
     url: str
+    page: str | None = None  # public item page on arcgis.com (shown as the source)
+    as_of: str | None = None  # "modified" date of that item, ISO
+
+
+ARCGIS_ITEM = "https://www.arcgis.com/home/item.html?id={id}"
 
 
 Source = PortalTable | FileDownload | ArcGisLayer
@@ -102,8 +107,10 @@ SOURCES: tuple[Source, ...] = (
     FileDownload("gtfs_t", "https://gtfs.ztp.krakow.pl/GTFS_KRK_T.zip", "GTFS_KRK_T.zip"),
     FileDownload("gtfs_m", "https://gtfs.ztp.krakow.pl/GTFS_KRK_M.zip", "GTFS_KRK_M.zip"),
     # 16 ZTP ArcGIS
-    ArcGisLayer("przystanki_kmk", f"{_ARCGIS}/Przystanki_Komunikacji_Miejskiej_w_Krakowie/FeatureServer/0"),
-    ArcGisLayer("park_and_ride", f"{_ARCGIS}/Park_and_Ride/FeatureServer/0"),
+    ArcGisLayer("przystanki_kmk", f"{_ARCGIS}/Przystanki_Komunikacji_Miejskiej_w_Krakowie/FeatureServer/0",
+                ARCGIS_ITEM.format(id="73cfc1778d0d4305a643ef0d2cb13e1f"), "2026-10-01"),
+    ArcGisLayer("park_and_ride", f"{_ARCGIS}/Park_and_Ride/FeatureServer/0",
+                ARCGIS_ITEM.format(id="ad56306213d640ada0a65598b8592827"), "2024-10-02"),
     # pocket parks as polygons, published by the city with the open data (A5)
     ArcGisLayer("parki_kieszonkowe_zasieg",
                 f"{_ARCGIS}/Otwarte_Dane___Parki_Kieszonkowe_Krak%C3%B3w_WFL1/FeatureServer/0"),

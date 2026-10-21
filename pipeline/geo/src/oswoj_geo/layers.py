@@ -17,7 +17,7 @@ from .emuia import district_names
 from .fetch import PIPELINE_DIR, load_table
 from .inputs import PLACE_DATASETS
 from .places import EMUIA_ZIP, GEOCODED_DIR
-from .sources import BY_NAME, PORTAL_PAGE, PortalTable
+from .sources import BY_NAME, PORTAL_PAGE, ArcGisLayer, PortalTable
 
 LAYERS_DIR = PIPELINE_DIR.parents[1] / "app" / "public" / "data" / "layers"
 
@@ -37,6 +37,8 @@ CATEGORY_SOURCES: dict[str, tuple[str, ...]] = {
     **CATEGORY_DATASETS,
     "park": ("parki_miejskie",),  # geo-parks (A5)
     "park_kieszonkowy": ("parki_kieszonkowe",),
+    "przystanek": ("przystanki_kmk",),  # geo-stops (A6)
+    "park_and_ride": ("park_and_ride",),
 }
 
 # ---------------------------------------------------------------- names and addresses
@@ -164,9 +166,12 @@ def place_name(category: str, dataset: str, r: dict[str, Any]) -> str:
 
 
 def source_ref(dataset: str) -> dict[str, Any]:
-    table = BY_NAME[dataset]
-    assert isinstance(table, PortalTable) and table.page, f"{dataset}: no portal page in sources.py"
-    return {"dataset": table.page, "url": PORTAL_PAGE.format(page=table.page), "updatedAt": table.as_of}
+    source = BY_NAME[dataset]
+    if isinstance(source, ArcGisLayer):  # ZTP layers: SourceRef.dataset "ztp-arcgis" (contracts/common.ts)
+        assert source.page, f"{dataset}: no item page in sources.py"
+        return {"dataset": "ztp-arcgis", "url": source.page, "updatedAt": source.as_of}
+    assert isinstance(source, PortalTable) and source.page, f"{dataset}: no portal page in sources.py"
+    return {"dataset": source.page, "url": PORTAL_PAGE.format(page=source.page), "updatedAt": source.as_of}
 
 
 # ---------------------------------------------------------------- building features
