@@ -17,6 +17,7 @@ geo-layers = "oswoj_geo.layers:main"
 geo-districts = "oswoj_geo.districts:main"
 geo-parks = "oswoj_geo.parks:main"
 geo-stops = "oswoj_geo.stops:main"
+geo-offices = "oswoj_geo.offices:main"
 
 [dependency-groups]
 dev = ["pytest>=8.3", "ruff>=0.9"]

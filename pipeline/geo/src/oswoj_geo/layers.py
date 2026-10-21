@@ -39,7 +39,9 @@ CATEGORY_SOURCES: dict[str, tuple[str, ...]] = {
     "park_kieszonkowy": ("parki_kieszonkowe",),
     "przystanek": ("przystanki_kmk",),  # geo-stops (A6)
     "park_and_ride": ("park_and_ride",),
+    "urzad": (),  # geo-offices (A7): sources are the BIP cards, see BIP_SOURCE
 }
+BIP_SOURCE = {"dataset": "bip", "url": "https://www.bip.krakow.pl/", "updatedAt": None}
 
 # ---------------------------------------------------------------- names and addresses
 
@@ -228,7 +230,8 @@ def build_layers(geocoded_dir: Path = GEOCODED_DIR) -> tuple[dict[str, list[dict
 
 
 def index_entry(category: str, features: list[dict[str, Any]]) -> dict[str, Any]:
-    sources = {s["url"]: s for s in (source_ref(d) for d in CATEGORY_SOURCES[category])}
+    refs = [source_ref(d) for d in CATEGORY_SOURCES[category]] or [BIP_SOURCE]
+    sources = {s["url"]: s for s in refs}
     dates = [s["updatedAt"] for s in sources.values() if s["updatedAt"]]
     return {"category": category, "count": len(features), "updatedAt": max(dates) if dates else None,
             "source": list(sources.values())}
