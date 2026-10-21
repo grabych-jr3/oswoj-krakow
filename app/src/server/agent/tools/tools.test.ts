@@ -96,6 +96,16 @@ describe("find_places", () => {
     expect(ToolOutputs.find_places.safeParse(output).success).toBe(true);
   });
 
+  it("resolves a district name to its number", async () => {
+    const geo = stubGeo();
+    vi.mocked(geo.getDistrict).mockImplementation(async (n) =>
+      n === 13 ? { number: 13, name: "Podgórze", residents: null, foreigners: null, topCitizenships: [], places: {} } as never : null,
+    );
+    await runFindPlaces({ categories: ["zlobek"], district: "podgorze" }, geo);
+    expect(vi.mocked(geo.findPlaces).mock.calls[0][0].district).toBe(13);
+    await expect(runFindPlaces({ categories: ["zlobek"], district: "Atlantyda" }, geo)).rejects.toBeInstanceOf(ToolError);
+  });
+
   it("works without a center", async () => {
     const output = await runFindPlaces({ categories: ["park"], district: 13 }, stubGeo());
     expect(output.center).toBeNull();

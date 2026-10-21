@@ -26,6 +26,8 @@ export function runAgent({ model, geo, locale, origin, messages }: AgentRequest)
     messages,
     tools,
     stopWhen: stepCountIs(MAX_STEPS),
+    // The last step may not call tools, so a model stuck re-searching still writes an answer.
+    prepareStep: ({ stepNumber }) => (stepNumber === MAX_STEPS - 1 ? { toolChoice: "none" } : undefined),
     temperature: 0.2,
     // One retry on the same model; after that the fallback middleware switches provider.
     maxRetries: 1,

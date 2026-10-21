@@ -5,11 +5,24 @@ import type { LngLat } from "@/contracts/common";
 import type { GeocodeResult, TravelMode } from "@/contracts/geo";
 import type { PlaceCategory } from "@/contracts/place";
 import type { GeoService } from "@/server/geo";
+import { normalizePl } from "../kb/normalize";
 import { ToolError } from "./errors";
 
 type Output<Name extends keyof typeof ToolOutputs> = z.infer<(typeof ToolOutputs)[Name]>;
 
 const GEOCODE_LIMIT = 5;
+const DISTRICT_COUNT = 18;
+
+/** District number for a name ("Podgórze", "podgorze") or a number, from zone A's district data. */
+async function resolveDistrict(geo: Pick<GeoService, "getDistrict">, district: number | string): Promise<number> {
+  if (typeof district === "number") return district;
+  if (/^\d+$/.test(district.trim())) return Number(district);
+  const wanted = normalizePl(district).replace(/^dzielnica\s+/, "");
+  const all = await Promise.all(Array.from({ length: DISTRICT_COUNT }, (_, i) => geo.getDistrict(i + 1).catch(() => null)));
+  const match = all.find((d) => d && normalizePl(d.name).includes(wanted));
+  if (!match) throw new ToolError(`District "${district}" not found. Search near an address in it instead.`);
+  return match.number;
+}
 
 /** First geocoder match for an address; throws so the model asks the user to rephrase. */
 async function resolveAddress(geo: Pick<GeoService, "geocode">, address: string): Promise<GeocodeResult> {
@@ -28,17 +41,17 @@ export async function runFindPlaces(
     categories: PlaceCategory[];
     near?: LngLat;
     address?: string;
-    district?: number;
+    district?: number | string;
     text?: string;
     limit?: number;
   },
-  geo: Pick<GeoService, "geocode" | "findPlaces">,
+  geo: Pick<GeoService, "geocode" | "findPlaces" | "getDistrict">,
 ): Promise<Output<"find_places">> {
   const center = input.near ?? (input.address ? (await resolveAddress(geo, input.address)).coords : null);
   const places = await geo.findPlaces({
     categories: input.categories,
     near: center ?? undefined,
-    district: input.district,
+    district: input.district === undefined ? undefined : await resolveDistrict(geo, input.district),
     text: input.text,
     limit: input.limit,
   });

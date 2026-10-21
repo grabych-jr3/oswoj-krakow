@@ -76,13 +76,15 @@ export function buildTools({ geo, locale, mapOrigin }: ToolContext) {
       description:
         "City places to show on the map (kindergartens, schools, libraries, parks, stops, offices…), " +
         "optionally near an address or coordinates, or in a district. Refer to results by their marker label. " +
+        "Kindergarten / preschool (ages 3–6) is przedszkole; nursery / crèche (under 3) is zlobek. " +
         "Each place has attrs for comparing size: kindergartens and schools give children / students and groups, " +
         "nurseries give places, parks give area_ha. Ask for a larger limit when the user wants the biggest ones.",
       inputSchema: z.object({
         categories: z.array(PlaceCategory).min(1),
         near: LngLatInput.optional(),
         address: z.string().optional().describe("Address in Kraków to search around"),
-        district: z.number().int().min(1).max(18).optional(),
+        // A plain string: Gemini rejects union schemas, and the model knows names better than numbers.
+        district: z.string().min(1).optional().describe("District name, e.g. 'Podgórze', or its number 1-18"),
         text: z.string().optional().describe("Part of a place name"),
         limit: z.number().int().min(1).max(20).optional(),
       }),

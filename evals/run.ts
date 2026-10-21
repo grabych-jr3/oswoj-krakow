@@ -111,6 +111,9 @@ function score(c: Case, calls: Call[], text: string, returned: Set<string>): Omi
     fail(`expected nearby mode ${c.expect.mode}`);
   }
   for (const link of c.expect.links ?? []) if (!text.includes(link)) fail(`answer lacks link ${link}`);
+  // PLAN.md §2.4: every answer about a procedure links its BIP card.
+  if ((c.expect.symbols || c.expect.scenario) && !BIP_LINK.test(text)) fail("answer lacks a BIP link");
+  BIP_LINK.lastIndex = 0;
 
   // A BIP link to a card no tool returned is an invented source.
   const invented = [...text.matchAll(BIP_LINK)].map((m) => m[1]).filter((s) => !returned.has(s));
