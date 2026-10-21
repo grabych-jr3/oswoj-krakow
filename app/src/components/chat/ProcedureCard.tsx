@@ -3,6 +3,7 @@
 import { CalendarCheck, Clock, ExternalLink, FileText, MapPin, Paperclip, Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { Procedure } from "@/contracts/kb";
+import { bookingLink } from "@/lib/booking";
 import { officeToPlace } from "@/map/chatMap";
 import { useChatActions } from "./ChatActions";
 import { Markdown } from "./Markdown";
@@ -86,7 +87,7 @@ export function ProcedureCard({ procedure }: { procedure: Procedure }) {
                     <div className="mt-1 flex flex-wrap gap-1.5">
                       {office.bookingUrl && (
                         <a
-                          href={office.bookingUrl}
+                          href={bookingLink(office.bookingUrl)}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 rounded-lg bg-primary px-2.5 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
