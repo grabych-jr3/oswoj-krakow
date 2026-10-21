@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T13:52:06+00:00",
+  "generatedAt": "2026-10-21T14:08:24+00:00",
   "categories": [
     {
       "category": "zlobek",
@@ -116,6 +116,30 @@
           "dataset": "parki-kieszonkowe-w-krakowie",
           "url": "https://otwartedane.um.krakow.pl/zbiory-danych/parki-kieszonkowe-w-krakowie",
           "updatedAt": null
+        }
+      ]
+    },
+    {
+      "category": "przystanek",
+      "count": 814,
+      "updatedAt": "2026-10-01",
+      "source": [
+        {
+          "dataset": "ztp-arcgis",
+          "url": "https://www.arcgis.com/home/item.html?id=73cfc1778d0d4305a643ef0d2cb13e1f",
+          "updatedAt": "2026-10-01"
+        }
+      ]
+    },
+    {
+      "category": "park_and_ride",
+      "count": 10,
+      "updatedAt": "2024-10-02",
+      "source": [
+        {
+          "dataset": "ztp-arcgis",
+          "url": "https://www.arcgis.com/home/item.html?id=ad56306213d640ada0a65598b8592827",
+          "updatedAt": "2024-10-02"
         }
       ]
     }
