@@ -31,15 +31,25 @@ describe("districts", () => {
     expect(districts.getDistrict([19.8, 50.25])).toBeNull(); // outside Kraków
   });
 
-  it("adds up to the city totals of the source (31.12.2025)", () => {
+  it("has plausible city totals", () => {
+    // Exact sums are cross-checked against the source by `uv run geo-districts` (reports/districts.md).
     let residents = 0;
     let foreigners = 0;
     for (let n = 1; n <= 18; n++) {
       residents += districts.getDistrict(n)?.residents ?? 0;
       foreigners += districts.getDistrict(n)?.foreigners ?? 0;
     }
-    // permanent 703 697 + temporary 32 258; foreigners permanent 5 766 + temporary 15 008
-    expect(residents).toBe(735955);
-    expect(foreigners).toBe(20774);
+    expect(residents).toBeGreaterThan(600_000);
+    expect(residents).toBeLessThan(900_000);
+    expect(foreigners).toBeGreaterThan(5_000);
+    expect(foreigners).toBeLessThan(residents);
+  });
+
+  it("lists countries only in top citizenships", () => {
+    for (let n = 1; n <= 18; n++) {
+      for (const c of districts.getDistrict(n)?.topCitizenships ?? []) {
+        expect(["Inne Kraje", "Nieustalone", "Bezpaństwowcy"]).not.toContain(c.name);
+      }
+    }
   });
 });

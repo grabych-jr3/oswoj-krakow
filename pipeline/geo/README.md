@@ -62,7 +62,7 @@ uv run ruff check && uv run pytest
   `app/public/data/layers/districts.geojson` (map) and the identical `app/data/geo/districts.json`
   (server, `getDistrict`), plus `reports/districts.md`.
 - Boundaries: MSIP Dzielnice, `coverage_simplify` 5 m so neighbours share one border (no gaps or overlaps).
-- residents / foreigners = registered permanent + temporary, 31.12.2025; top 5 citizenships ("INNE KRAJE"
-  is an aggregate row and is left out); placeCounts from the A3 layers.
+- residents / foreigners = registered permanent + temporary, 31.12.2025; top 5 citizenships ("INNE KRAJE",
+  "NIEUSTALONE", "BEZPAŃSTWOWCY" are not countries and are left out); placeCounts from the A3 layers.
 - Cross-check: every district table must add up to the detailed table of the same population
   (`*_szczegoly`); the command exits 1 otherwise.

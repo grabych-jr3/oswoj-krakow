@@ -30,7 +30,7 @@ SERVER_FILE = PIPELINE_DIR.parents[1] / "app" / "data" / "geo" / "districts.json
 REPORT = PIPELINE_DIR / "reports" / "districts.md"
 SIMPLIFY_M = 5
 TOP_CITIZENSHIPS = 5
-NOT_A_CITIZENSHIP = {"INNE KRAJE"}  # aggregate row in the source
+NOT_A_CITIZENSHIP = {"INNE KRAJE", "NIEUSTALONE", "BEZPAŃSTWOWCY"}  # aggregate rows, not countries
 
 # district tables (by district) and the detailed tables of the same population, for the cross-check
 RESIDENTS = ("mieszkancy_staly", "mieszkancy_czasowy")
