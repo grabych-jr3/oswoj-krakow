@@ -15,7 +15,11 @@ import httpx
 from .portal import USER_AGENT
 from .streets import fold
 
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
+OVERPASS_URLS = (
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
+)
 OVERPASS_QUERY = """[out:json][timeout:120];
 area["name"="Kraków"]["boundary"="administrative"]["admin_level"="6"]->.k;
 nwr(area.k)["amenity"~"^(kindergarten|school|childcare|library|community_centre|arts_centre)$"]["name"];
@@ -43,16 +47,25 @@ class OsmInstitution:
     lat: float
 
 
-def fetch_institutions(client: httpx.Client, cache_path: Path) -> list[OsmInstitution]:
+def overpass(client: httpx.Client, query: str, cache_path: Path) -> list[dict]:
+    """Elements of an Overpass query, cached on disk (delete the file to refresh)."""
     if cache_path.exists():
-        elements = json.loads(cache_path.read_text(encoding="utf-8"))
-    else:
-        response = client.post(OVERPASS_URL, data={"data": OVERPASS_QUERY},
-                               headers={"User-Agent": USER_AGENT}, timeout=180)
-        response.raise_for_status()
-        elements = response.json()["elements"]
-        cache_path.parent.mkdir(parents=True, exist_ok=True)
-        cache_path.write_text(json.dumps(elements, ensure_ascii=False), encoding="utf-8")
+        return json.loads(cache_path.read_text(encoding="utf-8"))
+    response = None
+    for url in OVERPASS_URLS:  # public servers are often busy (429/5xx): try the next one
+        response = client.post(url, data={"data": query}, headers={"User-Agent": USER_AGENT}, timeout=240)
+        if response.status_code < 429:
+            break
+    assert response is not None
+    response.raise_for_status()
+    elements = response.json()["elements"]
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    cache_path.write_text(json.dumps(elements, ensure_ascii=False), encoding="utf-8")
+    return elements
+
+
+def fetch_institutions(client: httpx.Client, cache_path: Path) -> list[OsmInstitution]:
+    elements = overpass(client, OVERPASS_QUERY, cache_path)
     return [parse_element(e) for e in elements if (e.get("lon") or e.get("center"))]
 
 

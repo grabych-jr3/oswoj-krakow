@@ -66,3 +66,15 @@ uv run ruff check && uv run pytest
   "NIEUSTALONE", "BEZPAŃSTWOWCY" are not countries and are left out); placeCounts from the A3 layers.
 - Cross-check: every district table must add up to the detailed table of the same population
   (`*_szczegoly`); the command exits 1 otherwise.
+
+## Parks (A5)
+
+- `uv run geo-parks` (after `geo-districts`) writes `park.geojson` and `park_kieszonkowy.geojson`, adds
+  them to `index.json` and writes `reports/parks.md`; then run `geo-districts` again for the park counts.
+- The portal gives only name, district and area. Located in order: pocket parks in the city's ArcGIS
+  polygons (same name, or same district and the same stated area for a renamed park); an OSM area with
+  a matching name in the district and 1/3–3× the stated area (the point lies inside it); an OSM object
+  with exactly the same name in the district (Nominatim; mostly the `tourism=checkpoint` posts).
+- `attrs.location` is `area` (point inside the mapped park) or `point` (OSM point of the park).
+- Matched polygons go to `.cache/parks_areas.geojson` for the 15-minute analysis (A8).
+- Build order: `geo-fetch` → `geo-geocode` → `geo-layers` → `geo-districts` → `geo-parks` → `geo-districts`.

@@ -12,15 +12,27 @@ class ArcGisError(RuntimeError):
     pass
 
 
+def object_id_field(client: httpx.Client, layer_url: str) -> str:
+    """Name of the layer's id field ("OBJECTID", "FID", …), for a stable page order."""
+    response = client.get(layer_url.rstrip("/"), params={"f": "json"})
+    if response.status_code != 200:
+        raise ArcGisError(f"{layer_url} → {response.status_code}: {response.text[:200]}")
+    meta = response.json()
+    if "error" in meta:
+        raise ArcGisError(f"{layer_url}: {meta['error']}")
+    return meta.get("objectIdField") or "OBJECTID"
+
+
 def fetch_layer(client: httpx.Client, layer_url: str, page_size: int = PAGE_SIZE) -> dict[str, Any]:
     """All features of a layer as one FeatureCollection in EPSG:4326."""
+    id_field = object_id_field(client, layer_url)
     features: list[dict[str, Any]] = []
     for page in range(MAX_PAGES):
         params = {
             "where": "1=1",
             "outFields": "*",
             "outSR": "4326",
-            "orderByFields": "OBJECTID",
+            "orderByFields": id_field,
             "resultOffset": str(page * page_size),
             "resultRecordCount": str(page_size),
             "f": "geojson",

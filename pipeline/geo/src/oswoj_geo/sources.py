@@ -72,9 +72,10 @@ SOURCES: tuple[Source, ...] = (
     # 9–10 libraries, parks
     PortalTable("biblioteki", "opendata-kultura-lista-bibliotek", "biblioteka-krakow-filie",
                 "lista-bibliotek-miejskich-biblioteki-krakow"),
-    PortalTable("parki_miejskie", "opendata-srodowisko-parki-miejskie", "parki-miejskie-powierzchnia"),
+    PortalTable("parki_miejskie", "opendata-srodowisko-parki-miejskie", "parki-miejskie-powierzchnia",
+                "parki-miejskie-w-krakowie"),
     PortalTable("parki_kieszonkowe", "opendata-srodowisko-parki-kieszonkowe",
-                "parki-kieszonkowe-powierzchnia"),
+                "parki-kieszonkowe-powierzchnia", "parki-kieszonkowe-w-krakowie"),
     # 11–12 residents by district, 31.12.2025
     PortalTable("cudzoziemcy_czasowy", "opendata-mieszkancy-cudzoziemcy-pobyt-czasowy",
                 "cudzoziemcy-zameldowani-na-pobyt-czasowy-ob-31-12-2025"),
@@ -103,6 +104,9 @@ SOURCES: tuple[Source, ...] = (
     # 16 ZTP ArcGIS
     ArcGisLayer("przystanki_kmk", f"{_ARCGIS}/Przystanki_Komunikacji_Miejskiej_w_Krakowie/FeatureServer/0"),
     ArcGisLayer("park_and_ride", f"{_ARCGIS}/Park_and_Ride/FeatureServer/0"),
+    # pocket parks as polygons, published by the city with the open data (A5)
+    ArcGisLayer("parki_kieszonkowe_zasieg",
+                f"{_ARCGIS}/Otwarte_Dane___Parki_Kieszonkowe_Krak%C3%B3w_WFL1/FeatureServer/0"),
     # 17 OSM
     FileDownload("osm_malopolskie", "https://download.geofabrik.de/europe/poland/malopolskie-latest.osm.pbf",
                  "malopolskie-latest.osm.pbf", large=True),
