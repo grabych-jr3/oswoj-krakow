@@ -53,9 +53,9 @@ export function buildTools({ geo, locale, mapOrigin }: ToolContext) {
 
     get_procedure: tool({
       description:
-        "Full card of one procedure by symbol (e.g. 'SA-34'): required documents, fees, deadlines, offices with hours. " +
+        "Full card of one procedure by its symbol (letters, hyphen, number): required documents, fees, deadlines, offices with hours. " +
         "The only source for these facts.",
-      inputSchema: z.object({ symbol: z.string().describe("Procedure symbol from search_procedures, e.g. 'SA-34'") }),
+      inputSchema: z.object({ symbol: z.string().describe("Procedure symbol exactly as search_procedures or get_scenario returned it") }),
       outputSchema: ToolOutputs.get_procedure,
       execute: (input) => runGetProcedure(input, geo),
       toModelOutput: ({ output }) => ({ type: "json", value: procedureForModel(output) }),
