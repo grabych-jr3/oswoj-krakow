@@ -96,13 +96,25 @@ describe("find_places", () => {
     expect(ToolOutputs.find_places.safeParse(output).success).toBe(true);
   });
 
-  it("resolves a district name to its number", async () => {
+  it("resolves a district name to its number, preferring an exact name", async () => {
     const geo = stubGeo();
+    const names: Record<number, string> = { 11: "Podgórze Duchackie", 13: "Podgórze", 14: "Czyżyny" };
     vi.mocked(geo.getDistrict).mockImplementation(async (n) =>
-      n === 13 ? { number: 13, name: "Podgórze", residents: null, foreigners: null, topCitizenships: [], places: {} } as never : null,
+      typeof n === "number" && names[n]
+        ? ({ number: n, name: names[n], residents: null, foreigners: null, topCitizenships: [], places: {} } as never)
+        : null,
     );
-    await runFindPlaces({ categories: ["zlobek"], district: "podgorze" }, geo);
-    expect(vi.mocked(geo.findPlaces).mock.calls[0][0].district).toBe(13);
+    const districtFor = async (district: string) => {
+      vi.mocked(geo.findPlaces).mockClear();
+      await runFindPlaces({ categories: ["zlobek"], district }, geo);
+      return vi.mocked(geo.findPlaces).mock.calls[0][0].district;
+    };
+    expect(await districtFor("Podgórze")).toBe(13);
+    expect(await districtFor("podgorze")).toBe(13);
+    expect(await districtFor("Dzielnica Podgórze")).toBe(13);
+    expect(await districtFor("Podgórze Duchackie")).toBe(11);
+    expect(await districtFor("Duchackie")).toBe(11);
+    expect(await districtFor("13")).toBe(13);
     await expect(runFindPlaces({ categories: ["zlobek"], district: "Atlantyda" }, geo)).rejects.toBeInstanceOf(ToolError);
   });
 

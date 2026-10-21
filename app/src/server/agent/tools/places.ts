@@ -19,7 +19,14 @@ async function resolveDistrict(geo: Pick<GeoService, "getDistrict">, district: n
   if (/^\d+$/.test(district.trim())) return Number(district);
   const wanted = normalizePl(district).replace(/^dzielnica\s+/, "");
   const all = await Promise.all(Array.from({ length: DISTRICT_COUNT }, (_, i) => geo.getDistrict(i + 1).catch(() => null)));
-  const match = all.find((d) => d && normalizePl(d.name).includes(wanted));
+  const districts = all.filter((d) => d !== null);
+  // Exact name first: "Podgórze" (13) is also a substring of "Podgórze Duchackie" (11).
+  // Otherwise the shortest name containing the query, so "Duchackie" still finds 11.
+  const match =
+    districts.find((d) => normalizePl(d.name) === wanted) ??
+    districts
+      .filter((d) => normalizePl(d.name).includes(wanted))
+      .sort((a, b) => a.name.length - b.name.length)[0];
   if (!match) throw new ToolError(`District "${district}" not found. Search near an address in it instead.`);
   return match.number;
 }
