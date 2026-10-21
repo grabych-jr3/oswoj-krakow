@@ -1,6 +1,6 @@
 // Real «15 minut» (A8): app/data/geo/access.json + places.json, written by `uv run geo-access`.
 // Per H3 cell and mode, the precomputed r5py reach: cells (for the zone) and places with minutes.
-import { cellsToMultiPolygon, gridDisk, latLngToCell } from "h3-js";
+import { cellsToMultiPolygon, gridDiskDistances, latLngToCell } from "h3-js";
 import { z } from "zod";
 import type { LngLat } from "@/contracts/common";
 import type { NearbyResult, TravelMode } from "@/contracts/geo";
@@ -39,20 +39,37 @@ const AccessHeader = z.object({
 export function createAccess(data: AccessData, places: Place[]) {
   const cellIndex = new Map(data.cells.map((c, i) => [c, i]));
 
-  function cellOf([lng, lat]: LngLat): number | undefined {
-    const cell = latLngToCell(lat, lng, data.res);
-    if (cellIndex.has(cell)) return cellIndex.get(cell);
-    for (const near of gridDisk(cell, NEAREST_CELL_RINGS)) if (cellIndex.has(near)) return cellIndex.get(near);
-    return undefined;
+  function cellOf([lng, lat]: LngLat): string {
+    return latLngToCell(lat, lng, data.res);
+  }
+
+  /**
+   * The grid cell whose reach answers for a point: its own cell, or the nearest cell ≤2 rings away
+   * that has data — for points just outside the grid and for the few cells whose centre the router
+   * could not snap to a street (river, rail yard).
+   */
+  function answeringCell(cell: string, mode: TravelMode): number | undefined {
+    let fallback: number | undefined;
+    for (const ring of gridDiskDistances(cell, NEAREST_CELL_RINGS)) {
+      for (const candidate of [...ring].sort()) {
+        const i = cellIndex.get(candidate);
+        if (i === undefined) continue;
+        fallback ??= i;
+        const r = data.modes[mode][i];
+        if (r.c.length || r.p.length) return i;
+      }
+    }
+    return fallback;
   }
 
   return {
     nearby(q: { origin: LngLat; mode: TravelMode; categories?: PlaceCategory[] }): NearbyResult {
       const [lng, lat] = q.origin;
-      const index = cellOf(q.origin);
+      const ownCell = cellOf(q.origin);
+      const index = answeringCell(ownCell, q.mode);
       const reach: Reach = index === undefined ? { c: [], p: [] } : data.modes[q.mode][index];
-      const zoneCells = reach.c.map((i) => data.cells[i]);
-      if (zoneCells.length === 0) zoneCells.push(latLngToCell(lat, lng, data.res)); // outside Kraków: just the point's cell
+      // the point's own cell always belongs to its zone, so the origin is never drawn outside it
+      const zoneCells = [...new Set([ownCell, ...reach.c.map((i) => data.cells[i])])];
 
       const reached = reach.p.map(([i, minutes]) => ({ ...places[i], minutes }));
       const present = new Set(reached.map((p) => p.category));
