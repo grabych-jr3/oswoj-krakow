@@ -96,9 +96,15 @@ describe("find_places", () => {
     expect(ToolOutputs.find_places.safeParse(output).success).toBe(true);
   });
 
-  it("resolves a district name to its number, preferring an exact name", async () => {
+  it("resolves district names, numbers and Roman numerals, and refuses to guess", async () => {
     const geo = stubGeo();
-    const names: Record<number, string> = { 11: "Podgórze Duchackie", 13: "Podgórze", 14: "Czyżyny" };
+    const names: Record<number, string> = {
+      3: "Prądnik Czerwony",
+      4: "Prądnik Biały",
+      11: "Podgórze Duchackie",
+      13: "Podgórze",
+      14: "Czyżyny",
+    };
     vi.mocked(geo.getDistrict).mockImplementation(async (n) =>
       typeof n === "number" && names[n]
         ? ({ number: n, name: names[n], residents: null, foreigners: null, topCitizenships: [], places: {} } as never)
@@ -115,6 +121,10 @@ describe("find_places", () => {
     expect(await districtFor("Podgórze Duchackie")).toBe(11);
     expect(await districtFor("Duchackie")).toBe(11);
     expect(await districtFor("13")).toBe(13);
+    expect(await districtFor("Dzielnica XIII")).toBe(13);
+    expect(await districtFor("IV")).toBe(4);
+    expect(await districtFor("Prądnik Biały")).toBe(4);
+    await expect(runFindPlaces({ categories: ["zlobek"], district: "Prądnik" }, geo)).rejects.toThrow(/ambiguous/);
     await expect(runFindPlaces({ categories: ["zlobek"], district: "Atlantyda" }, geo)).rejects.toBeInstanceOf(ToolError);
   });
 

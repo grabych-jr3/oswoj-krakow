@@ -13,22 +13,36 @@ type Output<Name extends keyof typeof ToolOutputs> = z.infer<(typeof ToolOutputs
 const GEOCODE_LIMIT = 5;
 const DISTRICT_COUNT = 18;
 
-/** District number for a name ("Podgórze", "podgorze") or a number, from zone A's district data. */
+/** Arabic value of a Roman numeral I–XVIII ("XIII" → 13), the official way Kraków numbers its districts. */
+function fromRoman(text: string): number | null {
+  if (!/^[ivx]+$/i.test(text)) return null;
+  const value: Record<string, number> = { i: 1, v: 5, x: 10 };
+  const digits = [...text.toLowerCase()].map((c) => value[c]);
+  const n = digits.reduce((sum, d, i) => sum + (d < (digits[i + 1] ?? 0) ? -d : d), 0);
+  return n >= 1 && n <= DISTRICT_COUNT ? n : null;
+}
+
+/** District number for a name ("Podgórze"), a number ("13") or a Roman numeral ("Dzielnica XIII"). */
 async function resolveDistrict(geo: Pick<GeoService, "getDistrict">, district: number | string): Promise<number> {
   if (typeof district === "number") return district;
-  if (/^\d+$/.test(district.trim())) return Number(district);
-  const wanted = normalizePl(district).replace(/^dzielnica\s+/, "");
+  const wanted = normalizePl(district).replace(/^dzielnica\s+/, "").trim();
+  if (/^\d+$/.test(wanted)) return Number(wanted);
+  const roman = fromRoman(wanted);
+  if (roman) return roman;
+
   const all = await Promise.all(Array.from({ length: DISTRICT_COUNT }, (_, i) => geo.getDistrict(i + 1).catch(() => null)));
   const districts = all.filter((d) => d !== null);
   // Exact name first: "Podgórze" (13) is also a substring of "Podgórze Duchackie" (11).
-  // Otherwise the shortest name containing the query, so "Duchackie" still finds 11.
-  const match =
-    districts.find((d) => normalizePl(d.name) === wanted) ??
-    districts
-      .filter((d) => normalizePl(d.name).includes(wanted))
-      .sort((a, b) => a.name.length - b.name.length)[0];
-  if (!match) throw new ToolError(`District "${district}" not found. Search near an address in it instead.`);
-  return match.number;
+  const exact = districts.find((d) => normalizePl(d.name) === wanted);
+  if (exact) return exact.number;
+  const partial = districts.filter((d) => normalizePl(d.name).includes(wanted));
+  if (partial.length === 1) return partial[0].number;
+  if (partial.length > 1) {
+    // "Prądnik" is both 3 Prądnik Czerwony and 4 Prądnik Biały: let the model ask instead of guessing.
+    const options = partial.map((d) => `${d.number} ${d.name}`).join(", ");
+    throw new ToolError(`District "${district}" is ambiguous: ${options}. Ask the user which one.`);
+  }
+  throw new ToolError(`District "${district}" not found. Search near an address in it instead.`);
 }
 
 /** First geocoder match for an address; throws so the model asks the user to rephrase. */
