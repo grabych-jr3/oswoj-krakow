@@ -147,8 +147,22 @@ def district_of(point: Point, districts: dict[int, tuple[str, Any]]) -> dict[str
     return None
 
 
+def most_common_name(names: Counter[str]) -> str | None:
+    """Most frequent name; ties broken alphabetically so every run gives the same name."""
+    names = Counter({n: c for n, c in names.items() if n})
+    return min(names, key=lambda n: (-names[n], n)) if names else None
+
+
+def stop_name(stop: Stop) -> str:
+    """The ZTP post name without the post number; GTFS only if ZTP has none.
+
+    ZTP keeps the diacritics that the timetable drops ("Teatr Variété" vs "Teatr Variete").
+    """
+    ztp = most_common_name(Counter(base_name(p["Nazwa_przystanku_nr"] or "") for p in stop.posts))
+    return ztp or most_common_name(stop.gtfs_names) or stop.code
+
+
 def stop_feature(stop: Stop, district: dict[str, Any]) -> dict[str, Any]:
-    names = stop.gtfs_names or Counter(base_name(p["Nazwa_przystanku_nr"] or "") for p in stop.posts)
     zones = sorted({p["Strefa_Biletowa"] for p in stop.posts if p.get("Strefa_Biletowa")})
     attrs = {
         "code": stop.code,
@@ -158,9 +172,7 @@ def stop_feature(stop: Stop, district: dict[str, Any]) -> dict[str, Any]:
         "zone": "/".join(zones) or None,
     }
     point = stop.point
-    return feature(
-        "przystanek", stop.code, names.most_common(1)[0][0], point, district, None, attrs, "przystanki_kmk"
-    )
+    return feature("przystanek", stop.code, stop_name(stop), point, district, None, attrs, "przystanki_kmk")
 
 
 def feature(

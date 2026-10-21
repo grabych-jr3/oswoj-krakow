@@ -137,3 +137,22 @@ def test_park_and_ride():
         "monitoring": None,
         "hours": "od godz. 4:30 do 2:30",
     }
+
+
+def test_stop_name_prefers_ztp_and_breaks_ties_alphabetically():
+    from collections import Counter
+
+    from oswoj_geo.stops import most_common_name, stop_name
+
+    stop = Stop(
+        "810",
+        posts=[{"Nazwa_przystanku_nr": "Teatr Variété 01"}, {"Nazwa_przystanku_nr": "Teatr Variété 02"}],
+        gtfs_names=Counter({"Teatr Variete": 2}),
+    )
+    assert stop_name(stop) == "Teatr Variété"
+    assert (
+        stop_name(Stop("9", posts=[{"Nazwa_przystanku_nr": None}], gtfs_names=Counter({"Rondo": 1})))
+        == "Rondo"
+    )
+    assert most_common_name(Counter({"B": 1, "A": 1})) == "A"
+    assert most_common_name(Counter()) is None
