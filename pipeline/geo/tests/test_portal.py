@@ -46,6 +46,9 @@ def test_fetch_table_raises_on_http_error():
 
 def test_arcgis_paginates_by_offset():
     def handler(request: httpx.Request) -> httpx.Response:
+        if not request.url.path.endswith("/query"):
+            return httpx.Response(200, json={"objectIdField": "FID"})
+        assert request.url.params["orderByFields"] == "FID"
         offset = int(request.url.params["resultOffset"])
         size = int(request.url.params["resultRecordCount"])
         ids = [i for i in range(offset, min(offset + size, 5))]

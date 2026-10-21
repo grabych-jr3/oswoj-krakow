@@ -32,6 +32,13 @@ CATEGORY_DATASETS: dict[str, tuple[str, ...]] = {
     "biblioteka": ("biblioteki",),
 }
 
+# every category with a layer file: geocoded places above, plus layers built by other commands
+CATEGORY_SOURCES: dict[str, tuple[str, ...]] = {
+    **CATEGORY_DATASETS,
+    "park": ("parki_miejskie",),  # geo-parks (A5)
+    "park_kieszonkowy": ("parki_kieszonkowe",),
+}
+
 # ---------------------------------------------------------------- names and addresses
 
 _LOWER_WORDS = {
@@ -216,23 +223,37 @@ def build_layers(geocoded_dir: Path = GEOCODED_DIR) -> tuple[dict[str, list[dict
 
 
 def index_entry(category: str, features: list[dict[str, Any]]) -> dict[str, Any]:
-    sources = {s["url"]: s for s in (source_ref(d) for d in CATEGORY_DATASETS[category])}
+    sources = {s["url"]: s for s in (source_ref(d) for d in CATEGORY_SOURCES[category])}
     dates = [s["updatedAt"] for s in sources.values() if s["updatedAt"]]
     return {"category": category, "count": len(features), "updatedAt": max(dates) if dates else None,
             "source": list(sources.values())}
 
 
-def write_layers(layers: dict[str, list[dict[str, Any]]], out_dir: Path = LAYERS_DIR) -> None:
+def write_layer(category: str, features: list[dict[str, Any]], out_dir: Path = LAYERS_DIR) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
-    for category, features in layers.items():
-        # one feature per line: small diffs when a single place changes
-        body = ",\n".join(json.dumps(f, ensure_ascii=False, separators=(",", ":")) for f in features)
-        (out_dir / f"{category}.geojson").write_text(
-            '{"type":"FeatureCollection","features":[\n' + body + "\n]}\n", encoding="utf-8")
-    index = {"generatedAt": datetime.now(UTC).isoformat(timespec="seconds"),
-             "categories": [index_entry(c, f) for c, f in layers.items()]}
+    # one feature per line: small diffs when a single place changes
+    body = ",\n".join(json.dumps(f, ensure_ascii=False, separators=(",", ":")) for f in features)
+    (out_dir / f"{category}.geojson").write_text(
+        '{"type":"FeatureCollection","features":[\n' + body + "\n]}\n", encoding="utf-8")
+
+
+def write_index(out_dir: Path = LAYERS_DIR) -> None:
+    """index.json over every category layer on disk: each command (places, parks, stops) adds its own."""
+    categories = []
+    for category in CATEGORY_SOURCES:
+        file = out_dir / f"{category}.geojson"
+        if file.exists():
+            features = json.loads(file.read_text(encoding="utf-8"))["features"]
+            categories.append(index_entry(category, features))
+    index = {"generatedAt": datetime.now(UTC).isoformat(timespec="seconds"), "categories": categories}
     (out_dir / "index.json").write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n",
                                         encoding="utf-8")
+
+
+def write_layers(layers: dict[str, list[dict[str, Any]]], out_dir: Path = LAYERS_DIR) -> None:
+    for category, features in layers.items():
+        write_layer(category, features, out_dir)
+    write_index(out_dir)
 
 
 def main(argv: list[str] | None = None) -> int:
