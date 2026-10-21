@@ -269,6 +269,8 @@ function AssistantMessage({ message }: { message: UIMessage }) {
   const markers = useMemo(() => messageMarkers(message), [message]);
   const labels = useMemo(() => new Set(markers.keys()), [markers]);
 
+  // A failed tool the agent already explains in its text (e.g. "give a more precise address") needs no error line.
+  const hasText = message.parts.some((p) => p.type === "text" && p.text.trim());
   const blocks = message.parts.flatMap((part, i) => {
     if (part.type === "text") {
       if (!part.text.trim()) return [];
@@ -287,7 +289,8 @@ function AssistantMessage({ message }: { message: UIMessage }) {
       ];
     }
     const tool = parseToolPart(part);
-    return tool ? [<ToolPart key={i} part={tool} />] : [];
+    if (!tool || (tool.state === "error" && hasText)) return [];
+    return [<ToolPart key={i} part={tool} />];
   });
   if (!blocks.length) return null;
 
