@@ -43,13 +43,14 @@
   "Address": {
     "label": "Adres do analizy „Kraków w 15 minut”",
     "placeholder": "Wpisz adres – Kraków w 15 minut",
-    "badge": "15 min"
+    "submit": "Szukaj"
   },
   "Map": {
     "label": "Mapa Krakowa",
     "zoomIn": "Przybliż mapę",
     "zoomOut": "Oddal mapę",
-    "sources": "Źródło: Otwarte Dane Miasta Krakowa, MSIP"
+    "sources": "Źródło: Otwarte Dane Miasta Krakowa, MSIP",
+    "attribution": "Źródła i licencje mapy"
   },
   "Chat": {
     "title": "Asystent",
@@ -106,7 +107,8 @@
     "showAll": "Pokaż wszystkie",
     "hideAll": "Ukryj wszystkie",
     "loading": "Wczytywanie…",
-    "error": "Nie udało się wczytać warstw mapy."
+    "error": "Nie udało się wczytać warstw mapy.",
+    "collapse": "Zwiń warstwy"
   },
   "Place": {
     "close": "Zamknij",
