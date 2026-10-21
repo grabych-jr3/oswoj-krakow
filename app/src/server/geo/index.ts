@@ -1,16 +1,21 @@
 // Public entry of zone A: import GeoService only from "@/server/geo" (AGENTS.md rule 2).
 import type { GeoService } from "@/contracts/geo";
+import { access } from "./access";
 import { districts } from "./districts";
 import { createMockGeoService } from "./mock";
 
 export type { GeoService } from "@/contracts/geo";
 
 /**
- * GEO_IMPL=real is built up task by task: getDistrict is real (A4, all 18 districts);
- * geocode, findPlaces, nearby and getPlace still come from the mock until A9.
+ * GEO_IMPL=real is built up task by task: getDistrict (A4) and nearby (A8, r5py on an H3 grid)
+ * are real; geocode, findPlaces and getPlace still come from the mock until A9.
  */
 function createRealGeoService(): GeoService {
-  return { ...createMockGeoService(), getDistrict: async (q) => districts.getDistrict(q) };
+  return {
+    ...createMockGeoService(),
+    getDistrict: async (q) => districts.getDistrict(q),
+    nearby: async (q) => access.nearby(q),
+  };
 }
 
 function createGeoService(): GeoService {

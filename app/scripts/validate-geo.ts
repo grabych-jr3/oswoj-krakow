@@ -115,5 +115,51 @@ if (existsSync(districtsLayer) || existsSync(districtsServer)) {
   }
 }
 
+// A8 «15 minut»: places.json mirrors the layers; access.json indexes stay in range; access-index has every cell.
+const placesFile = path.join(app, "data", "geo", "places.json");
+const accessFile = path.join(app, "data", "geo", "access.json");
+if (existsSync(placesFile) && existsSync(accessFile)) {
+  const places = read(placesFile);
+  if (check("data/geo/places.json", Place.array(), places)) {
+    const layerIds = new Set<string>();
+    if (existsSync(indexFile)) {
+      for (const { category } of (read(indexFile) as z.infer<typeof LayerIndex>).categories) {
+        for (const f of (read(path.join(layersDir, `${category}.geojson`)) as z.infer<typeof PlaceLayer>).features) {
+          layerIds.add(f.properties.id);
+        }
+      }
+    }
+    const placeIds = new Set((places as Place[]).map((p) => p.id));
+    if (placeIds.size !== layerIds.size || [...layerIds].some((id) => !placeIds.has(id))) {
+      errors.push("data/geo/places.json differs from the layers: run `uv run geo-access` after rebuilding layers");
+    }
+    const access = read(accessFile) as {
+      res: number; cells: string[]; modes: Record<string, { c: number[]; p: [number, number][] }[]>;
+    };
+    const n = access.cells.length;
+    let bad = 0;
+    for (const mode of ["walk", "transit"]) {
+      const reach = access.modes?.[mode];
+      if (!Array.isArray(reach) || reach.length !== n) {
+        errors.push(`data/geo/access.json: modes.${mode} has ${reach?.length} entries, cells ${n}`);
+        continue;
+      }
+      for (const r of reach) {
+        bad += r.c.filter((i) => !Number.isInteger(i) || i < 0 || i >= n).length;
+        bad += r.p.filter(([i, m]) => !Number.isInteger(i) || i < 0 || i >= placeIds.size || m < 0 || m > 15).length;
+      }
+    }
+    if (bad) errors.push(`data/geo/access.json: ${bad} indexes or minutes out of range`);
+    else console.log(`  ok data/geo/access.json (${n} cells)`);
+    const indexPath = path.join(layersDir, "access-index.json");
+    if (existsSync(indexPath)) {
+      const idx = read(indexPath) as { res: number; cells: [string, number, number][] };
+      if (idx.res !== access.res || idx.cells.length !== n || idx.cells.some((c, i) => c[0] !== access.cells[i])) {
+        errors.push("public/data/layers/access-index.json does not match data/geo/access.json");
+      } else console.log("  ok public/data/layers/access-index.json");
+    }
+  }
+}
+
 for (const e of errors) console.error(`  ✗ ${e}`);
 process.exit(errors.length ? 1 : 0);
