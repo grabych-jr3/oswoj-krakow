@@ -84,3 +84,42 @@ describe("getScenario", () => {
     expect(getScenario("nie-istnieje", "en")).toBeNull();
   });
 });
+
+// Polish queries the model actually sent in eval runs (evals/), plus canonical ones for the remaining cases.
+// The model reads the top 5 hits, so the right card must be among them.
+const MODEL_HITS = 5;
+type LifeTag = NonNullable<NonNullable<Parameters<typeof searchProcedures>[1]>["tags"]>[number];
+const EVAL_QUERIES: [query: string, tags: LifeTag[], expected: string[]][] = [
+  ["PESEL", [], ["SA-34", "SA-65"]],
+  ["zameldowanie na pobyt stały", ["przeprowadzka"], ["SA-14", "SA-12", "SA-32"]],
+  ["zameldowanie", ["cudzoziemiec"], ["SA-12"]],
+  ["zameldowanie w Krakowie", ["przeprowadzka"], ["SA-14", "SA-32"]],
+  ["wymeldowanie", ["przeprowadzka"], ["SA-15", "SA-13"]],
+  ["PESEL", ["obywatel_ua"], ["SA-65"]],
+  ["nadanie numeru PESEL cudzoziemcowi", ["cudzoziemiec"], ["SA-34"]],
+  ["dowód osobisty", [], ["SA-10"]],
+  ["utrata dowodu osobistego", [], ["SA-11"]],
+  ["rejestracja nowego samochodu", ["pojazd"], ["KM-1"]],
+  ["rejestracja samochodu sprowadzonego z Niemiec", ["pojazd"], ["KM-14"]],
+  ["wyrejestrowanie samochodu", [], ["KM-7"]],
+  ["zmiana adresu w dowodzie rejestracyjnym", [], ["KM-8"]],
+  ["wymiana zagranicznego prawa jazdy", [], ["KM-19"]],
+  ["profil kandydata na kierowcę", [], ["KM-21"]],
+  ["międzynarodowe prawo jazdy", [], ["KM-20"]],
+  ["abonament parkingowy mieszkańca", [], ["ZDMK-72", "ZDMK-71"]],
+  ["deklaracja opłata za odpady", [], ["PD-17"]],
+  ["podatek od nieruchomości", [], ["PD-4"]],
+  ["rejestracja urodzenia dziecka", [], ["SC-1", "SC-29"]],
+  ["Karta Dużej Rodziny", [], ["SO-27", "SO-28"]],
+  ["dodatek mieszkaniowy", [], ["SO-15"]],
+  ["rejestracja osoby bezrobotnej", [], ["GUP-2", "GUP-1"]],
+  ["integracja cudzoziemców", [], ["MOPS-21"]],
+  ["oświadczenie o powierzeniu pracy cudzoziemcowi", [], ["GUP-5"]],
+];
+
+describe("searchProcedures on eval queries", () => {
+  it.each(EVAL_QUERIES)("%s %j finds one of %j in the top hits", (query, tags, expected) => {
+    const top = searchProcedures(query, { tags }).slice(0, MODEL_HITS).map((h) => h.symbol);
+    expect(top.some((s) => expected.includes(s))).toBe(true);
+  });
+});

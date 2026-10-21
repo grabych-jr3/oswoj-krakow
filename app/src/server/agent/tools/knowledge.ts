@@ -42,6 +42,38 @@ export function runGetScenario(input: { id: string; locale?: Locale }, defaultLo
   return { scenario };
 }
 
+// The model reads a compact view of tool outputs; the UI still gets the full contract output.
+// Each answer is several steps that resend the whole context, so this keeps a reply within
+// small per-minute token quotas (Groq free tier: 8000 TPM).
+const MODEL_HITS = 5;
+const SNIPPET_CHARS = 120;
+const SECTION_CHARS = 700;
+
+const clip = (text: string | null, max: number) =>
+  text && text.length > max ? `${text.slice(0, max).trimEnd()}…` : text;
+
+export function searchForModel(output: Output<"search_procedures">) {
+  return {
+    hits: output.hits.slice(0, MODEL_HITS).map((h) => ({ ...h, snippet: clip(h.snippet, SNIPPET_CHARS) })),
+  };
+}
+
+/** Facts the answer may state (documents, fees, deadlines, where to go); legal basis and attachments stay in the card. */
+export function procedureForModel({ procedure: p }: Output<"get_procedure">) {
+  const s = p.sections;
+  return {
+    symbol: p.symbol,
+    title: p.title,
+    bipUrl: p.bipUrl,
+    kogoDotyczy: clip(s.kogoDotyczy, SECTION_CHARS),
+    dokumenty: clip(s.dokumenty, SECTION_CHARS * 2),
+    oplaty: clip(s.oplaty, SECTION_CHARS),
+    termin: clip(s.termin, SECTION_CHARS),
+    sposob: clip(s.sposob, SECTION_CHARS),
+    offices: p.offices.map((o) => ({ name: o.name, address: o.address, hours: o.hours, bookingUrl: o.bookingUrl })),
+  };
+}
+
 /**
  * What the model sees for get_scenario: the contract output plus the real title and BIP link of every
  * referenced procedure, so the answer quotes them instead of inventing or translating titles.

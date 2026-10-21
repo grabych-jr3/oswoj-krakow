@@ -6,7 +6,7 @@ import nearbyJson from "@/contracts/fixtures/nearby.sample.json";
 import placesJson from "@/contracts/fixtures/places.sample.json";
 import { ToolError } from "./errors";
 import { getProcedure } from "../kb/procedures";
-import { runGetProcedure, runGetScenario, runSearchProcedures, scenarioForModel } from "./knowledge";
+import { procedureForModel, runGetProcedure, runGetScenario, runSearchProcedures, scenarioForModel } from "./knowledge";
 import { runFindPlaces, runGeocode, runNearby } from "./places";
 
 // A stub instead of the zone A service keeps these tests independent of how A's data evolves.
@@ -54,6 +54,15 @@ describe("get_procedure", () => {
     expect(procedure.offices.every((o) => o.coords === null)).toBe(true);
   });
 
+  it("shows the model a compact card that keeps the facts an answer needs", async () => {
+    const output = await runGetProcedure({ symbol: "SA-34" }, stubGeo());
+    const forModel = procedureForModel(output);
+    expect(JSON.stringify(forModel).length).toBeLessThan(JSON.stringify(output).length * 0.7);
+    expect(forModel.bipUrl).toBe(output.procedure.bipUrl);
+    expect(forModel.offices.map((o) => o.hours)).toEqual(output.procedure.offices.map((o) => o.hours));
+    expect(forModel.oplaty).toContain("17");
+  });
+
   it("throws a ToolError for an unknown symbol", async () => {
     await expect(runGetProcedure({ symbol: "XX-1" }, stubGeo())).rejects.toBeInstanceOf(ToolError);
   });
@@ -85,6 +94,16 @@ describe("find_places", () => {
     expect(output.places.map((p) => p.label)).toEqual(["1", "2", "3"]);
     expect(vi.mocked(geo.findPlaces).mock.calls[0][0].near).toEqual(wielicka.coords);
     expect(ToolOutputs.find_places.safeParse(output).success).toBe(true);
+  });
+
+  it("resolves a district name to its number", async () => {
+    const geo = stubGeo();
+    vi.mocked(geo.getDistrict).mockImplementation(async (n) =>
+      n === 13 ? { number: 13, name: "Podgórze", residents: null, foreigners: null, topCitizenships: [], places: {} } as never : null,
+    );
+    await runFindPlaces({ categories: ["zlobek"], district: "podgorze" }, geo);
+    expect(vi.mocked(geo.findPlaces).mock.calls[0][0].district).toBe(13);
+    await expect(runFindPlaces({ categories: ["zlobek"], district: "Atlantyda" }, geo)).rejects.toBeInstanceOf(ToolError);
   });
 
   it("works without a center", async () => {

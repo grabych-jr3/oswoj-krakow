@@ -10,7 +10,7 @@ const apiError = (statusCode: number) =>
   new APICallError({ message: "x", url: "u", requestBodyValues: {}, statusCode, isRetryable: false });
 
 describe("resolveModelChain", () => {
-  it("orders primary, fallback, spare Gemini and drops providers without a key", () => {
+  it("orders primary, spare Gemini, fallbacks and drops providers without a key", () => {
     const chain = resolveModelChain({
       LLM_PROVIDER: "google",
       LLM_FALLBACK_PROVIDER: "mistral",
@@ -19,10 +19,20 @@ describe("resolveModelChain", () => {
     });
     expect(chain.map((c) => `${c.provider}:${c.modelId}`)).toEqual([
       "google:gemini-2.5-flash",
-      "mistral:mistral-small-latest",
       "google:gemini-2.5-flash-lite",
+      "mistral:mistral-small-latest",
     ]);
     expect(resolveModelChain({ LLM_FALLBACK_PROVIDER: "mistral", GOOGLE_GENERATIVE_AI_API_KEY: "g" })).toHaveLength(2);
+  });
+
+  it("accepts several fallback providers", () => {
+    const chain = resolveModelChain({
+      LLM_FALLBACK_PROVIDER: "mistral, groq",
+      GOOGLE_GENERATIVE_AI_API_KEY: "g",
+      MISTRAL_API_KEY: "m",
+      GROQ_API_KEY: "q",
+    });
+    expect(chain.map((c) => c.provider)).toEqual(["google", "google", "mistral", "groq"]);
   });
 
   it("honours LLM_MODEL and is empty without keys", () => {

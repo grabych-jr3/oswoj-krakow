@@ -8,7 +8,14 @@ import { LifeTag } from "@/contracts/kb";
 import { PlaceCategory } from "@/contracts/place";
 import type { GeoService } from "@/server/geo";
 import { listScenarioIds } from "../kb/scenarios";
-import { runGetProcedure, runGetScenario, runSearchProcedures, scenarioForModel } from "./knowledge";
+import {
+  procedureForModel,
+  runGetProcedure,
+  runGetScenario,
+  runSearchProcedures,
+  scenarioForModel,
+  searchForModel,
+} from "./knowledge";
 import { runFindPlaces, runGeocode, runNearby } from "./places";
 
 export { ToolError } from "./errors";
@@ -41,6 +48,7 @@ export function buildTools({ geo, locale, mapOrigin }: ToolContext) {
       }),
       outputSchema: ToolOutputs.search_procedures,
       execute: (input) => runSearchProcedures(input),
+      toModelOutput: ({ output }) => ({ type: "json", value: searchForModel(output) }),
     }),
 
     get_procedure: tool({
@@ -50,6 +58,7 @@ export function buildTools({ geo, locale, mapOrigin }: ToolContext) {
       inputSchema: z.object({ symbol: z.string().describe("Procedure symbol from search_procedures, e.g. 'SA-34'") }),
       outputSchema: ToolOutputs.get_procedure,
       execute: (input) => runGetProcedure(input, geo),
+      toModelOutput: ({ output }) => ({ type: "json", value: procedureForModel(output) }),
     }),
 
     get_scenario: tool({
@@ -67,13 +76,15 @@ export function buildTools({ geo, locale, mapOrigin }: ToolContext) {
       description:
         "City places to show on the map (kindergartens, schools, libraries, parks, stops, offices…), " +
         "optionally near an address or coordinates, or in a district. Refer to results by their marker label. " +
+        "Kindergarten / preschool (ages 3–6) is przedszkole; nursery / crèche (under 3) is zlobek. " +
         "Each place has attrs for comparing size: kindergartens and schools give children / students and groups, " +
         "nurseries give places, parks give area_ha. Ask for a larger limit when the user wants the biggest ones.",
       inputSchema: z.object({
         categories: z.array(PlaceCategory).min(1),
         near: LngLatInput.optional(),
         address: z.string().optional().describe("Address in Kraków to search around"),
-        district: z.number().int().min(1).max(18).optional(),
+        // A plain string: Gemini rejects union schemas, and the model knows names better than numbers.
+        district: z.string().min(1).optional().describe("District name, e.g. 'Podgórze', or its number 1-18"),
         text: z.string().optional().describe("Part of a place name"),
         limit: z.number().int().min(1).max(20).optional(),
       }),

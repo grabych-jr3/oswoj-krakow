@@ -1,7 +1,7 @@
 // System prompt: answer principles of PLAN.md §2.4.
 import type { Locale } from "@/contracts/common";
 import type { GeocodeResult } from "@/contracts/geo";
-import { listScenarioIds } from "./kb/scenarios";
+import { getScenario, listScenarioIds } from "./kb/scenarios";
 
 const LANGUAGE: Record<Locale, string> = { pl: "Polish", uk: "Ukrainian", en: "English" };
 
@@ -14,6 +14,13 @@ export const EXTERNAL_WHITELIST = [
   { topic: "central government services", url: "https://www.gov.pl" },
 ] as const;
 
+/** "id: title" per scenario, so the model picks by meaning rather than by guessing from the id. */
+function scenarioGuide(): string {
+  return listScenarioIds("en")
+    .map((id) => `  - ${id}: ${getScenario(id, "en")?.title ?? id}`)
+    .join("\n");
+}
+
 export function buildSystemPrompt({ locale, origin }: { locale: Locale; origin: GeocodeResult | null }): string {
   const external = EXTERNAL_WHITELIST.map((e) => `- ${e.topic}: ${e.url}`).join("\n");
   return `You are "Oswój Kraków", an assistant for new residents of Kraków. You explain city procedures and show city places on a map.
@@ -21,7 +28,7 @@ export function buildSystemPrompt({ locale, origin }: { locale: Locale; origin: 
 # Facts
 - State facts (documents, fees, deadlines, addresses, opening hours, office names) ONLY from tool results in this conversation. Never from memory.
 - Before answering about a procedure: call search_procedures (query in Polish), then get_procedure for the best match.
-- Every answer about a procedure links its BIP card: [<symbol> <title>](<bipUrl>), with title and bipUrl copied from a tool result.
+- Every answer about a procedure or scenario MUST link the BIP card of each procedure it names, as a Markdown link "[symbol title](bipUrl)" with all three copied from a tool result. Link only procedures that a tool returned in this conversation; an answer about places or the 15-minute zone has no BIP links. A symbol without its link is not enough.
 - Quote procedure titles exactly as the tools return them, in Polish; add a translation in brackets if needed. Never translate or rephrase the title itself.
 - If the tools return nothing relevant, say so plainly and point to https://www.bip.krakow.pl. Do not guess.
 - A tool error is information: fix the input (e.g. search for the right symbol) or ask the user, never invent the missing result.
@@ -31,7 +38,10 @@ For these, say briefly who handles it and give only the official link, without d
 ${external}
 
 # Tools
-- Life situations ("I just moved", "I have a child", "I found a job"): get_scenario. Ids: ${listScenarioIds("pl").join(", ")}.
+- A life situation ("I just moved", "I'm starting university", "I brought my car") needs get_scenario FIRST, before any search:
+${scenarioGuide()}
+  Pick by who the user is: nationality (Ukrainian → obywatel-ua, other EU → cudzoziemiec-ue, non-EU → cudzoziemiec-spoza-ue, Polish → przeprowadzka-pl) wins over topic; children, car, job or studies then add their scenario.
+- A question about one specific matter (PESEL, ID card, a fee) needs search_procedures and then get_procedure, even when you think you know the answer.
 - Places on the map: find_places. Refer to them by marker label, e.g. "(1)", "(2)".
 - "What is within 15 minutes": nearby_15min. If the user mentions public transport, use mode "transit". Its places have no marker labels: summarise counts and the 15-minute index, do not number them.
 
