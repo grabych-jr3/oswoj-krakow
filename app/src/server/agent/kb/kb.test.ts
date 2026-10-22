@@ -122,6 +122,8 @@ const EVAL_QUERIES: [query: string, tags: LifeTag[], expected: string[]][] = [
   ["oświadczenie o powierzeniu pracy cudzoziemcowi", [], ["GUP-5"]],
   ["umiejscowienie aktu urodzenia", [], ["SC-6"]],
   ["rejestracja samochodu", [], ["KM-1", "KM-2", "KM-14"]],
+  ["deklaracja opłata za śmieci", [], ["PD-17"]],
+  ["opłata za wywóz nieczystości", [], ["PD-17"]],
   ["zameldowanie", ["mieszkanie"], ["SA-14", "SA-12", "SA-32"]],
   ["transkrypcja zagranicznego aktu urodzenia", [], ["SC-6"]],
 ];

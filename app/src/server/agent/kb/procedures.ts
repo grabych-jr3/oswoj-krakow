@@ -41,6 +41,9 @@ const QUERY_SYNONYMS: Record<string, string> = {
   prawko: "prawo jazdy",
   // BIP cards say "pojazd"; people say "samochód".
   samochod: "pojazd",
+  // Cards say "odpady komunalne"; people say "śmieci" or "nieczystości".
+  smieci: "odpady komunalne",
+  nieczystosci: "odpady komunalne",
 };
 
 function withSynonyms(queryPl: string): string {
