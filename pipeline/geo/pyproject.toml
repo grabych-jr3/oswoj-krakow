@@ -23,6 +23,7 @@ geo-stops = "oswoj_geo.stops:main"
 geo-offices = "oswoj_geo.offices:main"
 geo-access = "oswoj_geo.access:main"
 geo-isochrones = "oswoj_geo.isochrones:main"
+geo-addresses = "oswoj_geo.addresses:main"
 
 [dependency-groups]
 dev = ["pytest>=8.3", "ruff>=0.9"]

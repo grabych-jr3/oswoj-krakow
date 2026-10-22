@@ -20,6 +20,11 @@ describe("15 minutes (real data)", () => {
     expect(result.method).toContain("r5py");
   });
 
+  it("labels the origin with the nearest address, else with coordinates", () => {
+    expect(access.nearby({ origin: WIELICKA_28, mode: "walk" }).origin.label).toBe("ul. Wielicka 28, 30-552 Kraków");
+    expect(access.nearby({ origin: OUTSIDE, mode: "walk" }).origin.label).toBe("50.25000, 19.80000");
+  });
+
   it("reaches at least as much by transit as on foot", () => {
     for (const origin of [WIELICKA_28, RYNEK]) {
       const walk = access.nearby({ origin, mode: "walk" });
