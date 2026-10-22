@@ -94,6 +94,8 @@ EXPLICIT_RELEVANCE = {
     "MOPS-21": 0.9,  # Pomoc społeczna
     "GUP-1": 0.85,  # Rejestracja bezrobotnego
     "GUP-2": 0.85,  # Zezwolenia na pracę
+    "SC-6": 0.9,  # Transkrypcja (umiejscowienie) zagranicznego aktu: birth/marriage records of newcomers
+    "SC-7": 0.85,  # Rejestracja zdarzeń z zagranicy, które nie zostały tam zarejestrowane
 }
 
 

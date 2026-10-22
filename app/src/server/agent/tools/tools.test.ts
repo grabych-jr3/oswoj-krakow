@@ -60,7 +60,14 @@ describe("get_procedure", () => {
     expect(JSON.stringify(forModel).length).toBeLessThan(JSON.stringify(output).length * 0.7);
     expect(forModel.bipUrl).toBe(output.procedure.bipUrl);
     expect(forModel.offices.map((o) => o.hours)).toEqual(output.procedure.offices.map((o) => o.hours));
-    expect(forModel.oplaty).toContain("17");
+    expect(forModel.fees.some((f) => f.endsWith(": 17 zł"))).toBe(true);
+  });
+
+  it("gives the model every fee row, not a length-clipped Opłaty section", async () => {
+    const { procedure } = await runGetProcedure({ symbol: "SC-6" }, stubGeo());
+    const fees = procedureForModel({ procedure }).fees;
+    expect(fees).toContain("Opłata za wydanie decyzji odmownej: 10 zł");
+    expect(fees.some((f) => f.startsWith("Opłata skarbowa za przeniesienie") && f.endsWith(": 50 zł"))).toBe(true);
   });
 
   it("throws a ToolError for an unknown symbol", async () => {

@@ -30,6 +30,26 @@ interface IndexedDoc {
   tagList: LifeTag[];
 }
 
+/**
+ * Everyday or older words people use that BIP cards never contain, mapped to the official terms.
+ * Keys are normalized (lower case, no diacritics); the official terms are added to the query.
+ */
+const QUERY_SYNONYMS: Record<string, string> = {
+  // "Umiejscowienie" is the pre-2015 name of transcribing a foreign civil-status record (SC-6).
+  umiejscowienie: "transkrypcja zagranicznego dokumentu stanu cywilnego",
+  meldunek: "zameldowanie",
+  prawko: "prawo jazdy",
+  // BIP cards say "pojazd"; people say "samochód".
+  samochod: "pojazd",
+};
+
+function withSynonyms(queryPl: string): string {
+  const extra = normalizePl(queryPl)
+    .split(/\s+/)
+    .flatMap((word) => Object.entries(QUERY_SYNONYMS).filter(([key]) => word.startsWith(key)).map(([, terms]) => terms));
+  return [queryPl, ...extra].join(" ");
+}
+
 let index: MiniSearch<IndexedDoc> | null = null;
 
 function getIndex(): MiniSearch<IndexedDoc> {
@@ -61,16 +81,25 @@ function getIndex(): MiniSearch<IndexedDoc> {
   return index;
 }
 
-/** Top procedures for a Polish query; with `tags`, only those sharing at least one tag. */
+/** Score multiplier for procedures sharing a requested tag. */
+const TAG_BOOST = 1.5;
+
+/**
+ * Top procedures for a Polish query. `tags` boost matching procedures but do not hide the rest:
+ * the model often guesses a tag the right card lacks ("mieszkanie" for zameldowanie), and a hard
+ * filter then returned nothing, so the model claimed no such procedure exists.
+ */
 export function searchProcedures(
   queryPl: string,
   options: { tags?: LifeTag[]; limit?: number } = {},
 ): ProcedureHit[] {
   const { tags, limit = DEFAULT_LIMIT } = options;
-  const results = getIndex().search(queryPl, {
-    filter: tags?.length
-      ? (result) => (result.tagList as LifeTag[]).some((tag) => tags.includes(tag))
-      : undefined,
+  const results = getIndex().search(withSynonyms(queryPl), {
+    boostDocument: (_id, _term, stored) => {
+      const base = RELEVANCE_FLOOR + Number(stored?.relevance ?? 0);
+      const tagged = tags?.length && (stored?.tagList as LifeTag[] | undefined)?.some((tag) => tags.includes(tag));
+      return tagged ? base * TAG_BOOST : base;
+    },
   });
   return results.slice(0, limit).map((result) => {
     const procedure = bySymbol.get(String(result.id))!;
