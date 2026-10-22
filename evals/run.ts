@@ -55,21 +55,30 @@ const DIR = resolve(import.meta.dirname);
 const RESULTS = resolve(DIR, "results.json");
 const BIP_LINK = /bip\.krakow\.pl\/uslugi\/([A-Za-z]+-\d+)/g;
 // A street address: "ul. Wielicka 28A", "al. Powstania Warszawskiego 10", "os. Zgody 2", "pl. Wszystkich Świętych 3".
-const ADDRESS = /(?<!\p{L})(?:[uU]l|[aA]l|[oO]s|[pP]l)\.\s*(\p{Lu}[\p{L}.\-]*(?:\s+[\p{L}.\-]+){0,3}?)\s+(\d+[a-zA-Z]?)\b/gu;
+// Lower-case abbreviations after the prefix ("ul. ks. Józefa Meiera 16C", "gen.", "dr.") are skipped.
+const ADDRESS =
+  /(?<!\p{L})(?:[uU]l|[aA]l|[oO]s|[pP]l)\.\s*(?:\p{Ll}{1,4}\.\s*)*(\p{Lu}[\p{L}.\-]*(?:\s+[\p{L}.\-]+){0,3}?)\s+(\d+[a-zA-Z]?)\b/gu;
+
+interface AddressKey {
+  stem: string;
+  num: string;
+  text: string;
+}
 
 /**
- * "wieli:28" for "ul. Wielicka 28A" and "ul. Wielickiej 28": the street stem survives Polish declension,
- * so an answer that inflects an address from a tool result still matches it.
+ * Street stem and number: "wieli" + "28" for "ul. Wielicka 28A". A short name loses its last letter
+ * ("Długa" -> "dlug") so its declined form ("Długiej" -> "dlugi") still starts with it.
  */
-function addressKeys(text: string): Map<string, string> {
-  const keys = new Map<string, string>();
-  for (const m of text.normalize("NFC").matchAll(ADDRESS)) {
-    const lastWord = m[1].split(/\s+/).pop()!;
-    const stem = normalizePl(lastWord).slice(0, 5);
-    keys.set(`${stem}:${m[2].replace(/\D/g, "")}`, m[0]);
-  }
-  return keys;
+function addressKeys(text: string): AddressKey[] {
+  return [...text.normalize("NFC").matchAll(ADDRESS)].map((m) => {
+    const word = normalizePl(m[1].split(/\s+/).pop()!);
+    return { stem: word.slice(0, Math.min(5, word.length - 1)), num: m[2].replace(/\D/g, ""), text: m[0] };
+  });
 }
+
+/** Same street and number, allowing for declension (one stem is a prefix of the other). */
+const sameAddress = (a: AddressKey, b: AddressKey) =>
+  a.num === b.num && (a.stem.startsWith(b.stem) || b.stem.startsWith(a.stem));
 
 const args = Object.fromEntries(
   process.argv.slice(2).map((a) => {
@@ -147,7 +156,9 @@ function score(c: Case, calls: Call[], lastTurnCalls: Call[], text: string, retu
 
   // An address no tool returned and the user did not write is an invented place.
   const known = addressKeys(sources);
-  const inventedPlaces = [...addressKeys(text)].filter(([key]) => !known.has(key)).map(([, address]) => address);
+  const inventedPlaces = addressKeys(text)
+    .filter((a) => !known.some((k) => sameAddress(a, k)))
+    .map((a) => a.text);
   if (inventedPlaces.length) fail(`invented addresses: ${[...new Set(inventedPlaces)].join(", ")}`);
   // PLAN.md §2.4: every answer about a procedure links its BIP card.
   if ((c.expect.symbols || c.expect.scenario) && !BIP_LINK.test(text)) fail("answer lacks a BIP link");
