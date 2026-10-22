@@ -129,3 +129,18 @@ uv run ruff check && uv run pytest
   distance bands and sampled on H3 res 10 → `app/public/data/layers/stop-isochrones.json`
   (`{res, levels, source, cells: [[h3, toM]]}`, ~0.3 MB). 54% of Kraków's area is within 500 m of a
   stop on foot, 27% within 300 m.
+
+## Geocoder and places for the server (A9)
+
+- `uv run geo-addresses` turns the 70k EMUiA points into `app/data/geo/addresses.json` (~2.4 MB): streets
+  with their postal form ("ul. Wielicka"), folded search key and kind, and per number `[number, lng, lat,
+  postal index, district]` (5 decimals). Run it whenever EMUiA is refreshed.
+- `app/src/server/geo/geocode.ts` answers `/api/geocode`: every query word may start a street word
+  ("wiel" → ul. Wielicka), Polish letters optional, one typo (or two swapped letters) forgiven, the house
+  number may be partial ("2" → 2, 2a, 20…), osiedle/aleja/plac decide ties ("os. Zgody 2" vs "Zgody 2"),
+  longer streets win equal scores; ~0.5 ms per query. `reverse()` names the `nearby()` origin by the
+  nearest address within 60 m.
+- `places.ts`: `findPlaces` / `getPlace` over `places.json` (all layers). `GEO_IMPL=real` is fully real;
+  `GEO_IMPL=mock` keeps the A0 fixtures.
+- Full rebuild order: `geo-fetch` → `geo-geocode` → `geo-layers` → `geo-districts` → `geo-parks` →
+  `geo-stops` → `geo-offices` → `geo-districts` → `geo-access` (Java) → `geo-isochrones`, `geo-addresses`.
