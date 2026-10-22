@@ -19,10 +19,12 @@ type Props = {
   /** Mobile bottom sheet state; on md+ the panel is always fully open. */
   expanded: boolean;
   onExpandedChange: (expanded: boolean) => void;
+  /** Phones: hide the sheet while another bottom sheet (the 15-minute panel) takes its place. */
+  phoneHidden?: boolean;
 };
 
 /** Chat with the assistant (C3): streamed answers, tool cards and links to the map. */
-export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ assistant, expanded, onExpandedChange }, ref) {
+export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ assistant, expanded, onExpandedChange, phoneHidden = false }, ref) {
   const t = useTranslations("Chat");
   const locale = useLocale() as Locale;
   const { messages, status, error, busy, rateLimited } = assistant;
@@ -110,6 +112,7 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ ass
         "group fixed inset-x-0 bottom-0 z-20 flex max-h-[85dvh] flex-col rounded-t-3xl bg-primary text-primary-foreground shadow-[0_-12px_40px_-16px_rgb(80_10_10/0.55)]",
         "data-[expanded=true]:h-[85dvh]",
         "md:static md:z-auto md:h-auto md:max-h-none md:w-[30%] md:min-w-[380px] md:shrink-0 md:rounded-none md:shadow-none md:data-[expanded=true]:h-auto",
+        phoneHidden && "max-md:hidden",
       )}
     >
       {/* Mobile drag zone (grab handle + header): swipe up opens, swipe down closes, tap on the handle toggles.

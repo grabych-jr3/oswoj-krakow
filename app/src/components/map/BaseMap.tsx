@@ -50,9 +50,11 @@ type BaseMapProps = {
   onClick?: (e: MapLayerMouseEvent) => void;
   /** The MapLibre instance once loaded, for code outside the map tree (chat requests, camera moves). */
   onMapLoad?: (map: MapLibreMap) => void;
+  /** Picking a point ("Kraków w 15 minut"): crosshair cursor everywhere on the map. */
+  picking?: boolean;
 };
 
-export function BaseMap({ children, interactiveLayerIds, onClick, onMapLoad }: BaseMapProps) {
+export function BaseMap({ children, interactiveLayerIds, onClick, onMapLoad, picking = false }: BaseMapProps) {
   const [cursor, setCursor] = useState<string>();
   return (
     <MapGL
@@ -71,7 +73,7 @@ export function BaseMap({ children, interactiveLayerIds, onClick, onMapLoad }: B
       }}
       interactiveLayerIds={interactiveLayerIds}
       onClick={onClick}
-      cursor={cursor}
+      cursor={picking ? "crosshair" : cursor}
       onMouseEnter={() => setCursor("pointer")}
       onMouseLeave={() => setCursor(undefined)}
     >

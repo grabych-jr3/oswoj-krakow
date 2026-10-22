@@ -43,13 +43,20 @@
   "Address": {
     "label": "Address for the “Kraków in 15 minutes” check",
     "placeholder": "Enter an address – Kraków in 15 minutes",
-    "submit": "Search"
+    "submit": "Search",
+    "suggestions": "Address suggestions",
+    "noResults": "No such address found in Kraków.",
+    "searching": "Looking up the address…",
+    "pick": "Pick a point on the map",
+    "picking": "Click on the map to pick a point",
+    "cancelPick": "Cancel picking a point",
+    "clear": "Clear"
   },
   "Map": {
     "label": "Map of Kraków",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",
-    "sources": "Source: Kraków Open Data, MSIP",
+    "sources": "Data source: Gmina Miejska Kraków, otwartedane.um.krakow.pl (downloaded 19–21.10.2026), MSIP, ZTP Kraków",
     "attribution": "Map sources and licences"
   },
   "Chat": {
@@ -99,14 +106,6 @@
     "bip": "Card in BIP",
     "attachments": "Attachments",
     "showOnMap": "Show on map",
-    "nearbyTitle": "Kraków in 15 minutes",
-    "index": "15-minute index",
-    "missing": "Not within reach",
-    "walk": "on foot",
-    "transit": "on foot and by public transport",
-    "from": "From: {label}",
-    "within": "{minutes} min, {mode}",
-    "method": "Method",
     "forWhom": "For whom",
     "askStep": "Ask about this step",
     "sources": "Sources"
@@ -120,7 +119,7 @@
     "disclaimerTitle": "Important",
     "disclaimer": "This is an information service, not legal advice. Do not enter personal data.",
     "sourcesTitle": "Where the data comes from",
-    "sources": "Kraków Open Data, BIP service cards, MSIP, ZTP (public transport), OpenStreetMap.",
+    "sources": "Gmina Miejska Kraków – otwartedane.um.krakow.pl portal (downloaded 19–21.10.2026), BIP service cards, MSIP, ZTP Kraków (public transport), OpenStreetMap.",
     "start": "Get started"
   },
   "Categories": {
@@ -160,5 +159,41 @@
     "source": "Source",
     "asOf": "as of {date}",
     "ask": "Ask the assistant"
+  },
+  "Fifteen": {
+    "title": "Kraków in 15 minutes",
+    "close": "Close",
+    "modeLabel": "How you get around",
+    "walk": "On foot",
+    "transit": "Public transport",
+    "index": "15-minute index",
+    "indexHelp": "How many of the 6 basic groups of places are within 15 minutes.",
+    "groups": {
+      "care": "Nursery or kids club",
+      "przedszkole": "Kindergarten",
+      "school": "Primary school",
+      "green": "Park or green space",
+      "library": "Library",
+      "stop": "KMK stop"
+    },
+    "inReach": "Within 15 minutes",
+    "placesCount": "{count, plural, one {# place} other {# places}}",
+    "minutes": "{n} min",
+    "noPlaces": "No places from our layers within reach.",
+    "share": "Share",
+    "copied": "Link copied",
+    "shareText": "Kraków in 15 minutes: {label}",
+    "ask": "Ask about this area",
+    "question": "What is within 15 minutes of {label}?",
+    "loading": "Working out what is within 15 minutes…",
+    "error": "Could not work out the reach.",
+    "outside": "This point is outside Kraków – pick a place within the city.",
+    "retry": "Try again",
+    "method": "Method",
+    "showPlaces": "Show details",
+    "hidePlaces": "Hide details",
+    "missing": "Missing",
+    "allGroups": "All 6 groups within reach.",
+    "pickedPoint": "Point picked on the map"
   }
 }

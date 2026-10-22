@@ -2,22 +2,28 @@
 
 import { Layers } from "lucide-react";
 import type { Map as MapLibreMap, PaddingOptions } from "maplibre-gl";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MapProvider, type MapLayerMouseEvent } from "react-map-gl/maplibre";
 import { type ChatActions, ChatActionsContext } from "@/components/chat/ChatActions";
 import { ChatPanel } from "@/components/chat/ChatPanel";
 import { useAssistant } from "@/components/chat/useAssistant";
+import { AddressSearch } from "@/components/fifteen/AddressSearch";
+import { NearbyPanel } from "@/components/fifteen/NearbyPanel";
 import { BaseMap, MapAttribution, ZoomControls } from "@/components/map/BaseMap";
 import { CHAT_LAYER_IDS, ChatLayers } from "@/components/map/ChatLayers";
 import { LayerPanel } from "@/components/map/LayerPanel";
 import { handlePlaceClick, PLACE_LAYER_IDS, PlaceLayers } from "@/components/map/PlaceLayers";
 import { PlacePopup } from "@/components/map/PlacePopup";
-import { AddressSearch, TopBar } from "@/components/shell/TopBar";
+import { TopBar } from "@/components/shell/TopBar";
 import { WELCOME_SEEN_KEY, WelcomeDialog } from "@/components/shell/WelcomeDialog";
+import type { LngLat } from "@/contracts/common";
+import type { GeocodeResult, TravelMode } from "@/contracts/geo";
 import type { Place } from "@/contracts/place";
-import { deriveChatMap } from "@/map/chatMap";
+import { type ChatMapView, deriveChatMap } from "@/map/chatMap";
+import { nearbyLink } from "@/map/nearby";
 import { useMapLayers } from "@/map/useMapLayers";
+import { pointOrigin, useNearby } from "@/map/useNearby";
 
 const INTERACTIVE_LAYERS = [...CHAT_LAYER_IDS, ...PLACE_LAYER_IDS];
 const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
@@ -25,23 +31,31 @@ const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
 const PHONE_TOP_PX = 140;
 // Rough height of the place card above the chat sheet on phones.
 const PHONE_CARD_PX = 260;
+// Width of the left overlay column on desktop (top bar, address, 15-minute panel).
+const DESKTOP_COLUMN_PX = 420;
+
+/** A 15-minute view to open on load, from a shared link (`/mapa?lng=…&lat=…&mode=…`). */
+export type InitialNearby = { coords: LngLat; mode: TravelMode };
 
 /**
  * Page layout. Desktop: map + red chat column on the right (design variant A).
  * Mobile: full-screen map with a bottom-sheet chat; map overlays sit above the sheet.
  * C3: the chat and the map talk through ChatActions (chat → map) and the place popup (map → chat).
+ * C4: "Kraków w 15 minut" — address search or a point on the map, walk / transit, zone and summary.
  */
-export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
+export function AppShell({ initialQuestion, initialNearby }: { initialQuestion?: string; initialNearby?: InitialNearby }) {
   const t = useTranslations("Header");
   const tMap = useTranslations("Map");
   const tChat = useTranslations("Chat");
+  const tFifteen = useTranslations("Fifteen");
+  const locale = useLocale();
   // A question from the home page opens the chat straight away (also on mobile).
   const [chatExpanded, setChatExpanded] = useState(Boolean(initialQuestion));
   // Show the welcome dialog once per browser. The dialog markup does not depend on this
   // state (it opens via showModal in an effect), so reading storage here is hydration-safe.
   const [welcomeOpen, setWelcomeOpen] = useState(() => {
-    // Someone arriving with a question already knows the service: don't block it with the dialog.
-    if (typeof window === "undefined" || initialQuestion) return false;
+    // Someone arriving with a question or a shared link already knows the service: don't block it.
+    if (typeof window === "undefined" || initialQuestion || initialNearby) return false;
     try {
       return !localStorage.getItem(WELCOME_SEEN_KEY);
     } catch {
@@ -60,16 +74,99 @@ export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
   const desktopLayersBtnRef = useRef<HTMLButtonElement>(null);
   const [selected, setSelected] = useState<Place | null>(null);
 
+  // --- Kraków w 15 minut (C4) -----------------------------------------------------------
+  const nearby = useNearby();
+  const [picking, setPicking] = useState(false);
+  // Phones: the 15-minute panel is a bottom sheet in place of the chat; asking about the area brings the chat back.
+  const [chatOverNearby, setChatOverNearby] = useState(false);
+
   // --- Chat ------------------------------------------------------------------------------
+  // The chat request reads the map view and the picked point at send time, so it lives in a ref.
+  const mapContext = useRef<GeocodeResult | null>(null);
   const getMap = useCallback(() => {
     const map = mapRef.current;
     if (!map) return undefined;
     const c = map.getCenter();
-    // The address picked for "Kraków w 15 minut" arrives with C4.
-    return { center: [c.lng, c.lat] as [number, number], zoom: map.getZoom(), origin: null };
+    return { center: [c.lng, c.lat] as [number, number], zoom: map.getZoom(), origin: mapContext.current };
   }, []);
   const assistant = useAssistant({ getMap, initialQuestion });
   const chatView = useMemo(() => deriveChatMap(assistant.messages), [assistant.messages]);
+
+  // The 15-minute panel shows until the chat draws something newer on the map.
+  const nearbyState = nearby.state && nearby.state.tag === (chatView?.key ?? "") ? nearby.state : null;
+  const nearbyResult = nearbyState?.status === "ready" ? nearbyState.result : null;
+
+  useEffect(() => {
+    mapContext.current = nearbyState?.status === "ready" ? nearbyState.origin : null;
+  }, [nearbyState]);
+
+  // Keep the address in the URL, so a reload or a shared link opens the same view.
+  const nearbyCoords = nearbyState?.origin.coords;
+  const nearbyMode = nearbyState?.mode;
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (nearbyCoords && nearbyMode) {
+      const next = nearbyLink(url.href, nearbyCoords, nearbyMode);
+      if (next !== url.href) window.history.replaceState(window.history.state, "", next);
+    } else if (url.searchParams.has("lng")) {
+      for (const k of ["lng", "lat", "mode"]) url.searchParams.delete(k);
+      window.history.replaceState(window.history.state, "", url.href);
+    }
+  }, [nearbyCoords, nearbyMode]);
+
+  const chatKey = chatView?.key ?? "";
+  const { run: runNearby } = nearby;
+  const lastMode = nearby.state?.mode ?? "walk";
+  const openNearby = useCallback(
+    (origin: GeocodeResult, mode?: TravelMode) => {
+      runNearby(origin, mode ?? lastMode, chatKey);
+      setChatOverNearby(false);
+      setSelected(null);
+      setPicking(false);
+      if (!isDesktop()) {
+        setLayersOpen(false);
+        setChatExpanded(false);
+      }
+    },
+    [runNearby, lastMode, chatKey],
+  );
+
+  // A shared link opens its 15-minute view once the page is there.
+  const openedInitial = useRef(false);
+  useEffect(() => {
+    if (!initialNearby || openedInitial.current) return;
+    openedInitial.current = true;
+    runNearby(pointOrigin(initialNearby.coords), initialNearby.mode, "");
+  }, [initialNearby, runNearby]);
+
+  // Escape leaves the "pick a point" mode.
+  useEffect(() => {
+    if (!picking) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setPicking(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [picking]);
+
+  /** What the map draws on top of the layers: the 15-minute zone, or the latest chat answer. */
+  const mapView = useMemo<ChatMapView | null>(() => {
+    if (!nearbyState) return chatView;
+    const { origin, mode, result } = nearbyState;
+    const key = `nearby:${origin.coords.join(",")}:${mode}`;
+    // The reachable places show as regular pins (below), so the overlay has only the zone and the start.
+    return result
+      ? { key, markers: [], area: result.area, origin: { label: origin.label, coords: origin.coords } }
+      : { key: `${key}:loading`, markers: [], area: null, origin: { label: origin.label, coords: origin.coords }, fit: false };
+  }, [nearbyState, chatView]);
+
+  // While a zone is shown, the layers show only the places within reach (still per enabled layer).
+  const shownPlaces = useMemo(() => {
+    if (!nearbyResult) return layers.places;
+    return nearbyResult.places.filter((p) => layers.enabled.size === 0 || layers.enabled.has(p.category));
+  }, [nearbyResult, layers.places, layers.enabled]);
+  const placeById = useCallback(
+    (id: string) => layers.byId.get(id) ?? nearbyResult?.places.find((p) => p.id === id) ?? null,
+    [layers.byId, nearbyResult],
+  );
 
   // On mobile the chat is a fixed sheet: keep the map attribution just above it.
   useEffect(() => {
@@ -84,10 +181,15 @@ export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
   }, []);
 
   /** Map padding that keeps fitted places clear of the overlays. */
+  const nearbyOpen = !!nearbyState;
   const mapPadding = useCallback((): PaddingOptions => {
-    if (isDesktop()) return { top: 90, bottom: 60, left: 60, right: desktopLayersOpen ? 330 : 80 };
-    return { top: PHONE_TOP_PX + 10, bottom: sheetHeight + 30, left: 40, right: 40 };
-  }, [desktopLayersOpen, sheetHeight]);
+    if (isDesktop()) {
+      return { top: 90, bottom: 60, left: nearbyOpen ? DESKTOP_COLUMN_PX + 30 : 60, right: desktopLayersOpen ? 330 : 80 };
+    }
+    // Phones: fit the zone into the strip above the bottom sheet (the 15-minute panel or the chat).
+    const panel = document.getElementById("nearby-panel")?.getBoundingClientRect().height ?? 0;
+    return { top: PHONE_TOP_PX + 10, bottom: sheetHeight + (panel ? panel + 20 : 30), left: 30, right: 30 };
+  }, [desktopLayersOpen, sheetHeight, nearbyOpen]);
 
   /** Select a place and bring it into the part of the map that is not covered by panels. */
   const focusPlace = useCallback(
@@ -141,21 +243,26 @@ export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
           setLayersOpen(true);
         }
       },
+      showNearby: (origin, mode) => openNearby({ ...origin, district: null, precision: "address" }, mode),
     }),
-    [ask, focusPlace, showOnly],
+    [ask, focusPlace, showOnly, openNearby],
   );
 
   function onMapClick(e: MapLayerMouseEvent) {
+    if (picking) {
+      openNearby(pointOrigin([e.lngLat.lng, e.lngLat.lat]));
+      return;
+    }
     const feature = e.features?.[0];
     if (feature && CHAT_LAYER_IDS.includes(feature.layer.id)) {
-      const marker = chatView?.markers.find((m) => m.key === feature.properties?.key);
+      const marker = mapView?.markers.find((m) => m.key === feature.properties?.key);
       if (marker) focusPlace(marker.place, { move: false });
       return;
     }
     // undefined = cluster zoom (keep selection); null = empty map (close the popup)
     void handlePlaceClick(e).then((id) => {
       if (id === undefined) return;
-      const place = id ? layers.byId.get(id) : null;
+      const place = id ? placeById(id) : null;
       if (place) focusPlace(place, { move: false });
       else setSelected(null);
     });
@@ -168,6 +275,11 @@ export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
     requestAnimationFrame(() => (desktop ? desktopLayersBtnRef : layersBtnRef).current?.focus());
   }
 
+  function closeNearby() {
+    nearby.clear();
+    requestAnimationFrame(() => document.getElementById("address-search")?.focus());
+  }
+
   const layerPanelProps = {
     index: layers.index,
     error: layers.error,
@@ -178,6 +290,25 @@ export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
   };
   const roundBtn = (on: boolean) =>
     `grid size-11 shrink-0 place-items-center self-end rounded-full shadow-float focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${on ? "bg-primary text-primary-foreground" : "bg-card text-primary"}`;
+
+  const nearbyPanel = nearbyState && (
+    <NearbyPanel
+      state={nearbyState}
+      onMode={nearby.setMode}
+      onClose={closeNearby}
+      onRetry={nearby.retry}
+      onPlace={(p) => focusPlace(p, { move: true })}
+      onAsk={() => {
+        ask(tFifteen("question", { label: nearbyState.origin.label }));
+        setChatOverNearby(true);
+        setChatExpanded(true);
+      }}
+      shareUrl={() => nearbyLink(`${window.location.origin}/${locale}/mapa`, nearbyState.origin.coords, nearbyState.mode)}
+      // Desktop: under the address field. Phones: a bottom sheet, out of the way while the layer list,
+      // a place card or the chat is open.
+      className={`min-h-0 shrink ${selected || layersOpen || chatOverNearby ? "max-md:hidden" : ""}`}
+    />
+  );
 
   function closeWelcome() {
     setWelcomeOpen(false);
@@ -194,19 +325,25 @@ export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
         <h1 className="sr-only">{t("pageTitle")}</h1>
         <div className="flex h-dvh overflow-hidden">
           <section aria-label={tMap("label")} className="relative min-w-0 flex-1 overflow-hidden bg-map">
-            <BaseMap interactiveLayerIds={INTERACTIVE_LAYERS} onClick={onMapClick} onMapLoad={(m) => (mapRef.current = m)}>
-              <PlaceLayers places={layers.places} selected={selected} onClose={() => setSelected(null)} onAsk={askAbout} />
-              <ChatLayers view={chatView} padding={mapPadding} />
+            <BaseMap interactiveLayerIds={INTERACTIVE_LAYERS} onClick={onMapClick} onMapLoad={(m) => (mapRef.current = m)} picking={picking}>
+              <PlaceLayers places={shownPlaces} selected={selected} onClose={() => setSelected(null)} onAsk={askAbout} />
+              <ChatLayers view={mapView} padding={mapPadding} />
             </BaseMap>
 
             {/* Overlay column. On phones it ends just above the chat sheet, so an open layer panel
                 scrolls inside the free space instead of sliding under the chat. */}
             <div
               style={{ "--sheet-h": `${sheetHeight}px` } as React.CSSProperties}
-              className="pointer-events-none absolute inset-x-3 top-3 bottom-[calc(var(--sheet-h)+12px)] z-10 flex flex-col gap-2.5 *:pointer-events-auto md:inset-x-auto md:top-4 md:bottom-auto md:left-4 md:w-[min(400px,calc(100%-32px))]"
+              className="pointer-events-none absolute inset-x-3 top-3 bottom-[calc(var(--sheet-h)+12px)] z-10 flex flex-col gap-2.5 *:pointer-events-auto md:inset-x-auto md:top-4 md:bottom-4 md:left-4 md:w-[min(400px,calc(100%-32px))]"
             >
               <TopBar onAbout={() => setWelcomeOpen(true)} />
-              <AddressSearch />
+              <AddressSearch
+                value={nearbyState?.origin.label}
+                onSelect={(r) => openNearby(r)}
+                picking={picking}
+                onTogglePick={() => setPicking((p) => !p)}
+              />
+              {nearbyPanel}
               <ZoomControls className="hidden self-start md:flex" />
               {/* Phones: layers open from a round button so the panel does not cover the map */}
               <button
@@ -256,14 +393,20 @@ export function AppShell({ initialQuestion }: { initialQuestion?: string }) {
               />
             </div>
 
-            {/* On mobile it sits just above the chat sheet; hidden while the sheet, the layer panel or the place card covers that spot. */}
+            {/* On mobile it sits just above the chat sheet; hidden while a sheet, panel or card covers that spot. */}
             <MapAttribution
-              className={`absolute left-3 z-10 max-w-[calc(100%-24px)] md:bottom-2 md:left-4 ${chatExpanded || layersOpen || selected ? "max-md:hidden" : ""}`}
+              className={`absolute left-3 z-10 max-w-[calc(100%-24px)] md:bottom-2 md:left-4 ${chatExpanded || layersOpen || selected || nearbyState ? "max-md:hidden" : ""}`}
               style={{ bottom: sheetHeight ? sheetHeight + 8 : undefined }}
             />
           </section>
 
-          <ChatPanel ref={chatRef} assistant={assistant} expanded={chatExpanded} onExpandedChange={setChatExpanded} />
+          <ChatPanel
+            ref={chatRef}
+            assistant={assistant}
+            expanded={chatExpanded}
+            onExpandedChange={setChatExpanded}
+            phoneHidden={!!nearbyState && !chatOverNearby}
+          />
         </div>
         <WelcomeDialog open={welcomeOpen} onClose={closeWelcome} />
       </ChatActionsContext.Provider>

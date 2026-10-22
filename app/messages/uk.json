@@ -43,13 +43,20 @@
   "Address": {
     "label": "Адреса для аналізу «Kraków w 15 minut»",
     "placeholder": "Введіть адресу – Kraków w 15 minut",
-    "submit": "Шукати"
+    "submit": "Шукати",
+    "suggestions": "Підказки адрес",
+    "noResults": "Такої адреси в Кракові не знайдено.",
+    "searching": "Шукаю адресу…",
+    "pick": "Вибрати точку на карті",
+    "picking": "Клікніть на карті, щоб вибрати точку",
+    "cancelPick": "Скасувати вибір точки",
+    "clear": "Очистити"
   },
   "Map": {
     "label": "Карта Кракова",
     "zoomIn": "Наблизити карту",
     "zoomOut": "Віддалити карту",
-    "sources": "Джерело: Otwarte Dane Miasta Krakowa, MSIP",
+    "sources": "Джерело даних: Gmina Miejska Kraków, otwartedane.um.krakow.pl (дані завантажено 19–21.10.2026), MSIP, ZTP Kraków",
     "attribution": "Джерела та ліцензії карти"
   },
   "Chat": {
@@ -99,14 +106,6 @@
     "bip": "Картка в BIP",
     "attachments": "Додатки",
     "showOnMap": "Показати на карті",
-    "nearbyTitle": "Краків за 15 хвилин",
-    "index": "Індекс 15 хвилин",
-    "missing": "Немає поблизу",
-    "walk": "пішки",
-    "transit": "пішки й транспортом",
-    "from": "Старт: {label}",
-    "within": "{minutes} хв, {mode}",
-    "method": "Метод",
     "forWhom": "Для кого",
     "askStep": "Запитати про цей крок",
     "sources": "Джерела"
@@ -120,7 +119,7 @@
     "disclaimerTitle": "Важливо",
     "disclaimer": "Це інформаційний сервіс, а не юридична консультація. Не вводьте персональних даних.",
     "sourcesTitle": "Звідки дані",
-    "sources": "Otwarte Dane Miasta Krakowa, картки послуг BIP, MSIP, ZTP (громадський транспорт), OpenStreetMap.",
+    "sources": "Gmina Miejska Kraków — портал otwartedane.um.krakow.pl (дані завантажено 19–21.10.2026), картки послуг BIP, MSIP, ZTP Kraków (громадський транспорт), OpenStreetMap.",
     "start": "Почати"
   },
   "Categories": {
@@ -160,5 +159,41 @@
     "source": "Джерело",
     "asOf": "станом на {date}",
     "ask": "Запитати асистента"
+  },
+  "Fifteen": {
+    "title": "Краків за 15 хвилин",
+    "close": "Закрити",
+    "modeLabel": "Спосіб пересування",
+    "walk": "Пішки",
+    "transit": "Транспортом",
+    "index": "Індекс 15 хвилин",
+    "indexHelp": "Скільки з 6 базових груп місць є в межах 15 хвилин.",
+    "groups": {
+      "care": "Ясла або дитячий клуб",
+      "przedszkole": "Садочок",
+      "school": "Початкова школа",
+      "green": "Парк або зелена зона",
+      "library": "Бібліотека",
+      "stop": "Зупинка KMK"
+    },
+    "inReach": "У межах 15 хвилин",
+    "placesCount": "{count, plural, one {# місце} few {# місця} other {# місць}}",
+    "minutes": "{n} хв",
+    "noPlaces": "Поблизу немає місць із наших шарів.",
+    "share": "Поділитися",
+    "copied": "Посилання скопійовано",
+    "shareText": "Краків за 15 хвилин: {label}",
+    "ask": "Запитати про район",
+    "question": "Що є в межах 15 хвилин від адреси {label}?",
+    "loading": "Рахую, що є в межах 15 хвилин…",
+    "error": "Не вдалося порахувати доступність.",
+    "outside": "Ця точка поза Краковом — виберіть місце в межах міста.",
+    "retry": "Спробувати ще раз",
+    "method": "Метод",
+    "showPlaces": "Показати деталі",
+    "hidePlaces": "Згорнути деталі",
+    "missing": "Бракує",
+    "allGroups": "Усі 6 груп поруч.",
+    "pickedPoint": "Вибрана точка на карті"
   }
 }
