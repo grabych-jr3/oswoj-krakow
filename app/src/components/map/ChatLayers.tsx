@@ -58,7 +58,7 @@ export function ChatLayers({ view, padding }: { view: ChatMapView | null; paddin
   // Fit the map to each new answer once; later re-renders of the same answer leave the map alone.
   const viewKey = view?.key;
   useEffect(() => {
-    if (!map || !view) return;
+    if (!map || !view || view.fit === false) return;
     const coords = [
       ...view.markers.map((m) => m.place.coords),
       ...(view.origin ? [view.origin.coords] : []),

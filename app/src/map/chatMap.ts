@@ -15,6 +15,8 @@ export type ChatMapView = {
   markers: ChatMarker[];
   area: NearbyResult["area"] | null;
   origin: { label: string; coords: LngLat } | null;
+  /** false: draw without moving the map (e.g. while a 15-minute zone is still loading). */
+  fit?: boolean;
 };
 
 /** A procedure office as a map place (offices carry coords once the agent has geocoded them). */

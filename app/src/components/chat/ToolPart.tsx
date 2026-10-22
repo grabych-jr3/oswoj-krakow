@@ -5,11 +5,11 @@ import { useLocale, useTranslations } from "next-intl";
 import type { ToolOutputs } from "@/contracts/chat";
 import type { NearbyResult } from "@/contracts/geo";
 import type { Scenario } from "@/contracts/kb";
-import { CATEGORY_STYLES } from "@/lib/categories";
 import type { ParsedToolPart } from "@/lib/toolParts";
 import type { z } from "zod";
 import { useChatActions } from "./ChatActions";
 import { ProcedureCard } from "./ProcedureCard";
+import { NearbySummary } from "@/components/fifteen/NearbySummary";
 
 /** Renders one tool part of an answer (PLAN.md §5.3, "Як UI рендерить інструменти"). */
 export function ToolPart({ part }: { part: ParsedToolPart }) {
@@ -36,7 +36,7 @@ export function ToolPart({ part }: { part: ParsedToolPart }) {
     case "find_places":
       return <PlacesList places={part.output.places} />;
     case "nearby_15min":
-      return <NearbySummary result={part.output} />;
+      return <NearbyCard result={part.output} />;
     case "get_scenario":
       return <ScenarioChecklist scenario={part.output.scenario} />;
     case "search_procedures":
@@ -89,77 +89,28 @@ function PlacesList({ places }: { places: FoundPlace[] }) {
   );
 }
 
-function NearbySummary({ result }: { result: NearbyResult }) {
-  const t = useTranslations("Chat");
-  const tCat = useTranslations("Categories");
-  const { showPlace } = useChatActions();
-  const score = Math.round(result.score.value);
-  const counts = Object.entries(result.counts).filter(([c, n]) => n > 0 && c in CATEGORY_STYLES) as [keyof typeof CATEGORY_STYLES, number][];
-
+/** `nearby_15min` result: the same summary as the map panel, plus a way to open it there. */
+function NearbyCard({ result }: { result: NearbyResult }) {
+  const t = useTranslations("Fifteen");
+  const tChat = useTranslations("Chat");
+  const { showPlace, showNearby } = useChatActions();
   return (
     <article className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-3.5 text-card-foreground">
-      <header className="flex items-center gap-3">
-        <div
-          className="grid size-14 shrink-0 place-items-center rounded-full text-lg font-bold text-primary"
-          style={{ background: `conic-gradient(var(--color-primary) ${score * 3.6}deg, var(--color-muted) 0)` }}
-          role="img"
-          aria-label={`${t("index")}: ${score}/100`}
-        >
-          <span className="grid size-11 place-items-center rounded-full bg-card">{score}</span>
-        </div>
-        <div className="flex min-w-0 flex-col gap-0.5">
-          <h3 className="text-[15px] font-bold">{t("nearbyTitle")}</h3>
-          <p className="text-[13px] text-muted-foreground">
-            {t("within", { minutes: result.minutes, mode: t(result.mode) })}
-          </p>
-          <p className="truncate text-[13px]">{t("from", { label: result.origin.label })}</p>
-        </div>
-      </header>
-
-      {counts.length > 0 && (
-        <ul className="flex flex-wrap gap-1.5">
-          {counts.map(([c, n]) => {
-            const { color, icon: Icon } = CATEGORY_STYLES[c];
-            return (
-              <li key={c} className="flex items-center gap-1.5 rounded-full bg-muted py-1 pr-2.5 pl-1 text-xs">
-                <span className="grid size-5 place-items-center rounded-full text-white" style={{ background: color }} aria-hidden>
-                  <Icon className="size-3" />
-                </span>
-                {tCat(c)}: <strong>{n}</strong>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-
-      {result.score.missing.length > 0 && (
-        <p className="text-[13px]">
-          <strong>{t("missing")}: </strong>
-          {result.score.missing.map((c) => tCat(c)).join(", ")}
+      <header className="flex flex-col gap-0.5">
+        <h3 className="text-[15px] font-bold">{t("title")}</h3>
+        <p className="text-[13px] text-muted-foreground">
+          {result.origin.label} · {t(result.mode)}
         </p>
-      )}
-
-      {result.places.length > 0 && (
-        <ul className="flex flex-col gap-1">
-          {result.places.slice(0, 8).map((p) => (
-            <li key={p.id}>
-              <button
-                type="button"
-                onClick={() => showPlace(p)}
-                className="flex w-full items-center gap-2 rounded-lg px-1.5 py-1 text-left text-[13px] hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring"
-              >
-                <span className="size-2.5 shrink-0 rounded-full" style={{ background: CATEGORY_STYLES[p.category].color }} aria-hidden />
-                <span className="min-w-0 flex-1 truncate">{p.name}</span>
-                {p.minutes !== null && <span className="shrink-0 font-mono text-[11px] text-muted-foreground">{p.minutes} min</span>}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <p className="border-t border-border pt-2 font-mono text-[11px] text-muted-foreground">
-        {t("method")}: {result.method}
-      </p>
+      </header>
+      <NearbySummary result={result} onPlace={showPlace} />
+      <button
+        type="button"
+        onClick={() => showNearby(result.origin, result.mode)}
+        className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-primary px-3 py-2 text-[13px] font-semibold text-primary-foreground hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+      >
+        <MapPin className="size-4" aria-hidden />
+        {tChat("showOnMap")}
+      </button>
     </article>
   );
 }

@@ -43,13 +43,20 @@
   "Address": {
     "label": "Adres do analizy „Kraków w 15 minut”",
     "placeholder": "Wpisz adres – Kraków w 15 minut",
-    "submit": "Szukaj"
+    "submit": "Szukaj",
+    "suggestions": "Podpowiedzi adresów",
+    "noResults": "Nie znaleziono takiego adresu w Krakowie.",
+    "searching": "Szukam adresu…",
+    "pick": "Wskaż punkt na mapie",
+    "picking": "Kliknij na mapie, aby wybrać punkt",
+    "cancelPick": "Anuluj wybór punktu",
+    "clear": "Wyczyść"
   },
   "Map": {
     "label": "Mapa Krakowa",
     "zoomIn": "Przybliż mapę",
     "zoomOut": "Oddal mapę",
-    "sources": "Źródło: Otwarte Dane Miasta Krakowa, MSIP",
+    "sources": "Źródło danych: Gmina Miejska Kraków, otwartedane.um.krakow.pl (dane pobrane 19–21.10.2026), MSIP, ZTP Kraków",
     "attribution": "Źródła i licencje mapy"
   },
   "Chat": {
@@ -99,14 +106,6 @@
     "bip": "Karta w BIP",
     "attachments": "Załączniki",
     "showOnMap": "Pokaż na mapie",
-    "nearbyTitle": "Kraków w 15 minut",
-    "index": "Indeks 15 minut",
-    "missing": "Brak w zasięgu",
-    "walk": "pieszo",
-    "transit": "pieszo i komunikacją",
-    "from": "Start: {label}",
-    "within": "{minutes} min, {mode}",
-    "method": "Metoda",
     "forWhom": "Dla kogo",
     "askStep": "Zapytaj o ten krok",
     "sources": "Źródła"
@@ -120,7 +119,7 @@
     "disclaimerTitle": "Ważne",
     "disclaimer": "To serwis informacyjny, nie porada prawna. Nie podawaj danych osobowych.",
     "sourcesTitle": "Skąd są dane",
-    "sources": "Otwarte Dane Miasta Krakowa, karty usług BIP, MSIP, ZTP (komunikacja miejska), OpenStreetMap.",
+    "sources": "Gmina Miejska Kraków – portal otwartedane.um.krakow.pl (dane pobrane 19–21.10.2026), karty usług BIP, MSIP, ZTP Kraków (komunikacja miejska), OpenStreetMap.",
     "start": "Zaczynamy"
   },
   "Categories": {
@@ -160,5 +159,40 @@
     "source": "Źródło",
     "asOf": "stan na {date}",
     "ask": "Zapytaj asystenta"
+  },
+  "Fifteen": {
+    "title": "Kraków w 15 minut",
+    "close": "Zamknij",
+    "modeLabel": "Sposób poruszania się",
+    "walk": "Pieszo",
+    "transit": "Komunikacją",
+    "index": "Indeks 15 minut",
+    "indexHelp": "Ile z 6 podstawowych grup miejsc jest w zasięgu 15 minut.",
+    "groups": {
+      "care": "Żłobek lub klub dziecięcy",
+      "przedszkole": "Przedszkole",
+      "school": "Szkoła podstawowa",
+      "green": "Park lub zieleń",
+      "library": "Biblioteka",
+      "stop": "Przystanek KMK"
+    },
+    "inReach": "W zasięgu 15 minut",
+    "placesCount": "{count, plural, one {# miejsce} few {# miejsca} other {# miejsc}}",
+    "minutes": "{n} min",
+    "noPlaces": "W zasięgu nie ma miejsc z naszych warstw.",
+    "share": "Udostępnij",
+    "copied": "Link skopiowany",
+    "shareText": "Kraków w 15 minut: {label}",
+    "ask": "Zapytaj o okolicę",
+    "question": "Co mam w zasięgu 15 minut od adresu {label}?",
+    "loading": "Liczę, co jest w zasięgu 15 minut…",
+    "error": "Nie udało się policzyć zasięgu.",
+    "outside": "Ten punkt leży poza Krakowem – wybierz miejsce w granicach miasta.",
+    "retry": "Spróbuj ponownie",
+    "method": "Metoda",
+    "showPlaces": "Pokaż szczegóły",
+    "hidePlaces": "Zwiń szczegóły",
+    "missing": "Brakuje",
+    "allGroups": "Wszystkie 6 grup w zasięgu."
   }
 }
