@@ -10,7 +10,7 @@ Asystent AI i mapa dla nowych mieszkańców Krakowa – odpowiedzi tylko z oficj
 
 ## Dla kogo i po co
 
-Do Krakowa co roku przeprowadzają się tysiące osób – z innych miast Polski i z zagranicy. Na start muszą załatwić sprawy w urzędzie (zameldowanie, PESEL, rejestracja auta), znaleźć żłobek, przedszkole lub szkołę i zrozumieć komunikację miejską.
+Do Krakowa co roku przeprowadzają się tysiące osób – z innych miast Polski i z zagranicy. Na początku muszą załatwić sprawy w urzędzie (zameldowanie, PESEL, rejestracja auta), znaleźć żłobek, przedszkole lub szkołę i zrozumieć komunikację miejską.
 
 „Oswój Kraków” zbiera te informacje w jednym miejscu. Pytasz tak, jak mówisz na co dzień. Dostajesz konkretną odpowiedź z oficjalnej karty usługi i widzisz na mapie, gdzie załatwisz sprawę.
 
@@ -46,7 +46,7 @@ Lista spraw do załatwienia we właściwej kolejności, dobrana do Twojej sytuac
 
 ## Przykład
 
-> Andrij przyjechał z Charkowa z pięcioletnią córką. Pisze po ukraińsku: *„Де отримати PESEL і що взяти з собою?”*
+> Andrij przyjechał z Charkowa z pięcioletnią córką. Pisze po ukraińsku: *„Де отримати PESEL і що взяти з собою?”* (czyli: „Gdzie dostanę PESEL i co mam ze sobą zabrać?”)
 >
 > Asystent odpowiada po ukraińsku, ale podaje polskie nazwy urzędowe w oryginale – żeby Andrij mógł się nimi posłużyć w urzędzie. Wymienia dokumenty i opłatę z karty usługi BIP, daje link do zapisu online i pokazuje na mapie punkty obsługi z godzinami pracy.
 >
@@ -121,9 +121,11 @@ Szczegółowy plan prac (po ukraińsku): [PLAN.md](PLAN.md).
 
 ## Źródła danych i licencje
 
-- Źródło danych: **Otwarte Dane Miasta Krakowa** (portal Urzędu Miasta Krakowa).
+- Źródło danych: **Gmina Miejska Kraków, [otwartedane.um.krakow.pl](https://otwartedane.um.krakow.pl)** (portal Otwarte Dane Miasta Krakowa). Dane pobrane 19–21.10.2026; datę „stan danych na” każdego zbioru pokazujemy przy każdym miejscu na mapie.
 - Karty usług: **BIP Kraków** – każda odpowiedź asystenta zawiera link do karty.
 - Punkty adresowe i dzielnice: **MSIP Kraków**. Komunikacja miejska: **ZTP Kraków**.
 - Mapa: © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright) (ODbL), OpenFreeMap.
+
+Szczegóły – źródła, przetwarzanie, jakość i licencje danych: [docs/tech/dane.md](docs/tech/dane.md). Jak pobrać i przeliczyć dane od nowa: [docs/tech/dane.md, pkt 7](docs/tech/dane.md#7-jak-odtworzyć-dane).
 
 Oswój Kraków to serwis informacyjny, a nie porada prawna. W razie wątpliwości obowiązuje treść karty usługi w BIP.
