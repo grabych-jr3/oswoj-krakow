@@ -58,6 +58,21 @@ export function searchForModel(output: Output<"search_procedures">) {
   };
 }
 
+/**
+ * Fee table rows as "title: amount zł". The "Opłaty" section opens with long prose (proxies, IBAN, cash desks),
+ * so clipping it by length cut off the amounts and the model quoted the wrong fee.
+ */
+export function feeRows(oplaty: string | null): string[] {
+  if (!oplaty) return [];
+  return oplaty
+    .split("\n")
+    .filter((line) => line.startsWith("|") && !/^\|\s*-/.test(line))
+    .slice(1)
+    .map((line) => line.split("|").map((cell) => cell.trim()))
+    .filter(([, title, amount]) => title && amount)
+    .map(([, title, amount]) => `${title}: ${amount} zł`);
+}
+
 /** Facts the answer may state (documents, fees, deadlines, where to go); legal basis and attachments stay in the card. */
 export function procedureForModel({ procedure: p }: Output<"get_procedure">) {
   const s = p.sections;
@@ -67,7 +82,8 @@ export function procedureForModel({ procedure: p }: Output<"get_procedure">) {
     bipUrl: p.bipUrl,
     kogoDotyczy: clip(s.kogoDotyczy, SECTION_CHARS),
     dokumenty: clip(s.dokumenty, SECTION_CHARS * 2),
-    oplaty: clip(s.oplaty, SECTION_CHARS),
+    fees: feeRows(s.oplaty),
+    oplatyNotes: clip(s.oplaty?.split("\n|")[0] ?? null, SECTION_CHARS),
     termin: clip(s.termin, SECTION_CHARS),
     sposob: clip(s.sposob, SECTION_CHARS),
     offices: p.offices.map((o) => ({ name: o.name, address: o.address, hours: o.hours, bookingUrl: o.bookingUrl })),

@@ -7,7 +7,7 @@ import placesJson from "@/contracts/fixtures/places.sample.json";
 import { ToolError } from "./errors";
 import { getProcedure } from "../kb/procedures";
 import { procedureForModel, runGetProcedure, runGetScenario, runSearchProcedures, scenarioForModel } from "./knowledge";
-import { runFindPlaces, runGeocode, runNearby } from "./places";
+import { findPlacesForModel, nearbyForModel, runFindPlaces, runGeocode, runNearby } from "./places";
 
 // A stub instead of the zone A service keeps these tests independent of how A's data evolves.
 const places = Place.array().parse(placesJson);
@@ -60,7 +60,14 @@ describe("get_procedure", () => {
     expect(JSON.stringify(forModel).length).toBeLessThan(JSON.stringify(output).length * 0.7);
     expect(forModel.bipUrl).toBe(output.procedure.bipUrl);
     expect(forModel.offices.map((o) => o.hours)).toEqual(output.procedure.offices.map((o) => o.hours));
-    expect(forModel.oplaty).toContain("17");
+    expect(forModel.fees.some((f) => f.endsWith(": 17 zł"))).toBe(true);
+  });
+
+  it("gives the model every fee row, not a length-clipped Opłaty section", async () => {
+    const { procedure } = await runGetProcedure({ symbol: "SC-6" }, stubGeo());
+    const fees = procedureForModel({ procedure }).fees;
+    expect(fees).toContain("Opłata za wydanie decyzji odmownej: 10 zł");
+    expect(fees.some((f) => f.startsWith("Opłata skarbowa za przeniesienie") && f.endsWith(": 50 zł"))).toBe(true);
   });
 
   it("throws a ToolError for an unknown symbol", async () => {
@@ -140,6 +147,23 @@ describe("nearby_15min", () => {
 
   it("throws a ToolError without any starting point", async () => {
     await expect(runNearby({ mode: "walk" }, stubGeo(), null)).rejects.toBeInstanceOf(ToolError);
+  });
+});
+
+describe("place outputs for the model", () => {
+  it("drop the office's BIP source and procedure, keep what the answer needs", async () => {
+    const geo = stubGeo();
+    const office = { ...places[0], category: "urzad" as const, attrs: { hours: "8-16", procedures: "AM-14" }, source: { dataset: "bip", url: "https://www.bip.krakow.pl/uslugi/AM-14", updatedAt: null } };
+    vi.mocked(geo.findPlaces).mockResolvedValue([{ ...office, distanceM: 100 }]);
+    const [place] = findPlacesForModel(await runFindPlaces({ categories: ["urzad"] }, geo)).places;
+    expect(JSON.stringify(place)).not.toContain("AM-14");
+    expect(place).toMatchObject({ name: office.name, address: office.address, label: "1", attrs: { hours: "8-16" } });
+  });
+
+  it("leave the 15-minute zone polygon out", async () => {
+    const forModel = nearbyForModel(await runNearby({ mode: "walk" }, stubGeo(), [19.9, 50.0]));
+    expect(forModel).not.toHaveProperty("area");
+    expect(forModel.places.length).toBeGreaterThan(0);
   });
 });
 

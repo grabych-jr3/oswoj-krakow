@@ -42,10 +42,15 @@ describe("searchProcedures", () => {
     expect(topSymbols("zameldowanie na pobyt staly")).toContain("SA-14");
   });
 
-  it("filters by tags", () => {
+  it("ranks procedures with the given tags first", () => {
     const hits = searchProcedures("rejestracja", { tags: ["praca"] });
-    expect(hits.length).toBeGreaterThan(0);
-    for (const hit of hits) expect(getProcedure(hit.symbol)!.tags).toContain("praca");
+    expect(getProcedure(hits[0].symbol)!.tags).toContain("praca");
+  });
+
+  it("still finds the right card when the tag guess is wrong", () => {
+    // The model asked for "mieszkanie"; zameldowanie cards are tagged "przeprowadzka".
+    const top = searchProcedures("zameldowanie na pobyt stały", { tags: ["mieszkanie"] }).map((h) => h.symbol);
+    expect(top.some((s) => ["SA-14", "SA-12", "SA-32"].includes(s))).toBe(true);
   });
 
   it("returns at most 8 hits shaped as the search_procedures tool output", () => {
@@ -115,6 +120,12 @@ const EVAL_QUERIES: [query: string, tags: LifeTag[], expected: string[]][] = [
   ["rejestracja osoby bezrobotnej", [], ["GUP-2", "GUP-1"]],
   ["integracja cudzoziemców", [], ["MOPS-21"]],
   ["oświadczenie o powierzeniu pracy cudzoziemcowi", [], ["GUP-5"]],
+  ["umiejscowienie aktu urodzenia", [], ["SC-6"]],
+  ["rejestracja samochodu", [], ["KM-1", "KM-2", "KM-14"]],
+  ["deklaracja opłata za śmieci", [], ["PD-17"]],
+  ["opłata za wywóz nieczystości", [], ["PD-17"]],
+  ["zameldowanie", ["mieszkanie"], ["SA-14", "SA-12", "SA-32"]],
+  ["transkrypcja zagranicznego aktu urodzenia", [], ["SC-6"]],
 ];
 
 describe("searchProcedures on eval queries", () => {
