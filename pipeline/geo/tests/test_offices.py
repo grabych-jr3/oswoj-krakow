@@ -103,7 +103,7 @@ def test_office_feature_keeps_b_id_and_reads_the_card():
     }
     assert p["source"] == {
         "dataset": "bip",
-        "url": "https://www.bip.krakow.pl/uslugi/SA-34",
+        "url": "https://www.bip.krakow.pl/uslugi",
         "updatedAt": None,
     }
     assert f["geometry"]["coordinates"] == [19.96, 50.06]

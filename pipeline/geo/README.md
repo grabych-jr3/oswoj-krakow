@@ -112,7 +112,8 @@ uv run ruff check && uv run pytest
 - Writes `app/data/geo/places.json` (all places, the order the index uses), `app/data/geo/access.json`
   (per cell and mode: reachable cells and [place, minutes]), `app/public/data/layers/access-index.json`
   (`[h3, scoreWalk, scoreTransit]` per cell) and `reports/access.md` (5 control addresses).
-- `uv run geo-access --report-only` rebuilds the report from those files.
+- `uv run geo-access --report-only` rebuilds the report from those files; `--places-only` rewrites
+  `places.json` after a layer changed only place details (same ids), without routing.
 - Runtime: `app/src/server/geo/access.ts` maps a point to its cell (or a neighbour ≤ 2 rings away), unions
   the reachable cells into the zone (h3-js) and answers `nearby()` in under a millisecond.
 

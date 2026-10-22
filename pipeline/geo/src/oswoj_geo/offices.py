@@ -16,7 +16,7 @@ from typing import Any
 from .emuia import district_names, load_emuia
 from .fetch import PIPELINE_DIR
 from .geocoder import Geocoder, Outcome
-from .layers import write_index, write_layer
+from .layers import BIP_SOURCE, write_index, write_layer
 from .normalize import format_phone
 from .places import EMUIA_ZIP
 
@@ -24,7 +24,6 @@ KB_DIR = PIPELINE_DIR.parents[1] / "app" / "data" / "kb"
 OFFICES_FILE = KB_DIR / "offices_raw.json"
 PROCEDURES_FILE = KB_DIR / "procedures.json"
 REPORT = PIPELINE_DIR / "reports" / "offices.md"
-BIP_CARD = "https://www.bip.krakow.pl/uslugi/{symbol}"
 KRAKOW_POSTAL = re.compile(r"^3[01]-\d{3}$")  # Kraków postal codes are 30-xxx and 31-xxx
 
 # address parts that describe a room, floor or desk, never a street ("pokój nr 12" is not "Aleja Pokoju")
@@ -130,12 +129,9 @@ def office_feature(
         "phone": phones(office.get("phone")),
         "url": None,
         "attrs": attrs,
-        # the first card that names the office: where the address, hours and phone were read
-        "source": {
-            "dataset": "bip",
-            "url": BIP_CARD.format(symbol=symbols[0]) if symbols else "https://www.bip.krakow.pl/",
-            "updatedAt": None,
-        },
+        # the office is read from many cards (attrs.procedures); one card as the source looked arbitrary,
+        # so the source is the BIP catalogue of service cards
+        "source": dict(BIP_SOURCE),
     }
     return {
         "type": "Feature",

@@ -160,6 +160,12 @@ def compute(cells: list[str], places: list[dict[str, Any]]) -> dict[str, dict[in
     return out
 
 
+def write_places(places: list[dict[str, Any]], app_data: Path = APP_DATA) -> None:
+    """places.json: every place of the layers, in the order access.json refers to."""
+    body = ",\n".join(json.dumps(p, ensure_ascii=False, separators=(",", ":")) for p in places)
+    (app_data / "places.json").write_text("[\n" + body + "\n]\n", encoding="utf-8")
+
+
 def write_outputs(
     cells: list[str],
     places: list[dict[str, Any]],
@@ -170,12 +176,7 @@ def write_outputs(
 ) -> dict[str, Any]:
     app_data.mkdir(parents=True, exist_ok=True)
     layers_dir.mkdir(parents=True, exist_ok=True)
-    (app_data / "places.json").write_text(
-        "[\n"
-        + ",\n".join(json.dumps(p, ensure_ascii=False, separators=(",", ":")) for p in places)
-        + "\n]\n",
-        encoding="utf-8",
-    )
+    write_places(places, app_data)
     payload = {
         "res": H3_RES,
         "minutes": MINUTES,
@@ -276,7 +277,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--out", type=Path, help="write the data here instead of app/ (e.g. to compare engines)"
     )
+    parser.add_argument(
+        "--places-only",
+        action="store_true",
+        help="rewrite app/data/geo/places.json from the layers when only place details changed (no routing)",
+    )
     args = parser.parse_args(argv)
+    if args.places_only:
+        places = load_places()
+        known = json.loads((APP_DATA / "places.json").read_text(encoding="utf-8"))
+        if [p["id"] for p in places] != [p["id"] for p in known]:
+            print("places were added, removed or renamed: run the full geo-access", file=sys.stderr)
+            return 1
+        write_places(places, APP_DATA)
+        print("rewritten", APP_DATA / "places.json")
+        return 0
     if args.report_only:
         payload = json.loads((APP_DATA / "access.json").read_text(encoding="utf-8"))
         places = json.loads((APP_DATA / "places.json").read_text(encoding="utf-8"))

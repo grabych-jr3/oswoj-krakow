@@ -41,7 +41,8 @@ CATEGORY_SOURCES: dict[str, tuple[str, ...]] = {
     "park_and_ride": ("park_and_ride",),
     "urzad": (),  # geo-offices (A7): sources are the BIP cards, see BIP_SOURCE
 }
-BIP_SOURCE = {"dataset": "bip", "url": "https://www.bip.krakow.pl/", "updatedAt": None}
+# the catalogue of BIP service cards: offices are read from the cards listed in attrs.procedures
+BIP_SOURCE = {"dataset": "bip", "url": "https://www.bip.krakow.pl/uslugi", "updatedAt": None}
 
 # ---------------------------------------------------------------- names and addresses
 
