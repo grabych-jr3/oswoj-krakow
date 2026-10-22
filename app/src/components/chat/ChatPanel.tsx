@@ -3,12 +3,13 @@
 import type { UIMessage } from "ai";
 import { AlertCircle, ChevronUp, LoaderCircle, RotateCcw, Square } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import type { Locale } from "@/contracts/common";
 import { parseToolPart } from "@/lib/toolParts";
 import { cn } from "@/lib/utils";
 import { messageMarkers } from "@/map/chatMap";
 import { getStarters } from "@/server/agent/starters";
+import { useSheetAnimation } from "@/components/shell/useSheetAnimation";
 import { useChatActions } from "./ChatActions";
 import { Markdown } from "./Markdown";
 import { ToolPart } from "./ToolPart";
@@ -61,6 +62,10 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ ass
   const MIN_SHEET_PX = 96;
   const drag = useRef<{ startY: number; startH: number; moved: boolean; onHandle: boolean } | null>(null);
   const [dragH, setDragH] = useState<number | null>(null);
+  // Open / close glides; a released drag settles from where the finger left the sheet.
+  const sheetRef = useRef<HTMLElement>(null);
+  useImperativeHandle(ref, () => sheetRef.current as HTMLElement);
+  useSheetAnimation(sheetRef, `${expanded}:${dragH === null}`, dragH !== null);
 
   function onDragStart(e: React.PointerEvent<HTMLDivElement>) {
     if (window.matchMedia("(min-width: 768px)").matches) return; // desktop: no sheet
@@ -103,13 +108,13 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ ass
 
   return (
     <aside
-      ref={ref}
+      ref={sheetRef}
       aria-label={t("title")}
       data-expanded={expanded}
       data-dragging={dragH !== null}
       style={dragH !== null ? { height: dragH } : undefined}
       className={cn(
-        "group fixed inset-x-0 bottom-0 z-20 flex max-h-[85dvh] flex-col rounded-t-3xl bg-primary text-primary-foreground shadow-[0_-12px_40px_-16px_rgb(80_10_10/0.55)]",
+        "group fixed inset-x-0 bottom-0 z-20 flex max-h-[85dvh] flex-col overflow-hidden rounded-t-3xl max-md:motion-safe:animate-in max-md:motion-safe:slide-in-from-bottom max-md:motion-safe:[--tw-animation-duration:300ms] bg-primary text-primary-foreground shadow-[0_-12px_40px_-16px_rgb(80_10_10/0.55)]",
         "data-[expanded=true]:h-[85dvh]",
         "md:static md:z-auto md:h-auto md:max-h-none md:w-[30%] md:min-w-[380px] md:shrink-0 md:rounded-none md:shadow-none md:data-[expanded=true]:h-auto",
         phoneHidden && "max-md:hidden",

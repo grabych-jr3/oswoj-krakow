@@ -65,7 +65,7 @@ export function LanguageMenu({ onPrimary = false, className }: { onPrimary?: boo
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-controls={listId}
-        aria-label={`${t("language")}: ${current.name}`}
+        aria-label={`${current.code} – ${t("language")}: ${current.name}`}
         className={cn(
           "flex h-9 items-center gap-1 rounded-[10px] pr-2 pl-3 font-mono text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2",
           onPrimary

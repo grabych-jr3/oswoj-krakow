@@ -13,13 +13,16 @@ const STYLE_URL = "https://tiles.openfreemap.org/styles/positron";
 
 // The worker is served from /public (copied by scripts/copy-maplibre-worker.mjs) because the
 // bundler cannot resolve MapLibre's dynamic worker URL. Loaded only in the browser.
-const mapLib =
-  typeof window === "undefined"
-    ? undefined
-    : import("maplibre-gl").then((m) => {
-        m.setWorkerUrl("/maplibre-gl-worker.mjs");
-        return m;
-      });
+let mapLib: Promise<typeof import("maplibre-gl")> | undefined;
+/** Loads MapLibre on the first map mount (not at import), so pages can delay the heavy library. */
+function loadMapLib() {
+  if (typeof window === "undefined") return undefined;
+  mapLib ??= import("maplibre-gl").then((m) => {
+    m.setWorkerUrl("/maplibre-gl-worker.mjs");
+    return m;
+  });
+  return mapLib;
+}
 
 // Kraków, Rynek Główny.
 const INITIAL_VIEW = { longitude: 19.9373, latitude: 50.0614, zoom: 12.3 };
@@ -56,10 +59,11 @@ type BaseMapProps = {
 
 export function BaseMap({ children, interactiveLayerIds, onClick, onMapLoad, picking = false }: BaseMapProps) {
   const [cursor, setCursor] = useState<string>();
+  const [lib] = useState(loadMapLib);
   return (
     <MapGL
       id={MAP_ID}
-      mapLib={mapLib}
+      mapLib={lib}
       initialViewState={INITIAL_VIEW}
       mapStyle={STYLE_URL}
       attributionControl={false}

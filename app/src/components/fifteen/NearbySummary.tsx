@@ -51,10 +51,10 @@ export function NearbySummary({
           <span className="grid size-11 place-items-center rounded-full bg-card text-lg font-bold text-primary">{score}</span>
         </div>
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-          <h4 id={indexId} className="text-[13px] leading-tight font-semibold">
+          <h3 id={indexId} className="text-[13px] leading-tight font-semibold">
             {t("index")}
             <span className={cn("block text-xs font-normal text-muted-foreground", detailsClassName)}>{t("indexHelp")}</span>
-          </h4>
+          </h3>
           <p className={cn("text-xs", shortClassName)}>
             {missing.length ? `${t("missing")}: ${missing.map((g) => t(`groups.${g.id}`)).join(", ")}` : t("allGroups")}
           </p>
@@ -81,7 +81,7 @@ export function NearbySummary({
         <p className="text-[13px] text-muted-foreground">{t("noPlaces")}</p>
       ) : (
         <section aria-label={t("inReach")} className="flex flex-col gap-1">
-          <h4 className="text-[13px] font-semibold">{t("inReach")}</h4>
+          <h3 className="text-[13px] font-semibold">{t("inReach")}</h3>
           <ul className="flex flex-col gap-1">
             {byCategory.map(({ category, places }, i) => {
               const { color, icon: Icon } = CATEGORY_STYLES[category];

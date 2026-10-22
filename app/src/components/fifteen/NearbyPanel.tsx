@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import type { TravelMode } from "@/contracts/geo";
 import type { Place } from "@/contracts/place";
+import { useSheetAnimation } from "@/components/shell/useSheetAnimation";
 import { cn } from "@/lib/utils";
 import type { NearbyState } from "@/map/useNearby";
 import { NearbySummary } from "./NearbySummary";
@@ -49,6 +50,8 @@ export function NearbyPanel({
   const { origin, mode, status, result, error } = state;
   const unnamed = COORDS_LABEL.test(origin.label);
   const drag = useRef<{ y: number } | null>(null);
+  const sheetRef = useRef<HTMLElement>(null);
+  useSheetAnimation(sheetRef, `${expanded}:${status}`);
 
   function onHandleUp(e: React.PointerEvent) {
     const start = drag.current;
@@ -79,13 +82,14 @@ export function NearbyPanel({
 
   return (
     <section
+      ref={sheetRef}
       id="nearby-panel"
       aria-labelledby="nearby-title"
       aria-busy={status === "loading"}
       data-expanded={expanded}
       className={cn(
         "flex flex-col rounded-2xl bg-card text-card-foreground shadow-float",
-        "max-md:fixed max-md:inset-x-0 max-md:bottom-0 max-md:z-20 max-md:rounded-none max-md:rounded-t-3xl max-md:shadow-[0_-12px_40px_-16px_rgb(80_10_10/0.45)]",
+        "max-md:fixed max-md:inset-x-0 max-md:bottom-0 max-md:z-20 max-md:overflow-hidden max-md:motion-safe:animate-in max-md:motion-safe:slide-in-from-bottom max-md:motion-safe:[--tw-animation-duration:300ms] max-md:rounded-none max-md:rounded-t-3xl max-md:shadow-[0_-12px_40px_-16px_rgb(80_10_10/0.45)]",
         expanded ? "max-md:h-[85dvh]" : "max-md:max-h-[62dvh]",
         className,
       )}

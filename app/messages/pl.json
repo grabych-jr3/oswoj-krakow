@@ -38,7 +38,8 @@
     "home": "Oswój Kraków – strona główna",
     "pageTitle": "Oswój Kraków – asystent AI dla nowych mieszkańców Krakowa",
     "language": "Język",
-    "about": "O serwisie"
+    "about": "O serwisie",
+    "skipToChat": "Przejdź do rozmowy z asystentem"
   },
   "Address": {
     "label": "Adres do analizy „Kraków w 15 minut”",
@@ -50,7 +51,8 @@
     "pick": "Wskaż punkt na mapie",
     "picking": "Kliknij na mapie, aby wybrać punkt",
     "cancelPick": "Anuluj wybór punktu",
-    "clear": "Wyczyść"
+    "clear": "Wyczyść",
+    "searchError": "Nie udało się wyszukać adresu. Spróbuj ponownie."
   },
   "Map": {
     "label": "Mapa Krakowa",
@@ -146,7 +148,14 @@
     "hideAll": "Ukryj wszystkie",
     "loading": "Wczytywanie…",
     "error": "Nie udało się wczytać warstw mapy.",
-    "collapse": "Zwiń warstwy"
+    "collapse": "Zwiń warstwy",
+    "analysis": "Analiza miasta",
+    "indexLayer": "Indeks 15 minut – całe miasto",
+    "districtsLayer": "Dzielnice",
+    "legendLow": "mało w zasięgu",
+    "legendHigh": "wszystko",
+    "indexHint": "Kliknij obszar na mapie, aby zobaczyć, co jest w zasięgu.",
+    "overlayError": "Nie udało się wczytać tej warstwy."
   },
   "Place": {
     "close": "Zamknij",
@@ -195,5 +204,14 @@
     "missing": "Brakuje",
     "allGroups": "Wszystkie 6 grup w zasięgu.",
     "pickedPoint": "Wybrany punkt na mapie"
+  },
+  "District": {
+    "label": "Dzielnica {number}",
+    "close": "Zamknij",
+    "residents": "Mieszkańcy",
+    "foreigners": "Cudzoziemcy",
+    "citizenships": "Najczęstsze obywatelstwa cudzoziemców",
+    "places": "Miejsca w dzielnicy",
+    "source": "Źródło: MSIP i Otwarte Dane Miasta Krakowa · osoby zameldowane, stan na 31.12.2025"
   }
 }
