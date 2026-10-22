@@ -99,7 +99,8 @@ uv run ruff check && uv run pytest
   skipped; each "street + number" part is tried against EMUiA, the first address-level hit wins. A number
   missing from EMUiA whose plain form is missing too ("8W") goes to the middle building of the lettered
   complex (8a…8j), flagged `~number`. Offices outside Kraków (postal code not 30-/31-) are left out.
-- `attrs`: hours, bookingUrl, procedures ("SA-34,SA-65"), location; source = the first BIP card naming it.
+- `attrs`: hours, bookingUrl, procedures (every card naming the office, "SA-34,SA-65"), location; source = the BIP
+  service catalogue (`bip.krakow.pl/uslugi`).
 - Run after B regenerates `offices_raw.json`; then `geo-districts` for the counts.
 
 ## 15 minutes (A8)
