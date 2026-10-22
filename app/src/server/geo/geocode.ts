@@ -50,7 +50,11 @@ type Query = { words: string[]; number: string | null; postal: string | null; ki
 /** "ul. Wielicka 28a, 30-552 Kraków" → words ["wielicka"], number "28a", postal "30-552", kind null. */
 export function parseQuery(raw: string): Query {
   const postal = raw.match(/\b\d{2}-\d{3}\b/)?.[0] ?? null;
-  const tokens = fold(raw.replace(/\b\d{2}-\d{3}\b/g, " ").replace(/(\d)\s*\/\s*\d+\w*/g, "$1")).split(" ").filter(Boolean);
+  const cleaned = raw
+    .replace(/\b\d{2}-\d{3}\b/g, " ")
+    .replace(/(\d)\s*\/\s*\d+\w*/g, "$1") // "105/12" → "105": flats are not in EMUiA
+    .replace(/\s(m|lok|lokal|mieszk)\.?\s*\d+\w*\s*$/i, " "); // "28 m 4", "28 lok. 3" → "28"
+  const tokens = fold(cleaned).split(" ").filter(Boolean);
   let kind: string | null = null;
   const words: string[] = [];
   for (const t of tokens) {
@@ -130,34 +134,43 @@ export function createGeocoder(data: AddressData) {
 
     geocode(query: string, limit = DEFAULT_LIMIT): GeocodeResult[] {
       const q = parseQuery(query);
-      if (q.words.length === 0 || limit <= 0) return [];
-      const ranked = streets
-        .map((s) => ({ s, score: score(q.words, q.kind, s) }))
-        .filter((r): r is { s: (typeof streets)[number]; score: number } => r.score !== null)
-        .sort((a, b) => b.score - a.score || a.s.name.length - b.s.name.length || a.s.name.localeCompare(b.s.name, "pl"));
-      const results: GeocodeResult[] = [];
-      if (q.number) {
-        const wanted = q.number;
-        for (const { s } of ranked.slice(0, 10)) {
-          const rows = s.numbers
-            .filter(([n]) => n.toLowerCase().startsWith(wanted))
-            .sort((a, b) => Number(b[0].toLowerCase() === wanted) - Number(a[0].toLowerCase() === wanted)
-              || Number(q.postal !== null && data.postal[b[3]] === q.postal) - Number(q.postal !== null && data.postal[a[3]] === q.postal));
-          for (const [n, lng, lat, postal, district] of rows) {
-            results.push({ label: label(s, n, postal), coords: [lng, lat] as LngLat, district: districtOf(district), precision: "address" });
-            if (results.length >= limit) return results;
-          }
-        }
-        if (results.length) return results;
+      const found = search(q, limit);
+      // "28 Wielicka": the number first. Tried only when nothing matched, so "29 Listopada" stays a street.
+      if (!found.length && !q.number && q.words.length > 1 && /^\d+[a-z]?$/.test(q.words[0])) {
+        return search({ ...q, number: q.words[0], words: q.words.slice(1) }, limit);
       }
-      // no number (or none on these streets): the streets themselves
-      for (const { s } of ranked.slice(0, limit)) {
-        const [lng, lat, district] = s.point;
-        results.push({ label: `${s.name}, Kraków`, coords: [lng, lat], district: districtOf(district), precision: "street" });
-      }
-      return results;
+      return found;
     },
   };
+
+  function search(q: Query, limit: number): GeocodeResult[] {
+    if (q.words.length === 0 || limit <= 0) return [];
+    const ranked = streets
+      .map((s) => ({ s, score: score(q.words, q.kind, s) }))
+      .filter((r): r is { s: (typeof streets)[number]; score: number } => r.score !== null)
+      .sort((a, b) => b.score - a.score || a.s.name.length - b.s.name.length || a.s.name.localeCompare(b.s.name, "pl"));
+    const results: GeocodeResult[] = [];
+    if (q.number) {
+      const wanted = q.number;
+      for (const { s } of ranked.slice(0, 10)) {
+        const rows = s.numbers
+          .filter(([n]) => n.toLowerCase().startsWith(wanted))
+          .sort((a, b) => Number(b[0].toLowerCase() === wanted) - Number(a[0].toLowerCase() === wanted)
+            || Number(q.postal !== null && data.postal[b[3]] === q.postal) - Number(q.postal !== null && data.postal[a[3]] === q.postal));
+        for (const [n, lng, lat, postal, district] of rows) {
+          results.push({ label: label(s, n, postal), coords: [lng, lat] as LngLat, district: districtOf(district), precision: "address" });
+          if (results.length >= limit) return results;
+        }
+      }
+      if (results.length) return results;
+    }
+    // no number (or none on these streets): the streets themselves
+    for (const { s } of ranked.slice(0, limit)) {
+      const [lng, lat, district] = s.point;
+      results.push({ label: `${s.name}, Kraków`, coords: [lng, lat], district: districtOf(district), precision: "street" });
+    }
+    return results;
+  }
 }
 
 export const geocoder = createGeocoder(addressesJson as unknown as AddressData);

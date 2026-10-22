@@ -57,6 +57,15 @@ describe("geocoder (EMUiA)", () => {
 
   it("answers a full address with postal code and city", () => {
     expect(top("ul. Wielicka 28A, 30-552 Kraków", 1)).toEqual(["ul. Wielicka 28a, 30-552 Kraków"]);
+    expect(top("Kraków, Wielicka 28", 1)).toEqual(["ul. Wielicka 28, 30-552 Kraków"]);
+  });
+
+  it("ignores the flat and accepts the number before the street", () => {
+    expect(top("wielicka 28 m 4", 1)).toEqual(["ul. Wielicka 28, 30-552 Kraków"]);
+    expect(top("Wielicka 28 lok. 3", 1)).toEqual(["ul. Wielicka 28, 30-552 Kraków"]);
+    expect(top("Zakopiańska 105/12", 1)).toEqual(["ul. Zakopiańska 105, 30-418 Kraków"]);
+    expect(top("28 Wielicka", 1)).toEqual(["ul. Wielicka 28, 30-552 Kraków"]);
+    expect(top("29 listopada", 1)).toEqual(["al. 29 Listopada, Kraków"]); // a street that starts with a number
   });
 
   it("returns streets when the number is unknown, nothing for nonsense, and respects the limit", () => {

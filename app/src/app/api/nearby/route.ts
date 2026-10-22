@@ -25,7 +25,9 @@ export async function GET(req: NextRequest) {
   const mode = TravelMode.safeParse(params.get("mode") ?? "walk");
   if (!mode.success) return bad("mode must be walk or transit");
   const rawCategories = params.get("categories");
-  const categories = rawCategories ? PlaceCategory.array().safeParse(rawCategories.split(",")) : null;
+  const categories = rawCategories
+    ? PlaceCategory.array().safeParse(rawCategories.split(",").map((c) => c.trim()).filter(Boolean))
+    : null;
   if (categories && !categories.success) return bad("unknown category in categories");
 
   const result = await geo.nearby({ origin: [lng, lat], mode: mode.data, categories: categories?.data });

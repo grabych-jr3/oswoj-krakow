@@ -15,8 +15,8 @@ describe("GET /api/nearby", () => {
     expect(body.places.some((p) => p.id === "urzad:ul_wielicka_28a")).toBe(true);
   });
 
-  it("accepts transit and a category filter", async () => {
-    const body = NearbyResult.parse(await (await call("?lng=19.9373&lat=50.0617&mode=transit&categories=przystanek,park")).json());
+  it("accepts transit and a category filter (spaces after commas too)", async () => {
+    const body = NearbyResult.parse(await (await call("?lng=19.9373&lat=50.0617&mode=transit&categories=przystanek,%20park")).json());
     expect(body.mode).toBe("transit");
     expect(body.places.every((p) => p.category === "przystanek" || p.category === "park")).toBe(true);
   });
