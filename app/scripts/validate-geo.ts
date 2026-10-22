@@ -161,6 +161,32 @@ if (existsSync(placesFile) && existsSync(accessFile)) {
   }
 }
 
+// A9: EMUiA addresses for the geocoder
+const addressesFile = path.join(app, "data", "geo", "addresses.json");
+if (existsSync(addressesFile)) {
+  const Row = z.tuple([z.string().min(1), z.number(), z.number(), z.number().int(), z.number().int().nullable()]);
+  const Addresses = z.object({
+    source: SourceRef,
+    districts: z.record(z.string(), z.string()),
+    postal: z.array(z.string().regex(/^\d{2}-\d{3}$/)),
+    streets: z.array(z.object({
+      name: z.string().min(1),
+      key: z.string().min(1),
+      kind: z.string().nullable(),
+      point: z.tuple([z.number(), z.number(), z.number().int().nullable()]),
+      numbers: z.array(Row).min(1),
+    })).min(1000),
+  });
+  const data = read(addressesFile);
+  if (check("data/geo/addresses.json", Addresses, data)) {
+    const { postal, streets } = data as z.infer<typeof Addresses>;
+    const b = KRAKOW_BBOX;
+    const bad = streets.flatMap((s) => s.numbers).filter(([, lng, lat, p]) =>
+      lng < b.minLng || lng > b.maxLng || lat < b.minLat || lat > b.maxLat || p < -1 || p >= postal.length).length;
+    if (bad) errors.push(`data/geo/addresses.json: ${bad} addresses outside Kraków or with a bad postal index`);
+  }
+}
+
 // A8b: ZTP walking isochrones to stops, sampled on H3 cells
 const isochronesFile = path.join(layersDir, "stop-isochrones.json");
 if (existsSync(isochronesFile)) {

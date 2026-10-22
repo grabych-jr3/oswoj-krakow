@@ -7,6 +7,7 @@ import type { NearbyResult, TravelMode } from "@/contracts/geo";
 import { Place, type PlaceCategory } from "@/contracts/place";
 import accessJson from "../../../data/geo/access.json";
 import placesJson from "../../../data/geo/places.json";
+import { geocoder } from "./geocode";
 
 const MAX_PER_CATEGORY = 10; // NearbyResult.places: "≤10 на категорію"
 const NEAREST_CELL_RINGS = 2; // a point just outside the grid (river bank, city edge) uses a cell ≤2 rings away
@@ -36,7 +37,8 @@ const AccessHeader = z.object({
   modes: z.object({ walk: z.array(z.unknown()), transit: z.array(z.unknown()) }),
 });
 
-export function createAccess(data: AccessData, places: Place[]) {
+/** `labelOf` names the origin (e.g. the nearest address); without it, or when it returns null, coordinates. */
+export function createAccess(data: AccessData, places: Place[], labelOf?: (point: LngLat) => string | null) {
   const cellIndex = new Map(data.cells.map((c, i) => [c, i]));
 
   function cellOf([lng, lat]: LngLat): string {
@@ -87,7 +89,7 @@ export function createAccess(data: AccessData, places: Place[]) {
       }
 
       return {
-        origin: { label: `${lat.toFixed(5)}, ${lng.toFixed(5)}`, coords: q.origin },
+        origin: { label: labelOf?.(q.origin) ?? `${lat.toFixed(5)}, ${lng.toFixed(5)}`, coords: q.origin },
         mode: q.mode,
         minutes: data.minutes,
         area: {
@@ -110,5 +112,5 @@ export function createAccess(data: AccessData, places: Place[]) {
 // Places are small enough to validate at load; the access matrix is only shape-checked here.
 const placesData: Place[] = Place.array().parse(placesJson);
 AccessHeader.parse(accessJson);
-export const access = createAccess(accessJson as unknown as AccessData, placesData);
+export const access = createAccess(accessJson as unknown as AccessData, placesData, (p) => geocoder.reverse(p));
 export { placesData };
