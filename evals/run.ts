@@ -6,6 +6,7 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 import type { ModelMessage } from "ai";
 import { runAgent } from "../app/src/server/agent/agent";
+import { normalizePl } from "../app/src/server/agent/kb/normalize";
 import { normalizeSymbol } from "../app/src/server/agent/kb/procedures";
 import { createAgentModel } from "../app/src/server/agent/model";
 import { geo } from "../app/src/server/geo";
@@ -26,6 +27,8 @@ interface Case {
     links?: string[];
     /** Text that must not appear in the answer: a user's PESEL, pieces of the system prompt. */
     mustNotContain?: string[];
+    /** At least one of these must appear, e.g. the ways to say "nothing nearby" in each language. */
+    mustContainAny?: string[];
   };
 }
 
@@ -51,6 +54,22 @@ interface Result {
 const DIR = resolve(import.meta.dirname);
 const RESULTS = resolve(DIR, "results.json");
 const BIP_LINK = /bip\.krakow\.pl\/uslugi\/([A-Za-z]+-\d+)/g;
+// A street address: "ul. Wielicka 28A", "al. Powstania Warszawskiego 10", "os. Zgody 2", "pl. Wszystkich Świętych 3".
+const ADDRESS = /(?<!\p{L})(?:[uU]l|[aA]l|[oO]s|[pP]l)\.\s*(\p{Lu}[\p{L}.\-]*(?:\s+[\p{L}.\-]+){0,3}?)\s+(\d+[a-zA-Z]?)\b/gu;
+
+/**
+ * "wieli:28" for "ul. Wielicka 28A" and "ul. Wielickiej 28": the street stem survives Polish declension,
+ * so an answer that inflects an address from a tool result still matches it.
+ */
+function addressKeys(text: string): Map<string, string> {
+  const keys = new Map<string, string>();
+  for (const m of text.normalize("NFC").matchAll(ADDRESS)) {
+    const lastWord = m[1].split(/\s+/).pop()!;
+    const stem = normalizePl(lastWord).slice(0, 5);
+    keys.set(`${stem}:${m[2].replace(/\D/g, "")}`, m[0]);
+  }
+  return keys;
+}
 
 const args = Object.fromEntries(
   process.argv.slice(2).map((a) => {
@@ -76,7 +95,7 @@ function returnedSymbols(steps: Awaited<ReturnType<typeof runAgent>["steps"]>): 
   return symbols;
 }
 
-function score(c: Case, calls: Call[], lastTurnCalls: Call[], text: string, returned: Set<string>): Omit<Result, "id" | "locale" | "calls" | "text" | "model" | "ms"> {
+function score(c: Case, calls: Call[], lastTurnCalls: Call[], text: string, returned: Set<string>, sources: string): Omit<Result, "id" | "locale" | "calls" | "text" | "model" | "ms"> {
   const problems: string[] = [];
   // Tools are judged on the last turn (a follow-up must do its own work); sources on the whole dialogue.
   const called = new Set(lastTurnCalls.map((x) => x.tool));
@@ -122,6 +141,14 @@ function score(c: Case, calls: Call[], lastTurnCalls: Call[], text: string, retu
   for (const banned of c.expect.mustNotContain ?? []) {
     if (plain(text).includes(plain(banned))) fail(`answer contains "${banned}"`);
   }
+  if (c.expect.mustContainAny && !c.expect.mustContainAny.some((p) => plain(text).includes(plain(p)))) {
+    fail(`answer has none of: ${c.expect.mustContainAny.join(" / ")}`);
+  }
+
+  // An address no tool returned and the user did not write is an invented place.
+  const known = addressKeys(sources);
+  const inventedPlaces = [...addressKeys(text)].filter(([key]) => !known.has(key)).map(([, address]) => address);
+  if (inventedPlaces.length) fail(`invented addresses: ${[...new Set(inventedPlaces)].join(", ")}`);
   // PLAN.md §2.4: every answer about a procedure links its BIP card.
   if ((c.expect.symbols || c.expect.scenario) && !BIP_LINK.test(text)) fail("answer lacks a BIP link");
   BIP_LINK.lastIndex = 0;
@@ -145,6 +172,12 @@ function toolCalls(steps: Awaited<ReturnType<typeof runAgent>["steps"]>): Call[]
   return calls.filter((x, i) => x.error || !calls.some((y, j) => j !== i && y.error && y.tool === x.tool && JSON.stringify(y.input) === JSON.stringify(x.input)));
 }
 
+/** Everything the answer may take an address from: the user's questions and every tool result. */
+function sourceText(c: Case, steps: Awaited<ReturnType<typeof runAgent>["steps"]>): string {
+  const outputs = steps.flatMap((s) => s.toolResults.map((r) => JSON.stringify(r.output)));
+  return [c.question, c.followUp ?? "", ...outputs].join("\n");
+}
+
 async function runCase(c: Case, model: NonNullable<ReturnType<typeof createAgentModel>>): Promise<Result> {
   const started = Date.now();
   const messages: ModelMessage[] = [];
@@ -163,7 +196,7 @@ async function runCase(c: Case, model: NonNullable<ReturnType<typeof createAgent
   return {
     id: c.id,
     locale: c.locale,
-    ...score(c, calls, toolCalls(lastSteps), text, returnedSymbols(allSteps)),
+    ...score(c, calls, toolCalls(lastSteps), text, returnedSymbols(allSteps), sourceText(c, allSteps)),
     calls,
     text,
     model: allSteps.map((s) => s.response.modelId).join(" → "),
