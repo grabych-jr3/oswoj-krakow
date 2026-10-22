@@ -77,6 +77,8 @@ export function AppShell({ initialQuestion, initialNearby }: { initialQuestion?:
   // --- Kraków w 15 minut (C4) -----------------------------------------------------------
   const nearby = useNearby();
   const [picking, setPicking] = useState(false);
+  // Phones: the 15-minute panel is a bottom sheet in place of the chat; asking about the area brings the chat back.
+  const [chatOverNearby, setChatOverNearby] = useState(false);
 
   // --- Chat ------------------------------------------------------------------------------
   // The chat request reads the map view and the picked point at send time, so it lives in a ref.
@@ -118,6 +120,7 @@ export function AppShell({ initialQuestion, initialNearby }: { initialQuestion?:
   const openNearby = useCallback(
     (origin: GeocodeResult, mode?: TravelMode) => {
       runNearby(origin, mode ?? lastMode, chatKey);
+      setChatOverNearby(false);
       setSelected(null);
       setPicking(false);
       if (!isDesktop()) {
@@ -183,7 +186,7 @@ export function AppShell({ initialQuestion, initialNearby }: { initialQuestion?:
     if (isDesktop()) {
       return { top: 90, bottom: 60, left: nearbyOpen ? DESKTOP_COLUMN_PX + 30 : 60, right: desktopLayersOpen ? 330 : 80 };
     }
-    // Phones: the 15-minute panel sits above the chat sheet; fit the zone into the strip above it.
+    // Phones: fit the zone into the strip above the bottom sheet (the 15-minute panel or the chat).
     const panel = document.getElementById("nearby-panel")?.getBoundingClientRect().height ?? 0;
     return { top: PHONE_TOP_PX + 10, bottom: sheetHeight + (panel ? panel + 20 : 30), left: 30, right: 30 };
   }, [desktopLayersOpen, sheetHeight, nearbyOpen]);
@@ -297,12 +300,13 @@ export function AppShell({ initialQuestion, initialNearby }: { initialQuestion?:
       onPlace={(p) => focusPlace(p, { move: true })}
       onAsk={() => {
         ask(tFifteen("question", { label: nearbyState.origin.label }));
+        setChatOverNearby(true);
         setChatExpanded(true);
       }}
       shareUrl={() => nearbyLink(`${window.location.origin}/${locale}/mapa`, nearbyState.origin.coords, nearbyState.mode)}
-      // One panel for both layouts: under the address field on desktop; on phones last in the column,
-      // just above the chat sheet, and out of the way while the layer list or a place card is open.
-      className={`min-h-0 shrink overflow-y-auto max-md:order-last max-md:mt-auto ${selected || layersOpen ? "max-md:hidden" : ""}`}
+      // Desktop: under the address field. Phones: a bottom sheet, out of the way while the layer list,
+      // a place card or the chat is open.
+      className={`min-h-0 shrink ${selected || layersOpen || chatOverNearby ? "max-md:hidden" : ""}`}
     />
   );
 
@@ -396,7 +400,13 @@ export function AppShell({ initialQuestion, initialNearby }: { initialQuestion?:
             />
           </section>
 
-          <ChatPanel ref={chatRef} assistant={assistant} expanded={chatExpanded} onExpandedChange={setChatExpanded} />
+          <ChatPanel
+            ref={chatRef}
+            assistant={assistant}
+            expanded={chatExpanded}
+            onExpandedChange={setChatExpanded}
+            phoneHidden={!!nearbyState && !chatOverNearby}
+          />
         </div>
         <WelcomeDialog open={welcomeOpen} onClose={closeWelcome} />
       </ChatActionsContext.Provider>

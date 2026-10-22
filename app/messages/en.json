@@ -193,6 +193,7 @@
     "showPlaces": "Show details",
     "hidePlaces": "Hide details",
     "missing": "Missing",
-    "allGroups": "All 6 groups within reach."
+    "allGroups": "All 6 groups within reach.",
+    "pickedPoint": "Point picked on the map"
   }
 }

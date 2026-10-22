@@ -53,7 +53,7 @@ export function NearbySummary({
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
           <h4 id={indexId} className="text-[13px] leading-tight font-semibold">
             {t("index")}
-            <span className="block text-xs font-normal text-muted-foreground">{t("indexHelp")}</span>
+            <span className={cn("block text-xs font-normal text-muted-foreground", detailsClassName)}>{t("indexHelp")}</span>
           </h4>
           <p className={cn("text-xs", shortClassName)}>
             {missing.length ? `${t("missing")}: ${missing.map((g) => t(`groups.${g.id}`)).join(", ")}` : t("allGroups")}

@@ -193,6 +193,7 @@
     "showPlaces": "Pokaż szczegóły",
     "hidePlaces": "Zwiń szczegóły",
     "missing": "Brakuje",
-    "allGroups": "Wszystkie 6 grup w zasięgu."
+    "allGroups": "Wszystkie 6 grup w zasięgu.",
+    "pickedPoint": "Wybrany punkt na mapie"
   }
 }
