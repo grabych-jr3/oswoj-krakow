@@ -46,7 +46,7 @@
   {"id": "out-zus", "locale": "pl", "question": "Jak wyliczyć moją emeryturę z ZUS?", "expect": {"tools": [], "links": ["zus.pl"]}},
   {"id": "out-weather", "locale": "en", "question": "What's the weather in Kraków tomorrow?", "expect": {"tools": [], "noTools": true}},
   {"id": "dlg-pesel-child", "locale": "uk", "question": "Як отримати PESEL зі статусом UKR?", "followUp": "А для дитини 5 років так само? Що взяти?", "expect": {"tools": [], "symbols": ["SA-65"]}},
-  {"id": "dlg-car-where", "locale": "pl", "question": "Jak zarejestrować samochód sprowadzony z Niemiec?", "followUp": "A gdzie to załatwię najbliżej ul. Wielickiej 28?", "expect": {"tools": ["find_places"], "symbols": ["KM-14"], "categories": ["urzad"]}},
+  {"id": "dlg-car-where", "locale": "pl", "question": "Jak zarejestrować samochód sprowadzony z Niemiec?", "followUp": "A gdzie to załatwię najbliżej ul. Wielickiej 28?", "expect": {"tools": [], "symbols": ["KM-14"], "links": ["Wielick"]}},
   {"id": "dlg-student-zameldowanie", "locale": "en", "question": "I'm starting university in Kraków. What should I take care of?", "followUp": "How exactly do I do the first step, the residence registration?", "expect": {"tools": ["get_procedure"], "scenario": "student", "symbols": ["SA-14", "SA-12", "SA-32"]}},
   {"id": "dlg-15min-transit", "locale": "pl", "question": "Co mam w zasięgu 15 minut pieszo od ul. Wielickiej 28?", "followUp": "A komunikacją miejską?", "expect": {"tools": ["nearby_15min"], "mode": "transit"}},
   {"id": "dlg-language-switch", "locale": "pl", "question": "Gdzie mogę uzyskać PESEL?", "followUp": "Can you tell me the same in English? Which documents do I need?", "expect": {"tools": [], "symbols": ["SA-34", "SA-65"]}},

@@ -16,7 +16,7 @@ import {
   scenarioForModel,
   searchForModel,
 } from "./knowledge";
-import { runFindPlaces, runGeocode, runNearby } from "./places";
+import { findPlacesForModel, nearbyForModel, runFindPlaces, runGeocode, runNearby } from "./places";
 
 export { ToolError } from "./errors";
 
@@ -90,6 +90,7 @@ export function buildTools({ geo, locale, mapOrigin }: ToolContext) {
       }),
       outputSchema: ToolOutputs.find_places,
       execute: (input) => runFindPlaces(input, geo),
+      toModelOutput: ({ output }) => ({ type: "json", value: findPlacesForModel(output) }),
     }),
 
     nearby_15min: tool({
@@ -103,6 +104,7 @@ export function buildTools({ geo, locale, mapOrigin }: ToolContext) {
       }),
       outputSchema: ToolOutputs.nearby_15min,
       execute: (input) => runNearby(input, geo, mapOrigin),
+      toModelOutput: ({ output }) => ({ type: "json", value: nearbyForModel(output) }),
     }),
 
     geocode: tool({

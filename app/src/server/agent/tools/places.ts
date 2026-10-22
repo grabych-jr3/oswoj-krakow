@@ -3,7 +3,7 @@ import type { z } from "zod";
 import type { ToolOutputs } from "@/contracts/chat";
 import type { LngLat } from "@/contracts/common";
 import type { GeocodeResult, TravelMode } from "@/contracts/geo";
-import type { PlaceCategory } from "@/contracts/place";
+import type { Place, PlaceCategory } from "@/contracts/place";
 import type { GeoService } from "@/server/geo";
 import { normalizePl } from "../kb/normalize";
 import { ToolError } from "./errors";
@@ -74,4 +74,26 @@ export async function runNearby(
   const origin = input.coords ?? (input.address ? (await resolveAddress(geo, input.address)).coords : mapOrigin);
   if (!origin) throw new ToolError("No starting point. Ask the user for an address or to pick a point on the map.");
   return geo.nearby({ origin, mode: input.mode, minutes: 15 });
+}
+
+/**
+ * A place as the model sees it. Office places carry one BIP card in `source` / `attrs.procedures`
+ * (the first procedure the office appeared in, e.g. a cemetery plot for a district office), and the
+ * model linked those cards as if they described the office. The UI still gets the full place.
+ */
+function placeForModel<T extends Pick<Place, "source" | "attrs">>(place: T): Omit<T, "source"> {
+  const copy: Partial<T> = { ...place, attrs: Object.fromEntries(Object.entries(place.attrs).filter(([key]) => key !== "procedures")) };
+  delete copy.source;
+  return copy as Omit<T, "source">;
+}
+
+export function findPlacesForModel(output: Output<"find_places">) {
+  return { ...output, places: output.places.map(placeForModel) };
+}
+
+export function nearbyForModel(output: Output<"nearby_15min">) {
+  // The zone polygon is for the map only; counts and places carry what the answer needs.
+  const copy: Partial<Output<"nearby_15min">> = { ...output };
+  delete copy.area;
+  return { ...copy, places: output.places.map(placeForModel) };
 }
