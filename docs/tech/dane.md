@@ -7,11 +7,11 @@ Wszystkie dane przestrzenne przygotowuje powtarzalny potok w Pythonie (`pipeline
 ## 1. Przepływ danych
 
 ```
-Otwarte Dane (API) ─┐
-MSIP: adresy, dzielnice ─┤                       ┌─► app/public/data/layers/   (mapa w przeglądarce)
-ZTP: GTFS, ArcGIS ─┼─► pipeline/geo ─► walidacja ─┤
-BIP (przez strumień B) ─┤   (Python)              └─► app/data/geo/             (serwer: geokoder, „15 minut”)
-OpenStreetMap, RSPO ─┘
+Otwarte Dane (API)      ─┐
+MSIP: adresy, dzielnice ─┤                                 ┌─► app/public/data/layers/  (mapa w przeglądarce)
+ZTP: GTFS, ArcGIS       ─┼─► pipeline/geo ─► walidacja ────┤
+BIP (przez strumień B)  ─┤      (Python)                   └─► app/data/geo/            (serwer: geokoder, „15 minut”)
+OpenStreetMap, RSPO     ─┘
 ```
 
 1. **Pobranie** (`geo-fetch`): surowe odpowiedzi trafiają do lokalnej pamięci podręcznej. Manifest zapisuje adres, czas pobrania i liczbę rekordów każdego źródła.
@@ -39,7 +39,7 @@ OpenStreetMap, RSPO ─┘
 | Mieszkańcy zameldowani na pobyt stały i czasowy | wg dzielnic | 31.12.2025 | statystyki dzielnic |
 | Cudzoziemcy zameldowani na pobyt stały i czasowy (wg obywatelstwa) | 793 + 971 | 31.12.2025 | statystyki dzielnic |
 
-Dane pobrano 19–21.10.2026. Datę „stan danych na” każdego zbioru przenosimy do pola `source.updatedAt` każdego obiektu i do `index.json`, więc interfejs może ją pokazać przy każdym miejscu.
+Dane pobrano 19–21.10.2026. Datę „stan danych na” każdego zbioru przenosimy do pola `source.updatedAt` każdego obiektu i do `index.json`. Okienko miejsca na mapie pokazuje źródło z linkiem i tę datę.
 
 ### Pozostałe źródła
 
@@ -108,7 +108,7 @@ Granice MSIP są upraszczane wspólnie z tolerancją 5 m, więc sąsiednie dziel
 
 ### „15 minut” i Indeks 15 minut
 
-- **Siatka:** 3217 heksagonów H3 (rozdzielczość 9, ok. 0,1 km² każdy) pokrywa granice miasta.
+- **Siatka:** 3217 heksagonów H3 (rozdzielczość 9, ok. 0,1 km² każdy) pokrywa cały obszar miasta.
 - **Trasy:** silnik r5py (R5, Conveyal) na sieci OSM i rozkładach GTFS KMK. Liczymy dwa tryby:
   - pieszo, 4,8 km/h;
   - pieszo + komunikacja miejska: wtorek 27.10.2026, odjazd 8:00, okno 30 minut, mediana czasu.
@@ -198,7 +198,7 @@ Potok ma ponad 100 testów jednostkowych (pytest), a moduł serwera ma własne t
 ## 5. Ograniczenia
 
 - **Kluby rodziców:** 27 z 50 rekordów ma w źródle tylko ulicę bez numeru, a żadne inne źródło nie potwierdziło budynku. Leżą na swojej ulicy (`attrs.location: "street"`), nie w budynku.
-- **Parki:** zbiór miasta nie ma geometrii. Park jest na mapie punktem wewnątrz jego obszaru z OSM. 3 parków kieszonkowych nie udało się jednoznacznie zlokalizować; pominęliśmy je zamiast zgadywać.
+- **Parki:** zbiór miasta nie ma geometrii. Park jest na mapie punktem: wewnątrz jego obszaru z OSM albo w punkcie OSM o tej samej nazwie (`attrs.location`: `area` lub `point`). 3 parków kieszonkowych nie udało się jednoznacznie zlokalizować; pominęliśmy je zamiast zgadywać.
 - **Placówki oświatowe** mają stan na 30.09.2025 (rok szkolny 2025/26), a statystyki mieszkańców na 31.12.2025. Dane z portalu nie mówią, czy placówka ma wolne miejsca.
 - **Mieszkańcy** to osoby zameldowane. Liczba osób faktycznie mieszkających w dzielnicy może być inna, zwłaszcza wśród cudzoziemców.
 - **Komunikacja miejska** jest liczona dla jednego typowego poranka dnia roboczego. Wieczorem i w weekend zasięg będzie mniejszy. Po zmianie rozkładów GTFS trzeba ponownie uruchomić `geo-access`.
