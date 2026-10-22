@@ -2,7 +2,7 @@
 
 Mapa i asystent Oswój Kraków korzystają wyłącznie z danych publicznych: przede wszystkim z portalu Otwarte Dane Miasta Krakowa, a także z MSIP, ZTP, BIP i OpenStreetMap. Ten dokument opisuje, skąd pochodzą dane, jak je przetwarzamy, jak sprawdzamy ich jakość i na jakich warunkach z nich korzystamy.
 
-Wszystkie dane przestrzenne przygotowuje powtarzalny potok w Pythonie (`pipeline/geo`). Nic nie jest wpisywane ręcznie: każdą liczbę w tym dokumencie można odtworzyć poleceniami z sekcji 7, a raporty jakości są w repozytorium (`pipeline/geo/reports/`).
+Wszystkie dane przestrzenne przygotowuje powtarzalny potok w Pythonie (`pipeline/geo`). Danych nie poprawiamy ręcznie: każdą liczbę w tym dokumencie można odtworzyć poleceniami z sekcji 7, a raporty jakości są w repozytorium (`pipeline/geo/reports/`).
 
 ## 1. Przepływ danych
 
@@ -48,12 +48,13 @@ Dane pobrano 19–21.10.2026. Datę „stan danych na” każdego zbioru przenos
 | **MSIP Kraków**: punkty adresowe EMUiA (`msip.um.krakow.pl/Dane/Adresy_JSON.zip`) | 70 299 adresów z kodem pocztowym i dzielnicą, układ EPSG:2178 | współrzędne wszystkich miejsc, geokoder aplikacji |
 | **MSIP Kraków**: dzielnice (`Dzielnice_JSON.zip`) | granice 18 dzielnic, EPSG:2178 | warstwa dzielnic, przypisanie miejsc do dzielnic |
 | **ZTP Kraków**: GTFS KMK (`gtfs.ztp.krakow.pl`, pliki A, T, M) | rozkłady autobusów i tramwajów | numery linii na przystankach, dojazdy w „15 minut” |
-| **ZTP Kraków**: warstwy ArcGIS | przystanki KMK (stan 01.10.2026), Park & Ride (02.10.2024), izochrony dojścia do przystanków (24.07.2026), granice parków kieszonkowych | warstwy `przystanek`, `park_and_ride`, warstwa izochron, lokalizacja parków |
+| **ZTP Kraków**: warstwy ArcGIS | przystanki KMK (stan 01.10.2026), Park & Ride (02.10.2024), izochrony dojścia do przystanków (24.07.2026) | warstwy `przystanek`, `park_and_ride`, warstwa izochron |
+| **Miasto Kraków**: warstwa ArcGIS „Otwarte Dane – Parki Kieszonkowe” | granice parków kieszonkowych | lokalizacja parków kieszonkowych |
 | **BIP Kraków**: karty usług (`bip.krakow.pl/uslugi`) | urzędy przyjmujące dokumenty: adres, godziny, telefon, rezerwacja wizyty, lista procedur | warstwa `urzad` (karty pobiera i parsuje strumień AI, zob. [ai.md](ai.md)) |
 | **OpenStreetMap**: wyciąg Małopolski (Geofabrik), Overpass, Nominatim | sieć dróg i chodników; obszary parków; nazwy i numery instytucji | trasy w „15 minut”, położenie parków, uzupełnianie brakujących numerów domów |
 | **RSPO** (Rejestr Szkół i Placówek Oświatowych, `rspo.gov.pl`) | adres szkoły lub przedszkola wg numeru RSPO | uzupełnianie brakujących numerów domów |
 
-Zapytania do usług zewnętrznych (RSPO, Nominatim, BIP) wysyłamy najwyżej raz na sekundę i zapisujemy odpowiedzi w pamięci podręcznej. Każde źródło jest odpytywane tylko raz.
+Zapytania do usług zewnętrznych (RSPO, Nominatim, BIP) wysyłamy najwyżej raz na sekundę i zapisujemy odpowiedzi w pamięci podręcznej, więc ponowne uruchomienie potoku nie odpytuje ich drugi raz.
 
 ## 3. Przetwarzanie
 
@@ -63,7 +64,7 @@ Współrzędne każdego miejsca to współrzędne **oficjalnego punktu adresoweg
 
 Kolejność dopasowania:
 
-1. **Dokładny klucz**: ulica i numer po normalizacji (małe litery, bez „ul.”, polskie znaki bez zmian).
+1. **Dokładny klucz**: ulica i numer po normalizacji (małe litery, bez „ul.” i bez polskich znaków).
 2. **Część nazwy**: „Kutrzeby” → „Generała Tadeusza Kutrzeby”. Przy remisie decyduje rodzaj ulicy (osiedle, aleja, plac) i kod pocztowy.
 3. **Dopasowanie przybliżone** (rapidfuzz ≥ 85) dla literówek.
 4. **Brakujący numer domu.** Portal zapisuje „Nr domu” jako liczbę, więc „28A” przychodzi jako puste pole (179 rekordów). Numer odzyskujemy:
@@ -89,7 +90,7 @@ Metodę dopasowania przechowujemy w każdym miejscu (`attrs.location`: `address`
 | `biblioteka` | 62 | |
 | `park` | 78 | zbiór ma tylko nazwę i powierzchnię; punkt leży wewnątrz obszaru parku z OSM (powierzchnia 1/3–3× wartości miasta) albo w punkcie OSM o tej samej nazwie |
 | `park_kieszonkowy` | 41 | najpierw poligony parków kieszonkowych miasta (ArcGIS), potem OSM |
-| `przystanek` | 814 | słupki ZTP zgrupowane w przystanki (np. słupki 642-01…04 → jeden przystanek); tylko przystanki KMK w granicach Krakowa; linie z GTFS |
+| `przystanek` | 814 | słupki ZTP zgrupowane w przystanki (np. 12 słupków „Podgórze SKA” 642-01, 642-02… → jeden przystanek 642); tylko przystanki KMK w granicach Krakowa; linie z GTFS |
 | `park_and_ride` | 10 | warstwa ZTP |
 | `urzad` | 56 | urzędy z kart BIP; adres z tekstu karty dopasowany do EMUiA; atrybut `procedures` wymienia wszystkie usługi przyjmowane w danym urzędzie |
 | **Razem** | **2368** | |
@@ -103,7 +104,7 @@ Granice MSIP są upraszczane wspólnie z tolerancją 5 m, więc sąsiednie dziel
 - pięć najczęstszych obywatelstw. Pozycje „INNE KRAJE”, „NIEUSTALONE” i „BEZPAŃSTWOWCY” nie są krajami i są pomijane;
 - liczbę miejsc z każdej warstwy.
 
-Łącznie Kraków ma 735 955 zameldowanych mieszkańców, w tym 20 774 cudzoziemców (31.12.2025).
+Łącznie w 18 dzielnicach: 735 955 zameldowanych mieszkańców i 20 774 zameldowanych cudzoziemców (31.12.2025; oba zbiory portalu).
 
 ### „15 minut” i Indeks 15 minut
 
@@ -185,7 +186,7 @@ Metody: dokładny klucz 1182, numer z RSPO 131, część nazwy 34, numer z Nomin
 
 `npm run validate:data` (`app/scripts/validate-geo.ts`) sprawdza:
 - każdą warstwę względem kontraktu `Place` (zod);
-- czy współrzędne leżą w granicach Krakowa;
+- czy współrzędne leżą w prostokącie obejmującym Kraków;
 - unikalność identyfikatorów;
 - zgodność liczby obiektów z `index.json`;
 - 18 dzielnic i spójność ich statystyk;
@@ -207,7 +208,7 @@ Potok ma ponad 100 testów jednostkowych (pytest), a moduł serwera ma własne t
 
 | Źródło | Warunki | Jak je spełniamy |
 |---|---|---|
-| Otwarte Dane Miasta Krakowa | „Warunki wykorzystania Danych udostępnianych w Portalu”: swobodne i bezpłatne ponowne wykorzystanie. Należy podać źródło (Gmina Miejska Kraków, otwartedane.um.krakow.pl) oraz czas wytworzenia i pozyskania danych. | Każdy obiekt ma `source` z linkiem do strony zbioru i datą „stan danych na”. Daty pobrania są w manifeście potoku i w tym dokumencie (pkt 2). |
+| Otwarte Dane Miasta Krakowa | „Warunki wykorzystania Danych udostępnianych w Portalu”: swobodne i bezpłatne ponowne wykorzystanie. Należy podać źródło (Gmina Miejska Kraków, otwartedane.um.krakow.pl) oraz czas wytworzenia i pozyskania danych. | Każdy obiekt ze zbiorów portalu ma `source` z linkiem do strony zbioru i datą „stan danych na”. Datę pobrania podajemy w tym dokumencie (pkt 2), a datę wygenerowania warstw — w polu `generatedAt` pliku `index.json`. |
 | BIP Kraków | informacja publiczna | Każda odpowiedź asystenta o procedurze zawiera link do karty usługi. Warstwa urzędów wskazuje katalog usług BIP. |
 | MSIP Kraków, ZTP Kraków | dane publikowane przez jednostki miasta | Źródło podane w sekcji „Skąd są dane” w aplikacji; przystanki i P+R mają link do warstwy ZTP w każdym obiekcie. |
 | OpenStreetMap | © OpenStreetMap contributors, licencja ODbL 1.0 | Atrybucja na mapie. Dane OSM wspierają lokalizację parków, uzupełnianie numerów i sieć tras. |
