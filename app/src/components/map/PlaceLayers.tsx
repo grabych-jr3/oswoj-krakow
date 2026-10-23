@@ -10,6 +10,8 @@ import { toFeatureCollection } from "@/map/places";
 import { PlacePopup } from "./PlacePopup";
 
 const SOURCE_ID = "places";
+// Lowest layer of the chat overlay (ChatLayers); map pins stay below it.
+const CHAT_BOTTOM_LAYER = "chat-area-fill";
 export const CLUSTER_LAYER = "places-clusters";
 export const POINT_LAYER = "places-points";
 export const PLACE_LAYER_IDS = [CLUSTER_LAYER, POINT_LAYER];
@@ -90,6 +92,8 @@ export function PlaceLayers({
         {imagesReady && (
           <Layer
             id={POINT_LAYER}
+            // Pins arrive after their images: keep them under the assistant's numbered markers.
+            beforeId={map?.getMap().getLayer(CHAT_BOTTOM_LAYER) ? CHAT_BOTTOM_LAYER : undefined}
             type="symbol"
             filter={["!", ["has", "point_count"]]}
             layout={{

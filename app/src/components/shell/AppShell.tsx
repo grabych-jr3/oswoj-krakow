@@ -1,6 +1,6 @@
 "use client";
 
-import { Layers } from "lucide-react";
+import { Layers, X } from "lucide-react";
 import type { Map as MapLibreMap, PaddingOptions } from "maplibre-gl";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -108,6 +108,9 @@ export function AppShell({
   }, []);
   const assistant = useAssistant({ getMap, initialQuestion });
   const chatView = useMemo(() => deriveChatMap(assistant.messages), [assistant.messages]);
+  // "Clear the map" hides the places of the current answer; the next answer with places shows again.
+  const [hiddenChatKey, setHiddenChatKey] = useState<string | null>(null);
+  const shownChatView = chatView && chatView.key !== hiddenChatKey ? chatView : null;
 
   // The 15-minute panel shows until the chat draws something newer on the map.
   const nearbyState = nearby.state && nearby.state.tag === (chatView?.key ?? "") ? nearby.state : null;
@@ -174,7 +177,7 @@ export function AppShell({
 
   /** What the map draws on top of the layers: the 15-minute zone, or the latest chat answer. */
   const mapView = useMemo<ChatMapView | null>(() => {
-    if (!nearbyState) return chatView;
+    if (!nearbyState) return shownChatView;
     const { origin, mode, result } = nearbyState;
     const key = `nearby:${origin.coords.join(",")}:${mode}`;
     // The reachable places show as regular pins (below), so the overlay has only the zone and the start.
@@ -192,7 +195,7 @@ export function AppShell({
           origin: { label: origin.label, coords: origin.coords },
           fit: false,
         };
-  }, [nearbyState, chatView]);
+  }, [nearbyState, shownChatView]);
 
   // While a zone is shown, the layers show only the places within reach (still per enabled layer).
   const shownPlaces = useMemo(() => {
@@ -390,6 +393,25 @@ export function AppShell({
     />
   );
 
+  function clearChatMap() {
+    if (chatView) setHiddenChatKey(chatView.key);
+    setSelected(null);
+  }
+
+  // "New conversation" also clears what the old one left on the map, including an open place card.
+  const chatAssistant = useMemo(
+    () => ({
+      ...assistant,
+      reset: () => {
+        assistant.reset();
+        setSelected(null);
+        setDistrict(null);
+        setHiddenChatKey(null);
+      },
+    }),
+    [assistant],
+  );
+
   function closeWelcome() {
     setWelcomeOpen(false);
     setMapWanted(true);
@@ -507,6 +529,20 @@ export function AppShell({
             </div>
 
             {/* On mobile it sits just above the chat sheet; hidden while a sheet, panel or card covers that spot. */}
+            {/* Hides what the latest answer put on the map, without ending the conversation. */}
+            {shownChatView && !nearbyState && (
+              <button
+                type="button"
+                onClick={clearChatMap}
+                aria-label={tMap("clearChatLabel")}
+                style={{ bottom: sheetHeight ? sheetHeight + 12 : undefined }}
+                className={`absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-card py-2 pr-3.5 pl-3 text-[13px] font-semibold text-primary-strong shadow-float hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-safe:animate-in motion-safe:fade-in md:bottom-4 ${chatExpanded || selected || district || layersOpen ? "max-md:hidden" : ""}`}
+              >
+                <X className="size-4" aria-hidden />
+                {tMap("clearChat")}
+              </button>
+            )}
+
             <MapAttribution
               className={`absolute left-3 z-10 max-w-[calc(100%-24px)] md:bottom-2 md:left-4 ${chatExpanded || layersOpen || selected || district || nearbyState ? "max-md:hidden" : ""}`}
               style={{ bottom: sheetHeight ? sheetHeight + 8 : undefined }}
@@ -515,7 +551,7 @@ export function AppShell({
 
           <ChatPanel
             ref={chatRef}
-            assistant={assistant}
+            assistant={chatAssistant}
             expanded={chatExpanded}
             onExpandedChange={setChatExpanded}
             phoneHidden={!!nearbyState && !chatOverNearby}

@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Layer, Source, useMap } from "react-map-gl/maplibre";
 import type { LngLatBoundsLike, PaddingOptions } from "maplibre-gl";
 import { PlaceCategory } from "@/contracts/place";
 import { CATEGORY_STYLES } from "@/lib/categories";
-import type { ChatMapView } from "@/map/chatMap";
+import { type ChatMapView, spreadOffsets } from "@/map/chatMap";
 
 export const CHAT_MARKER_LAYER = "chat-markers";
 export const CHAT_DOT_LAYER = "chat-dots";
@@ -13,6 +13,24 @@ export const CHAT_LAYER_IDS = [CHAT_MARKER_LAYER, CHAT_DOT_LAYER];
 
 const BRAND = "#c90f1a";
 const EMPTY: GeoJSON.FeatureCollection = { type: "FeatureCollection", features: [] };
+const MARKER_IMAGE = "chat-marker";
+const TEXT_SIZE = 13;
+
+/** The numbered marker: a brand circle with a white ring, drawn at 2× for sharp screens. */
+function markerImage(): ImageData {
+  const size = 64;
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size;
+  const g = canvas.getContext("2d")!;
+  g.beginPath();
+  g.arc(size / 2, size / 2, 27, 0, Math.PI * 2);
+  g.fillStyle = BRAND;
+  g.fill();
+  g.lineWidth = 6;
+  g.strokeStyle = "#fff";
+  g.stroke();
+  return g.getImageData(0, 0, size, size);
+}
 
 // ["match", category, "zlobek", "#…", …, fallback] — MapLibre paint needs plain hex colours.
 const CATEGORY_COLOR = [
@@ -28,21 +46,47 @@ const CATEGORY_COLOR = [
  */
 export function ChatLayers({ view, padding }: { view: ChatMapView | null; padding: () => PaddingOptions }) {
   const { current: map } = useMap();
+  const [imageReady, setImageReady] = useState(false);
 
-  const points = useMemo<GeoJSON.FeatureCollection>(
-    () =>
-      view
-        ? {
-            type: "FeatureCollection",
-            features: view.markers.map((m) => ({
-              type: "Feature",
-              geometry: { type: "Point", coordinates: m.place.coords },
-              properties: { key: m.key, label: m.label ?? "", category: m.place.category, numbered: m.label !== null },
-            })),
-          }
-        : EMPTY,
-    [view],
-  );
+  // The marker image must exist before the symbol layer draws; add it again after a style reload.
+  useEffect(() => {
+    if (!map) return;
+    const m = map.getMap();
+    const add = () => {
+      if (!m.hasImage(MARKER_IMAGE)) m.addImage(MARKER_IMAGE, markerImage(), { pixelRatio: 2 });
+      setImageReady(true);
+    };
+    if (m.isStyleLoaded()) add();
+    m.on("style.load", add);
+    return () => {
+      m.off("style.load", add);
+    };
+  }, [map]);
+
+  const points = useMemo<GeoJSON.FeatureCollection>(() => {
+    if (!view) return EMPTY;
+    // Places at the same address would cover each other: those markers stand side by side.
+    const offsets = spreadOffsets(view.markers.filter((m) => m.label !== null).map((m) => m.place.coords));
+    let n = 0;
+    return {
+      type: "FeatureCollection",
+      features: view.markers.map((m) => {
+        const dx = m.label !== null ? offsets[n++] : 0;
+        return {
+          type: "Feature",
+          geometry: { type: "Point", coordinates: m.place.coords },
+          properties: {
+            key: m.key,
+            label: m.label ?? "",
+            category: m.place.category,
+            numbered: m.label !== null,
+            iconOffset: [dx, 0],
+            textOffset: [dx / TEXT_SIZE, 0],
+          },
+        };
+      }),
+    };
+  }, [view]);
   const area = useMemo<GeoJSON.FeatureCollection>(
     () => (view?.area ? { type: "FeatureCollection", features: [view.area as GeoJSON.Feature] } : EMPTY),
     [view],
@@ -85,19 +129,26 @@ export function ChatLayers({ view, padding }: { view: ChatMapView | null; paddin
           filter={["!", ["get", "numbered"]]}
           paint={{ "circle-radius": 7, "circle-color": CATEGORY_COLOR, "circle-stroke-color": "#fff", "circle-stroke-width": 2 }}
         />
-        <Layer
-          id={CHAT_MARKER_LAYER}
-          type="circle"
-          filter={["get", "numbered"]}
-          paint={{ "circle-radius": 14, "circle-color": BRAND, "circle-stroke-color": "#fff", "circle-stroke-width": 3 }}
-        />
-        <Layer
-          id="chat-marker-labels"
-          type="symbol"
-          filter={["get", "numbered"]}
-          layout={{ "text-field": ["get", "label"], "text-font": ["Noto Sans Bold"], "text-size": 13, "text-allow-overlap": true, "text-ignore-placement": true }}
-          paint={{ "text-color": "#fff" }}
-        />
+        {imageReady && (
+          <Layer
+            id={CHAT_MARKER_LAYER}
+            type="symbol"
+            filter={["get", "numbered"]}
+            layout={{
+              "icon-image": MARKER_IMAGE,
+              "icon-offset": ["get", "iconOffset"] as unknown as [number, number],
+              "icon-allow-overlap": true,
+              "icon-ignore-placement": true,
+              "text-field": ["get", "label"],
+              "text-font": ["Noto Sans Bold"],
+              "text-size": TEXT_SIZE,
+              "text-offset": ["get", "textOffset"] as unknown as [number, number],
+              "text-allow-overlap": true,
+              "text-ignore-placement": true,
+            }}
+            paint={{ "text-color": "#fff" }}
+          />
+        )}
       </Source>
       <Source id="chat-origin" type="geojson" data={origin}>
         <Layer id="chat-origin-halo" type="circle" paint={{ "circle-radius": 16, "circle-color": BRAND, "circle-opacity": 0.2 }} />

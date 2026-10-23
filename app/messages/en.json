@@ -59,7 +59,9 @@
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",
     "sources": "Data source: Gmina Miejska Kraków, otwartedane.um.krakow.pl (downloaded 19–21.10.2026), MSIP, ZTP Kraków",
-    "attribution": "Map sources and licences"
+    "attribution": "Map sources and licences",
+    "clearChat": "Clear the map",
+    "clearChatLabel": "Hide the places from the assistant's answer"
   },
   "Chat": {
     "title": "Assistant",
@@ -110,7 +112,8 @@
     "showOnMap": "Show on map",
     "forWhom": "For whom",
     "askStep": "Ask about this step",
-    "sources": "Sources"
+    "sources": "Sources",
+    "resize": "Resize the chat"
   },
   "Welcome": {
     "title": "Welcome to Oswój Kraków",

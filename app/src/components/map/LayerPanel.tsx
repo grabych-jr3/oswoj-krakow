@@ -75,7 +75,7 @@ export function LayerPanel({ index, error, enabled, loading, onToggle, onSetAll,
               <li key={category}>
                 <label
                   htmlFor={id}
-                  className="flex cursor-pointer items-center gap-2.5 rounded-lg px-1 py-1.5 hover:bg-muted has-focus-visible:outline-2 has-focus-visible:outline-ring"
+                  className="relative flex cursor-pointer items-center gap-2.5 rounded-lg px-1 py-1.5 hover:bg-muted has-focus-visible:outline-2 has-focus-visible:outline-ring"
                 >
                   <span
                     className={cn("grid size-7 shrink-0 place-items-center rounded-full text-white transition-opacity", !on && "opacity-35")}
@@ -130,7 +130,7 @@ function OverlaySwitches({ overlays, idPrefix }: { overlays: Overlays; idPrefix:
   const tFifteen = useTranslations("Fifteen");
   const { indexOn, indexMode, setIndexMode, index, toggleIndex, districtsOn, districts, toggleDistricts } = overlays;
   const row =
-    "flex cursor-pointer items-center gap-2.5 rounded-lg px-1 py-1.5 hover:bg-muted has-focus-visible:outline-2 has-focus-visible:outline-ring";
+    "relative flex cursor-pointer items-center gap-2.5 rounded-lg px-1 py-1.5 hover:bg-muted has-focus-visible:outline-2 has-focus-visible:outline-ring";
   const chip = "grid size-7 shrink-0 place-items-center rounded-full bg-primary-soft text-primary-strong";
   const status = (s: { status: string }) =>
     s.status === "loading" ? (

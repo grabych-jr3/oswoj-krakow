@@ -59,7 +59,9 @@
     "zoomIn": "Наблизити карту",
     "zoomOut": "Віддалити карту",
     "sources": "Джерело даних: Gmina Miejska Kraków, otwartedane.um.krakow.pl (дані завантажено 19–21.10.2026), MSIP, ZTP Kraków",
-    "attribution": "Джерела та ліцензії карти"
+    "attribution": "Джерела та ліцензії карти",
+    "clearChat": "Очистити карту",
+    "clearChatLabel": "Сховати з карти місця з відповіді асистента"
   },
   "Chat": {
     "title": "Асистент",
@@ -110,7 +112,8 @@
     "showOnMap": "Показати на карті",
     "forWhom": "Для кого",
     "askStep": "Запитати про цей крок",
-    "sources": "Джерела"
+    "sources": "Джерела",
+    "resize": "Змінити ширину чату"
   },
   "Welcome": {
     "title": "Вітаємо в Oswój Kraków",

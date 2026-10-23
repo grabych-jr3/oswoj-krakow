@@ -59,7 +59,9 @@
     "zoomIn": "Przybliż mapę",
     "zoomOut": "Oddal mapę",
     "sources": "Źródło danych: Gmina Miejska Kraków, otwartedane.um.krakow.pl (dane pobrane 19–21.10.2026), MSIP, ZTP Kraków",
-    "attribution": "Źródła i licencje mapy"
+    "attribution": "Źródła i licencje mapy",
+    "clearChat": "Wyczyść mapę",
+    "clearChatLabel": "Ukryj na mapie miejsca z odpowiedzi asystenta"
   },
   "Chat": {
     "title": "Asystent",
@@ -110,7 +112,8 @@
     "showOnMap": "Pokaż na mapie",
     "forWhom": "Dla kogo",
     "askStep": "Zapytaj o ten krok",
-    "sources": "Źródła"
+    "sources": "Źródła",
+    "resize": "Zmień szerokość czatu"
   },
   "Welcome": {
     "title": "Witaj w Oswój Kraków",

@@ -3,7 +3,7 @@
 import type { UIMessage } from "ai";
 import { AlertCircle, ChevronUp, LoaderCircle, RotateCcw, Square } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import type { Locale } from "@/contracts/common";
 import { parseToolPart } from "@/lib/toolParts";
 import { cn } from "@/lib/utils";
@@ -66,6 +66,7 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ ass
   const sheetRef = useRef<HTMLElement>(null);
   useImperativeHandle(ref, () => sheetRef.current as HTMLElement);
   useSheetAnimation(sheetRef, `${expanded}:${dragH === null}`, dragH !== null);
+  const resize = useChatWidth(sheetRef);
 
   function onDragStart(e: React.PointerEvent<HTMLDivElement>) {
     if (window.matchMedia("(min-width: 768px)").matches) return; // desktop: no sheet
@@ -116,10 +117,26 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ ass
       className={cn(
         "group fixed inset-x-0 bottom-0 z-20 flex max-h-[85dvh] flex-col overflow-hidden rounded-t-3xl max-md:motion-safe:animate-in max-md:motion-safe:slide-in-from-bottom max-md:motion-safe:[--tw-animation-duration:300ms] bg-primary text-primary-foreground shadow-[0_-12px_40px_-16px_rgb(80_10_10/0.55)]",
         "data-[expanded=true]:h-[85dvh]",
-        "md:static md:z-auto md:h-auto md:max-h-none md:w-[30%] md:min-w-[380px] md:shrink-0 md:rounded-none md:shadow-none md:data-[expanded=true]:h-auto",
+        "md:relative md:z-auto md:h-auto md:max-h-none md:w-[var(--chat-w,30%)] md:max-w-[50vw] md:min-w-[380px] md:shrink-0 md:rounded-none md:shadow-none md:data-[expanded=true]:h-auto",
         phoneHidden && "max-md:hidden",
       )}
     >
+      {/* Desktop: drag the left edge to make the chat wider (up to half the screen); double-click resets. */}
+      <div
+        role="separator"
+        aria-orientation="vertical"
+        aria-label={t("resize")}
+        aria-valuemin={MIN_CHAT_PX}
+        aria-valuemax={1}
+        aria-valuenow={1}
+        tabIndex={0}
+        data-chat-resize
+        {...resize}
+        className="group/rs absolute inset-y-0 left-0 z-30 hidden w-3 cursor-col-resize touch-none focus-visible:outline-none md:block"
+      >
+        <span className="absolute top-1/2 left-1 h-14 w-1.5 -translate-y-1/2 rounded-full bg-white/70 opacity-0 transition-opacity group-hover/rs:opacity-100 group-focus-visible/rs:opacity-100 group-focus-visible/rs:outline-2 group-focus-visible/rs:outline-white" />
+      </div>
+
       {/* Mobile drag zone (grab handle + header): swipe up opens, swipe down closes, tap on the handle toggles.
           Keyboard and screen readers use the chevron button. */}
       <div
@@ -305,4 +322,89 @@ function AssistantMessage({ message }: { message: UIMessage }) {
   return (
     <div className="flex w-full max-w-[96%] flex-col gap-3 self-start rounded-[18px] rounded-bl-[4px] bg-card p-4 text-card-foreground">{blocks}</div>
   );
+}
+
+const MIN_CHAT_PX = 380;
+const MAX_CHAT_SHARE = 0.5;
+const STEP_PX = 32;
+const WIDTH_KEY = "ok-chat-width";
+
+/**
+ * Desktop chat width: drag or arrow keys on the left edge, 380 px … half the screen, kept per browser.
+ * The width lives in a CSS variable on the panel, so dragging never re-renders React.
+ */
+function useChatWidth(ref: React.RefObject<HTMLElement | null>) {
+  const drag = useRef<{ x: number; w: number } | null>(null);
+
+  const apply = useCallback(
+    (width: number | null) => {
+      const el = ref.current;
+      if (!el) return;
+      const handle = el.querySelector<HTMLElement>("[data-chat-resize]");
+      const max = Math.round(window.innerWidth * MAX_CHAT_SHARE);
+      if (width === null) el.style.removeProperty("--chat-w");
+      else el.style.setProperty("--chat-w", `${Math.round(Math.min(max, Math.max(MIN_CHAT_PX, width)))}px`);
+      const now = Math.round(el.getBoundingClientRect().width);
+      handle?.setAttribute("aria-valuemax", String(max));
+      handle?.setAttribute("aria-valuenow", String(now));
+      handle?.setAttribute("aria-valuetext", `${Math.round((100 * now) / window.innerWidth)}%`);
+    },
+    [ref],
+  );
+
+  const save = (width: number | null) => {
+    try {
+      if (width === null) localStorage.removeItem(WIDTH_KEY);
+      else localStorage.setItem(WIDTH_KEY, String(Math.round(width)));
+    } catch {
+      // Storage off: the width simply resets next time.
+    }
+  };
+  const current = () => ref.current?.getBoundingClientRect().width ?? MIN_CHAT_PX;
+
+  // The saved width, re-clamped when the window changes size.
+  useEffect(() => {
+    const restore = () => {
+      let saved: number | null = null;
+      try {
+        saved = Number(localStorage.getItem(WIDTH_KEY)) || null;
+      } catch {
+        saved = null;
+      }
+      apply(saved);
+    };
+    restore();
+    window.addEventListener("resize", restore);
+    return () => window.removeEventListener("resize", restore);
+  }, [apply]);
+
+  return {
+    onPointerDown: (e: React.PointerEvent<HTMLElement>) => {
+      drag.current = { x: e.clientX, w: current() };
+      e.currentTarget.setPointerCapture(e.pointerId);
+      document.body.style.userSelect = "none";
+    },
+    onPointerMove: (e: React.PointerEvent<HTMLElement>) => {
+      if (drag.current) apply(drag.current.w + drag.current.x - e.clientX); // dragging left widens
+    },
+    onPointerUp: () => {
+      if (!drag.current) return;
+      drag.current = null;
+      document.body.style.userSelect = "";
+      save(current());
+    },
+    onDoubleClick: () => {
+      apply(null);
+      save(null);
+    },
+    onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => {
+      const w = current();
+      const next =
+        e.key === "ArrowLeft" ? w + STEP_PX : e.key === "ArrowRight" ? w - STEP_PX : e.key === "Home" ? MIN_CHAT_PX : e.key === "End" ? Infinity : null;
+      if (next === null) return;
+      e.preventDefault();
+      apply(next);
+      save(current());
+    },
+  };
 }

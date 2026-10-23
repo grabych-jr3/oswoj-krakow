@@ -5,7 +5,7 @@ import placesFixture from "@/contracts/fixtures/places.sample.json";
 import sa34Fixture from "@/contracts/fixtures/procedure.SA-34.json";
 import type { Place } from "@/contracts/place";
 import { parseToolPart } from "@/lib/toolParts";
-import { deriveChatMap, messageMarkers } from "./chatMap";
+import { deriveChatMap, messageMarkers, spreadOffsets } from "./chatMap";
 
 const places = (placesFixture as Place[]).slice(0, 3).map((p, i) => ({ ...p, distanceM: 100 * (i + 1), label: String(i + 1) }));
 
@@ -71,5 +71,18 @@ describe("messageMarkers", () => {
   it("maps marker labels of an answer to places", () => {
     const markers = messageMarkers(assistant(toolPart("find_places", { center: null, places })));
     expect(markers.get("2")?.id).toBe(places[1].id);
+  });
+});
+
+describe("spreadOffsets", () => {
+  it("puts markers at the same address side by side and leaves lone ones in place", () => {
+    const sameBuilding: [number, number][] = [
+      [19.9, 50.07],
+      [19.90005, 50.07002], // ~5 m away
+      [19.95, 50.06], // elsewhere
+    ];
+    expect(spreadOffsets(sameBuilding)).toEqual([-17, 17, 0]);
+    expect(spreadOffsets([[19.9, 50.07], [19.9, 50.07], [19.9, 50.07]])).toEqual([-34, 0, 34]);
+    expect(spreadOffsets([])).toEqual([]);
   });
 });
