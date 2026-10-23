@@ -4,7 +4,11 @@
 Asystent AI i mapa dla nowych mieszkańców Krakowa – odpowiedzi tylko z oficjalnych danych miasta, zawsze z linkiem do źródła.
 
 🔗 **Demo:** [oswoj-krakow.vercel.app](https://oswoj-krakow.vercel.app) · języki: polski (domyślnie), ukraiński, angielski
-🏆 Projekt na konkurs **Open Data App 2026** (Gmina Miejska Kraków) · 🚧 **w budowie**
+🏆 Projekt na konkurs **Open Data App 2026** (Gmina Miejska Kraków)
+
+![Asystent odpowiada na podstawie karty usługi BIP i pokazuje punkty obsługi na mapie](docs/img/asystent-pesel.png)
+
+📄 **Dokumenty konkursowe:** [opis projektu](docs/opis.md) · [technologie](docs/tech/technologie.md) · [dane](docs/tech/dane.md) · [architektura](docs/tech/architektura.md) · [asystent AI](docs/tech/ai.md) · [możliwości rozwoju](docs/tech/rozwoj.md)
 
 ---
 
@@ -30,10 +34,14 @@ Aplikacja webowa, która łączy asystenta AI z interaktywną mapą. Ma trzy mod
 Pytasz po polsku, ukraińsku lub angielsku. Asystent odpowiada **wyłącznie na podstawie oficjalnych kart usług BIP**: wymagane dokumenty, opłaty, termin załatwienia i link do umówienia wizyty online. Każda odpowiedź ma odnośnik do karty źródłowej. Punkty obsługi od razu pojawiają się na mapie.
 
 ### 🗺️ Kraków w 15 minut
-Wpisujesz adres – np. wynajmowanego mieszkania – i widzisz, co masz w zasięgu 15 minut pieszo lub komunikacją miejską: żłobki, przedszkola, szkoły, parki, biblioteki, przystanki. Aplikacja wylicza też **indeks dostępności** usług dla tego miejsca.
+Wpisujesz adres – np. wynajmowanego mieszkania – albo klikasz na mapie i widzisz, co masz w zasięgu 15 minut pieszo lub komunikacją miejską: żłobki, przedszkola, szkoły, parki, biblioteki, przystanki, urzędy – z czasem dojścia do każdego miejsca. Aplikacja wylicza też **Indeks 15 minut** (0–100), a widok można udostępnić linkiem.
+
+Na mapie całego miasta warstwa **„Indeks 15 minut – całe miasto”** pokazuje, gdzie brakuje usług w zasięgu spaceru, a warstwa **dzielnic** – liczbę mieszkańców, cudzoziemców i placówek w każdej dzielnicy.
+
+![Kraków w 15 minut: strefa dojścia komunikacją, indeks i lista miejsc](docs/img/krakow-15-minut.png)
 
 ### ✅ Pierwsze kroki
-Lista spraw do załatwienia we właściwej kolejności, dobrana do Twojej sytuacji, z linkami do kart usług. Przygotowujemy scenariusze m.in. dla osób, które:
+Lista spraw do załatwienia we właściwej kolejności, dobrana do Twojej sytuacji, z linkami do kart usług. Wystarczy opisać swoją sytuację w czacie. Asystent ma 8 scenariuszy w trzech językach, m.in. dla osób, które:
 
 - przeprowadzają się z innego miasta w Polsce,
 - są obywatelami UE,
@@ -89,29 +97,45 @@ flowchart LR
 
 - **Aplikacja:** Next.js (TypeScript) na Vercel, mapa MapLibre.
 - **Dane:** skrypty w Pythonie pobierają dane z oficjalnych źródeł i zapisują je jako statyczne pliki. Nie ma osobnej bazy danych.
-- **AI:** Gemini przez Vercel AI SDK, z zapasowym dostawcą (Groq). Model odpowiada **tylko na podstawie wyników narzędzi** (karty BIP, dane miasta) i podaje źródła. Jeśli danych brak – mówi o tym wprost.
+- **AI:** model językowy przez Vercel AI SDK z łańcuchem zapasowych dostawców (Infercom, Google Gemini, Groq). Model odpowiada **tylko na podstawie wyników narzędzi** (karty BIP, dane miasta) i podaje źródła. Jeśli danych brak – mówi o tym wprost. Ewaluacja: 97% z 60 pytań w trzech językach ([raport](evals/report.md)).
 - **Prywatność:** bez kont użytkowników, bez przechowywania danych osobowych.
 
 ## Uruchomienie
 
 **Online:** [oswoj-krakow.vercel.app](https://oswoj-krakow.vercel.app) – strona główna `/pl`, mapa i asystent `/pl/mapa`.
 
-**Lokalnie** (wymaga Node.js):
+**Lokalnie** (wymaga Node.js 24 LTS i npm):
 
 ```bash
-cd app
+git clone https://github.com/grabych-jr3/oswoj-krakow.git
+cd oswoj-krakow/app
 npm ci
-cp .env.example .env.local   # klucze API; LLM_MOCK=1 działa bez kluczy
+cp .env.example .env.local   # tu wpisz klucz API modelu (np. INFERCOM_API_KEY lub GOOGLE_GENERATIVE_AI_API_KEY)
 npm run dev                  # http://localhost:3000 → /pl
 ```
 
-Z ustawieniem `LLM_MOCK=1` czat działa bez żadnych kluczy (odpowiedzi testowe) – wystarczy do obejrzenia interfejsu i mapy. Więcej poleceń: [app/README.md](app/README.md).
+- **Bez kluczy API:** ustaw w `.env.local` wartość `LLM_MOCK=1`. Czat odpowiada wtedy testowymi odpowiedziami, a mapa, warstwy i „Kraków w 15 minut” działają w pełni (nie korzystają z modelu).
+- **Wersja produkcyjna lokalnie:** `npm run build && npm start`.
+- **Testy i kontrola jakości:** `npm run check` (lint, typy, testy jednostkowe, walidacja plików danych).
 
-## Status projektu
+**Aktualizacja danych** (wymaga Pythona 3.12 z [uv](https://docs.astral.sh/uv/); do „15 minut” także JDK 21+). Gotowe dane są w repozytorium, więc do uruchomienia aplikacji ten krok nie jest potrzebny.
 
-🚧 **Aplikacja jest w budowie.** Rozwijamy ją na konkurs – termin złożenia pracy to 5 listopada 2026 r. Część funkcji opisanych wyżej jest jeszcze w przygotowaniu, a wygląd i dane mogą się zmieniać. Demo online pokazuje bieżący stan prac.
+- dane przestrzenne: `pipeline/geo` – kolejność poleceń w [docs/tech/dane.md, pkt 7](docs/tech/dane.md#7-jak-odtworzyć-dane);
+- baza wiedzy BIP: `pipeline/kb` – polecenia w [pipeline/kb/README.md](pipeline/kb/README.md);
+- na koniec `cd app && npm run validate:data` sprawdza, czy nowe pliki zgadzają się z kontraktami.
 
-Szczegółowy plan prac (po ukraińsku): [PLAN.md](PLAN.md).
+## Dokumentacja
+
+| Dokument | Zawartość |
+|---|---|
+| [Opis projektu](docs/opis.md) ([PDF](docs/opis.pdf)) | problem, rozwiązanie, funkcje, dane, wartość dla miasta, potencjał wdrożeniowy |
+| [Technologie](docs/tech/technologie.md) | z czego zbudowana jest aplikacja i dlaczego |
+| [Dane](docs/tech/dane.md) | źródła, przetwarzanie, jakość, licencje, odtworzenie danych |
+| [Architektura](docs/tech/architektura.md) | schematy systemu, przepływ pytania i „15 minut”, bezpieczeństwo |
+| [Asystent AI](docs/tech/ai.md) | baza wiedzy, narzędzia, ochrona przed halucynacjami, ewaluacja |
+| [Możliwości rozwoju](docs/tech/rozwoj.md) | wdrożenie w mieście, nowe dane i funkcje, model biznesowy |
+
+Cała dokumentacja techniczna w jednym pliku: [docs/dokumentacja-techniczna.pdf](docs/dokumentacja-techniczna.pdf). Plan prac zespołu (po ukraińsku): [PLAN.md](PLAN.md).
 
 ## Zespół i konkurs
 
