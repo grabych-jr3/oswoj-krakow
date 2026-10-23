@@ -4,7 +4,7 @@ import { cachedAnswer, clearAnswerCache, recordAnswer } from "./answer-cache";
 import { resolveModelChain, shouldFallBack } from "./model";
 import { buildSystemPrompt } from "./prompt";
 import { checkRateLimit, clientIp, resetRateLimit } from "./rate-limit";
-import { getStarters, matchStarter } from "./starters";
+import { getStarters, getStarterTopics, matchStarter } from "./starters";
 
 const apiError = (statusCode: number) =>
   new APICallError({ message: "x", url: "u", requestBodyValues: {}, statusCode, isRetryable: false });
@@ -84,14 +84,29 @@ describe("rate limit", () => {
 });
 
 describe("starters", () => {
-  it("have the same ids in every locale", () => {
-    const ids = (l: "pl" | "uk" | "en") => getStarters(l).map((s) => s.id);
-    expect(ids("uk")).toEqual(ids("pl"));
-    expect(ids("en")).toEqual(ids("pl"));
+  it("have the same topics and question ids in every locale", () => {
+    const shape = (l: "pl" | "uk" | "en") => getStarterTopics(l).map((t) => [t.id, t.questions.map((q) => q.id)]);
+    expect(shape("uk")).toEqual(shape("pl"));
+    expect(shape("en")).toEqual(shape("pl"));
   });
 
-  it("match a starter regardless of case and punctuation, and nothing else", () => {
+  it("offer 3-4 topics with 3-6 questions each and unique question ids", () => {
+    const topics = getStarterTopics("pl");
+    expect(topics.length).toBeGreaterThanOrEqual(3);
+    expect(topics.length).toBeLessThanOrEqual(4);
+    for (const t of topics) expect(t.questions.length).toBeGreaterThanOrEqual(3);
+    for (const t of topics) expect(t.questions.length).toBeLessThanOrEqual(6);
+    const ids = topics.flatMap((t) => t.questions.map((q) => q.id));
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("keep a one-per-topic flat list for the current chat panel", () => {
+    expect(getStarters("pl").map((s) => s.id)).toEqual(getStarterTopics("pl").map((t) => t.questions[0].id));
+  });
+
+  it("match any topic question regardless of case and punctuation, and nothing else", () => {
     expect(matchStarter("pl", "gdzie mogę uzyskać pesel i co muszę zabrać")).toBe("pesel");
+    expect(matchStarter("uk", "Як оформити meldunek в гуртожитку")).toBe("zameldowanie-dorm");
     expect(matchStarter("pl", "Gdzie mogę uzyskać PESEL?")).toBeNull();
   });
 });
