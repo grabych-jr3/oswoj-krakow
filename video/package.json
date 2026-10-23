@@ -1,0 +1,29 @@
+{
+  "name": "oswoj-krakow-video",
+  "private": true,
+  "description": "Promo video for Oswój Kraków (Remotion). See SCENARIUSZ.md.",
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio",
+    "voice": "node scripts/voice.mjs",
+    "music": "node scripts/music.mjs",
+    "record": "node scripts/record.mjs",
+    "render": "remotion render Main out/oswoj-krakow.mp4",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.538",
+    "@remotion/google-fonts": "4.0.538",
+    "@remotion/media-utils": "4.0.538",
+    "@remotion/transitions": "4.0.538",
+    "lucide-react": "1.59.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.538"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "puppeteer-core": "24.25.0",
+    "typescript": "5.9.3"
+  }
+}

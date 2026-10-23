@@ -1,0 +1,10 @@
+[
+  { "id": "s1-arrival", "text": "Przeprowadzka do Krakowa to nowy początek. I dziesiątki spraw do załatwienia: zameldowanie, PESEL, przedszkole dla dziecka." },
+  { "id": "s2-problem", "text": "W BIP jest sześćset trzydzieści dziewięć kart usług, a informacje miasta są rozproszone po wielu portalach. Łatwo się zgubić – zwłaszcza w obcym języku." },
+  { "id": "s3-reveal", "text": "Dlatego powstał Oswój Kraków – asystent AI i mapa dla nowych mieszkańców." },
+  { "id": "s4-assistant", "text": "Zapytaj własnymi słowami – po polsku, ukraińsku albo angielsku. Asystent odpowiada na podstawie oficjalnej karty usługi: jakie dokumenty zabrać, ile zapłacić i ile trwa sprawa. A mapa od razu pokazuje, dokąd iść." },
+  { "id": "s5-fifteen", "text": "Szukasz mieszkania? Wpisz adres i sprawdź, co masz w zasięgu piętnastu minut – pieszo albo komunikacją miejską: żłobki, szkoły, parki i przystanki." },
+  { "id": "s6-city", "text": "Indeks piętnastu minut pokazuje też miastu, gdzie brakuje usług. To mniej wizyt bez kompletu dokumentów i łatwiejszy start dla nowych mieszkańców." },
+  { "id": "s7-data", "text": "Wszystko na podstawie otwartych danych Krakowa – i zawsze z linkiem do źródła." },
+  { "id": "s8-end", "text": "Oswój Kraków. Twój start w mieście – prostszy." }
+]
