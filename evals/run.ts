@@ -2,8 +2,9 @@
 // which tools were called and which sources the answer is built on. Writes results.json and report.md.
 //
 // Run from app/:  npx tsx --env-file=.env.local ../evals/run.ts [--only=id1,id2] [--failed] [--missing] [--delay=8000]
+//   [--cases=other.json]  another case file in evals/; its results and report get the file's name as a suffix
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
-import { resolve } from "node:path";
+import { basename, resolve } from "node:path";
 import type { ModelMessage } from "ai";
 import { runAgent } from "../app/src/server/agent/agent";
 import { normalizePl } from "../app/src/server/agent/kb/normalize";
@@ -52,7 +53,6 @@ interface Result {
 }
 
 const DIR = resolve(import.meta.dirname);
-const RESULTS = resolve(DIR, "results.json");
 const BIP_LINK = /bip\.krakow\.pl\/uslugi\/([A-Za-z]+-\d+)/g;
 // A street address: "ul. Wielicka 28A", "al. Powstania Warszawskiego 10", "os. Zgody 2", "pl. Wszystkich Świętych 3".
 // Lower-case abbreviations after the prefix ("ul. ks. Józefa Meiera 16C", "gen.", "dr.") are skipped.
@@ -87,6 +87,10 @@ const args = Object.fromEntries(
   }),
 );
 const delayMs = Number(args.delay ?? 8000);
+const CASES = resolve(DIR, args.cases ?? "cases.json");
+const suffix = args.cases ? `.${basename(args.cases, ".json")}` : "";
+const RESULTS = resolve(DIR, `results${suffix}.json`);
+const REPORT = resolve(DIR, `report${suffix}.md`);
 
 /** Symbols the tools actually returned in this run: the only ones the answer may link. */
 function returnedSymbols(steps: Awaited<ReturnType<typeof runAgent>["steps"]>): Set<string> {
@@ -255,7 +259,7 @@ async function main() {
   const model = createAgentModel();
   if (!model) throw new Error("No LLM provider key in env: run with --env-file=.env.local");
 
-  const cases: Case[] = JSON.parse(readFileSync(resolve(DIR, "cases.json"), "utf8"));
+  const cases: Case[] = JSON.parse(readFileSync(CASES, "utf8"));
   const previous: Result[] = existsSync(RESULTS) ? JSON.parse(readFileSync(RESULTS, "utf8")) : [];
   const only = args.only?.split(",");
   const failedIds = new Set(previous.filter((r) => !r.passed).map((r) => r.id));
@@ -279,7 +283,7 @@ async function main() {
 
   // The report covers the current case list only.
   const current = cases.flatMap((c) => results.get(c.id) ?? []);
-  writeFileSync(resolve(DIR, "report.md"), report(current));
+  writeFileSync(REPORT, report(current));
   console.log(`\n${current.filter((r) => r.passed).length}/${current.length} passed (${cases.length} cases)`);
 }
 

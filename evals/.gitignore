@@ -1,2 +1,3 @@
-# Raw per-run output of run.ts; report.md is the committed summary.
+# Raw per-run output of run.ts; report*.md are the committed summaries.
 results.json
+results.*.json

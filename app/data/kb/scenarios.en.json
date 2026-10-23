@@ -429,12 +429,26 @@
           "urzad"
         ],
         "external": []
+      },
+      {
+        "order": 4,
+        "title": "Registration of a new vehicle",
+        "why": "First registration of a new, never registered vehicle; you get a temporary permit (valid 30 days) and plates on the spot.",
+        "when": null,
+        "procedureSymbols": [
+          "KM-1"
+        ],
+        "placeCategories": [
+          "urzad"
+        ],
+        "external": []
       }
     ],
     "sources": [
       "https://www.bip.krakow.pl/uslugi/KM-2",
       "https://www.bip.krakow.pl/uslugi/KM-8",
-      "https://www.bip.krakow.pl/uslugi/KM-14"
+      "https://www.bip.krakow.pl/uslugi/KM-14",
+      "https://www.bip.krakow.pl/uslugi/KM-1"
     ]
   },
   {

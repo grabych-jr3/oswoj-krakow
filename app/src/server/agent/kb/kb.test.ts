@@ -124,6 +124,8 @@ const EVAL_QUERIES: [query: string, tags: LifeTag[], expected: string[]][] = [
   ["rejestracja samochodu", [], ["KM-1", "KM-2", "KM-14"]],
   ["deklaracja opłata za śmieci", [], ["PD-17"]],
   ["opłata za wywóz nieczystości", [], ["PD-17"]],
+  ["deklaracja wywóz odpadów komunalnych po przeprowadzce", ["przeprowadzka"], ["PD-17"]],
+  ["zezwolenie na parkowanie rezydenta", ["pojazd"], ["ZDMK-71", "ZDMK-72"]],
   ["zameldowanie", ["mieszkanie"], ["SA-14", "SA-12", "SA-32"]],
   ["transkrypcja zagranicznego aktu urodzenia", [], ["SC-6"]],
 ];

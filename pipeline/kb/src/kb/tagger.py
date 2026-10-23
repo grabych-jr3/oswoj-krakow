@@ -96,6 +96,12 @@ EXPLICIT_RELEVANCE = {
     "GUP-2": 0.85,  # Zezwolenia na pracę
     "SC-6": 0.9,  # Transkrypcja (umiejscowienie) zagranicznego aktu: birth/marriage records of newcomers
     "SC-7": 0.85,  # Rejestracja zdarzeń z zagranicy, które nie zostały tam zarejestrowane
+    "PD-17": 0.9,  # Opłata za odpady komunalne: every newcomer files this declaration
+}
+
+# Tags the text rules miss: the waste fee card never mentions moving, yet it is a moving task.
+EXPLICIT_TAGS = {
+    "PD-17": {"przeprowadzka", "mieszkanie"},
 }
 
 
@@ -115,6 +121,7 @@ def tag_procedure(proc: dict) -> tuple[list[str], float]:
             if re.search(pat, full_text):
                 tags.add(tag)
                 break
+    tags |= EXPLICIT_TAGS.get(symbol, set())
 
     # 2. Вычисляем relevance
     if symbol in EXPLICIT_RELEVANCE:

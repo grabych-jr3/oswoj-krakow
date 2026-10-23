@@ -19070,9 +19070,10 @@
     "version": null,
     "publishedAt": null,
     "tags": [
-      "inne"
+      "mieszkanie",
+      "przeprowadzka"
     ],
-    "relevance": 0.2,
+    "relevance": 0.9,
     "sections": {
       "opis": ".Jeśli chcesz złożyć deklarację o wysokości opłaty za gospodarowanie odpadami komunalnymi:\n\n1. Przygotuj wymagane dokumenty (szczegóły w sekcji „Wymagane dokumenty”).\n2. Wypełnij i podpisz formularz deklaracji o wysokości opłaty za gospodarowanie odpadami komunalnymi, odpowiedni w stosunku do rodzaju zabudowy nieruchomości (opłata za gospodarowanie odpadami komunalnymi - [Biuletyn Informacji Publicznej Miasta Krakowa](https://www.bip.krakow.pl/?dok_id=94098) lub [Krakowski Portal Podatnika](https://kpp.um.krakow.pl/web/portal-podatnika/abc-podatkow/-/asset_publisher/w0VoyjzkH3p6/content/id/1446728?_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_w0VoyjzkH3p6_redirect=https%3A%2F%2Fkpp.um.krakow.pl%3A443%2Fweb%2Fportal-podatnika%2Fabc-podatkow%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_w0VoyjzkH3p6%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_w0VoyjzkH3p6_cur%3D0%26p_r_p_resetCur%3Dfalse%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_w0VoyjzkH3p6_assetEntryId%3D1446728)).\n3. Jeżeli ustanowiłeś pełnomocnika do podpisywania deklaracji lub w trakcie prowadzonego postępowania, powinieneś skorzystać z wzorów pełnomocnictw stanowiących załączniki do niniejszej karty usługi.\n4. Udaj się do Urzędu Miasta Krakowa zabierając ze sobą wymaganą dokumentację. Istnieje również możliwość złożenia deklaracji [drogą elektroniczną](https://deklaracje.mpo.krakow.pl/).\n5. Po złożeniu deklaracji dostaniesz pismo z indywidualnym numerem konta, na który należy uiścić opłatę za gospodarowanie odpadami komunalnymi. Kwota opłaty wynika ze złożonej deklaracji.\n6. Jeżeli nie złożysz deklaracji, Twoja sprawa zakończy się wydaniem decyzji administracyjnej.",
       "kogoDotyczy": "Usługa dotyczy właścicieli nieruchomości położonych na terenie Gminy Miejskiej Kraków:\n\n* na których zamieszkują mieszkańcy,\n* na których nie zamieszkują mieszkańcy, a powstają odpady komunalne,\n* na których znajduje się domek letniskowy oraz inna nieruchomość wykorzystywana na cele rekreacyjno-wypoczynkowe.",
