@@ -49,6 +49,8 @@ export function NearbyPanel({
   const [expanded, setExpanded] = useState(false);
   const { origin, mode, status, result, error } = state;
   const unnamed = COORDS_LABEL.test(origin.label);
+  // Phones, folded: one line per item and tighter spacing, so the sheet leaves most of the map visible.
+  const folded = expanded ? "" : "max-md:hidden";
   const drag = useRef<{ y: number } | null>(null);
   const sheetRef = useRef<HTMLElement>(null);
   useSheetAnimation(sheetRef, `${expanded}:${status}`);
@@ -109,15 +111,15 @@ export function NearbyPanel({
         <span className="h-1.5 w-11 rounded-full bg-border" />
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto overscroll-contain px-3.5 pt-3.5 pb-3 max-md:gap-2.5 max-md:pt-1 max-md:pb-2">
+      <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto overscroll-contain px-3.5 pt-3.5 pb-3 max-md:gap-2 max-md:pt-0.5 max-md:pb-1.5">
         <header className="flex items-start gap-2">
           <div className="min-w-0 flex-1">
-            <h2 id="nearby-title" className="font-mono text-[11px] font-medium tracking-[0.04em] text-primary uppercase">
+            <h2 id="nearby-title" className={cn("font-mono text-[11px] font-medium tracking-[0.04em] text-primary uppercase", !expanded && "max-md:sr-only")}>
               {t("title")}
             </h2>
-            <p className="text-[15px] leading-snug font-bold">{unnamed ? t("pickedPoint") : origin.label}</p>
-            {unnamed && <p className="font-mono text-xs text-muted-foreground">{origin.label}</p>}
-            {origin.district && <p className="text-xs text-muted-foreground">{origin.district.name}</p>}
+            <p className={cn("text-[15px] leading-snug font-bold", !expanded && "max-md:truncate")}>{unnamed ? t("pickedPoint") : origin.label}</p>
+            {unnamed && <p className={cn("font-mono text-xs text-muted-foreground", folded)}>{origin.label}</p>}
+            {origin.district && <p className={cn("text-xs text-muted-foreground", folded)}>{origin.district.name}</p>}
           </div>
           <button
             type="button"
@@ -140,6 +142,7 @@ export function NearbyPanel({
               onClick={() => onMode(m)}
               className={cn(
                 "flex items-center justify-center gap-1.5 rounded-lg px-2 py-1.5 text-[13px] font-medium whitespace-nowrap focus-visible:outline-2 focus-visible:outline-ring",
+                !expanded && "max-md:py-1",
                 mode === m ? "bg-primary text-primary-foreground shadow-sm" : "text-foreground hover:bg-card",
               )}
             >
@@ -185,7 +188,7 @@ export function NearbyPanel({
               type="button"
               onClick={() => setExpanded((e) => !e)}
               aria-expanded={expanded}
-              className="flex shrink-0 items-center justify-center gap-1 rounded-lg py-1 text-[13px] font-semibold text-primary-strong hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-ring md:hidden"
+              className="flex shrink-0 items-center justify-center gap-1 rounded-lg py-1 text-[13px] font-semibold text-primary-strong max-md:-my-0.5 hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-ring md:hidden"
             >
               {expanded ? t("hidePlaces") : t("showPlaces")}
               <ChevronDown className={cn("size-4 transition-transform", expanded && "rotate-180")} aria-hidden />
@@ -196,11 +199,11 @@ export function NearbyPanel({
 
       {status === "ready" && result && (
         // The actions stay in view below the scrolling content.
-        <div className="grid shrink-0 grid-cols-[1fr_auto] gap-1.5 border-t border-border px-3.5 pt-3 pb-3.5 max-md:pt-2.5 max-md:pb-[max(14px,env(safe-area-inset-bottom))]">
+        <div className="grid shrink-0 grid-cols-[1fr_auto] gap-1.5 border-t border-border px-3.5 pt-3 pb-3.5 max-md:pt-2 max-md:pb-[max(10px,env(safe-area-inset-bottom))]">
           <button
             type="button"
             onClick={onAsk}
-            className="inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-primary px-3 py-2.5 text-[13px] font-semibold whitespace-nowrap text-primary-foreground hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            className="inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-primary px-3 py-2.5 text-[13px] font-semibold whitespace-nowrap text-primary-foreground max-md:py-2 hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           >
             <MessageCircle className="size-4 shrink-0" aria-hidden />
             <span className="truncate">{t("ask")}</span>
@@ -209,7 +212,7 @@ export function NearbyPanel({
             type="button"
             onClick={() => void share()}
             aria-label={copied ? t("copied") : t("share")}
-            className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-primary-soft px-3 py-2.5 text-[13px] font-semibold whitespace-nowrap text-primary-strong hover:bg-[oklch(0.92_0.05_27)] focus-visible:outline-2 focus-visible:outline-ring"
+            className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-primary-soft px-3 py-2.5 text-[13px] font-semibold whitespace-nowrap text-primary-strong max-md:py-2 hover:bg-[oklch(0.92_0.05_27)] focus-visible:outline-2 focus-visible:outline-ring"
           >
             <Share2 className="size-4 shrink-0" aria-hidden />
             <span aria-live="polite" className="max-[359px]:sr-only">

@@ -43,12 +43,12 @@ export function NearbySummary({
     <div className="flex flex-col gap-3">
       <section aria-labelledby={indexId} className="flex items-start gap-3">
         <div
-          className="grid size-14 shrink-0 place-items-center rounded-full"
+          className="grid size-12 shrink-0 place-items-center rounded-full md:size-14"
           style={{ background: `conic-gradient(var(--color-primary) ${score * 3.6}deg, var(--color-muted) 0)` }}
           role="img"
           aria-label={`${t("index")}: ${score}/100`}
         >
-          <span className="grid size-11 place-items-center rounded-full bg-card text-lg font-bold text-primary">{score}</span>
+          <span className="grid size-[38px] place-items-center rounded-full bg-card text-base font-bold text-primary md:size-11 md:text-lg">{score}</span>
         </div>
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
           <h3 id={indexId} className="text-[13px] leading-tight font-semibold">
