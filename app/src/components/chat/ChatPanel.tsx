@@ -1,14 +1,14 @@
 "use client";
 
 import type { UIMessage } from "ai";
-import { AlertCircle, ChevronUp, LoaderCircle, RotateCcw, Square } from "lucide-react";
+import { AlertCircle, Baby, Car, ChevronLeft, ChevronUp, FileText, House, LoaderCircle, type LucideIcon, MessageCircle, RotateCcw, Square } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import type { Locale } from "@/contracts/common";
 import { parseToolPart } from "@/lib/toolParts";
 import { cn } from "@/lib/utils";
 import { messageMarkers } from "@/map/chatMap";
-import { getStarters } from "@/server/agent/starters";
+import { getStarterTopics, type StarterTopic } from "@/server/agent/starters";
 import { useSheetAnimation } from "@/components/shell/useSheetAnimation";
 import { useChatActions } from "./ChatActions";
 import { Markdown } from "./Markdown";
@@ -52,7 +52,10 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ ass
     onExpandedChange(true);
   }
 
-  const starters = getStarters(locale);
+  const topics = getStarterTopics(locale);
+  // Starter menu: topics first, a topic opens its questions (zone B keeps the list in starters.ts).
+  const [topicId, setTopicId] = useState<string | null>(null);
+  const topic = topics.find((x) => x.id === topicId) ?? null;
   const waiting = status === "submitted" && messages.at(-1)?.role === "user";
 
   // --- Mobile swipe on the sheet header -------------------------------------------------
@@ -192,20 +195,15 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ ass
         <div className="flex max-w-[92%] flex-col gap-3 self-start rounded-[18px] rounded-bl-[4px] bg-card p-4 text-card-foreground">
           <p className="text-[15px] leading-normal text-pretty">{t("greet")}</p>
           {messages.length === 0 && (
-            <ul aria-label={t("suggestionsLabel")} className="flex flex-col gap-1.5">
-              {starters.map((s) => (
-                <li key={s.id}>
-                  <button
-                    type="button"
-                    onClick={() => send(s.question)}
-                    className="w-full rounded-xl border-[1.5px] border-[oklch(0.88_0.04_27)] bg-[oklch(0.98_0.01_27)] px-3 py-2.5 text-left text-sm font-medium text-primary-strong hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-ring"
-                  >
-                    {s.question}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
+            <StarterMenu
+              topics={topics}
+              topic={topic}
+              onTopic={setTopicId}
+              onAsk={(q) => {
+                setTopicId(null);
+                send(q);
+              }}
+            />          )}
         </div>
 
         {messages.map((m) =>
@@ -285,6 +283,75 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ ass
     </aside>
   );
 });
+
+const TOPIC_ICONS: Record<string, LucideIcon> = { documents: FileText, family: Baby, car: Car, neighbourhood: House };
+
+/** Starter topics; a topic opens into its questions. Free typing stays available below. */
+function StarterMenu({
+  topics,
+  topic,
+  onTopic,
+  onAsk,
+}: {
+  topics: StarterTopic[];
+  topic: StarterTopic | null;
+  onTopic: (id: string | null) => void;
+  onAsk: (question: string) => void;
+}) {
+  const t = useTranslations("Chat");
+  const item =
+    "flex w-full items-center gap-2.5 rounded-xl border-[1.5px] border-[oklch(0.88_0.04_27)] bg-[oklch(0.98_0.01_27)] px-3 py-2.5 text-left text-sm font-medium text-primary-strong hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-ring";
+  if (!topic) {
+    return (
+      <div className="flex flex-col gap-1.5">
+        <p className="text-[13px] font-semibold text-muted-foreground">{t("topicsLabel")}</p>
+        <ul aria-label={t("topicsLabel")} className="grid grid-cols-1 gap-1.5 min-[420px]:grid-cols-2">
+          {topics.map((x) => {
+            const Icon = TOPIC_ICONS[x.id] ?? MessageCircle;
+            return (
+              <li key={x.id}>
+                <button type="button" onClick={() => onTopic(x.id)} className={cn(item, "h-full")}>
+                  <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground" aria-hidden>
+                    <Icon className="size-4" />
+                  </span>
+                  <span className="min-w-0 flex-1 leading-snug">{x.title}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+        <p className="text-xs text-muted-foreground">{t("orType")}</p>
+      </div>
+    );
+  }
+  const Icon = TOPIC_ICONS[topic.id] ?? MessageCircle;
+  return (
+    <div className="flex flex-col gap-1.5 motion-safe:animate-in motion-safe:fade-in">
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => onTopic(null)}
+          aria-label={t("backToTopics")}
+          title={t("backToTopics")}
+          className="grid size-8 shrink-0 place-items-center rounded-lg text-primary-strong hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-ring"
+        >
+          <ChevronLeft className="size-5" aria-hidden />
+        </button>
+        <Icon className="size-4 shrink-0 text-primary" aria-hidden />
+        <p className="min-w-0 flex-1 text-[13px] font-semibold">{topic.title}</p>
+      </div>
+      <ul aria-label={topic.title} className="flex flex-col gap-1.5">
+        {topic.questions.map((q) => (
+          <li key={q.id}>
+            <button type="button" onClick={() => onAsk(q.question)} className={item}>
+              {q.question}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 const textOf = (m: UIMessage) => m.parts.flatMap((p) => (p.type === "text" ? [p.text] : [])).join("\n");
 

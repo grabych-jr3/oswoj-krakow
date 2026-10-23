@@ -68,11 +68,6 @@
     "subtitle": "Odpowiedzi z kart usług BIP Kraków",
     "reset": "Nowa rozmowa",
     "greet": "Cześć! Zapytaj o dowolną sprawę urzędową w Krakowie – po polsku, ukraińsku lub angielsku. Odpowiem na podstawie oficjalnej karty usługi i pokażę miejsca na mapie.",
-    "suggestions": [
-      "Gdzie dostanę numer PESEL i co zabrać?",
-      "Jak zameldować się w Krakowie?",
-      "Jak zapisać dziecko do przedszkola?"
-    ],
     "suggestionsLabel": "Przykładowe pytania",
     "inputLabel": "Twoje pytanie",
     "inputPlaceholder": "Napisz pytanie…",
@@ -113,7 +108,10 @@
     "forWhom": "Dla kogo",
     "askStep": "Zapytaj o ten krok",
     "sources": "Źródła",
-    "resize": "Zmień szerokość czatu"
+    "resize": "Zmień szerokość czatu",
+    "topicsLabel": "Wybierz temat",
+    "backToTopics": "Wszystkie tematy",
+    "orType": "Albo napisz własne pytanie poniżej."
   },
   "Welcome": {
     "title": "Witaj w Oswój Kraków",

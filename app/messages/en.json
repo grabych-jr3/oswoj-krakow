@@ -68,11 +68,6 @@
     "subtitle": "Answers from BIP Kraków service cards",
     "reset": "New chat",
     "greet": "Hi! Ask about any city office matter in Kraków – in English, Polish or Ukrainian. I answer from the official service card and show the places on the map.",
-    "suggestions": [
-      "Where do I get a PESEL number and what do I bring?",
-      "How do I register my address in Kraków?",
-      "How do I enrol my child in a preschool?"
-    ],
     "suggestionsLabel": "Example questions",
     "inputLabel": "Your question",
     "inputPlaceholder": "Type a question…",
@@ -113,7 +108,10 @@
     "forWhom": "For whom",
     "askStep": "Ask about this step",
     "sources": "Sources",
-    "resize": "Resize the chat"
+    "resize": "Resize the chat",
+    "topicsLabel": "Pick a topic",
+    "backToTopics": "All topics",
+    "orType": "Or type your own question below."
   },
   "Welcome": {
     "title": "Welcome to Oswój Kraków",
