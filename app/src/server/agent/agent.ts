@@ -13,6 +13,9 @@ import { buildTools } from "./tools";
  */
 const MAX_STEPS = 10;
 
+/** Calls per answer after which a tool is no longer offered. */
+const TOOL_BUDGET: Record<string, number> = { get_procedure: 3, search_procedures: 4 };
+
 export interface AgentRequest {
   model: NonNullable<ReturnType<typeof createAgentModel>>;
   geo: GeoService;
@@ -29,8 +32,16 @@ export function runAgent({ model, geo, locale, origin, messages }: AgentRequest)
     messages,
     tools,
     stopWhen: stepCountIs(MAX_STEPS),
-    // The last step may not call tools: Gemini then writes an answer (gpt-oss does not, hence the high cap).
-    prepareStep: ({ stepNumber }) => (stepNumber === MAX_STEPS - 1 ? { toolChoice: "none" } : undefined),
+    prepareStep: ({ stepNumber, steps }) => {
+      // The last step may not call tools: Gemini then writes an answer (gpt-oss does not, hence the high cap).
+      if (stepNumber === MAX_STEPS - 1) return { toolChoice: "none" };
+      // The prompt asks for at most 3 cards, but gpt-oss sometimes opens 5 and hits the cap with no answer.
+      // Past the budget the tool is simply not offered, so the model answers from what it has.
+      const used = (name: string) => steps.flatMap((s) => s.toolCalls).filter((c) => c.toolName === name).length;
+      const spent = Object.entries(TOOL_BUDGET).filter(([name, max]) => used(name) >= max).map(([name]) => name);
+      if (spent.length === 0) return undefined;
+      return { activeTools: (Object.keys(tools) as (keyof typeof tools)[]).filter((name) => !spent.includes(name)) };
+    },
     temperature: 0.2,
     // One retry on the same model; after that the fallback middleware switches provider.
     maxRetries: 1,

@@ -44,6 +44,9 @@ const QUERY_SYNONYMS: Record<string, string> = {
   // Cards say "odpady komunalne"; people say "śmieci" or "nieczystości".
   smieci: "odpady komunalne",
   nieczystosci: "odpady komunalne",
+  // Resident parking is an "abonament postojowy" (ZDMK-71/72) on the cards.
+  parkow: "abonament postojowy",
+  parking: "abonament postojowy",
 };
 
 function withSynonyms(queryPl: string): string {
