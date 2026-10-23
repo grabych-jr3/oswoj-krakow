@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { TravelMode } from "@/contracts/geo";
 import { fetchAccessIndex, fetchDistricts } from "./overlays";
 
@@ -29,9 +29,13 @@ function useLazy<T>(load: () => Promise<T>, what: string) {
 export function useOverlays() {
   const [indexOn, setIndexOn] = useState(false);
   const [indexMode, setIndexMode] = useState<TravelMode>("walk");
-  const [districtsOn, setDistrictsOn] = useState(false);
+  // Districts are on from the start: the borders help to read the map.
+  const [districtsOn, setDistrictsOn] = useState(true);
   const [index, loadIndex] = useLazy(fetchAccessIndex, "the 15-minute index");
   const [districts, loadDistricts] = useLazy(fetchDistricts, "districts");
+  useEffect(() => {
+    loadDistricts();
+  }, [loadDistricts]);
 
   const toggleIndex = useCallback(() => {
     loadIndex();

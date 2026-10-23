@@ -5,7 +5,9 @@ import { Layer, Source, useMap } from "react-map-gl/maplibre";
 import type { LngLatBoundsLike, PaddingOptions } from "maplibre-gl";
 import { PlaceCategory } from "@/contracts/place";
 import { CATEGORY_STYLES } from "@/lib/categories";
+import type { NearbyResult } from "@/contracts/geo";
 import { type ChatMapView, spreadOffsets } from "@/map/chatMap";
+import { zoneCovering } from "@/map/zone";
 
 export const CHAT_MARKER_LAYER = "chat-markers";
 export const CHAT_DOT_LAYER = "chat-dots";
@@ -87,9 +89,24 @@ export function ChatLayers({ view, padding }: { view: ChatMapView | null; paddin
       }),
     };
   }, [view]);
+  // The zone is drawn grown to cover every reachable place (see zoneCovering); until that is ready, as given.
+  const reach = useMemo(() => (view?.area ? (view.reach ?? view.markers.map((m) => m.place.coords)) : []), [view]);
+  const [covered, setCovered] = useState<{ key: string; area: NearbyResult["area"] } | null>(null);
+  useEffect(() => {
+    if (!view?.area) return;
+    let live = true;
+    const key = view.key;
+    zoneCovering(view.area, reach)
+      .then((grown) => live && setCovered({ key, area: grown }))
+      .catch((e) => console.warn("[map] zone not extended", e));
+    return () => {
+      live = false;
+    };
+  }, [view, reach]);
+  const zone = view?.area && covered?.key === view.key ? covered.area : (view?.area ?? null);
   const area = useMemo<GeoJSON.FeatureCollection>(
-    () => (view?.area ? { type: "FeatureCollection", features: [view.area as GeoJSON.Feature] } : EMPTY),
-    [view],
+    () => (zone ? { type: "FeatureCollection", features: [zone as GeoJSON.Feature] } : EMPTY),
+    [zone],
   );
   const origin = useMemo<GeoJSON.FeatureCollection>(
     () =>
@@ -107,6 +124,7 @@ export function ChatLayers({ view, padding }: { view: ChatMapView | null; paddin
       ...view.markers.map((m) => m.place.coords),
       ...(view.origin ? [view.origin.coords] : []),
       ...(view.area ? flatCoords(view.area.geometry.coordinates) : []),
+      ...(view.reach ?? []),
     ];
     if (!coords.length) return;
     const lngs = coords.map((c) => c[0]);

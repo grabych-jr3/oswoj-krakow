@@ -117,7 +117,8 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ ass
       className={cn(
         "group fixed inset-x-0 bottom-0 z-20 flex max-h-[85dvh] flex-col overflow-hidden rounded-t-3xl max-md:motion-safe:animate-in max-md:motion-safe:slide-in-from-bottom max-md:motion-safe:[--tw-animation-duration:300ms] bg-primary text-primary-foreground shadow-[0_-12px_40px_-16px_rgb(80_10_10/0.55)]",
         "data-[expanded=true]:h-[85dvh]",
-        "md:relative md:z-auto md:h-auto md:max-h-none md:w-[var(--chat-w,30%)] md:max-w-[50vw] md:min-w-[380px] md:shrink-0 md:rounded-none md:shadow-none md:data-[expanded=true]:h-auto",
+        // Desktop: a column over the right side of the map, so resizing it never squeezes the map.
+        "md:absolute md:inset-y-0 md:right-0 md:left-auto md:h-auto md:max-h-none md:w-[min(50vw,max(380px,var(--chat-w,30%)))] md:rounded-none md:shadow-[-16px_0_40px_-24px_rgb(80_10_10/0.5)] md:data-[expanded=true]:h-auto",
         phoneHidden && "max-md:hidden",
       )}
     >
@@ -331,7 +332,7 @@ const WIDTH_KEY = "ok-chat-width";
 
 /**
  * Desktop chat width: drag or arrow keys on the left edge, 380 px … half the screen, kept per browser.
- * The width lives in a CSS variable on the panel, so dragging never re-renders React.
+ * The width lives in a CSS variable on the page container, so dragging never re-renders React.
  */
 function useChatWidth(ref: React.RefObject<HTMLElement | null>) {
   const drag = useRef<{ x: number; w: number } | null>(null);
@@ -342,8 +343,10 @@ function useChatWidth(ref: React.RefObject<HTMLElement | null>) {
       if (!el) return;
       const handle = el.querySelector<HTMLElement>("[data-chat-resize]");
       const max = Math.round(window.innerWidth * MAX_CHAT_SHARE);
-      if (width === null) el.style.removeProperty("--chat-w");
-      else el.style.setProperty("--chat-w", `${Math.round(Math.min(max, Math.max(MIN_CHAT_PX, width)))}px`);
+      // The variable sits on the page container: the map controls next to the chat follow it too.
+      const host = el.parentElement ?? el;
+      if (width === null) host.style.removeProperty("--chat-w");
+      else host.style.setProperty("--chat-w", `${Math.round(Math.min(max, Math.max(MIN_CHAT_PX, width)))}px`);
       const now = Math.round(el.getBoundingClientRect().width);
       handle?.setAttribute("aria-valuemax", String(max));
       handle?.setAttribute("aria-valuenow", String(now));

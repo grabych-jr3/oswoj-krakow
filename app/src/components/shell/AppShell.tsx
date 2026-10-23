@@ -71,6 +71,8 @@ export function AppShell({
   // so it starts loading when the dialog closes (at once for everyone else).
   const [mapWanted, setMapWanted] = useState(!welcomeOpen);
   const [sheetHeight, setSheetHeight] = useState(0);
+  // Desktop: the chat column covers the right side of the map; camera moves keep places clear of it.
+  const [chatWidth, setChatWidth] = useState(0);
   const chatRef = useRef<HTMLElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const tLayers = useTranslations("Layers");
@@ -187,6 +189,7 @@ export function AppShell({
           markers: [],
           area: result.area,
           origin: { label: origin.label, coords: origin.coords },
+          reach: result.places.map((p) => p.coords),
         }
       : {
           key: `${key}:loading`,
@@ -214,10 +217,24 @@ export function AppShell({
     const ro = new ResizeObserver(() => {
       const fixed = getComputedStyle(el).position === "fixed";
       setSheetHeight(fixed ? el.getBoundingClientRect().height : 0);
+      setChatWidth(fixed ? 0 : el.getBoundingClientRect().width);
     });
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+
+  // Desktop: the map's right padding is the chat column, so "the centre" (initial view, fits, moves to a
+  // place) is the middle of the visible part. When the chat is resized the padding follows, and the
+  // centre is re-set to the point already under the new middle, so the map itself does not move.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    const { top = 0, bottom = 0, left = 0, right = 0 } = map.getPadding();
+    if (right === chatWidth) return;
+    const { clientWidth: w, clientHeight: h } = map.getContainer();
+    const centre = map.unproject([left + (w - left - chatWidth) / 2, top + (h - top - bottom) / 2]);
+    map.jumpTo({ center: centre, padding: { top, bottom, left, right: chatWidth } });
+  }, [chatWidth]);
 
   /** Map padding that keeps fitted places clear of the overlays. */
   const nearbyOpen = !!nearbyState;
@@ -227,7 +244,7 @@ export function AppShell({
         top: 90,
         bottom: 60,
         left: nearbyOpen ? DESKTOP_COLUMN_PX + 30 : 60,
-        right: desktopLayersOpen ? 330 : 80,
+        right: desktopLayersOpen ? 320 : 70,
       };
     }
     // Phones: fit the zone into the strip above the bottom sheet (the 15-minute panel or the chat).
@@ -429,13 +446,17 @@ export function AppShell({
         >
           {t("skipToChat")}
         </a>
-        <div className="flex h-dvh overflow-hidden">
-          <section aria-label={tMap("label")} className="relative min-w-0 flex-1 overflow-hidden bg-map">
+        <div className="relative h-dvh overflow-hidden">
+          <section aria-label={tMap("label")} className="relative h-full overflow-hidden bg-map">
             {mapWanted && (
               <BaseMap
                 interactiveLayerIds={INTERACTIVE_LAYERS}
                 onClick={onMapClick}
-                onMapLoad={(m) => (mapRef.current = m)}
+                onMapLoad={(m) => {
+                  mapRef.current = m;
+                  // First view: centre Kraków in the part of the map next to the chat.
+                  m.setPadding({ top: 0, bottom: 0, left: 0, right: chatRef.current && isDesktop() ? chatRef.current.getBoundingClientRect().width : 0 });
+                }}
                 picking={picking}
               >
                 {overlays.indexOn && overlays.index.data && <IndexLayer data={overlays.index.data} mode={overlays.indexMode} />}
@@ -506,7 +527,7 @@ export function AppShell({
             </div>
 
             {/* Desktop: the layer panel in the top-right corner, collapsible to a round button */}
-            <div className="absolute top-4 right-4 z-10 hidden md:block">
+            <div className="absolute top-4 right-[calc(min(50vw,max(380px,var(--chat-w,30%)))+16px)] z-10 hidden md:block">
               <button
                 ref={desktopLayersBtnRef}
                 type="button"
@@ -536,7 +557,7 @@ export function AppShell({
                 onClick={clearChatMap}
                 aria-label={tMap("clearChatLabel")}
                 style={{ bottom: sheetHeight ? sheetHeight + 12 : undefined }}
-                className={`absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-card py-2 pr-3.5 pl-3 text-[13px] font-semibold text-primary-strong shadow-float hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-safe:animate-in motion-safe:fade-in md:bottom-4 ${chatExpanded || selected || district || layersOpen ? "max-md:hidden" : ""}`}
+                className={`absolute left-1/2 z-10 flex -translate-x-1/2 items-center md:left-[calc((100%-min(50vw,max(380px,var(--chat-w,30%))))/2)] gap-1.5 rounded-full bg-card py-2 pr-3.5 pl-3 text-[13px] font-semibold text-primary-strong shadow-float hover:bg-primary-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-safe:animate-in motion-safe:fade-in md:bottom-4 ${chatExpanded || selected || district || layersOpen ? "max-md:hidden" : ""}`}
               >
                 <X className="size-4" aria-hidden />
                 {tMap("clearChat")}

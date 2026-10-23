@@ -17,6 +17,8 @@ export type ChatMapView = {
   origin: { label: string; coords: LngLat } | null;
   /** false: draw without moving the map (e.g. while a 15-minute zone is still loading). */
   fit?: boolean;
+  /** Places the zone must cover when they are drawn by another layer (default: the markers). */
+  reach?: LngLat[];
 };
 
 /** A procedure office as a map place (offices carry coords once the agent has geocoded them). */

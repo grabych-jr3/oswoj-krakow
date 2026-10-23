@@ -36,8 +36,8 @@ export function AppShellSkeleton() {
   return (
     <>
       <h1 className="sr-only">{t("pageTitle")}</h1>
-      <div className="flex h-dvh overflow-hidden">
-        <section aria-label={tMap("label")} className="relative min-w-0 flex-1 overflow-hidden bg-map">
+      <div className="relative h-dvh overflow-hidden">
+        <section aria-label={tMap("label")} className="relative h-full overflow-hidden bg-map">
           <div className="pointer-events-none absolute inset-x-3 top-3 z-10 flex flex-col gap-2.5 *:pointer-events-auto md:inset-x-auto md:top-4 md:left-4 md:w-[min(400px,calc(100%-32px))]">
             <TopBar onAbout={noop} />
             <AddressSearch onSelect={noop} picking={false} onTogglePick={noop} />
