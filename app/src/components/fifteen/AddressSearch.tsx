@@ -135,7 +135,7 @@ export function AddressSearch({
         e.preventDefault();
         void submit();
       }}
-      className="relative flex flex-col gap-1.5"
+      className="relative flex shrink-0 flex-col gap-1.5"
     >
       <div className="flex h-12 items-center gap-1.5 rounded-[14px] bg-card pr-1.5 pl-3.5 shadow-float">
         <span className="mr-1 size-2.5 shrink-0 rounded-full border-2 border-primary" aria-hidden />
@@ -234,7 +234,7 @@ export function AddressSearch({
         ))}
         {results.length === 0 && status !== "idle" && (
           <p className="px-3 py-2 text-[13px] text-muted-foreground">
-            {status === "loading" ? t("searching") : t("noResults")}
+            {status === "loading" ? t("searching") : status === "error" ? t("searchError") : t("noResults")}
           </p>
         )}
       </div>

@@ -38,7 +38,8 @@
     "home": "Oswój Kraków – home page",
     "pageTitle": "Oswój Kraków – AI assistant for new residents of Kraków",
     "language": "Language",
-    "about": "About"
+    "about": "About",
+    "skipToChat": "Skip to the assistant chat"
   },
   "Address": {
     "label": "Address for the “Kraków in 15 minutes” check",
@@ -50,14 +51,17 @@
     "pick": "Pick a point on the map",
     "picking": "Click on the map to pick a point",
     "cancelPick": "Cancel picking a point",
-    "clear": "Clear"
+    "clear": "Clear",
+    "searchError": "Address search failed. Please try again."
   },
   "Map": {
     "label": "Map of Kraków",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",
     "sources": "Data source: Gmina Miejska Kraków, otwartedane.um.krakow.pl (downloaded 19–21.10.2026), MSIP, ZTP Kraków",
-    "attribution": "Map sources and licences"
+    "attribution": "Map sources and licences",
+    "clearChat": "Clear the map",
+    "clearChatLabel": "Hide the places from the assistant's answer"
   },
   "Chat": {
     "title": "Assistant",
@@ -108,7 +112,8 @@
     "showOnMap": "Show on map",
     "forWhom": "For whom",
     "askStep": "Ask about this step",
-    "sources": "Sources"
+    "sources": "Sources",
+    "resize": "Resize the chat"
   },
   "Welcome": {
     "title": "Welcome to Oswój Kraków",
@@ -146,7 +151,14 @@
     "hideAll": "Hide all",
     "loading": "Loading…",
     "error": "Could not load the map layers.",
-    "collapse": "Collapse layers"
+    "collapse": "Collapse layers",
+    "analysis": "City analysis",
+    "indexLayer": "15-minute index – whole city",
+    "districtsLayer": "Districts",
+    "legendLow": "little within reach",
+    "legendHigh": "everything",
+    "indexHint": "Click an area on the map to see what is within reach.",
+    "overlayError": "Could not load this layer."
   },
   "Place": {
     "close": "Close",
@@ -195,5 +207,14 @@
     "missing": "Missing",
     "allGroups": "All 6 groups within reach.",
     "pickedPoint": "Point picked on the map"
+  },
+  "District": {
+    "label": "District {number}",
+    "close": "Close",
+    "residents": "Residents",
+    "foreigners": "Foreigners",
+    "citizenships": "Most common foreign citizenships",
+    "places": "Places in the district",
+    "source": "Source: MSIP and Kraków Open Data · registered residents, as of 31.12.2025"
   }
 }

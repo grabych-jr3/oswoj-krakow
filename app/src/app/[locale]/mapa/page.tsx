@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense, use } from "react";
 import { AppShell, type InitialNearby } from "@/components/shell/AppShell";
+import { AppShellSkeleton } from "@/components/shell/AppShellSkeleton";
 import { TravelMode } from "@/contracts/geo";
+import { WELCOME_SEEN_KEY } from "@/lib/welcome";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/mapa">): Promise<Metadata> {
   const { locale } = await params;
@@ -26,18 +29,18 @@ function parseNearby(params: Record<string, string | string[] | undefined>): Ini
 // `?q=` carries a question typed on the home page into the chat; `?lng&lat&mode` opens a 15-minute view.
 async function MapWithQuestion({ searchParams }: { searchParams: PageProps<"/[locale]/mapa">["searchParams"] }) {
   const params = await searchParams;
+  const welcomeSeen = (await cookies()).get(WELCOME_SEEN_KEY)?.value === "1";
   const question = typeof params.q === "string" ? params.q.trim().slice(0, 500) : "";
-  return <AppShell initialQuestion={question || undefined} initialNearby={parseNearby(params)} />;
+  return <AppShell initialQuestion={question || undefined} initialNearby={parseNearby(params)} welcomeSeen={welcomeSeen} />;
 }
 
 export default function MapPage({ params, searchParams }: PageProps<"/[locale]/mapa">) {
   const { locale } = use(params);
   setRequestLocale(locale);
-  // Search params are request-time data, so the page streams in. The fallback is a plain
-  // map-coloured placeholder, not a second AppShell: mounting a map in the fallback and
-  // replacing it a moment later aborted MapLibre mid-initialisation ("'container' must be …").
+  // Search params and the welcome cookie are request-time data, so this part streams in. Until then the
+  // static shell shows the same page without the map (see AppShellSkeleton).
   return (
-    <Suspense fallback={<div aria-hidden className="h-dvh bg-map" />}>
+    <Suspense fallback={<AppShellSkeleton />}>
       <MapWithQuestion searchParams={searchParams} />
     </Suspense>
   );

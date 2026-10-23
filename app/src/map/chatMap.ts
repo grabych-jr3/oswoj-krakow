@@ -17,6 +17,8 @@ export type ChatMapView = {
   origin: { label: string; coords: LngLat } | null;
   /** false: draw without moving the map (e.g. while a 15-minute zone is still loading). */
   fit?: boolean;
+  /** Places the zone must cover when they are drawn by another layer (default: the markers). */
+  reach?: LngLat[];
 };
 
 /** A procedure office as a map place (offices carry coords once the agent has geocoded them). */
@@ -85,7 +87,8 @@ export function deriveChatMap(messages: UIMessage[]): ChatMapView | null {
     const views = toolParts(messages[i]).flatMap((p) => viewOf(p) ?? []);
     if (!views.length) continue;
     const best = views.findLast((v) => !v.fromProcedure) ?? views[views.length - 1];
-    return { key: best.key, markers: best.markers, area: best.area, origin: best.origin };
+    // Message id + tool call id: unique per answer even if a provider reuses call ids.
+    return { key: `${messages[i].id}:${best.key}`, markers: best.markers, area: best.area, origin: best.origin };
   }
   return null;
 }
@@ -98,4 +101,24 @@ export function messageMarkers(message: UIMessage): Map<string, Place> {
     if (part.name === "find_places") for (const p of part.output.places) byLabel.set(p.label, p);
   }
   return byLabel;
+}
+
+// Markers closer than this share a spot on the map (same building) and are drawn side by side.
+const SAME_SPOT_M = 25;
+const SPREAD_PX = 34; // a marker is 31 px wide
+const M_PER_DEG = 111_320;
+
+/** Horizontal pixel offset of each marker, so markers at the same spot stand next to each other. */
+export function spreadOffsets(coords: LngLat[]): number[] {
+  const near = (a: LngLat, b: LngLat) =>
+    Math.hypot((a[1] - b[1]) * M_PER_DEG, (a[0] - b[0]) * M_PER_DEG * Math.cos((a[1] * Math.PI) / 180)) < SAME_SPOT_M;
+  const groups: number[][] = [];
+  coords.forEach((c, i) => {
+    const group = groups.find((g) => near(coords[g[0]], c));
+    if (group) group.push(i);
+    else groups.push([i]);
+  });
+  const offsets = coords.map(() => 0);
+  for (const g of groups) g.forEach((index, k) => (offsets[index] = (k - (g.length - 1) / 2) * SPREAD_PX));
+  return offsets;
 }
