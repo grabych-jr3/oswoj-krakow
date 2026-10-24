@@ -6,6 +6,8 @@ import { AskForm } from "@/components/home/AskForm";
 import { MapPreview } from "@/components/home/MapPreview";
 import { LanguageMenu } from "@/components/shell/LanguageMenu";
 import { LanguageSwitcher } from "@/components/shell/TopBar";
+import type { Locale } from "@/contracts/common";
+import { getStarterTopics } from "@/server/agent/starters";
 import { Link } from "@/i18n/navigation";
 
 type Module = { id: string; title: string; desc: string };
@@ -21,7 +23,8 @@ export default function HomePage({ params }: PageProps<"/[locale]">) {
   const tHeader = useTranslations("Header");
   const tChat = useTranslations("Chat");
   const modules = t.raw("modules") as Module[];
-  const examples = tChat.raw("suggestions") as string[];
+  // Same questions as the chat starters (zone B), so their answers come from the cache.
+  const examples = homeExamples(locale as Locale);
 
   return (
     <div className="min-h-dvh overflow-x-clip bg-white text-foreground">
@@ -105,4 +108,11 @@ export default function HomePage({ params }: PageProps<"/[locale]">) {
       </footer>
     </div>
   );
+}
+
+const HOME_EXAMPLES = ["pesel", "zameldowanie", "family-moving"];
+
+function homeExamples(locale: Locale): string[] {
+  const all = getStarterTopics(locale).flatMap((topic) => topic.questions);
+  return HOME_EXAMPLES.flatMap((id) => all.find((q) => q.id === id)?.question ?? []);
 }
