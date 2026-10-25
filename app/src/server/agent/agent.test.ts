@@ -105,9 +105,9 @@ describe("starters", () => {
   });
 
   it("match any topic question regardless of case and punctuation, and nothing else", () => {
-    expect(matchStarter("pl", "gdzie mogę uzyskać pesel i co muszę zabrać")).toBe("pesel");
-    expect(matchStarter("uk", "Як оформити meldunek в гуртожитку")).toBe("zameldowanie-dorm");
-    expect(matchStarter("pl", "Gdzie mogę uzyskać PESEL?")).toBeNull();
+    expect(matchStarter("pl", "jak uzyskać numer pesel")).toBe("pesel");
+    expect(matchStarter("uk", "Як отримати сімейну допомогу zasiłek rodzinny")).toBe("family-allowance");
+    expect(matchStarter("pl", "Jak uzyskać PESEL dla dziecka?")).toBeNull();
   });
 });
 
