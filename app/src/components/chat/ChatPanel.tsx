@@ -1,14 +1,14 @@
 "use client";
 
 import type { UIMessage } from "ai";
-import { AlertCircle, Baby, Car, ChevronLeft, ChevronUp, FileText, House, LoaderCircle, type LucideIcon, MessageCircle, RotateCcw, Square } from "lucide-react";
+import { AlertCircle, Baby, Car, ChevronLeft, ChevronUp, FileText, House, LoaderCircle, type LucideIcon, MapPin, MessageCircle, RotateCcw, Square } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import type { Locale } from "@/contracts/common";
 import { parseToolPart } from "@/lib/toolParts";
 import { cn } from "@/lib/utils";
 import { messageMarkers } from "@/map/chatMap";
-import { getStarterTopics, type StarterTopic } from "@/server/agent/starters";
+import { getStarterTopics, type Starter, type StarterTopic } from "@/server/agent/starters";
 import { useSheetAnimation } from "@/components/shell/useSheetAnimation";
 import { useChatActions } from "./ChatActions";
 import { Markdown } from "./Markdown";
@@ -22,10 +22,12 @@ type Props = {
   onExpandedChange: (expanded: boolean) => void;
   /** Phones: hide the sheet while another bottom sheet (the 15-minute panel) takes its place. */
   phoneHidden?: boolean;
+  /** Starters answered from the user's address ("15 minutes from home"): which, the chosen address, and how to ask them. */
+  addressStarters?: { ids: readonly string[]; address: string | null; ask: (question: string) => void };
 };
 
 /** Chat with the assistant (C3): streamed answers, tool cards and links to the map. */
-export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ assistant, expanded, onExpandedChange, phoneHidden = false }, ref) {
+export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ assistant, expanded, onExpandedChange, phoneHidden = false, addressStarters }, ref) {
   const t = useTranslations("Chat");
   const locale = useLocale() as Locale;
   const { messages, status, error, busy, rateLimited } = assistant;
@@ -199,11 +201,14 @@ export const ChatPanel = forwardRef<HTMLElement, Props>(function ChatPanel({ ass
               topics={topics}
               topic={topic}
               onTopic={setTopicId}
+              address={addressStarters}
               onAsk={(q) => {
                 setTopicId(null);
-                send(q);
+                if (addressStarters?.ids.includes(q.id)) addressStarters.ask(q.question);
+                else send(q.question);
               }}
-            />          )}
+            />
+          )}
         </div>
 
         {messages.map((m) =>
@@ -292,11 +297,13 @@ function StarterMenu({
   topic,
   onTopic,
   onAsk,
+  address,
 }: {
   topics: StarterTopic[];
   topic: StarterTopic | null;
   onTopic: (id: string | null) => void;
-  onAsk: (question: string) => void;
+  onAsk: (question: Starter) => void;
+  address?: Props["addressStarters"];
 }) {
   const t = useTranslations("Chat");
   const item =
@@ -343,8 +350,14 @@ function StarterMenu({
       <ul aria-label={topic.title} className="flex flex-col gap-1.5">
         {topic.questions.map((q) => (
           <li key={q.id}>
-            <button type="button" onClick={() => onAsk(q.question)} className={item}>
-              {q.question}
+            <button type="button" onClick={() => onAsk(q)} className={cn(item, "flex-col items-start gap-1")}>
+              <span>{q.question}</span>
+              {address?.ids.includes(q.id) && (
+                <span className="flex max-w-full items-center gap-1 rounded-full bg-white px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                  <MapPin className="size-3 shrink-0 text-primary" aria-hidden />
+                  <span className="truncate">{address.address ?? t("pickAddress")}</span>
+                </span>
+              )}
             </button>
           </li>
         ))}

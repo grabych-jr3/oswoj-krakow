@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { GeocodeResult, NearbyResult, TravelMode } from "@/contracts/geo";
 import { fetchNearby, NearbyError } from "./nearby";
 
@@ -15,10 +15,17 @@ export type NearbyState = {
   tag?: string;
 };
 
-/** "Kraków w 15 minut" (C4): the picked point, the travel mode and the reachability from /api/nearby. */
-export function useNearby() {
+/**
+ * "Kraków w 15 minut" (C4): the picked point, the travel mode and the reachability from /api/nearby.
+ * `onReady` gets the named point each time a result arrives.
+ */
+export function useNearby(onReady?: (origin: GeocodeResult) => void) {
   const [state, setState] = useState<NearbyState | null>(null);
   const request = useRef<AbortController | null>(null);
+  const readyCallback = useRef(onReady);
+  useEffect(() => {
+    readyCallback.current = onReady;
+  }, [onReady]);
 
   const run = useCallback((origin: GeocodeResult, mode: TravelMode, tag?: string) => {
     request.current?.abort();
@@ -31,6 +38,7 @@ export function useNearby() {
         // Keep the address the user chose; a bare map point takes the nearest address from the service.
         const label = origin.precision === "approx" ? result.origin.label : origin.label;
         setState((s) => (s ? { ...s, origin: { ...origin, label }, status: "ready", result } : s));
+        readyCallback.current?.({ ...origin, label });
       })
       .catch((e: unknown) => {
         if (ctrl.signal.aborted) return;

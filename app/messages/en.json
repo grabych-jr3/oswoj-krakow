@@ -52,7 +52,10 @@
     "picking": "Click on the map to pick a point",
     "cancelPick": "Cancel picking a point",
     "clear": "Clear",
-    "searchError": "Address search failed. Please try again."
+    "searchError": "Address search failed. Please try again.",
+    "promptTitle": "Enter your address",
+    "promptText": "– then I will ask: “{question}”",
+    "promptCancel": "Cancel"
   },
   "Map": {
     "label": "Map of Kraków",
@@ -111,7 +114,8 @@
     "resize": "Resize the chat",
     "topicsLabel": "Pick a topic",
     "backToTopics": "All topics",
-    "orType": "Or type your own question below."
+    "orType": "Or type your own question below.",
+    "pickAddress": "Pick your address first"
   },
   "Welcome": {
     "title": "Welcome to Oswój Kraków",

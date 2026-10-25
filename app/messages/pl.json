@@ -52,7 +52,10 @@
     "picking": "Kliknij na mapie, aby wybrać punkt",
     "cancelPick": "Anuluj wybór punktu",
     "clear": "Wyczyść",
-    "searchError": "Nie udało się wyszukać adresu. Spróbuj ponownie."
+    "searchError": "Nie udało się wyszukać adresu. Spróbuj ponownie.",
+    "promptTitle": "Wpisz swój adres",
+    "promptText": "– wtedy zapytam: „{question}”",
+    "promptCancel": "Anuluj"
   },
   "Map": {
     "label": "Mapa Krakowa",
@@ -111,7 +114,8 @@
     "resize": "Zmień szerokość czatu",
     "topicsLabel": "Wybierz temat",
     "backToTopics": "Wszystkie tematy",
-    "orType": "Albo napisz własne pytanie poniżej."
+    "orType": "Albo napisz własne pytanie poniżej.",
+    "pickAddress": "Najpierw wybierz adres"
   },
   "Welcome": {
     "title": "Witaj w Oswój Kraków",

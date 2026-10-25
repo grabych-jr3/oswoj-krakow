@@ -19,11 +19,16 @@ export function AddressSearch({
   onSelect,
   picking,
   onTogglePick,
+  prompt,
+  onCancelPrompt,
 }: {
   value?: string;
   onSelect: (result: GeocodeResult) => void;
   picking: boolean;
   onTogglePick: () => void;
+  /** A question waiting for an address: shown above the field, which takes the focus. */
+  prompt?: string | null;
+  onCancelPrompt?: () => void;
 }) {
   const t = useTranslations("Address");
   const listId = useId();
@@ -41,6 +46,9 @@ export function AddressSearch({
   const request = useRef<AbortController | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const rootRef = useRef<HTMLFormElement>(null);
+  useEffect(() => {
+    if (prompt) rootRef.current?.querySelector("input")?.focus();
+  }, [prompt]);
 
   // Close the list on a click outside.
   useEffect(() => {
@@ -199,6 +207,24 @@ export function AddressSearch({
           )}
         </button>
       </div>
+
+      {prompt && (
+        <div role="status" className="flex items-start gap-2 rounded-xl bg-primary px-3 py-2 text-[13px] text-primary-foreground shadow-float motion-safe:animate-in motion-safe:fade-in">
+          <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden />
+          <p className="min-w-0 flex-1 leading-snug">
+            <strong className="font-semibold">{t("promptTitle")}</strong> {t("promptText", { question: prompt })}
+          </p>
+          <button
+            type="button"
+            onClick={onCancelPrompt}
+            aria-label={t("promptCancel")}
+            title={t("promptCancel")}
+            className="-m-1 grid size-7 shrink-0 place-items-center rounded-lg hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-white"
+          >
+            <X className="size-4" aria-hidden />
+          </button>
+        </div>
+      )}
 
       {picking && (
         <p role="status" className="flex items-center gap-2 rounded-xl bg-primary-strong px-3 py-2 text-[13px] font-medium text-primary-foreground shadow-float">
