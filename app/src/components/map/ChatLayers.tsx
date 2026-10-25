@@ -4,9 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import { Layer, Source, useMap } from "react-map-gl/maplibre";
 import type { LngLatBoundsLike, PaddingOptions } from "maplibre-gl";
 import { PlaceCategory } from "@/contracts/place";
-import { CATEGORY_STYLES } from "@/lib/categories";
 import type { NearbyResult } from "@/contracts/geo";
 import { type ChatMapView, spreadOffsets } from "@/map/chatMap";
+import { addMarkerImages } from "@/map/markerImages";
 import { zoneCovering } from "@/map/zone";
 
 export const CHAT_MARKER_LAYER = "chat-markers";
@@ -34,14 +34,6 @@ function markerImage(): ImageData {
   return g.getImageData(0, 0, size, size);
 }
 
-// ["match", category, "zlobek", "#…", …, fallback] — MapLibre paint needs plain hex colours.
-const CATEGORY_COLOR = [
-  "match",
-  ["get", "category"],
-  ...PlaceCategory.options.flatMap((c) => [c, CATEGORY_STYLES[c].color]),
-  BRAND,
-] as unknown as string;
-
 /**
  * What the assistant shows on the map (C3): numbered markers the answer refers to as "(1)",
  * category dots and the zone of a 15-minute answer, and its starting point. Fits the map once per answer.
@@ -50,17 +42,20 @@ export function ChatLayers({ view, padding }: { view: ChatMapView | null; paddin
   const { current: map } = useMap();
   const [imageReady, setImageReady] = useState(false);
 
-  // The marker image must exist before the symbol layer draws; add it again after a style reload.
+  // Marker images (numbered marker + category pins) must exist before the symbol layers draw;
+  // add them again after a style reload.
   useEffect(() => {
     if (!map) return;
     const m = map.getMap();
+    let live = true;
     const add = () => {
       if (!m.hasImage(MARKER_IMAGE)) m.addImage(MARKER_IMAGE, markerImage(), { pixelRatio: 2 });
-      setImageReady(true);
+      void addMarkerImages(m, PlaceCategory.options).then(() => live && setImageReady(true));
     };
     if (m.isStyleLoaded()) add();
     m.on("style.load", add);
     return () => {
+      live = false;
       m.off("style.load", add);
     };
   }, [map]);
@@ -141,12 +136,19 @@ export function ChatLayers({ view, padding }: { view: ChatMapView | null; paddin
         <Layer id="chat-area-line" type="line" paint={{ "line-color": BRAND, "line-width": 2, "line-dasharray": [2, 1.5] }} />
       </Source>
       <Source id="chat-places" type="geojson" data={points}>
-        <Layer
-          id={CHAT_DOT_LAYER}
-          type="circle"
-          filter={["!", ["get", "numbered"]]}
-          paint={{ "circle-radius": 7, "circle-color": CATEGORY_COLOR, "circle-stroke-color": "#fff", "circle-stroke-width": 2 }}
-        />
+        {imageReady && (
+          // Places of a 15-minute answer: the same category pins as the map layers, a bit smaller.
+          <Layer
+            id={CHAT_DOT_LAYER}
+            type="symbol"
+            filter={["!", ["get", "numbered"]]}
+            layout={{
+              "icon-image": ["concat", "pin-", ["get", "category"]],
+              "icon-size": 0.85,
+              "icon-allow-overlap": true,
+            }}
+          />
+        )}
         {imageReady && (
           <Layer
             id={CHAT_MARKER_LAYER}
