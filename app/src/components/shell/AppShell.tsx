@@ -29,6 +29,8 @@ import { useMapLayers } from "@/map/useMapLayers";
 import { useOverlays } from "@/map/useOverlays";
 import { pointOrigin, useNearby } from "@/map/useNearby";
 
+// Starters (zone B) that are about the user's neighbourhood: answered from the chosen address.
+const ADDRESS_STARTERS = ["15min", "nearest-office", "kids-places"] as const;
 const INTERACTIVE_LAYERS = [...CHAT_LAYER_IDS, ...PLACE_LAYER_IDS, INDEX_LAYER, DISTRICT_LAYER];
 const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
 // Height of the top bar + address field on phones, which cover the top of the map.
@@ -90,14 +92,30 @@ export function AppShell({
   const [selected, setSelected] = useState<Place | null>(null);
 
   // --- Kraków w 15 minut (C4) -----------------------------------------------------------
-  const nearby = useNearby();
+  const mapContext = useRef<GeocodeResult | null>(null);
+  // The last address the user chose ("home"): sent with every question, and the anchor of the
+  // starters about the neighbourhood. It stays after the 15-minute panel closes.
+  const [home, setHome] = useState<GeocodeResult | null>(null);
+  // A neighbourhood starter picked before any address: asked as soon as there is one.
+  const [pendingQuestion, setPendingQuestion] = useState<string | null>(null);
+  const pending = useRef<string | null>(null);
+  const askRef = useRef<(question: string) => void>(() => {});
+  const onNearbyReady = useCallback((origin: GeocodeResult) => {
+    mapContext.current = origin;
+    setHome(origin);
+    const q = pending.current;
+    if (!q) return;
+    pending.current = null;
+    setPendingQuestion(null);
+    askRef.current(q);
+  }, []);
+  const nearby = useNearby(onNearbyReady);
   const [picking, setPicking] = useState(false);
   // Phones: the 15-minute panel is a bottom sheet in place of the chat; asking about the area brings the chat back.
   const [chatOverNearby, setChatOverNearby] = useState(false);
 
   // --- Chat ------------------------------------------------------------------------------
   // The chat request reads the map view and the picked point at send time, so it lives in a ref.
-  const mapContext = useRef<GeocodeResult | null>(null);
   const getMap = useCallback(() => {
     const map = mapRef.current;
     if (!map) return undefined;
@@ -109,6 +127,17 @@ export function AppShell({
     };
   }, []);
   const assistant = useAssistant({ getMap, initialQuestion });
+  const askAndShow = useCallback(
+    (question: string) => {
+      assistant.ask(question);
+      setChatOverNearby(true);
+      setChatExpanded(true);
+    },
+    [assistant],
+  );
+  useEffect(() => {
+    askRef.current = askAndShow;
+  }, [askAndShow]);
   const chatView = useMemo(() => deriveChatMap(assistant.messages), [assistant.messages]);
   // "Clear the map" hides the places of the current answer; the next answer with places shows again.
   const [hiddenChatKey, setHiddenChatKey] = useState<string | null>(null);
@@ -118,9 +147,7 @@ export function AppShell({
   const nearbyState = nearby.state && nearby.state.tag === (chatView?.key ?? "") ? nearby.state : null;
   const nearbyResult = nearbyState?.status === "ready" ? nearbyState.result : null;
 
-  useEffect(() => {
-    mapContext.current = nearbyState?.status === "ready" ? nearbyState.origin : null;
-  }, [nearbyState]);
+
 
   // Keep the address in the URL, so a reload or a shared link opens the same view.
   const nearbyCoords = nearbyState?.origin.coords;
@@ -429,6 +456,23 @@ export function AppShell({
     [assistant],
   );
 
+  const askFromHome = useCallback(
+    (question: string) => {
+      if (home) {
+        askAndShow(question);
+        return;
+      }
+      pending.current = question;
+      setPendingQuestion(question);
+      if (!isDesktop()) setChatExpanded(false);
+    },
+    [home, askAndShow],
+  );
+  const cancelPending = () => {
+    pending.current = null;
+    setPendingQuestion(null);
+  };
+
   function closeWelcome() {
     setWelcomeOpen(false);
     setMapWanted(true);
@@ -491,6 +535,8 @@ export function AppShell({
                 onSelect={(r) => openNearby(r)}
                 picking={picking}
                 onTogglePick={() => setPicking((p) => !p)}
+                prompt={pendingQuestion}
+                onCancelPrompt={cancelPending}
               />
               {nearbyPanel}
               <ZoomControls className="hidden shrink-0 self-start md:flex" />
@@ -576,6 +622,7 @@ export function AppShell({
             expanded={chatExpanded}
             onExpandedChange={setChatExpanded}
             phoneHidden={!!nearbyState && !chatOverNearby}
+            addressStarters={{ ids: ADDRESS_STARTERS, address: home?.label ?? null, ask: askFromHome }}
           />
         </div>
         <WelcomeDialog open={welcomeOpen} onClose={closeWelcome} />
