@@ -8,7 +8,7 @@ import type { SceneTiming } from "./timeline";
 export function usePop(delay = 0, config: Partial<{ damping: number; stiffness: number; mass: number }> = {}) {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  return spring({ frame: frame - delay, fps, config: { damping: 14, stiffness: 120, mass: 0.8, ...config } });
+  return spring({ frame: frame - delay, fps, config: { damping: 24, stiffness: 70, mass: 1, ...config } });
 }
 
 // ------------------------------------------------------------------------------------------
@@ -23,105 +23,6 @@ export function LogoMark({ size = 120, inverted = false }: { size?: number; inve
       <path d="M16 6.5c-4.7 0-8.5 3.5-8.5 7.9 0 3.6 2.5 6.6 6 7.6L16 25.5l2.5-3.5c3.5-1 6-4 6-7.6 0-4.4-3.8-7.9-8.5-7.9Z" fill={fg} />
       <circle cx="16" cy="14.4" r="3.2" fill="none" stroke={bg} strokeWidth="2.4" />
     </svg>
-  );
-}
-
-// ------------------------------------------------------------------------------------------
-// People (flat vector, in the brand palette)
-
-export type Pose = "walk" | "stand" | "point" | "think" | "wave" | "phone";
-
-export function Person({
-  x,
-  y,
-  scale = 1,
-  pose = "stand",
-  shirt = C.red,
-  pants = C.denim,
-  hair = C.hair,
-  skin = C.skin,
-  hairStyle = "short",
-  suitcase = false,
-  flip = false,
-  start = 0,
-}: {
-  x: number;
-  y: number;
-  scale?: number;
-  pose?: Pose;
-  shirt?: string;
-  pants?: string;
-  hair?: string;
-  skin?: string;
-  hairStyle?: "short" | "long" | "bun";
-  suitcase?: boolean;
-  flip?: boolean;
-  start?: number;
-}) {
-  const f = useCurrentFrame() - start;
-  const walking = pose === "walk";
-  const swing = walking ? Math.sin(f / 4.2) * 24 : 0;
-  const bob = walking ? Math.abs(Math.sin(f / 4.2)) * -6 : Math.sin(f / 22) * 2;
-  const breathe = 1 + Math.sin(f / 18) * 0.008;
-  const armR = pose === "point" ? -118 : pose === "wave" ? -150 + Math.sin(f / 4) * 18 : pose === "think" ? -145 : pose === "phone" ? -125 : -swing * 0.8 + 8;
-  const armL = suitcase ? 6 : pose === "think" ? 10 : swing * 0.8 - 8;
-  const limb = (angle: number, ox: number, oy: number, len: number, w: number, color: string, end?: ReactNode) => (
-    <g transform={`rotate(${angle} ${ox} ${oy})`}>
-      <rect x={ox - w / 2} y={oy} width={w} height={len} rx={w / 2} fill={color} />
-      {end}
-    </g>
-  );
-  return (
-    <g transform={`translate(${x} ${y + bob}) scale(${(flip ? -1 : 1) * scale} ${scale})`}>
-      {/* shadow */}
-      <ellipse cx="0" cy="2" rx="46" ry="8" fill="rgba(42,26,25,0.12)" />
-      {/* legs */}
-      {limb(swing, -14, -150, 128, 26, pants, <ellipse cx={-14 + 8} cy={-24} rx="20" ry="10" fill={C.ink} />)}
-      {limb(-swing, 14, -150, 128, 26, pants, <ellipse cx={14 + 8} cy={-24} rx="20" ry="10" fill={C.ink} />)}
-      {/* suitcase on the left hand */}
-      {suitcase && (
-        <g transform={`translate(-78 -128) rotate(${swing * 0.15})`}>
-          <rect x="-6" y="-14" width="34" height="14" rx="6" fill="none" stroke={C.ink} strokeWidth="5" />
-          <rect x="-26" y="0" width="74" height="96" rx="12" fill={C.redStrong} />
-          <rect x="-26" y="30" width="74" height="8" fill="rgba(255,255,255,0.35)" />
-          <circle cx="-12" cy="100" r="6" fill={C.ink} />
-          <circle cx="34" cy="100" r="6" fill={C.ink} />
-        </g>
-      )}
-      {/* back arm */}
-      {limb(armL, -40, -262, 92, 22, shirt, <circle cx={-40} cy={-262 + 96} r="13" fill={skin} />)}
-      {/* torso */}
-      <g transform={`scale(${breathe})`}>
-        <path d="M-50 -268 Q0 -296 50 -268 L54 -150 Q0 -136 -54 -150 Z" fill={shirt} />
-        <path d="M-12 -282 L0 -262 L12 -282 Z" fill={skin} />
-      </g>
-      {/* phone in hand */}
-      {pose === "phone" && (
-        <g transform={`rotate(${armR} 40 -262)`}>
-          <rect x="22" y="-170" width="30" height="52" rx="6" fill={C.ink} transform="rotate(180 37 -144)" />
-        </g>
-      )}
-      {/* front arm */}
-      {limb(armR, 40, -262, 92, 22, shirt, <circle cx={40} cy={-262 + 96} r="13" fill={skin} />)}
-      {/* neck + head */}
-      <rect x="-10" y="-300" width="20" height="26" rx="8" fill={skin} />
-      <circle cx="0" cy="-330" r="38" fill={skin} />
-      {/* hair */}
-      {hairStyle === "short" && <path d="M-39 -334 Q-40 -378 0 -376 Q40 -378 39 -334 Q30 -356 0 -354 Q-26 -356 -39 -334 Z" fill={hair} />}
-      {hairStyle === "long" && <path d="M-42 -326 Q-48 -384 0 -376 Q48 -384 42 -326 L46 -270 Q30 -262 30 -300 Q34 -344 0 -352 Q-34 -344 -30 -300 Q-30 -262 -46 -270 Z" fill={hair} />}
-      {hairStyle === "bun" && (
-        <>
-          <circle cx="0" cy="-382" r="18" fill={hair} />
-          <path d="M-39 -330 Q-40 -376 0 -374 Q40 -376 39 -330 Q28 -354 0 -352 Q-28 -354 -39 -330 Z" fill={hair} />
-        </>
-      )}
-      {/* face */}
-      <circle cx="-13" cy="-332" r="3.6" fill={C.ink} />
-      <circle cx="13" cy="-332" r="3.6" fill={C.ink} />
-      <path d={pose === "think" ? "M-9 -310 Q0 -314 9 -310" : "M-11 -314 Q0 -304 11 -314"} stroke={C.ink} strokeWidth="3.4" fill="none" strokeLinecap="round" />
-      <circle cx="-24" cy="-318" r="6" fill="rgba(201,15,26,0.18)" />
-      <circle cx="24" cy="-318" r="6" fill="rgba(201,15,26,0.18)" />
-    </g>
   );
 }
 
@@ -207,8 +108,8 @@ export function Pill({
         fontWeight: 700,
         fontSize: size,
         boxShadow: "0 18px 40px -18px rgba(80,10,10,0.45)",
-        transform: `scale(${progress}) translateY(${(1 - progress) * 30}px)`,
-        opacity: Math.min(1, progress * 1.5),
+        transform: `scale(${0.92 + 0.08 * progress}) translateY(${(1 - progress) * 22}px)`,
+        opacity: progress,
         whiteSpace: "nowrap",
         ...style,
       }}

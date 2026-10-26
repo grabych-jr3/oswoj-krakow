@@ -14,8 +14,8 @@ export type SceneTiming = {
 };
 
 const LEAD = 8; // the picture moves a moment before the voice starts
-const TAIL = 14; // a short pause after each sentence
-export const TRANSITION = 12; // crossfade between scenes (frames)
+const TAIL = 10; // the voice files already end with a natural pause
+export const TRANSITION = 22; // crossfade between scenes (frames)
 const EXTRA: Record<string, number> = { "s8-end": 45 }; // hold the final card
 
 const timings = voice as Record<string, { seconds: number; words: Word[] }>;
