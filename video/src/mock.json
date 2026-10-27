@@ -1,0 +1,421 @@
+{
+  "assistant": {
+    "size": [
+      1320,
+      825
+    ],
+    "symbol": "SA-34",
+    "title": "Nadanie numeru PESEL na wniosek",
+    "termin": "Sprawa załatwiana jest niezwłocznie, nie później niż w terminie 30 dni od złożenia wniosku.",
+    "fee": "17 zł – tylko za pełnomocnictwo",
+    "docs": [
+      "Wniosek o nadanie numeru PESEL.",
+      "Dowód osobisty lub paszport (do wglądu)."
+    ],
+    "offices": [
+      {
+        "label": "1",
+        "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic I-VII",
+        "address": "al. Powstania Warszawskiego 10",
+        "hours": "poniedziałek-środa i piątek: 7.40 – 18.00, czwartek: 8.00 – 18.00",
+        "px": [
+          123.1,
+          362.2
+        ]
+      },
+      {
+        "label": "2",
+        "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic VIII-XIII",
+        "address": "ul. Wielicka 28A",
+        "hours": "poniedziałek-środa i piątek: 7.40 – 18.00, czwartek: 8.00 – 18.00",
+        "px": [
+          173.4,
+          705
+        ]
+      },
+      {
+        "label": "3",
+        "name": "Referat Ewidencji Ludności i Dowodów Osobistych dla Dzielnic XIV-XVIII",
+        "address": "os. Zgody 2",
+        "hours": "poniedziałek-środa i piątek: 7.40 – 18.00, czwartek: 8.00 – 18.00",
+        "px": [
+          796.9,
+          140
+        ]
+      }
+    ]
+  },
+  "fifteen": {
+    "size": [
+      390,
+      844
+    ],
+    "label": "ul. Wielicka 28, 30-552 Kraków",
+    "origin": [
+      173.8,
+      257
+    ],
+    "walk": {
+      "path": "M228.2 274.9 L228.8 227.8 L273 204 L273.6 156.9 L230.1 133.6 L185.9 157.4 L142.3 134.2 L142.9 87.1 L99.4 63.8 L55.2 87.7 L11.6 64.4 L-32.6 88.3 L-33.2 135.3 L-77.3 159.2 L-77.9 206.3 L-34.4 229.5 L-35 276.6 L8.6 299.8 L8 346.9 L51.6 370.2 L95.7 346.3 L139.3 369.6 L138.7 416.7 L94.5 440.5 L93.9 487.6 L137.5 510.8 L181.7 487 L225.2 510.3 L269.4 486.4 L270 439.4 L314.1 415.5 L314.8 368.5 L271.2 345.2 L271.8 298.1 L228.2 274.9 Z",
+      "places": [
+        {
+          "category": "przedszkole",
+          "px": [
+            172.7,
+            278.7
+          ]
+        },
+        {
+          "category": "zlobek",
+          "px": [
+            172.7,
+            278.7
+          ]
+        },
+        {
+          "category": "urzad",
+          "px": [
+            185.8,
+            296.9
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            153.7,
+            292.4
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            115.6,
+            202.7
+          ]
+        },
+        {
+          "category": "urzad",
+          "px": [
+            121.9,
+            327.1
+          ]
+        },
+        {
+          "category": "szkola_podstawowa",
+          "px": [
+            176.8,
+            345.2
+          ]
+        },
+        {
+          "category": "zlobek",
+          "px": [
+            176.8,
+            345.2
+          ]
+        },
+        {
+          "category": "zlobek",
+          "px": [
+            191.4,
+            366.2
+          ]
+        },
+        {
+          "category": "szkola_ponadpodstawowa",
+          "px": [
+            57.6,
+            168.9
+          ]
+        },
+        {
+          "category": "szkola_ponadpodstawowa",
+          "px": [
+            220.8,
+            408.1
+          ]
+        },
+        {
+          "category": "przedszkole",
+          "px": [
+            267.5,
+            380.5
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            260,
+            453.3
+          ]
+        },
+        {
+          "category": "szkola_podstawowa",
+          "px": [
+            -12.1,
+            210.9
+          ]
+        },
+        {
+          "category": "szkola_ponadpodstawowa",
+          "px": [
+            -12.1,
+            210.9
+          ]
+        },
+        {
+          "category": "klub_rodzica",
+          "px": [
+            18.5,
+            100.3
+          ]
+        },
+        {
+          "category": "przedszkole",
+          "px": [
+            178.8,
+            152.4
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            -7.8,
+            124.4
+          ]
+        },
+        {
+          "category": "urzad",
+          "px": [
+            -11,
+            271.2
+          ]
+        },
+        {
+          "category": "zlobek",
+          "px": [
+            178.8,
+            152.4
+          ]
+        }
+      ],
+      "score": 67,
+      "missing": [
+        "park",
+        "biblioteka"
+      ]
+    },
+    "transit": {
+      "path": "M228.2 274.9 L228.8 227.8 L273 204 L273.6 156.9 L230.1 133.6 L185.9 157.4 L142.3 134.2 L142.9 87.1 L99.4 63.8 L55.2 87.7 L11.6 64.4 L12.2 17.3 L-31.4 -5.9 L-75.5 17.9 L-76.1 65 L-32.6 88.3 L-33.2 135.3 L-77.3 159.2 L-77.9 206.3 L-34.4 229.5 L-35 276.6 L8.6 299.8 L8 346.9 L51.6 370.2 L95.7 346.3 L139.3 369.6 L138.7 416.7 L94.5 440.5 L93.9 487.6 L137.5 510.8 L181.7 487 L225.2 510.3 L224.6 557.3 L268.2 580.6 L312.3 556.8 L355.9 580 L355.3 627.1 L398.8 650.4 L443 626.6 L443.6 579.5 L400 556.2 L400.7 509.1 L357.1 485.9 L357.7 438.8 L314.1 415.5 L314.8 368.5 L271.2 345.2 L271.8 298.1 L228.2 274.9 Z",
+      "places": [
+        {
+          "category": "przedszkole",
+          "px": [
+            172.7,
+            278.7
+          ]
+        },
+        {
+          "category": "zlobek",
+          "px": [
+            172.7,
+            278.7
+          ]
+        },
+        {
+          "category": "urzad",
+          "px": [
+            185.8,
+            296.9
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            153.7,
+            292.4
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            115.6,
+            202.7
+          ]
+        },
+        {
+          "category": "urzad",
+          "px": [
+            121.9,
+            327.1
+          ]
+        },
+        {
+          "category": "szkola_podstawowa",
+          "px": [
+            176.8,
+            345.2
+          ]
+        },
+        {
+          "category": "zlobek",
+          "px": [
+            176.8,
+            345.2
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            260,
+            453.3
+          ]
+        },
+        {
+          "category": "zlobek",
+          "px": [
+            191.4,
+            366.2
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            365.8,
+            615.5
+          ]
+        },
+        {
+          "category": "szkola_ponadpodstawowa",
+          "px": [
+            57.6,
+            168.9
+          ]
+        },
+        {
+          "category": "szkola_ponadpodstawowa",
+          "px": [
+            220.8,
+            408.1
+          ]
+        },
+        {
+          "category": "przedszkole",
+          "px": [
+            267.5,
+            380.5
+          ]
+        },
+        {
+          "category": "przedszkole",
+          "px": [
+            301.8,
+            482.7
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            -13.1,
+            80.7
+          ]
+        },
+        {
+          "category": "klub_rodzica",
+          "px": [
+            18.5,
+            100.3
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            -7.8,
+            124.4
+          ]
+        },
+        {
+          "category": "przedszkole",
+          "px": [
+            -44.8,
+            83
+          ]
+        },
+        {
+          "category": "przedszkole",
+          "px": [
+            338.2,
+            590.3
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            316.7,
+            639.4
+          ]
+        },
+        {
+          "category": "szkola_podstawowa",
+          "px": [
+            -12.1,
+            210.9
+          ]
+        },
+        {
+          "category": "szkola_ponadpodstawowa",
+          "px": [
+            -12.1,
+            210.9
+          ]
+        },
+        {
+          "category": "zlobek",
+          "px": [
+            338.2,
+            590.3
+          ]
+        },
+        {
+          "category": "przedszkole",
+          "px": [
+            178.8,
+            152.4
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            375.9,
+            441.6
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            -157.4,
+            156
+          ]
+        },
+        {
+          "category": "przystanek",
+          "px": [
+            442.5,
+            714.8
+          ]
+        }
+      ],
+      "score": 67,
+      "missing": [
+        "park",
+        "biblioteka"
+      ]
+    }
+  },
+  "city": {
+    "size": [
+      1600,
+      1000
+    ]
+  }
+}

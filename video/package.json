@@ -7,9 +7,9 @@
     "studio": "remotion studio",
     "voice": "node scripts/voice.mjs",
     "music": "node scripts/music.mjs",
-    "record": "node scripts/record.mjs",
     "render": "remotion render Main out/oswoj-krakow.mp4",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "capture": "node scripts/capture.mjs"
   },
   "dependencies": {
     "@remotion/cli": "4.0.538",

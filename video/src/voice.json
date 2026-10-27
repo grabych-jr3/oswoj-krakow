@@ -1,781 +1,781 @@
 {
   "s1-arrival": {
-    "seconds": 8.724898,
+    "seconds": 8.94,
     "words": [
       {
         "text": "Przeprowadzka",
         "start": 0,
-        "end": 0.673
+        "end": 0.685
       },
       {
         "text": "do",
-        "start": 0.72,
-        "end": 0.789
+        "start": 0.731,
+        "end": 0.801
       },
       {
         "text": "Krakowa",
-        "start": 0.836,
-        "end": 1.254
+        "start": 0.848,
+        "end": 1.231
       },
       {
         "text": "to",
-        "start": 1.3,
-        "end": 1.382
+        "start": 1.277,
+        "end": 1.358
       },
       {
         "text": "nowy",
-        "start": 1.44,
-        "end": 1.649
+        "start": 1.416,
+        "end": 1.625
       },
       {
         "text": "początek.",
-        "start": 1.695,
-        "end": 2.403
+        "start": 1.672,
+        "end": 2.461
       },
       {
         "text": "I",
-        "start": 2.728,
-        "end": 2.798
+        "start": 2.786,
+        "end": 2.856
       },
       {
         "text": "dziesiątki",
-        "start": 2.856,
-        "end": 3.355
+        "start": 2.914,
+        "end": 3.402
       },
       {
         "text": "spraw",
-        "start": 3.39,
-        "end": 3.669
+        "start": 3.448,
+        "end": 3.75
       },
       {
         "text": "do",
-        "start": 3.727,
-        "end": 3.785
+        "start": 3.808,
+        "end": 3.878
       },
       {
         "text": "załatwienia:",
-        "start": 3.831,
-        "end": 4.656
+        "start": 3.924,
+        "end": 4.783
       },
       {
         "text": "zameldowanie,",
-        "start": 4.807,
-        "end": 5.724
+        "start": 5.294,
+        "end": 6.269
       },
       {
         "text": "PESEL,",
-        "start": 5.84,
-        "end": 6.513
+        "start": 6.362,
+        "end": 7.082
       },
       {
         "text": "przedszkole",
-        "start": 6.629,
-        "end": 7.163
+        "start": 7.291,
+        "end": 7.837
       },
       {
         "text": "dla",
-        "start": 7.21,
-        "end": 7.349
+        "start": 7.872,
+        "end": 8.011
       },
       {
         "text": "dziecka.",
-        "start": 7.384,
-        "end": 8.684
+        "start": 8.046,
+        "end": 8.719
       }
     ]
   },
   "s2-problem": {
-    "seconds": 10.213878,
+    "seconds": 10.933,
     "words": [
       {
         "text": "W",
-        "start": 0,
-        "end": 0.139
+        "start": 0.02,
+        "end": 0.136
       },
       {
         "text": "BIP",
-        "start": 0.209,
-        "end": 0.406
+        "start": 0.218,
+        "end": 0.519
       },
       {
         "text": "jest",
-        "start": 0.522,
-        "end": 0.72
+        "start": 0.67,
+        "end": 0.949
       },
       {
         "text": "sześćset",
-        "start": 0.789,
-        "end": 1.335
+        "start": 1.03,
+        "end": 1.622
       },
       {
         "text": "trzydzieści",
-        "start": 1.405,
-        "end": 1.892
+        "start": 1.692,
+        "end": 2.191
       },
       {
         "text": "dziewięć",
-        "start": 1.939,
-        "end": 2.276
+        "start": 2.226,
+        "end": 2.586
       },
       {
         "text": "kart",
-        "start": 2.345,
-        "end": 2.589
+        "start": 2.656,
+        "end": 2.911
       },
       {
         "text": "usług,",
-        "start": 2.67,
-        "end": 3.251
+        "start": 3.004,
+        "end": 3.608
       },
       {
         "text": "a",
-        "start": 3.46,
-        "end": 3.518
+        "start": 3.852,
+        "end": 3.91
       },
       {
         "text": "informacje",
-        "start": 3.587,
-        "end": 4.122
+        "start": 3.979,
+        "end": 4.548
       },
       {
         "text": "miasta",
-        "start": 4.168,
-        "end": 4.551
+        "start": 4.595,
+        "end": 5.071
       },
       {
         "text": "są",
-        "start": 4.598,
-        "end": 4.714
+        "start": 5.222,
+        "end": 5.396
       },
       {
         "text": "rozproszone",
-        "start": 4.772,
-        "end": 5.364
+        "start": 5.454,
+        "end": 6.057
       },
       {
         "text": "po",
-        "start": 5.41,
-        "end": 5.492
+        "start": 6.104,
+        "end": 6.185
       },
       {
         "text": "wielu",
-        "start": 5.526,
-        "end": 5.747
+        "start": 6.22,
+        "end": 6.464
       },
       {
         "text": "portalach.",
-        "start": 5.793,
-        "end": 6.583
+        "start": 6.51,
+        "end": 7.323
       },
       {
         "text": "Łatwo",
-        "start": 7.094,
-        "end": 7.396
+        "start": 7.764,
+        "end": 8.078
       },
       {
         "text": "się",
-        "start": 7.442,
-        "end": 7.535
+        "start": 8.124,
+        "end": 8.217
       },
       {
         "text": "zgubić",
-        "start": 7.57,
-        "end": 7.999
+        "start": 8.264,
+        "end": 8.763
       },
       {
         "text": "–",
-        "start": 8.115,
-        "end": 8.139
+        "start": 8.937,
+        "end": 8.96
       },
       {
         "text": "zwłaszcza",
-        "start": 8.255,
-        "end": 8.649
+        "start": 9.076,
+        "end": 9.564
       },
       {
         "text": "w",
-        "start": 8.696,
-        "end": 8.719
+        "start": 9.622,
+        "end": 9.645
       },
       {
         "text": "obcym",
-        "start": 8.8,
-        "end": 9.114
+        "start": 9.726,
+        "end": 10.04
       },
       {
         "text": "języku.",
-        "start": 9.16,
-        "end": 10.17
+        "start": 10.086,
+        "end": 10.771
       }
     ]
   },
   "s3-reveal": {
-    "seconds": 5.694694,
+    "seconds": 5.686,
     "words": [
       {
         "text": "Dlatego",
-        "start": 0,
-        "end": 0.488
+        "start": 0.02,
+        "end": 0.496
       },
       {
         "text": "powstał",
-        "start": 0.534,
-        "end": 0.929
+        "start": 0.543,
+        "end": 0.938
       },
       {
         "text": "Oswój",
-        "start": 1.022,
-        "end": 1.416
+        "start": 1.007,
+        "end": 1.39
       },
       {
         "text": "Kraków",
-        "start": 1.463,
-        "end": 1.939
+        "start": 1.448,
+        "end": 1.913
       },
       {
         "text": "–",
-        "start": 2.113,
-        "end": 2.136
+        "start": 2.029,
+        "end": 2.087
       },
       {
         "text": "asystent",
-        "start": 2.31,
-        "end": 2.868
+        "start": 2.157,
+        "end": 2.726
       },
       {
         "text": "AI",
-        "start": 2.961,
-        "end": 3.413
+        "start": 2.795,
+        "end": 3.318
       },
       {
         "text": "i",
-        "start": 3.506,
-        "end": 3.564
+        "start": 3.527,
+        "end": 3.608
       },
       {
         "text": "mapa",
-        "start": 3.646,
-        "end": 3.901
+        "start": 3.689,
+        "end": 3.968
       },
       {
         "text": "dla",
-        "start": 3.947,
-        "end": 4.098
+        "start": 4.014,
+        "end": 4.188
       },
       {
         "text": "nowych",
-        "start": 4.145,
-        "end": 4.389
+        "start": 4.246,
+        "end": 4.513
       },
       {
         "text": "mieszkańców.",
-        "start": 4.435,
-        "end": 5.666
+        "start": 4.56,
+        "end": 5.465
       }
     ]
   },
   "s4-assistant": {
-    "seconds": 16.43102,
+    "seconds": 16.494,
     "words": [
       {
         "text": "Zapytaj",
-        "start": 0,
-        "end": 0.464
+        "start": 0.02,
+        "end": 0.472
       },
       {
         "text": "własnymi",
-        "start": 0.522,
-        "end": 0.929
+        "start": 0.519,
+        "end": 1.006
       },
       {
         "text": "słowami",
-        "start": 0.975,
-        "end": 1.498
+        "start": 1.053,
+        "end": 1.645
       },
       {
         "text": "–",
-        "start": 1.649,
-        "end": 1.707
+        "start": 1.738,
+        "end": 1.761
       },
       {
         "text": "po",
-        "start": 1.8,
-        "end": 1.904
+        "start": 1.877,
+        "end": 2.005
       },
       {
         "text": "polsku,",
-        "start": 1.95,
-        "end": 2.496
+        "start": 2.063,
+        "end": 2.69
       },
       {
         "text": "ukraińsku",
-        "start": 2.531,
-        "end": 3.274
+        "start": 2.736,
+        "end": 3.607
       },
       {
         "text": "albo",
-        "start": 3.344,
-        "end": 3.564
+        "start": 3.735,
+        "end": 4.025
       },
       {
         "text": "angielsku.",
-        "start": 3.622,
-        "end": 4.447
+        "start": 4.083,
+        "end": 4.942
       },
       {
         "text": "Asystent",
-        "start": 5.143,
-        "end": 5.654
+        "start": 5.325,
+        "end": 5.894
       },
       {
         "text": "odpowiada",
-        "start": 5.712,
-        "end": 6.2
+        "start": 5.952,
+        "end": 6.44
       },
       {
         "text": "na",
-        "start": 6.246,
-        "end": 6.304
+        "start": 6.486,
+        "end": 6.556
       },
       {
         "text": "podstawie",
-        "start": 6.351,
-        "end": 6.803
+        "start": 6.602,
+        "end": 7.055
       },
       {
         "text": "oficjalnej",
-        "start": 6.861,
-        "end": 7.442
+        "start": 7.113,
+        "end": 7.728
       },
       {
         "text": "karty",
-        "start": 7.5,
-        "end": 7.814
+        "start": 7.786,
+        "end": 8.112
       },
       {
         "text": "usługi:",
-        "start": 7.86,
-        "end": 8.603
+        "start": 8.17,
+        "end": 8.901
       },
       {
         "text": "jakie",
-        "start": 8.986,
-        "end": 9.242
+        "start": 9.145,
+        "end": 9.435
       },
       {
         "text": "dokumenty",
-        "start": 9.276,
-        "end": 9.776
+        "start": 9.481,
+        "end": 9.992
       },
       {
         "text": "zabrać,",
-        "start": 9.834,
-        "end": 10.344
+        "start": 10.039,
+        "end": 10.642
       },
       {
         "text": "ile",
-        "start": 10.403,
-        "end": 10.612
+        "start": 10.759,
+        "end": 10.979
       },
       {
         "text": "zapłacić",
-        "start": 10.658,
-        "end": 11.285
+        "start": 11.026,
+        "end": 11.641
       },
       {
         "text": "i",
-        "start": 11.564,
-        "end": 11.68
+        "start": 11.885,
+        "end": 12.001
       },
       {
         "text": "ile",
-        "start": 11.738,
-        "end": 11.935
+        "start": 12.071,
+        "end": 12.291
       },
       {
         "text": "trwa",
-        "start": 11.981,
-        "end": 12.225
+        "start": 12.326,
+        "end": 12.547
       },
       {
         "text": "sprawa.",
-        "start": 12.272,
-        "end": 12.945
+        "start": 12.593,
+        "end": 13.255
       },
       {
         "text": "A",
-        "start": 13.386,
-        "end": 13.433
+        "start": 13.696,
+        "end": 13.766
       },
       {
         "text": "mapa",
-        "start": 13.514,
-        "end": 13.77
+        "start": 13.858,
+        "end": 14.149
       },
       {
         "text": "od",
-        "start": 13.839,
-        "end": 13.955
+        "start": 14.23,
+        "end": 14.346
       },
       {
         "text": "razu",
-        "start": 14.013,
-        "end": 14.222
+        "start": 14.404,
+        "end": 14.636
       },
       {
         "text": "pokazuje,",
-        "start": 14.28,
-        "end": 14.907
+        "start": 14.683,
+        "end": 15.228
       },
       {
         "text": "dokąd",
-        "start": 14.977,
-        "end": 15.36
+        "start": 15.263,
+        "end": 15.635
       },
       {
         "text": "iść.",
-        "start": 15.441,
-        "end": 16.394
+        "start": 15.716,
+        "end": 16.238
       }
     ]
   },
   "s5-fifteen": {
-    "seconds": 11.41551,
+    "seconds": 10.888,
     "words": [
       {
         "text": "Szukasz",
-        "start": 0,
-        "end": 0.372
+        "start": 0.02,
+        "end": 0.392
       },
       {
         "text": "mieszkania?",
-        "start": 0.418,
-        "end": 1.149
+        "start": 0.438,
+        "end": 1.146
       },
       {
         "text": "Wpisz",
-        "start": 1.533,
-        "end": 1.846
+        "start": 1.274,
+        "end": 1.611
       },
       {
         "text": "adres",
-        "start": 1.916,
-        "end": 2.31
+        "start": 1.692,
+        "end": 2.145
       },
       {
         "text": "i",
-        "start": 2.403,
-        "end": 2.438
+        "start": 2.296,
+        "end": 2.377
       },
       {
         "text": "sprawdź,",
-        "start": 2.485,
-        "end": 3.088
+        "start": 2.424,
+        "end": 2.865
       },
       {
         "text": "co",
-        "start": 3.181,
-        "end": 3.297
+        "start": 2.9,
+        "end": 3.016
       },
       {
         "text": "masz",
-        "start": 3.355,
-        "end": 3.495
+        "start": 3.062,
+        "end": 3.213
       },
       {
         "text": "w",
-        "start": 3.529,
-        "end": 3.553
+        "start": 3.248,
+        "end": 3.271
       },
       {
         "text": "zasięgu",
-        "start": 3.599,
-        "end": 3.994
+        "start": 3.318,
+        "end": 3.724
       },
       {
         "text": "piętnastu",
-        "start": 4.04,
-        "end": 4.505
+        "start": 3.759,
+        "end": 4.246
       },
       {
         "text": "minut",
-        "start": 4.563,
-        "end": 4.946
+        "start": 4.304,
+        "end": 4.699
       },
       {
         "text": "–",
-        "start": 5.12,
-        "end": 5.329
+        "start": 4.815,
+        "end": 4.931
       },
       {
         "text": "pieszo",
-        "start": 5.573,
-        "end": 5.991
+        "start": 5.442,
+        "end": 5.825
       },
       {
         "text": "albo",
-        "start": 6.072,
-        "end": 6.304
+        "start": 5.895,
+        "end": 6.127
       },
       {
         "text": "komunikacją",
-        "start": 6.351,
-        "end": 7.036
+        "start": 6.174,
+        "end": 6.87
       },
       {
         "text": "miejską:",
-        "start": 7.094,
-        "end": 7.79
+        "start": 6.917,
+        "end": 7.602
       },
       {
         "text": "żłobki,",
-        "start": 8.173,
-        "end": 8.8
+        "start": 7.846,
+        "end": 8.461
       },
       {
         "text": "szkoły,",
-        "start": 8.858,
-        "end": 9.485
+        "start": 8.519,
+        "end": 9.135
       },
       {
         "text": "parki",
-        "start": 9.601,
-        "end": 10.008
+        "start": 9.227,
+        "end": 9.645
       },
       {
         "text": "i",
-        "start": 10.066,
-        "end": 10.101
+        "start": 9.715,
+        "end": 9.761
       },
       {
         "text": "przystanki.",
-        "start": 10.147,
-        "end": 11.378
+        "start": 9.808,
+        "end": 10.667
       }
     ]
   },
   "s6-city": {
-    "seconds": 9.848163,
+    "seconds": 10.11,
     "words": [
       {
         "text": "Indeks",
-        "start": 0,
-        "end": 0.488
+        "start": 0.02,
+        "end": 0.461
       },
       {
         "text": "piętnastu",
-        "start": 0.522,
-        "end": 1.022
+        "start": 0.496,
+        "end": 0.995
       },
       {
         "text": "minut",
-        "start": 1.091,
-        "end": 1.37
+        "start": 1.054,
+        "end": 1.367
       },
       {
         "text": "pokazuje",
-        "start": 1.44,
-        "end": 1.892
+        "start": 1.541,
+        "end": 2.029
       },
       {
         "text": "też",
-        "start": 1.927,
-        "end": 2.078
+        "start": 2.075,
+        "end": 2.214
       },
       {
         "text": "miastu,",
-        "start": 2.148,
-        "end": 2.717
+        "start": 2.284,
+        "end": 2.841
       },
       {
         "text": "gdzie",
-        "start": 2.891,
-        "end": 3.077
+        "start": 2.888,
+        "end": 3.074
       },
       {
         "text": "brakuje",
-        "start": 3.111,
-        "end": 3.483
+        "start": 3.108,
+        "end": 3.503
       },
       {
         "text": "usług.",
-        "start": 3.541,
-        "end": 4.191
+        "start": 3.573,
+        "end": 4.2
       },
       {
         "text": "To",
-        "start": 4.574,
-        "end": 4.702
+        "start": 4.641,
+        "end": 4.78
       },
       {
         "text": "mniej",
-        "start": 4.748,
-        "end": 4.981
+        "start": 4.827,
+        "end": 5.094
       },
       {
         "text": "wizyt",
-        "start": 5.039,
-        "end": 5.341
+        "start": 5.163,
+        "end": 5.489
       },
       {
         "text": "bez",
-        "start": 5.422,
-        "end": 5.55
+        "start": 5.57,
+        "end": 5.709
       },
       {
         "text": "kompletu",
-        "start": 5.608,
-        "end": 6.002
+        "start": 5.767,
+        "end": 6.162
       },
       {
         "text": "dokumentów",
-        "start": 6.049,
-        "end": 6.734
+        "start": 6.22,
+        "end": 6.905
       },
       {
         "text": "i",
-        "start": 7.012,
-        "end": 7.105
+        "start": 7.23,
+        "end": 7.346
       },
       {
         "text": "łatwiejszy",
-        "start": 7.152,
-        "end": 7.663
+        "start": 7.404,
+        "end": 7.915
       },
       {
         "text": "start",
-        "start": 7.697,
-        "end": 8.057
+        "start": 7.95,
+        "end": 8.356
       },
       {
         "text": "dla",
-        "start": 8.127,
-        "end": 8.278
+        "start": 8.472,
+        "end": 8.658
       },
       {
         "text": "nowych",
-        "start": 8.324,
-        "end": 8.58
+        "start": 8.704,
+        "end": 8.96
       },
       {
         "text": "mieszkańców.",
-        "start": 8.615,
-        "end": 9.799
+        "start": 9.006,
+        "end": 9.854
       }
     ]
   },
   "s7-data": {
-    "seconds": 5.093878,
+    "seconds": 4.936,
     "words": [
       {
         "text": "Wszystko",
-        "start": 0,
-        "end": 0.499
+        "start": 0.02,
+        "end": 0.531
       },
       {
         "text": "na",
-        "start": 0.546,
-        "end": 0.615
+        "start": 0.589,
+        "end": 0.658
       },
       {
         "text": "podstawie",
-        "start": 0.662,
-        "end": 1.103
+        "start": 0.705,
+        "end": 1.146
       },
       {
         "text": "otwartych",
-        "start": 1.161,
-        "end": 1.625
+        "start": 1.192,
+        "end": 1.703
       },
       {
         "text": "danych",
-        "start": 1.683,
-        "end": 1.95
+        "start": 1.761,
+        "end": 2.063
       },
       {
         "text": "Krakowa",
-        "start": 1.997,
-        "end": 2.543
+        "start": 2.121,
+        "end": 2.725
       },
       {
         "text": "–",
-        "start": 2.717,
-        "end": 2.752
+        "start": 2.876,
+        "end": 2.946
       },
       {
         "text": "i",
-        "start": 2.926,
-        "end": 2.972
+        "start": 3.062,
+        "end": 3.12
       },
       {
         "text": "zawsze",
-        "start": 3.03,
-        "end": 3.332
+        "start": 3.178,
+        "end": 3.503
       },
       {
         "text": "z",
-        "start": 3.379,
-        "end": 3.402
+        "start": 3.549,
+        "end": 3.584
       },
       {
         "text": "linkiem",
-        "start": 3.46,
-        "end": 3.773
+        "start": 3.642,
+        "end": 3.99
       },
       {
         "text": "do",
-        "start": 3.831,
-        "end": 3.889
+        "start": 4.049,
+        "end": 4.118
       },
       {
         "text": "źródła.",
-        "start": 3.947,
-        "end": 5.062
+        "start": 4.176,
+        "end": 4.745
       }
     ]
   },
   "s8-end": {
-    "seconds": 3.787755,
+    "seconds": 4.002,
     "words": [
       {
         "text": "Oswój",
-        "start": 0,
-        "end": 0.418
+        "start": 0.02,
+        "end": 0.403
       },
       {
         "text": "Kraków.",
-        "start": 0.464,
-        "end": 1.045
+        "start": 0.45,
+        "end": 1.03
       },
       {
         "text": "Twój",
-        "start": 1.428,
-        "end": 1.695
+        "start": 1.413,
+        "end": 1.704
       },
       {
         "text": "start",
-        "start": 1.718,
-        "end": 1.997
+        "start": 1.739,
+        "end": 2.064
       },
       {
         "text": "w",
-        "start": 2.055,
-        "end": 2.078
+        "start": 2.122,
+        "end": 2.156
       },
       {
         "text": "mieście",
-        "start": 2.136,
-        "end": 2.554
+        "start": 2.215,
+        "end": 2.656
       },
       {
         "text": "–",
-        "start": 2.67,
-        "end": 2.705
+        "start": 2.807,
+        "end": 2.888
       },
       {
         "text": "prostszy.",
-        "start": 2.798,
-        "end": 3.762
+        "start": 3.039,
+        "end": 4.002
       }
     ]
   }

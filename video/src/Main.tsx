@@ -1,5 +1,5 @@
 import { fade } from "@remotion/transitions/fade";
-import { linearTiming, TransitionSeries } from "@remotion/transitions";
+import { springTiming, TransitionSeries } from "@remotion/transitions";
 import { Fragment } from "react";
 import { AbsoluteFill, Audio, interpolate, staticFile } from "remotion";
 import { S1Arrival, S2Problem, S3Reveal, S4Assistant, S5Fifteen, S6City, S7Data, S8End } from "./scenes";
@@ -25,7 +25,12 @@ export function Main() {
           const Scene = SCENES[scene.id];
           return (
             <Fragment key={scene.id}>
-              {i > 0 && <TransitionSeries.Transition presentation={fade()} timing={linearTiming({ durationInFrames: TRANSITION })} />}
+              {i > 0 && (
+                <TransitionSeries.Transition
+                  presentation={fade()}
+                  timing={springTiming({ durationInFrames: TRANSITION, config: { damping: 200 } })}
+                />
+              )}
               <TransitionSeries.Sequence durationInFrames={scene.frames}>
                 <Scene scene={scene} />
               </TransitionSeries.Sequence>
