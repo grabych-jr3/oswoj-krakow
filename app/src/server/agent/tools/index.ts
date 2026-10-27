@@ -57,7 +57,7 @@ export function buildTools({ geo, locale, mapOrigin }: ToolContext) {
         "The only source for these facts.",
       inputSchema: z.object({ symbol: z.string().describe("Procedure symbol exactly as search_procedures or get_scenario returned it") }),
       outputSchema: ToolOutputs.get_procedure,
-      execute: (input) => runGetProcedure(input, geo),
+      execute: (input) => runGetProcedure(input, geo, locale),
       toModelOutput: ({ output }) => ({ type: "json", value: procedureForModel(output) }),
     }),
 

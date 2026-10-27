@@ -21,6 +21,7 @@ export function runSearchProcedures(input: {
 export async function runGetProcedure(
   input: { symbol: string },
   geo: Pick<GeoService, "getPlace">,
+  locale: Locale = "pl",
 ): Promise<Output<"get_procedure">> {
   const procedure = getProcedure(input.symbol);
   if (!procedure) {
@@ -33,7 +34,9 @@ export async function runGetProcedure(
       return { ...office, coords: place?.coords ?? null };
     }),
   );
-  return { procedure: { ...procedure, offices } };
+  // Only the interface language travels to the browser: both translations would double every card.
+  const translation = locale === "pl" ? undefined : procedure.translations?.[locale];
+  return { procedure: { ...procedure, offices, translations: translation ? { [locale]: translation } : undefined } };
 }
 
 export function runGetScenario(input: { id: string; locale?: Locale }, defaultLocale: Locale): Output<"get_scenario"> {
