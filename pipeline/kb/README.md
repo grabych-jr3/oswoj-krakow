@@ -31,6 +31,12 @@ uv sync
    uv run python src/kb/tagger.py
    ```
 
+4. **Translate cards to Ukrainian and English (Translate)**:
+   Translates the title and visible sections of every card once and writes `Procedure.translations` into `app/data/kb/procedures.json`. DeepL takes the important cards (relevance >= 0.7) while the free monthly quota lasts; gpt-oss on Infercom takes the rest. Amounts, account numbers, links and official Polish names are protected, and a line whose numbers or links changed is rejected. Re-run it monthly after the parser and tagger: only new or changed lines are sent. Needs `DEEPL_API_KEY` and `INFERCOM_API_KEY` in `pipeline/kb/.env`:
+   ```bash
+   uv run python src/kb/translate.py            # --dry-run counts characters, --only SA-34 for one card
+   ```
+
 4. **Build Life Scenarios (Scenarios)**:
    Generates verified multilingual step-by-step checklists in PL, UK, and EN (`app/data/kb/scenarios.{pl,uk,en}.json`):
    ```bash

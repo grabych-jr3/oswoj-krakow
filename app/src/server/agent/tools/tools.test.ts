@@ -70,6 +70,13 @@ describe("get_procedure", () => {
     expect(fees.some((f) => f.startsWith("Opłata skarbowa za przeniesienie") && f.endsWith(": 50 zł"))).toBe(true);
   });
 
+  it("sends only the interface language's translation, and none for Polish", async () => {
+    const uk = (await runGetProcedure({ symbol: "SA-34" }, stubGeo(), "uk")).procedure;
+    expect(uk.translations?.uk?.title).toBeTruthy();
+    expect(uk.translations?.en).toBeUndefined();
+    expect((await runGetProcedure({ symbol: "SA-34" }, stubGeo(), "pl")).procedure.translations).toBeUndefined();
+  });
+
   it("throws a ToolError for an unknown symbol", async () => {
     await expect(runGetProcedure({ symbol: "XX-1" }, stubGeo())).rejects.toBeInstanceOf(ToolError);
   });
