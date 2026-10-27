@@ -24,6 +24,21 @@ export const LifeTag = z.enum([
   "pojazd", "mieszkanie", "pomoc_spoleczna", "dokumenty", "inne",
 ]);
 
+/** Переклад видимих розділів картки; розділ null, якщо його немає в оригіналі. */
+export const ProcedureTranslation = z.object({
+  title: z.string(),
+  sections: z.object({
+    kogoDotyczy: z.string().nullable(),
+    dokumenty: z.string().nullable(),
+    oplaty: z.string().nullable(),
+    sposob: z.string().nullable(),
+    termin: z.string().nullable(),
+  }),
+  engine: z.enum(["deepl", "llm"]),    // для позначки «автоматичний переклад»
+  translatedAt: z.string(),            // ISO-дата
+});
+export type ProcedureTranslation = z.infer<typeof ProcedureTranslation>;
+
 export const Procedure = z.object({
   symbol: z.string(),                  // "SA-34"
   title: z.string(),
@@ -47,6 +62,11 @@ export const Procedure = z.object({
   }),
   offices: z.array(Office),
   attachments: z.array(z.object({ title: z.string(), url: z.string().url() })),
+  // Машинний переклад для UI (B, pipeline/kb). Польська вище лишається обов'язковою версією;
+  // суми, номери рахунків, посилання й офіційні назви в перекладі не змінюються.
+  translations: z
+    .object({ uk: ProcedureTranslation.optional(), en: ProcedureTranslation.optional() })
+    .optional(),
 });
 export type Procedure = z.infer<typeof Procedure>;
 
