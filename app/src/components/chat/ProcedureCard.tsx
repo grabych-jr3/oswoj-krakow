@@ -1,7 +1,8 @@
 "use client";
 
-import { CalendarCheck, Clock, ExternalLink, FileText, MapPin, Paperclip, Phone } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { CalendarCheck, Clock, ExternalLink, FileText, Languages, MapPin, Paperclip, Phone } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
 import type { Procedure } from "@/contracts/kb";
 import { bookingLink } from "@/lib/booking";
 import { officeToPlace } from "@/map/chatMap";
@@ -19,7 +20,14 @@ const SECTIONS = [
 export function ProcedureCard({ procedure }: { procedure: Procedure }) {
   const t = useTranslations("Chat");
   const { showPlace } = useChatActions();
-  const { sections } = procedure;
+  const locale = useLocale();
+  // Machine translation in the interface language (zone B); the Polish card stays the binding version.
+  const translation = locale === "pl" ? undefined : procedure.translations?.[locale as "uk" | "en"];
+  const [original, setOriginal] = useState(false);
+  const tr = translation && !original ? translation : null;
+  // A translated section falls back to Polish where the translation has none.
+  const sections = { ...procedure.sections, ...(tr ? Object.fromEntries(Object.entries(tr.sections).filter(([, v]) => v)) : {}) };
+  const lang = tr ? locale : "pl";
 
   return (
     <article className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-3.5 text-card-foreground">
@@ -29,13 +37,45 @@ export function ProcedureCard({ procedure }: { procedure: Procedure }) {
           {procedure.symbol}
           {procedure.department && <span className="truncate text-muted-foreground normal-case"> · {procedure.department}</span>}
         </p>
-        <h3 className="text-[15px] leading-snug font-bold">{procedure.title}</h3>
+        <h3 lang={lang} className="text-[15px] leading-snug font-bold">
+          {tr ? tr.title : procedure.title}
+        </h3>
+        {/* The official Polish name stays visible: that is what the office calls it. */}
+        {tr && (
+          <p lang="pl" className="text-xs text-muted-foreground">
+            {t("officialName")}: <span className="font-medium">{procedure.title}</span>
+          </p>
+        )}
       </header>
+
+      {translation ? (
+        <p className="flex gap-2 rounded-lg border border-dashed border-border px-2.5 py-1.5 text-xs leading-snug text-muted-foreground">
+          <Languages className="mt-px size-3.5 shrink-0 text-primary" aria-hidden />
+          <span className="min-w-0">
+            {tr ? t("machineTranslation") : t("originalShown")}{" "}
+            <button
+              type="button"
+              onClick={() => setOriginal((o) => !o)}
+              aria-pressed={original}
+              className="rounded font-semibold whitespace-nowrap text-primary-strong underline underline-offset-2 hover:text-primary focus-visible:outline-2 focus-visible:outline-ring"
+            >
+              {original ? t("showTranslation") : t("showOriginal")}
+            </button>
+          </span>
+        </p>
+      ) : (
+        locale !== "pl" && (
+          <p className="flex gap-2 rounded-lg border border-dashed border-border px-2.5 py-1.5 text-xs leading-snug text-muted-foreground">
+            <Languages className="mt-px size-3.5 shrink-0 text-primary" aria-hidden />
+            {t("noTranslation")}
+          </p>
+        )
+      )}
 
       {sections.termin && (
         <p className="flex gap-2 rounded-lg bg-primary-soft px-2.5 py-2 text-[13px] leading-snug">
           <Clock className="mt-0.5 size-3.5 shrink-0 text-primary" aria-hidden />
-          <span>
+          <span lang={lang}>
             <strong>{t("deadline")}: </strong>
             {sections.termin}
           </span>
@@ -51,7 +91,7 @@ export function ProcedureCard({ procedure }: { procedure: Procedure }) {
               </span>
               {t(label)}
             </summary>
-            <div className="px-2.5 pb-2.5 text-[13px] leading-normal">
+            <div lang={lang} className="px-2.5 pb-2.5 text-[13px] leading-normal">
               <Markdown text={sections[key]!} />
             </div>
           </details>

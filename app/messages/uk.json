@@ -115,7 +115,13 @@
     "topicsLabel": "Оберіть тему",
     "backToTopics": "Усі теми",
     "orType": "Або напишіть своє питання нижче.",
-    "pickAddress": "Спершу виберіть адресу"
+    "pickAddress": "Спершу виберіть адресу",
+    "officialName": "Назва в уряді",
+    "machineTranslation": "Машинний переклад. Обов’язковою є польська версія картки в BIP.",
+    "originalShown": "Показано оригінал польською.",
+    "showOriginal": "Оригінал польською",
+    "showTranslation": "Показати переклад",
+    "noTranslation": "Ця картка доступна лише польською."
   },
   "Welcome": {
     "title": "Вітаємо в Oswój Kraków",
