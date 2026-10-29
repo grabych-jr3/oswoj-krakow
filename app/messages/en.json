@@ -115,7 +115,13 @@
     "topicsLabel": "Pick a topic",
     "backToTopics": "All topics",
     "orType": "Or type your own question below.",
-    "pickAddress": "Pick your address first"
+    "pickAddress": "Pick your address first",
+    "officialName": "Name at the office",
+    "machineTranslation": "Machine translation. The Polish card in BIP is the binding version.",
+    "originalShown": "Showing the Polish original.",
+    "showOriginal": "Polish original",
+    "showTranslation": "Show translation",
+    "noTranslation": "This card is only available in Polish."
   },
   "Welcome": {
     "title": "Welcome to Oswój Kraków",

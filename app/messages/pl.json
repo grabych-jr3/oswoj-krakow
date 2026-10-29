@@ -115,7 +115,13 @@
     "topicsLabel": "Wybierz temat",
     "backToTopics": "Wszystkie tematy",
     "orType": "Albo napisz własne pytanie poniżej.",
-    "pickAddress": "Najpierw wybierz adres"
+    "pickAddress": "Najpierw wybierz adres",
+    "officialName": "Nazwa w urzędzie",
+    "machineTranslation": "Tłumaczenie maszynowe. Obowiązuje polska wersja karty w BIP.",
+    "originalShown": "Pokazujemy oryginał po polsku.",
+    "showOriginal": "Pokaż oryginał",
+    "showTranslation": "Pokaż tłumaczenie",
+    "noTranslation": "Ta karta jest dostępna tylko po polsku."
   },
   "Welcome": {
     "title": "Witaj w Oswój Kraków",
