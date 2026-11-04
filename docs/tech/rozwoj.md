@@ -15,7 +15,7 @@ Oswój Kraków działa jako kompletny prototyp na danych miasta z października 
 - **Komunikacja w czasie rzeczywistym:** odjazdy z najbliższych przystanków (GTFS-Realtime ZTP) w panelu „15 minut”.
 - **Więcej trybów „15 minut”:** rower, różne pory dnia, dostępność dla osób z niepełnosprawnościami (np. przystanki niskopodłogowe).
 - **Personalizacja „Pierwszych kroków”:** zapamiętanie sytuacji (np. „rodzina z dzieckiem, obywatelstwo UA”) i lista zadań do odhaczania w przeglądarce, bez kont i bez danych na serwerze.
-- **Kolejne języki:** rosyjski, białoruski, hindi, wietnamski – zgodnie ze statystyką obywatelstw cudzoziemców w Krakowie. Interfejs ma już trzy języki i dodanie kolejnego to plik tłumaczeń.
+- **Kolejne języki:** rosyjski, białoruski, hindi, wietnamski – zgodnie ze statystyką obywatelstw cudzoziemców w Krakowie. Interfejs ma już trzy języki i dodanie kolejnego to plik tłumaczeń interfejsu i tłumaczenie kart usług w potoku bazy wiedzy.
 - **Wyszukiwanie semantyczne** jako uzupełnienie obecnego wyszukiwania pełnotekstowego – lepsze rozumienie pytań zadanych potocznym językiem.
 - **Aplikacja instalowalna (PWA)** z dostępem offline do zapisanych kart usług.
 

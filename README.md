@@ -31,7 +31,7 @@ Efekt: wizyty w urzędzie bez kompletu dokumentów, stracony czas po obu stronac
 Aplikacja webowa, która łączy asystenta AI z interaktywną mapą. Ma trzy moduły:
 
 ### 💬 Asystent
-Pytasz po polsku, ukraińsku lub angielsku. Asystent odpowiada **wyłącznie na podstawie oficjalnych kart usług BIP**: wymagane dokumenty, opłaty, termin załatwienia i link do umówienia wizyty online. Każda odpowiedź ma odnośnik do karty źródłowej. Punkty obsługi od razu pojawiają się na mapie.
+Pytasz po polsku, ukraińsku lub angielsku. Asystent odpowiada **wyłącznie na podstawie oficjalnych kart usług BIP**: wymagane dokumenty, opłaty, termin załatwienia i link do umówienia wizyty online. Każda odpowiedź ma odnośnik do karty źródłowej. Karty są dostępne także po ukraińsku i angielsku (oznaczone tłumaczenie maszynowe, urzędowa nazwa i oryginał po polsku). Punkty obsługi od razu pojawiają się na mapie.
 
 ### 🗺️ Kraków w 15 minut
 Wpisujesz adres – np. wynajmowanego mieszkania – albo klikasz na mapie i widzisz, co masz w zasięgu 15 minut pieszo lub komunikacją miejską: żłobki, przedszkola, szkoły, parki, biblioteki, przystanki, urzędy – z czasem dojścia do każdego miejsca. Aplikacja wylicza też **Indeks 15 minut** (0–100), a widok można udostępnić linkiem.
@@ -97,7 +97,7 @@ flowchart LR
 
 - **Aplikacja:** Next.js (TypeScript) na Vercel, mapa MapLibre.
 - **Dane:** skrypty w Pythonie pobierają dane z oficjalnych źródeł i zapisują je jako statyczne pliki. Nie ma osobnej bazy danych.
-- **AI:** model językowy przez Vercel AI SDK z łańcuchem zapasowych dostawców (Infercom, Google Gemini, Groq). Model odpowiada **tylko na podstawie wyników narzędzi** (karty BIP, dane miasta) i podaje źródła. Jeśli danych brak – mówi o tym wprost. Ewaluacja: 97% z 60 pytań w trzech językach ([raport](evals/report.md)).
+- **AI:** model językowy przez Vercel AI SDK z łańcuchem zapasowych dostawców (Infercom, Google Gemini, Groq). Model odpowiada **tylko na podstawie wyników narzędzi** (karty BIP, dane miasta) i podaje źródła. Jeśli danych brak – mówi o tym wprost. Ewaluacja: 98% z 60 pytań w trzech językach ([raport](evals/report.md)).
 - **Prywatność:** bez kont użytkowników, bez przechowywania danych osobowych.
 
 ## Uruchomienie
@@ -141,7 +141,6 @@ Cała dokumentacja techniczna w jednym pliku: [docs/dokumentacja-techniczna.pdf]
 
 - **Zespół:** 3 osoby.
 - **Konkurs:** Open Data App 2026, organizowany przez Gminę Miejską Kraków.
-- Tekst zgłoszenia konkursowego: [docs/zgloszenie.md](docs/zgloszenie.md).
 
 ## Źródła danych i licencje
 

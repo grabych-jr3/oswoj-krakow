@@ -37,6 +37,7 @@ Dostawcę i model zmienia się zmienną środowiskową, bez zmian w kodzie. Szcz
 |---|---|
 | **Python 3.12** + **uv** | dwa niezależne projekty: `pipeline/geo` (dane przestrzenne) i `pipeline/kb` (baza wiedzy BIP) |
 | **httpx**, **lxml**, **markdownify**, **pydantic** | pobieranie API Otwartych Danych i kart XML z BIP, zamiana kart na tekst, walidacja |
+| **DeepL API** i model językowy | maszynowe tłumaczenie kart usług na ukraiński i angielski, raz, w potoku bazy wiedzy |
 | **pyproj**, **shapely**, **rapidfuzz** | przeliczenie współrzędnych MSIP (EPSG:2178 → WGS84), geometria, dopasowanie nazw ulic |
 | **r5py** (silnik R5), **osmnx**, **h3** | czasy dojścia pieszo i komunikacją miejską (GTFS ZTP + sieć OSM) na siatce H3 |
 
@@ -53,7 +54,7 @@ Wynikiem potoków są statyczne pliki JSON i GeoJSON w repozytorium (`app/data`,
 | **ESLint** | jakość kodu aplikacji |
 | **Lighthouse**, **Puppeteer** | dostępność, wydajność i scenariusze w przeglądarce (komputer i telefon) |
 
-Ewaluacja asystenta (60 pytań w trzech językach, sprawdzanie narzędzi i źródeł; wynik 97%, raport: [evals/report.md](../../evals/report.md)) jest opisana w [ai.md, pkt 7](ai.md#7-ewaluacja).
+Ewaluacja asystenta (60 pytań w trzech językach, sprawdzanie narzędzi i źródeł; wynik 98%, raport: [evals/report.md](../../evals/report.md)) jest opisana w [ai.md, pkt 7](ai.md#7-ewaluacja).
 
 ## Dostępność i wydajność
 

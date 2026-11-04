@@ -18,9 +18,9 @@ Dla wszystkich nowych mieszkańców Krakowa: cudzoziemców (spoza UE, z UE, obyw
 
 ## 4. Kluczowe funkcje
 
-![Asystent: karta usługi SA-34 z BIP i punkty obsługi na mapie](img/asystent-pesel.png)
+![Asystent po ukraińsku: tłumaczenie karty SA-34, urzędowa nazwa po polsku i punkty obsługi na mapie](img/asystent-tlumaczenie.png)
 
-- **Asystent AI.** Pytanie „Gdzie mogę uzyskać PESEL i co muszę zabrać?” daje kartę usługi z BIP: dokumenty, opłaty, termin, wydziały z godzinami pracy i link do zapisu na wizytę. Wydziały pojawiają się na mapie z numerami. Odpowiedź jest w języku użytkownika, a polskie nazwy urzędowe zostają w oryginale – żeby można się nimi posłużyć w urzędzie.
+- **Asystent AI.** Pytanie „Gdzie mogę uzyskać PESEL i co muszę zabrać?” daje kartę usługi z BIP: dokumenty, opłaty, termin, wydziały z godzinami pracy i link do zapisu na wizytę. Wydziały pojawiają się na mapie z numerami. Odpowiedź i karta są w języku użytkownika (oznaczone tłumaczenie maszynowe, oryginał po polsku jednym kliknięciem), a urzędowa nazwa sprawy zostaje widoczna po polsku – żeby można się nią posłużyć w urzędzie.
 - **Pierwsze kroki.** Dla sytuacji życiowej („przeprowadziłem się z Charkowa z 5-letnią córką”) asystent daje listę spraw we właściwej kolejności – 8 scenariuszy w 3 językach, każdy krok z kartą BIP.
 - **Kraków w 15 minut.** Po wpisaniu adresu lub kliknięciu na mapie aplikacja pokazuje strefę dostępną w 15 minut **pieszo lub komunikacją miejską**, policzone miejsca (żłobki, przedszkola, szkoły, parki, biblioteki, przystanki, urzędy) z czasem dojścia oraz **Indeks 15 minut** (0–100). Widok można udostępnić linkiem.
 - **Mapa miasta.** 12 warstw (2 368 miejsc), 18 dzielnic ze statystykami mieszkańców i cudzoziemców oraz **Indeks 15 minut dla całego miasta** – mapa luk w dostępności usług.
@@ -44,7 +44,7 @@ Dla wszystkich nowych mieszkańców Krakowa: cudzoziemców (spoza UE, z UE, obyw
 - **Mniej wizyt z niekompletnymi dokumentami** – mieszkaniec przychodzi przygotowany, z właściwą kartą i terminem.
 - **Łatwiejsza integracja** – informacja w języku mieszkańca, ale z oficjalnymi polskimi nazwami spraw.
 - **Mapa luk w usługach** – Indeks 15 minut pokazuje, gdzie brakuje żłobków, przedszkoli, bibliotek czy zieleni w zasięgu spaceru; to argument przy planowaniu inwestycji.
-- **Zaufanie** – asystent nie zmyśla: odpowiada tylko z danych, linkuje źródło, a gdy danych brak, mówi to wprost. W teście 60 pytań w 3 językach 97% odpowiedzi opierało się na właściwych narzędziach i źródłach.
+- **Zaufanie** – asystent nie zmyśla: odpowiada tylko z danych, linkuje źródło, a gdy danych brak, mówi to wprost. W teście 60 pytań w 3 językach 98% odpowiedzi opierało się na właściwych narzędziach i źródłach.
 - Projekt wpisuje się w Strategię Rozwoju Krakowa „Tu chcę żyć. Kraków 2030” (Smart City, cyfrowe usługi publiczne).
 
 ## 7. Potencjał wdrożeniowy i biznesowy
