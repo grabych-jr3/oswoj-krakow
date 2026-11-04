@@ -56,7 +56,7 @@ Najważniejsza decyzja: **dane są przygotowane z góry**. Aplikacja w czasie dz
 
 | Moduł | Katalog | Zadanie |
 |---|---|---|
-| Potok bazy wiedzy | `pipeline/kb` | lista 639 usług z Otwartych Danych → karty XML z BIP → tekst, tagi sytuacji życiowych, waga dla nowych mieszkańców; scenariusze „Pierwsze kroki” w 3 językach |
+| Potok bazy wiedzy | `pipeline/kb` | lista 639 usług z Otwartych Danych → karty XML z BIP → tekst, tagi sytuacji życiowych, waga dla nowych mieszkańców; maszynowe tłumaczenia kart na ukraiński i angielski; scenariusze „Pierwsze kroki” w 3 językach |
 | Potok danych przestrzennych | `pipeline/geo` | geokodowanie placówek do punktów adresowych EMUiA, 12 warstw miejsc (2 368 obiektów), 18 dzielnic ze statystykami, czasy dojścia na siatce H3 |
 | Kontrakty | `app/src/contracts` | schematy `zod` wspólne dla wszystkich modułów: miejsce, dzielnica, procedura, scenariusz, wynik „15 minut”, wyniki narzędzi asystenta |
 | Serwis geo | `app/src/server/geo` | geokoder (autouzupełnianie adresów), wyszukiwanie miejsc, „15 minut” – odczyt z plików |
@@ -115,7 +115,7 @@ Serwer przypisuje punkt do heksagonu siatki H3 (poziom 9) i odczytuje wynik poli
 - **Szyna czat ↔ mapa:** odpowiedź asystenta rysuje numerowane znaczniki, strefę i punkt startowy, a mapa dopasowuje widok. Z karty miejsca na mapie można zapytać asystenta o to miejsce. Wybrany na mapie adres trafia do asystenta jako kontekst.
 - **Warstwy:** 12 kategorii miejsc z klastrowaniem, dzielnice ze statystykami, „Indeks 15 minut” dla całego miasta. Dane warstw ładują się dopiero po włączeniu.
 - **Udostępnianie:** widok „15 minut” ma własny adres URL (`/pl/mapa?lng=…&lat=…&mode=…`).
-- **Języki:** wszystkie teksty interfejsu w plikach tłumaczeń (polski, ukraiński, angielski). Dane miasta i nazwy urzędowe zostają po polsku – tak, jak w urzędzie.
+- **Języki:** wszystkie teksty interfejsu w plikach tłumaczeń (polski, ukraiński, angielski). Karty usług BIP mają tłumaczenia maszynowe (639 kart po ukraińsku, 638 po angielsku): DeepL dla najważniejszych kart, model językowy dla pozostałych. Karta oznacza tłumaczenie, zawsze pokazuje urzędową nazwę po polsku i na żądanie przełącza się na polski oryginał, który pozostaje wersją obowiązującą. Pozostałe dane miasta i nazwy urzędowe zostają po polsku – tak, jak w urzędzie.
 
 ## 6. Bezpieczeństwo i prywatność
 
