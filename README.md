@@ -129,6 +129,7 @@ npm run dev                  # http://localhost:3000 → /pl
 | Dokument | Zawartość |
 |---|---|
 | [Opis projektu](docs/opis.md) ([PDF](docs/opis.pdf)) | problem, rozwiązanie, funkcje, dane, wartość dla miasta, potencjał wdrożeniowy |
+| [Uruchomienie](docs/tech/uruchomienie.md) | online, lokalnie, aktualizacja danych |
 | [Technologie](docs/tech/technologie.md) | z czego zbudowana jest aplikacja i dlaczego |
 | [Dane](docs/tech/dane.md) | źródła, przetwarzanie, jakość, licencje, odtworzenie danych |
 | [Architektura](docs/tech/architektura.md) | schematy systemu, przepływ pytania i „15 minut”, bezpieczeństwo |
