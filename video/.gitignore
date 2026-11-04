@@ -1,6 +1,0 @@
-.env
-node_modules/
-out/
-voice-samples/
-
-voice-cache.json
